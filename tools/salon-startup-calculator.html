@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Salon Startup Cost Calculator — SICUS Media</title>
+  <meta name="description" content="Use our free salon startup cost calculator to estimate how much it costs to open a nail salon, hair salon, beauty salon, or barbershop. Get a personalized cost breakdown instantly.">
+  <meta name="keywords" content="salon startup cost calculator, how much to open a salon, nail salon cost calculator, salon startup costs, cost to open a nail salon, beauty salon startup costs, barbershop startup costs">
+  <meta name="author" content="Sicus Media Inc.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://sicusmedia.com/tools/salon-startup-calculator.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sicusmedia.com/tools/salon-startup-calculator.html">
+  <meta property="og:title" content="Free Salon Startup Cost Calculator — SICUS Media">
+  <meta property="og:description" content="Estimate your salon startup costs instantly. Get a personalized breakdown for nail salons, hair salons, beauty spas & barbershops.">
+  <meta property="og:image" content="https://sicusmedia.com/brand_assets/topbar.png">
+  <meta property="og:site_name" content="SICUS Media">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Salon Startup Cost Calculator — SICUS Media">
+  <meta name="twitter:description" content="Estimate your salon startup costs instantly. Get a personalized breakdown for nail salons, hair salons, beauty spas & barbershops.">
+  <meta name="twitter:image" content="https://sicusmedia.com/brand_assets/topbar.png">
+
+  <!-- Structured Data: FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How accurate is this salon startup cost calculator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This calculator provides realistic estimates based on industry averages and publicly available data from salon owners, equipment suppliers, and commercial real estate reports across the US and Canada. Actual costs vary by specific city, negotiated lease terms, contractor bids, and supplier pricing. Use these figures as a solid starting point for your business plan — then get local quotes to refine your budget."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What costs are not included in this calculator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This calculator covers the major startup categories but does not include: franchise fees (if applicable), legal fees for business formation, accountant or bookkeeper setup, vehicle or delivery costs, advanced POS hardware, custom app development, employee recruitment costs, or ongoing loan interest payments. Some cities may also have additional permit or inspection fees not reflected here."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I reduce my salon startup costs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Key strategies include: taking over an existing salon space to avoid full build-out costs, buying quality used equipment, starting with fewer stations and expanding later, negotiating a lease with a tenant improvement allowance, using free software like Sicus Booking instead of expensive salon management systems, and starting with a focused service menu rather than offering everything from day one."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Salon Startup Cost Calculator",
+    "url": "https://sicusmedia.com/tools/salon-startup-calculator.html",
+    "description": "Free interactive calculator to estimate salon startup costs for nail salons, hair salons, beauty spas, and barbershops.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "Sicus Media Inc.",
+      "url": "https://sicusmedia.com"
+    }
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { green: '#8CB82B', 'green-dark': '#6A9A10', 'green-light': '#B8E060', red: '#E31E24', 'red-dark': '#B8161B' },
+            surface: { 50: '#FAFAFA', 100: '#F5F5F5', 200: '#EEEEEE', 300: '#E0E0E0' },
+          },
+          fontFamily: { display: ['Be Vietnam Pro', 'sans-serif'], body: ['Be Vietnam Pro', 'sans-serif'] },
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Be Vietnam Pro', sans-serif; }
+    html { scroll-behavior: smooth; }
+
+    .btn-spring { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease; }
+    .btn-spring:hover { transform: translateY(-2px); }
+    .btn-spring:active { transform: translateY(0) scale(0.98); }
+
+    .card-hover { transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+
+    /* Language toggle */
+    .lang-inline-en, .lang-inline-vi { display: none; }
+    html[lang="en"] .lang-inline-en { display: inline !important; }
+    html[lang="vi"] .lang-inline-vi { display: inline !important; }
+    html[lang="en"] .lang-inline-vi { display: none !important; }
+    html[lang="vi"] .lang-inline-en { display: none !important; }
+
+    /* Custom range slider */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: linear-gradient(to right, #8CB82B var(--range-pct, 50%), #E0E0E0 var(--range-pct, 50%));
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #8CB82B;
+      cursor: pointer;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 8px rgba(140,184,43,0.35);
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      box-shadow: 0 3px 12px rgba(140,184,43,0.5);
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #8CB82B;
+      cursor: pointer;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 8px rgba(140,184,43,0.35);
+    }
+    input[type="range"]:focus-visible {
+      outline: 2px solid #8CB82B;
+      outline-offset: 4px;
+    }
+
+    /* Toggle switch */
+    .toggle-track {
+      width: 48px; height: 26px;
+      border-radius: 13px;
+      background: #E0E0E0;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.25s ease;
+    }
+    .toggle-track.active { background: #8CB82B; }
+    .toggle-thumb {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      position: absolute;
+      top: 3px; left: 3px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .toggle-track.active .toggle-thumb { transform: translateX(22px); }
+
+    /* Bar chart animation */
+    .cost-bar {
+      transition: width 0.8s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    /* Results fade-in */
+    .results-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .results-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* FAQ */
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .faq-item.open .faq-answer { max-height: 300px; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-chevron { transition: transform 0.3s ease; }
+
+    /* Select styling */
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+      background-position: right 12px center;
+      background-repeat: no-repeat;
+      background-size: 20px;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900 overflow-x-hidden">
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="../index.html" class="flex items-center gap-2">
+      <img src="../brand_assets/topbar.png" alt="SICUS MEDIA" class="h-8">
+    </a>
+    <div class="flex items-center gap-3">
+      <button onclick="toggleLang()" class="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-brand-green" title="Toggle language">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg>
+        <span id="langLabel">EN</span>
+      </button>
+      <a href="../blog/index.html" class="text-sm text-gray-500 hover:text-gray-900 transition-colors duration-200"><span class="lang-inline-en">Blog</span><span class="lang-inline-vi">Bai viet</span></a>
+      <a href="../index.html#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold text-sm px-5 py-2 rounded-full shadow-[0_2px_12px_rgba(140,184,43,0.25)] hover:shadow-[0_4px_20px_rgba(140,184,43,0.4)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green-dark">
+        <span class="lang-inline-en">Schedule a Demo</span><span class="lang-inline-vi">Dat lich Demo</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="relative pt-28 pb-16 sm:pt-32 sm:pb-20 overflow-hidden">
+  <!-- Background -->
+  <div class="absolute inset-0 z-0" style="background: radial-gradient(ellipse at 50% 0%, rgba(140,184,43,0.08) 0%, transparent 60%), radial-gradient(ellipse at 80% 100%, rgba(227,30,36,0.04) 0%, transparent 50%);"></div>
+
+  <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
+    <div class="inline-flex items-center gap-2 bg-brand-green/10 text-brand-green text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V13.5zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V18zm2.498-6.75h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V13.5zm0 2.25h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V18zm2.504-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18zm2.498-6.75h.008v.008H15.75v-.008zm0 2.25h.008v.008H15.75V13.5zM8.25 6h7.5v2.25h-7.5V6zM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0012 2.25z"/></svg>
+      <span class="lang-inline-en">Free Tool</span><span class="lang-inline-vi">Cong cu mien phi</span>
+    </div>
+    <h1 class="font-display text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-[-0.02em] text-gray-900 mb-5">
+      <span class="lang-inline-en">Salon Startup Cost<br>Calculator</span>
+      <span class="lang-inline-vi">Tinh chi phi<br>mo salon</span>
+    </h1>
+    <p class="text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
+      <span class="lang-inline-en">Get a personalized estimate for opening your salon. Enter your details below and see a complete cost breakdown in seconds.</span>
+      <span class="lang-inline-vi">Nhan uoc tinh ca nhan hoa cho viec mo salon cua ban. Nhap thong tin va xem bang phan tich chi phi chi trong vai giay.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ==================== CALCULATOR FORM ==================== -->
+<section class="pb-8 sm:pb-12">
+  <div class="max-w-2xl mx-auto px-6">
+    <div class="bg-white rounded-2xl border border-gray-200 p-6 sm:p-10" style="box-shadow: 0 4px 24px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.02);">
+
+      <!-- Salon Type -->
+      <div class="mb-7">
+        <label for="salonType" class="block text-sm font-semibold text-gray-700 mb-2">
+          <span class="lang-inline-en">Salon Type</span><span class="lang-inline-vi">Loai salon</span>
+        </label>
+        <select id="salonType" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-brand-green transition-shadow duration-200 pr-10">
+          <option value="nail">Nail Salon</option>
+          <option value="hair">Hair Salon</option>
+          <option value="beauty">Beauty Salon / Spa</option>
+          <option value="barber">Barbershop</option>
+        </select>
+      </div>
+
+      <!-- Location -->
+      <div class="mb-7">
+        <label for="location" class="block text-sm font-semibold text-gray-700 mb-2">
+          <span class="lang-inline-en">Location</span><span class="lang-inline-vi">Vi tri</span>
+        </label>
+        <select id="location" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-brand-green transition-shadow duration-200 pr-10">
+          <option value="high">Major City (High Cost)</option>
+          <option value="medium" selected>Suburban Area (Medium Cost)</option>
+          <option value="low">Small Town (Low Cost)</option>
+        </select>
+      </div>
+
+      <!-- Number of Stations -->
+      <div class="mb-7">
+        <label class="block text-sm font-semibold text-gray-700 mb-2">
+          <span class="lang-inline-en">Number of Stations / Chairs</span><span class="lang-inline-vi">So ghe / tram lam viec</span>
+        </label>
+        <div class="flex items-center gap-4">
+          <input type="range" id="stations" min="2" max="20" value="6" class="flex-1" oninput="updateStationLabel(this.value)">
+          <span id="stationLabel" class="text-2xl font-bold text-brand-green w-12 text-center tabular-nums">6</span>
+        </div>
+        <div class="flex justify-between text-xs text-gray-400 mt-1 px-0.5">
+          <span>2</span>
+          <span>20</span>
+        </div>
+      </div>
+
+      <!-- Build-out Toggle -->
+      <div class="mb-7">
+        <label class="block text-sm font-semibold text-gray-700 mb-2">
+          <span class="lang-inline-en">Build-out Needed?</span><span class="lang-inline-vi">Can xay dung / sua chua?</span>
+        </label>
+        <div class="flex items-center gap-4">
+          <button type="button" id="buildoutToggle" class="toggle-track active" onclick="toggleBuildout()" aria-label="Toggle build-out">
+            <div class="toggle-thumb"></div>
+          </button>
+          <span id="buildoutLabel" class="text-sm text-gray-600">
+            <span class="lang-inline-en">Yes — full renovation</span><span class="lang-inline-vi">Co — sua chua toan bo</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Equipment Toggle -->
+      <div class="mb-8">
+        <label class="block text-sm font-semibold text-gray-700 mb-2">
+          <span class="lang-inline-en">Equipment</span><span class="lang-inline-vi">Thiet bi</span>
+        </label>
+        <div class="flex items-center gap-4">
+          <button type="button" id="equipmentToggle" class="toggle-track active" onclick="toggleEquipment()" aria-label="Toggle equipment new/used">
+            <div class="toggle-thumb"></div>
+          </button>
+          <span id="equipmentLabel" class="text-sm text-gray-600">
+            <span class="lang-inline-en">New equipment</span><span class="lang-inline-vi">Thiet bi moi</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Calculate Button -->
+      <button id="calcBtn" onclick="calculate()" class="btn-spring w-full bg-brand-green hover:bg-brand-green-dark text-white font-bold text-lg px-8 py-4 rounded-xl shadow-[0_4px_20px_rgba(140,184,43,0.3)] hover:shadow-[0_6px_30px_rgba(140,184,43,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green-dark">
+        <span class="lang-inline-en">Calculate My Startup Costs</span><span class="lang-inline-vi">Tinh chi phi khoi nghiep</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== RESULTS ==================== -->
+<section id="resultsSection" class="results-section pb-16 sm:pb-20 hidden">
+  <div class="max-w-3xl mx-auto px-6">
+
+    <!-- Total Card -->
+    <div class="bg-gray-900 rounded-2xl p-6 sm:p-10 mb-8 text-center" style="box-shadow: 0 8px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);">
+      <p class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">
+        <span class="lang-inline-en">Total Estimated Startup Cost</span><span class="lang-inline-vi">Tong chi phi uoc tinh</span>
+      </p>
+      <p id="totalCost" class="text-4xl sm:text-5xl font-bold text-white tracking-tight mb-3"></p>
+      <p id="salonTypeLabel" class="text-brand-green font-semibold text-lg"></p>
+    </div>
+
+    <!-- Cost Breakdown -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-6 sm:p-10 mb-8" style="box-shadow: 0 4px 24px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.02);">
+      <h2 class="text-xl font-bold text-gray-900 mb-6">
+        <span class="lang-inline-en">Cost Breakdown</span><span class="lang-inline-vi">Phan tich chi phi</span>
+      </h2>
+
+      <div id="breakdownList" class="space-y-5"></div>
+    </div>
+
+    <!-- Bar Chart -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-6 sm:p-10 mb-8" style="box-shadow: 0 4px 24px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.02);">
+      <h2 class="text-xl font-bold text-gray-900 mb-6">
+        <span class="lang-inline-en">Visual Cost Breakdown</span><span class="lang-inline-vi">Bieu do chi phi</span>
+      </h2>
+      <div id="barChart" class="space-y-3"></div>
+    </div>
+
+    <!-- Monthly + Break-even -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+      <div class="bg-white rounded-2xl border border-gray-200 p-6 text-center" style="box-shadow: 0 4px 24px rgba(0,0,0,0.04);">
+        <p class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-1">
+          <span class="lang-inline-en">Est. Monthly Operating Cost</span><span class="lang-inline-vi">Chi phi hang thang</span>
+        </p>
+        <p id="monthlyCost" class="text-2xl sm:text-3xl font-bold text-gray-900"></p>
+      </div>
+      <div class="bg-white rounded-2xl border border-gray-200 p-6 text-center" style="box-shadow: 0 4px 24px rgba(0,0,0,0.04);">
+        <p class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-1">
+          <span class="lang-inline-en">Est. Break-even Timeline</span><span class="lang-inline-vi">Thoi gian hoa von</span>
+        </p>
+        <p id="breakEven" class="text-2xl sm:text-3xl font-bold text-gray-900"></p>
+      </div>
+    </div>
+
+    <!-- Sicus Savings Callout -->
+    <div class="bg-brand-green/5 border border-brand-green/20 rounded-2xl p-6 sm:p-8 mb-8 flex flex-col sm:flex-row items-start gap-4">
+      <div class="w-10 h-10 rounded-xl bg-brand-green/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+        <svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-gray-900 mb-1">
+          <span class="lang-inline-en">Your Technology & Software cost: <span class="text-brand-green">$0 with Sicus Booking</span></span>
+          <span class="lang-inline-vi">Chi phi cong nghe & phan mem: <span class="text-brand-green">$0 voi Sicus Booking</span></span>
+        </h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          <span class="lang-inline-en">Most salon software charges $100-$400/month. Sicus Booking includes online booking, CRM, automated messaging, and AI receptionist — all free to start. That's <strong>$1,200-$4,800 saved in your first year alone</strong>.</span>
+          <span class="lang-inline-vi">Hau het phan mem salon tinh phi $100-$400/thang. Sicus Booking bao gom dat lich online, CRM, tin nhan tu dong va le tan AI — tat ca mien phi. Tiet kiem <strong>$1,200-$4,800 trong nam dau tien</strong>.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA SECTION ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="relative overflow-hidden rounded-2xl p-8 sm:p-12 text-center" style="background: linear-gradient(135deg, #0F0F11 0%, #1a2a08 100%); box-shadow: 0 8px 40px rgba(0,0,0,0.15);">
+      <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 0%, rgba(140,184,43,0.15) 0%, transparent 60%);"></div>
+      <div class="relative z-10">
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">
+          <span class="lang-inline-en">Save $200+/month on software</span>
+          <span class="lang-inline-vi">Tiet kiem $200+/thang cho phan mem</span>
+        </h2>
+        <p class="text-gray-400 mb-6 max-w-md mx-auto leading-relaxed">
+          <span class="lang-inline-en">Sicus Booking is free to start — online booking, CRM, AI receptionist, and more. No credit card required.</span>
+          <span class="lang-inline-vi">Sicus Booking mien phi khi bat dau — dat lich online, CRM, le tan AI, va nhieu hon. Khong can the tin dung.</span>
+        </p>
+        <a href="../index.html#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-bold text-lg px-8 py-4 rounded-full shadow-[0_4px_20px_rgba(140,184,43,0.3)] hover:shadow-[0_6px_30px_rgba(140,184,43,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green-dark">
+          <span class="lang-inline-en">Schedule a Demo</span><span class="lang-inline-vi">Dat lich Demo</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Blog link -->
+    <div class="text-center mt-8">
+      <a href="../blog/index.html" class="inline-flex items-center gap-2 text-brand-green hover:text-brand-green-dark font-semibold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-brand-green">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+        <span class="lang-inline-en">Read our full guide: How Much Does It Cost to Open a Nail Salon?</span>
+        <span class="lang-inline-vi">Doc huong dan day du: Chi phi mo tiem nail la bao nhieu?</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-2xl mx-auto px-6">
+    <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-10 tracking-tight">
+      <span class="lang-inline-en">Frequently Asked Questions</span>
+      <span class="lang-inline-vi">Cau hoi thuong gap</span>
+    </h2>
+
+    <div class="space-y-3">
+      <!-- FAQ 1 -->
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-5 text-left hover:bg-gray-50 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-brand-green">
+          <span class="font-semibold text-gray-900 pr-4">
+            <span class="lang-inline-en">How accurate is this calculator?</span>
+            <span class="lang-inline-vi">May tinh nay chinh xac den muc nao?</span>
+          </span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p class="px-5 pb-5 text-sm text-gray-600 leading-relaxed">
+            <span class="lang-inline-en">This calculator provides realistic estimates based on industry averages and publicly available data from salon owners, equipment suppliers, and commercial real estate reports across the US and Canada. Actual costs vary by specific city, negotiated lease terms, contractor bids, and supplier pricing. Use these figures as a solid starting point for your business plan — then get local quotes to refine your budget.</span>
+            <span class="lang-inline-vi">May tinh nay cung cap uoc tinh thuc te dua tren trung binh nganh va du lieu cong khai tu chu salon, nha cung cap thiet bi, va bao cao bat dong san thuong mai tai My va Canada. Chi phi thuc te thay doi theo thanh pho, dieu khoan thue, nha thau va gia nha cung cap. Su dung nhung con so nay lam diem khoi dau cho ke hoach kinh doanh cua ban.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-5 text-left hover:bg-gray-50 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-brand-green">
+          <span class="font-semibold text-gray-900 pr-4">
+            <span class="lang-inline-en">What costs are not included?</span>
+            <span class="lang-inline-vi">Nhung chi phi nao khong bao gom?</span>
+          </span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p class="px-5 pb-5 text-sm text-gray-600 leading-relaxed">
+            <span class="lang-inline-en">This calculator covers the major startup categories but does not include: franchise fees (if applicable), legal fees for business formation, accountant or bookkeeper setup, vehicle or delivery costs, advanced POS hardware, custom app development, employee recruitment costs, or ongoing loan interest payments. Some cities may also have additional permit or inspection fees not reflected here.</span>
+            <span class="lang-inline-vi">May tinh nay bao gom cac hang muc chinh nhung khong bao gom: phi nhuong quyen (neu co), phi phap ly, phi ke toan, chi phi xe co, phan cung POS nang cao, phat trien ung dung, chi phi tuyen dung, hoac lai suat no. Mot so thanh pho co the co phi giay phep hoac kiem tra bo sung.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-5 text-left hover:bg-gray-50 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-brand-green">
+          <span class="font-semibold text-gray-900 pr-4">
+            <span class="lang-inline-en">How can I reduce my startup costs?</span>
+            <span class="lang-inline-vi">Lam sao de giam chi phi khoi nghiep?</span>
+          </span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p class="px-5 pb-5 text-sm text-gray-600 leading-relaxed">
+            <span class="lang-inline-en">Key strategies include: taking over an existing salon space to avoid full build-out costs, buying quality used equipment, starting with fewer stations and expanding later, negotiating a lease with a tenant improvement allowance, using free software like Sicus Booking instead of expensive salon management systems, and starting with a focused service menu rather than offering everything from day one.</span>
+            <span class="lang-inline-vi">Cac chien luoc chinh bao gom: tiep quan khong gian salon hien co, mua thiet bi cu chat luong, bat dau voi it ghe hon va mo rong sau, dam phan thue voi phu cap cai tien, su dung phan mem mien phi nhu Sicus Booking thay vi he thong quan ly dat tien, va bat dau voi menu dich vu tap trung.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="relative overflow-hidden rounded-3xl m-4 sm:m-8" style="background: #0F0F11;">
+  <div class="absolute inset-0 z-0" style="background: radial-gradient(125% 125% at 50% 10%, rgba(15,15,17,0.4) 50%, rgba(140,184,43,0.2) 100%);"></div>
+
+  <div class="max-w-7xl mx-auto px-6 sm:px-14 pt-14 pb-8 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 lg:gap-16 pb-12">
+      <!-- Brand -->
+      <div class="flex flex-col space-y-4">
+        <img src="../brand_assets/logo-white.png" alt="SICUS MEDIA" class="h-8 w-auto max-w-[120px] object-contain" loading="lazy">
+        <p class="text-sm text-gray-400 leading-relaxed lang-inline-en">AI-powered salon management platform built for Vietnamese nail, hair, and spa businesses.</p>
+        <p class="text-sm text-gray-400 leading-relaxed lang-inline-vi">Nen tang quan ly tiem bang AI danh cho doanh nghiep nail, toc, va spa Viet Nam.</p>
+      </div>
+
+      <!-- Product -->
+      <div>
+        <h4 class="text-white text-lg font-semibold mb-6 lang-inline-en">Product</h4><h4 class="text-white text-lg font-semibold mb-6 lang-inline-vi">San pham</h4>
+        <ul class="space-y-3">
+          <li><a href="../index.html#features" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-en">Features</a><a href="../index.html#features" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-vi">Tinh nang</a></li>
+          <li><a href="../nail-salon-booking-app.html" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-en">Nail Salon Software</a><a href="../nail-salon-booking-app.html" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-vi">Phan mem tiem Nail</a></li>
+          <li><a href="../hair-salon-booking-system.html" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-en">Hair Salon Software</a><a href="../hair-salon-booking-system.html" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-vi">Phan mem tiem Toc</a></li>
+          <li><a href="../beauty-salon-booking-app.html" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-en">Beauty Salon Software</a><a href="../beauty-salon-booking-app.html" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-vi">Phan mem Spa & Tham my</a></li>
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div>
+        <h4 class="text-white text-lg font-semibold mb-6 lang-inline-en">Company</h4><h4 class="text-white text-lg font-semibold mb-6 lang-inline-vi">Cong ty</h4>
+        <ul class="space-y-3">
+          <li><a href="../blog/index.html" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-en">Blog</a><a href="../blog/index.html" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-vi">Bai viet</a></li>
+          <li><a href="../index.html#schedule-demo" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-en">Schedule Demo</a><a href="../index.html#schedule-demo" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-vi">Dat lich Demo</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="text-white text-lg font-semibold mb-6 lang-inline-en">Contact</h4><h4 class="text-white text-lg font-semibold mb-6 lang-inline-vi">Lien he</h4>
+        <ul class="space-y-4">
+          <li class="flex items-center gap-3">
+            <svg class="w-[18px] h-[18px] text-brand-green flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+            <a href="mailto:info@sicusmedia.com" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200">info@sicusmedia.com</a>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="w-[18px] h-[18px] text-brand-green flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+            <a href="tel:+14034787979" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200">(403) 478-7979</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="border-t border-gray-700/50 my-8">
+
+    <div class="flex flex-col md:flex-row justify-between items-center text-sm space-y-4 md:space-y-0">
+      <div class="flex items-center gap-4 text-gray-500">
+        <a href="#" class="hover:text-brand-green transition-colors duration-200" aria-label="Facebook"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="#" class="hover:text-brand-green transition-colors duration-200" aria-label="Instagram"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="#" class="hover:text-brand-green transition-colors duration-200" aria-label="YouTube"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="../privacy-policy.html" class="text-xs text-gray-500 hover:text-brand-green transition-colors duration-200">Privacy Policy</a>
+        <a href="../terms-of-service.html" class="text-xs text-gray-500 hover:text-brand-green transition-colors duration-200">Terms of Service</a>
+        <p class="text-xs text-gray-500">&copy; 2026 SICUS MEDIA. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ========== Language Toggle ==========
+function toggleLang() {
+  const html = document.getElementById('htmlRoot');
+  const label = document.getElementById('langLabel');
+  if (html.lang === 'en') {
+    html.lang = 'vi';
+    label.textContent = 'VI';
+  } else {
+    html.lang = 'en';
+    label.textContent = 'EN';
+  }
+}
+
+// ========== Station Slider ==========
+function updateStationLabel(val) {
+  document.getElementById('stationLabel').textContent = val;
+  const slider = document.getElementById('stations');
+  const pct = ((val - slider.min) / (slider.max - slider.min)) * 100;
+  slider.style.setProperty('--range-pct', pct + '%');
+}
+// Init slider visual
+document.addEventListener('DOMContentLoaded', function() {
+  updateStationLabel(document.getElementById('stations').value);
+});
+
+// ========== Toggles ==========
+let buildoutOn = true;
+let equipmentNew = true;
+
+function toggleBuildout() {
+  buildoutOn = !buildoutOn;
+  const track = document.getElementById('buildoutToggle');
+  const label = document.getElementById('buildoutLabel');
+  track.classList.toggle('active', buildoutOn);
+  if (buildoutOn) {
+    label.innerHTML = '<span class="lang-inline-en">Yes — full renovation</span><span class="lang-inline-vi">Co — sua chua toan bo</span>';
+  } else {
+    label.innerHTML = '<span class="lang-inline-en">No — taking over existing space</span><span class="lang-inline-vi">Khong — tiep quan khong gian hien co</span>';
+  }
+  // Re-apply language visibility
+  reapplyLang();
+}
+
+function toggleEquipment() {
+  equipmentNew = !equipmentNew;
+  const track = document.getElementById('equipmentToggle');
+  const label = document.getElementById('equipmentLabel');
+  track.classList.toggle('active', equipmentNew);
+  if (equipmentNew) {
+    label.innerHTML = '<span class="lang-inline-en">New equipment</span><span class="lang-inline-vi">Thiet bi moi</span>';
+  } else {
+    label.innerHTML = '<span class="lang-inline-en">Used equipment</span><span class="lang-inline-vi">Thiet bi cu</span>';
+  }
+  reapplyLang();
+}
+
+function reapplyLang() {
+  // Force CSS to re-evaluate lang-inline classes by touching the lang attr
+  const html = document.getElementById('htmlRoot');
+  const lang = html.lang;
+  html.lang = '';
+  requestAnimationFrame(() => { html.lang = lang; });
+}
+
+// ========== FAQ ==========
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  item.classList.toggle('open');
+}
+
+// ========== CALCULATOR LOGIC ==========
+
+// Cost data: [low, high] per category, keyed by salon type
+const costData = {
+  // Lease deposit (first + last + security) per sq ft ranges by location
+  // Assumes sq ft = stations * 120 (nail/barber) or stations * 150 (hair/beauty)
+  sqftPerStation: { nail: 120, hair: 150, beauty: 160, barber: 110 },
+
+  // Monthly rent per sq ft by location
+  rentPerSqft: {
+    high:   [2.50, 4.50],
+    medium: [1.50, 2.80],
+    low:    [0.80, 1.80]
+  },
+
+  // Build-out cost per sq ft (full renovation)
+  buildoutPerSqft: {
+    high:   [60, 120],
+    medium: [40, 85],
+    low:    [25, 55]
+  },
+
+  // Minimal refresh cost per sq ft (no full build-out)
+  refreshPerSqft: {
+    high:   [8, 20],
+    medium: [5, 15],
+    low:    [3, 10]
+  },
+
+  // Equipment per station [low, high] NEW
+  equipmentPerStation: {
+    nail:   [800, 1800],
+    hair:   [1200, 2800],
+    beauty: [1500, 3500],
+    barber: [900, 2200]
+  },
+
+  // Used equipment multiplier
+  usedMultiplier: 0.45,
+
+  // Furniture (reception, waiting, decor) base + per station
+  furnitureBase: {
+    nail:   [2000, 5000],
+    hair:   [3000, 7000],
+    beauty: [4000, 10000],
+    barber: [2000, 5000]
+  },
+  furniturePerStation: {
+    nail:   [300, 600],
+    hair:   [400, 800],
+    beauty: [500, 1000],
+    barber: [300, 600]
+  },
+
+  // Licenses & permits
+  licenses: {
+    nail:   [500, 1500],
+    hair:   [400, 1200],
+    beauty: [800, 2500],
+    barber: [400, 1000]
+  },
+
+  // Initial inventory per station
+  inventoryPerStation: {
+    nail:   [200, 500],
+    hair:   [300, 700],
+    beauty: [400, 900],
+    barber: [150, 400]
+  },
+  inventoryBase: {
+    nail:   [500, 1200],
+    hair:   [800, 2000],
+    beauty: [1000, 2500],
+    barber: [400, 1000]
+  },
+
+  // Marketing & signage
+  marketing: {
+    nail:   [1500, 4000],
+    hair:   [2000, 5000],
+    beauty: [2500, 6000],
+    barber: [1500, 4000]
+  },
+
+  // Insurance (annual, shown as startup cost)
+  insurance: {
+    nail:   [1200, 2400],
+    hair:   [1500, 3000],
+    beauty: [2000, 4000],
+    barber: [1200, 2400]
+  },
+
+  // Monthly operating cost estimates per station (staff, supplies, utilities, etc.)
+  monthlyPerStation: {
+    nail:   [1800, 3000],
+    hair:   [2200, 3800],
+    beauty: [2500, 4200],
+    barber: [1600, 2800]
+  },
+  monthlyBase: {
+    nail:   [3000, 5000],
+    hair:   [3500, 6000],
+    beauty: [4000, 7000],
+    barber: [2500, 4500]
+  },
+
+  // Revenue per station per month (for break-even calc)
+  revenuePerStation: {
+    nail:   [3000, 5000],
+    hair:   [3500, 6000],
+    beauty: [4000, 7000],
+    barber: [2800, 4800]
+  },
+
+  salonTypeLabels: {
+    nail: 'Nail Salon',
+    hair: 'Hair Salon',
+    beauty: 'Beauty Salon / Spa',
+    barber: 'Barbershop'
+  }
+};
+
+const barColors = [
+  '#8CB82B', // green
+  '#2563eb', // blue
+  '#7c3aed', // purple
+  '#E31E24', // red
+  '#059669', // emerald
+  '#d97706', // amber
+  '#0891b2', // cyan
+  '#6366f1', // indigo
+];
+
+function fmt(n) {
+  return '$' + Math.round(n).toLocaleString('en-US');
+}
+
+function fmtRange(low, high) {
+  return fmt(low) + ' – ' + fmt(high);
+}
+
+function calculate() {
+  const type = document.getElementById('salonType').value;
+  const loc = document.getElementById('location').value;
+  const stations = parseInt(document.getElementById('stations').value);
+  const buildout = buildoutOn;
+  const newEquip = equipmentNew;
+
+  const d = costData;
+  const sqft = stations * d.sqftPerStation[type];
+
+  // 1. Lease & Build-out
+  const rentLow = d.rentPerSqft[loc][0] * sqft;
+  const rentHigh = d.rentPerSqft[loc][1] * sqft;
+  // Deposit: 3 months rent
+  const depositLow = rentLow * 3;
+  const depositHigh = rentHigh * 3;
+
+  let buildLow, buildHigh;
+  if (buildout) {
+    buildLow = d.buildoutPerSqft[loc][0] * sqft;
+    buildHigh = d.buildoutPerSqft[loc][1] * sqft;
+  } else {
+    buildLow = d.refreshPerSqft[loc][0] * sqft;
+    buildHigh = d.refreshPerSqft[loc][1] * sqft;
+  }
+  const leaseBuildLow = depositLow + buildLow;
+  const leaseBuildHigh = depositHigh + buildHigh;
+
+  // 2. Equipment & Furniture
+  let equipLow = d.equipmentPerStation[type][0] * stations;
+  let equipHigh = d.equipmentPerStation[type][1] * stations;
+  if (!newEquip) {
+    equipLow *= d.usedMultiplier;
+    equipHigh *= d.usedMultiplier;
+  }
+  const furnLow = d.furnitureBase[type][0] + d.furniturePerStation[type][0] * stations;
+  const furnHigh = d.furnitureBase[type][1] + d.furniturePerStation[type][1] * stations;
+  const equipFurnLow = equipLow + furnLow;
+  const equipFurnHigh = equipHigh + furnHigh;
+
+  // 3. Licenses & Permits
+  const licLow = d.licenses[type][0];
+  const licHigh = d.licenses[type][1];
+
+  // 4. Initial Inventory
+  const invLow = d.inventoryBase[type][0] + d.inventoryPerStation[type][0] * stations;
+  const invHigh = d.inventoryBase[type][1] + d.inventoryPerStation[type][1] * stations;
+
+  // 5. Technology & Software = $0 with Sicus
+  const techLow = 0;
+  const techHigh = 0;
+
+  // 6. Marketing & Signage
+  const mktLow = d.marketing[type][0];
+  const mktHigh = d.marketing[type][1];
+
+  // 7. Insurance
+  const insLow = d.insurance[type][0];
+  const insHigh = d.insurance[type][1];
+
+  // 8. Working Capital (3 months operating)
+  const monthlyOpLow = d.monthlyBase[type][0] + d.monthlyPerStation[type][0] * stations + rentLow;
+  const monthlyOpHigh = d.monthlyBase[type][1] + d.monthlyPerStation[type][1] * stations + rentHigh;
+  const wcLow = monthlyOpLow * 3;
+  const wcHigh = monthlyOpHigh * 3;
+
+  // Total
+  const totalLow = leaseBuildLow + equipFurnLow + licLow + invLow + techLow + mktLow + insLow + wcLow;
+  const totalHigh = leaseBuildHigh + equipFurnHigh + licHigh + invHigh + techHigh + mktHigh + insHigh + wcHigh;
+
+  // Break-even: startup / (monthly revenue - monthly costs)
+  const monthlyRevLow = d.revenuePerStation[type][0] * stations;
+  const monthlyRevHigh = d.revenuePerStation[type][1] * stations;
+  const profitLow = monthlyRevLow - monthlyOpHigh; // worst case
+  const profitHigh = monthlyRevHigh - monthlyOpLow; // best case
+  let breakEvenLow = profitHigh > 0 ? Math.ceil(totalLow / profitHigh) : 36;
+  let breakEvenHigh = profitLow > 0 ? Math.ceil(totalHigh / profitLow) : 36;
+  breakEvenLow = Math.max(6, Math.min(36, breakEvenLow));
+  breakEvenHigh = Math.max(6, Math.min(36, breakEvenHigh));
+
+  // Build results
+  const categories = [
+    { name: 'Lease & Build-out',        nameVi: 'Thue & Xay dung',           low: leaseBuildLow,  high: leaseBuildHigh, icon: '🏢' },
+    { name: 'Equipment & Furniture',     nameVi: 'Thiet bi & Noi that',       low: equipFurnLow,   high: equipFurnHigh,  icon: '💺' },
+    { name: 'Licenses & Permits',        nameVi: 'Giay phep & Bang cap',      low: licLow,         high: licHigh,        icon: '📋' },
+    { name: 'Initial Inventory',         nameVi: 'Hang ton kho ban dau',      low: invLow,         high: invHigh,        icon: '📦' },
+    { name: 'Technology & Software',     nameVi: 'Cong nghe & Phan mem',      low: techLow,        high: techHigh,       icon: '💻', highlight: true },
+    { name: 'Marketing & Signage',       nameVi: 'Tiep thi & Bien hieu',      low: mktLow,         high: mktHigh,        icon: '📣' },
+    { name: 'Insurance',                 nameVi: 'Bao hiem',                   low: insLow,         high: insHigh,        icon: '🛡️' },
+    { name: 'Working Capital (3 months)',nameVi: 'Von luu dong (3 thang)',     low: wcLow,          high: wcHigh,         icon: '💰' },
+  ];
+
+  // Display total
+  document.getElementById('totalCost').textContent = fmtRange(totalLow, totalHigh);
+  document.getElementById('salonTypeLabel').textContent = d.salonTypeLabels[type] + ' · ' + stations + ' stations';
+
+  // Display breakdown list
+  const listEl = document.getElementById('breakdownList');
+  listEl.innerHTML = '';
+  categories.forEach(function(cat) {
+    const isHighlight = cat.highlight;
+    const div = document.createElement('div');
+    div.className = 'flex items-center justify-between py-3 ' + (isHighlight ? 'bg-brand-green/5 -mx-3 px-3 rounded-lg border border-brand-green/15' : 'border-b border-gray-100');
+    div.innerHTML =
+      '<div class="flex items-center gap-3">' +
+        '<span class="text-lg">' + cat.icon + '</span>' +
+        '<span class="text-sm font-medium text-gray-700">' +
+          '<span class="lang-inline-en">' + cat.name + '</span>' +
+          '<span class="lang-inline-vi">' + cat.nameVi + '</span>' +
+        '</span>' +
+      '</div>' +
+      '<span class="text-sm font-bold ' + (isHighlight ? 'text-brand-green' : 'text-gray-900') + '">' +
+        (isHighlight ? '<span class="lang-inline-en">$0 with Sicus Booking</span><span class="lang-inline-vi">$0 voi Sicus Booking</span>' : fmtRange(cat.low, cat.high)) +
+      '</span>';
+    listEl.appendChild(div);
+  });
+
+  // Display bar chart
+  const chartEl = document.getElementById('barChart');
+  chartEl.innerHTML = '';
+  const maxVal = Math.max(...categories.map(function(c) { return c.high; }));
+  categories.forEach(function(cat, i) {
+    const midVal = (cat.low + cat.high) / 2;
+    const pct = maxVal > 0 ? Math.max(2, (midVal / maxVal) * 100) : 2;
+    const color = barColors[i % barColors.length];
+    const isZero = cat.low === 0 && cat.high === 0;
+    const valLabel = isZero
+      ? '<span class="lang-inline-en">$0 with Sicus Booking</span><span class="lang-inline-vi">$0 voi Sicus Booking</span>'
+      : fmtRange(cat.low, cat.high);
+    const row = document.createElement('div');
+    row.className = 'flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3';
+    row.innerHTML =
+      '<div class="sm:w-40 text-xs text-gray-600 sm:text-right flex-shrink-0">' +
+        '<span class="lang-inline-en">' + cat.name + '</span>' +
+        '<span class="lang-inline-vi">' + cat.nameVi + '</span>' +
+      '</div>' +
+      '<div class="flex-1 flex items-center gap-2">' +
+        '<div class="flex-1 h-7 bg-gray-100 rounded-md overflow-hidden relative">' +
+          (isZero
+            ? '<div class="cost-bar h-full rounded-md flex items-center" style="width: 100%; background: repeating-linear-gradient(45deg, ' + color + '22, ' + color + '22 8px, ' + color + '11 8px, ' + color + '11 16px);"><span class="text-[10px] sm:text-xs font-semibold pl-2 whitespace-nowrap" style="color:' + color + '">' + valLabel + '</span></div>'
+            : '<div class="cost-bar h-full rounded-md flex items-center" style="width: 0%; background: ' + color + ';"><span class="text-[10px] sm:text-xs font-semibold text-white pl-2 whitespace-nowrap">' + valLabel + '</span></div>'
+          ) +
+        '</div>' +
+      '</div>';
+    chartEl.appendChild(row);
+
+    // Animate bar width after a brief delay (skip $0 bars — already full)
+    if (!isZero) {
+      requestAnimationFrame(function() {
+        setTimeout(function() {
+          row.querySelector('.cost-bar').style.width = pct + '%';
+        }, 80 + i * 60);
+      });
+    }
+  });
+
+  // Monthly + Break-even
+  document.getElementById('monthlyCost').textContent = fmtRange(monthlyOpLow, monthlyOpHigh);
+  document.getElementById('breakEven').textContent = breakEvenLow + ' – ' + breakEvenHigh + ' months';
+
+  // Show results
+  const section = document.getElementById('resultsSection');
+  section.classList.remove('hidden');
+  // Trigger animation
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      section.classList.add('visible');
+    });
+  });
+
+  // Scroll to results
+  setTimeout(function() {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 150);
+}
+</script>
+
+</body>
+</html>
