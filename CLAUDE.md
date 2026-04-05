@@ -46,6 +46,61 @@
 - **Spacing:** Use intentional, consistent spacing tokens — not random Tailwind steps.
 - **Depth:** Surfaces should have a layering system (base → elevated → floating), not all sit at the same z-plane.
 
+## SEO Roadmap
+
+### Strategy
+Own niches first (AI + Vietnamese salon), then expand to competitive head terms. SICUS differentiators: AI-first positioning, Vietnamese salon niche (uncontested).
+
+### Phase 1 — Foundation (Weeks 1–4)
+- [x] Meta tags, structured data, OG tags
+- [ ] Add `/blog` section (static HTML pages)
+- [ ] Create dedicated landing pages per salon type:
+  - `/nail-salon-booking-app`
+  - `/hair-salon-booking-system`
+  - `/beauty-salon-booking-app`
+  - `/vietnamese-salon-software`
+  - Each page targets 1 keyword cluster with unique copy, H1, meta
+- [ ] Google Search Console — verify domain, submit sitemap
+- [ ] Google Business Profile — set up for Calgary location
+- [ ] Create `sitemap.xml` and `robots.txt`
+- [ ] Page speed optimization (compress images, lazy loading)
+
+### Phase 2 — Content Attack (Weeks 5–12)
+Publish 8–12 articles targeting mid/long-tail keywords (1,500–2,500 words each, biweekly):
+1. "Best Salon Booking Apps in 2026 (Compared)" → salon booking app
+2. "Best Nail Salon Software for Small Businesses" → nail app
+3. "How to Set Up Online Booking for Your Salon" → online booking system for salons
+4. "AI Salon Management: How Smart Booking Changes Everything" → AI salon booking system
+5. "Best Beauty Salon Appointment Apps (Free & Paid)" → beauty salon appointment app
+6. "Hair Salon Booking System: Complete Guide" → hair salon booking system
+7. "Salon Booking System vs. Manual Scheduling" → salon booking system
+8. "Vietnamese Nail Salon Software — Built for Your Business" → vietnamese nail salon software
+
+### Phase 3 — Authority Building (Weeks 8–16)
+- [ ] Guest posts on salon industry blogs (thesalonbusiness.com, salontoday.com)
+- [ ] HARO / Connectively — respond to journalist queries
+- [ ] Product listings — Software Advice, G2, Capterra, GetApp, Product Hunt
+- [ ] YouTube demos (AI Receptionist, booking flow) — embed on blog
+- [ ] Local SEO — Calgary business directories, nail salon associations
+- [ ] Vietnamese community outreach — directories, forums, Facebook groups
+
+### Phase 4 — Compound & Scale (Weeks 16–24)
+- [ ] Optimize pages with impressions but low clicks (Search Console data)
+- [ ] Update comparison articles with fresh data
+- [ ] Add FAQ schema to every landing page and blog post
+- [ ] Create free tools (Salon Revenue Calculator, No-Show Cost Calculator)
+- [ ] Build content hub/silo interlinking structure
+- [ ] Target head terms aggressively with beefed-up pages
+
+### Keyword Priority
+- **P0 — Own now (1–3 mo):** "vietnamese nail salon software", "AI salon booking"
+- **P1 — Win early (3–6 mo):** "nail app", "hair salon booking app", "beauty salon appointment app"
+- **P2 — Build toward (6–12 mo):** "salon booking app", "online booking system for salons", "salon appointment app"
+- **P3 — Long game (12–18 mo):** "salon booking system", "beauty salon booking system"
+
+### Top Competitors
+Fresha, GlossGenius, Vagaro, Booksy, Square, Mangomint, Boulevard, Zenoti
+
 ## Hard Rules
 - Do not add sections, features, or content not in the reference
 - Do not "improve" a reference design — match it

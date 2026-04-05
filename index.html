@@ -226,6 +226,60 @@
       pointer-events: auto;
     }
 
+    /* Trust badges mobile carousel */
+    #trust-badges-track { will-change: transform; }
+    .trust-badge-slide { min-width: 100%; flex-shrink: 0; display: flex; justify-content: center; }
+    .trust-badge-dot { width: 6px; height: 6px; border-radius: 9999px; background: #E0E0E0; border: none; padding: 0; cursor: pointer; transition: background 0.3s ease, transform 0.3s ease; }
+    .trust-badge-dot.active { background: #8CB82B; transform: scale(1.4); }
+
+    /* Shared mobile carousel fix — force children to respect container width */
+    #testimonial-carousel .overflow-hidden,
+    #ai-cards-carousel .overflow-hidden { width: 100%; }
+
+    /* Testimonial mobile carousel */
+    #testimonial-track { will-change: transform; width: 100%; }
+    .testimonial-slide { width: 100%; min-width: 100%; flex-shrink: 0; padding: 0 4px; box-sizing: border-box; }
+    .testimonial-slide > * { width: 100% !important; box-sizing: border-box; }
+    .testimonial-slide p.lang-inline-en,
+    .testimonial-slide p.lang-inline-vi { display: block !important; }
+    html[lang="en"] .testimonial-slide p.lang-inline-vi { display: none !important; }
+    html[lang="vi"] .testimonial-slide p.lang-inline-en { display: none !important; }
+    .testimonial-dot { width: 8px; height: 8px; border-radius: 9999px; background: #E0E0E0; border: none; padding: 0; cursor: pointer; transition: background 0.3s ease, transform 0.3s ease; }
+    .testimonial-dot.active { background: #8CB82B; transform: scale(1.25); }
+
+    /* AI cards mobile carousel */
+    #ai-cards-track { will-change: transform; width: 100%; }
+    .ai-carousel-slide { width: 100%; min-width: 100%; flex-shrink: 0; display: flex; flex-direction: column; gap: 1.25rem; padding: 0 4px; box-sizing: border-box; }
+    .ai-carousel-slide > * { width: 100% !important; box-sizing: border-box; }
+    .ai-carousel-slide p.lang-inline-en,
+    .ai-carousel-slide p.lang-inline-vi { display: block !important; }
+    html[lang="en"] .ai-carousel-slide p.lang-inline-vi { display: none !important; }
+    html[lang="vi"] .ai-carousel-slide p.lang-inline-en { display: none !important; }
+    .ai-carousel-dot { width: 8px; height: 8px; border-radius: 9999px; background: rgba(255,255,255,0.2); border: none; padding: 0; cursor: pointer; transition: background 0.3s ease, transform 0.3s ease; }
+    .ai-carousel-dot.active { background: #8CB82B; transform: scale(1.25); }
+
+    /* Mobile: disable sticky scroll, make tabs click-only */
+    @media (max-width: 639px) {
+      #core-features-scroll {
+        height: auto !important;
+      }
+      #core-features-scroll > div:first-child {
+        position: relative !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+      #core-features-scroll > div:first-child > div {
+        height: auto !important;
+      }
+      .feature-panel {
+        position: relative !important;
+        inset: auto !important;
+      }
+      .feature-panel:not(.is-active) {
+        display: none;
+      }
+    }
+
   </style>
 </head>
 <body class="bg-white text-gray-900 overflow-x-hidden">
@@ -250,7 +304,7 @@
 </nav>
 
 <!-- ==================== HERO ==================== -->
-<section id="hero-grid" class="relative min-h-screen flex flex-col justify-center items-center text-center pt-16 pb-40 overflow-hidden bg-white">
+<section id="hero-grid" class="relative min-h-screen flex flex-col justify-center items-center text-center pt-24 sm:pt-16 pb-40 overflow-hidden bg-white">
   <!-- Gradient background -->
   <div class="absolute inset-0 z-0" style="background: radial-gradient(125% 125% at 50% 10%, #fff 40%, #8CB82B 100%);"></div>
 
@@ -285,17 +339,18 @@
       </p>
 
       <!-- CTAs -->
-      <div class="flex items-center justify-center gap-4 mb-14">
-        <a href="#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold text-lg px-8 py-4 rounded-full shadow-[0_4px_20px_rgba(140,184,43,0.3)] hover:shadow-[0_6px_30px_rgba(140,184,43,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green-dark">
+      <div class="flex items-center justify-center gap-3 sm:gap-4 mb-14">
+        <a href="#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold text-sm sm:text-lg px-5 sm:px-8 py-3 sm:py-4 rounded-full shadow-[0_4px_20px_rgba(140,184,43,0.3)] hover:shadow-[0_6px_30px_rgba(140,184,43,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green-dark">
           <span class="lang-inline-en">Schedule a Demo</span><span class="lang-inline-vi">Đặt lịch Demo</span>
         </a>
-        <a href="javascript:void(0)" onclick="scrollToFeature(0)" class="btn-spring inline-flex items-center gap-2 border border-gray-300 hover:border-gray-400 text-gray-700 font-medium text-lg px-8 py-4 rounded-full hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green">
+        <a href="javascript:void(0)" onclick="scrollToFeature(0)" class="btn-spring inline-flex items-center gap-2 border border-gray-300 hover:border-gray-400 text-gray-700 font-medium text-sm sm:text-lg px-5 sm:px-8 py-3 sm:py-4 rounded-full hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green">
           <span class="lang-inline-en">Explore Features</span><span class="lang-inline-vi">Khám phá tính năng</span>
         </a>
       </div>
 
-      <!-- Trust badges -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-10 flex-wrap">
+      <!-- Trust badges — Desktop: row, Mobile: auto-carousel -->
+      <!-- Desktop -->
+      <div class="hidden sm:flex items-center justify-center gap-10 flex-wrap">
         <div class="flex flex-col items-center gap-2">
           <div class="w-11 h-11 rounded-xl bg-brand-green/10 flex items-center justify-center">
             <svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
@@ -321,11 +376,49 @@
           <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-vi">Yêu cầu tính năng và chúng tôi sẽ xây — cam kết.</p>
         </div>
       </div>
+      <!-- Mobile carousel -->
+      <div id="trust-badges-carousel" class="sm:hidden relative">
+        <div class="overflow-hidden">
+          <div id="trust-badges-track" class="flex transition-transform duration-500 ease-out">
+            <div class="trust-badge-slide">
+              <div class="flex flex-col items-center gap-2">
+                <div class="w-11 h-11 rounded-xl bg-brand-green/10 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+                </div>
+                <h4 class="text-base font-semibold text-gray-900 lang-inline-en">Start Free</h4><h4 class="text-base font-semibold text-gray-900 lang-inline-vi">Bắt đầu miễn phí</h4>
+                <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-en">Pay only when you grow. No credit card required.</p>
+                <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-vi">Chỉ trả khi phát triển. Không cần thẻ tín dụng.</p>
+              </div>
+            </div>
+            <div class="trust-badge-slide">
+              <div class="flex flex-col items-center gap-2">
+                <div class="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <h4 class="text-base font-semibold text-gray-900 lang-inline-en">Every Feature</h4><h4 class="text-base font-semibold text-gray-900 lang-inline-vi">Mọi tính năng</h4>
+                <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-en">Nothing locked behind upgrades. You get it all.</p>
+                <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-vi">Không khóa sau gói nâng cấp. Bạn có tất cả.</p>
+              </div>
+            </div>
+            <div class="trust-badge-slide">
+              <div class="flex flex-col items-center gap-2">
+                <div class="w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.049.58.025 1.193-.14 1.743"/></svg>
+                </div>
+                <h4 class="text-base font-semibold text-gray-900 lang-inline-en">Built on Request</h4><h4 class="text-base font-semibold text-gray-900 lang-inline-vi">Xây theo yêu cầu</h4>
+                <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-en">Request a feature and we'll build it — guaranteed.</p>
+                <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-vi">Yêu cầu tính năng và chúng tôi sẽ xây — cam kết.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="trust-badges-dots" class="flex justify-center gap-2 mt-4"></div>
+      </div>
     </div>
 </section>
 
 <!-- ==================== DASHBOARD MOCKUP ==================== -->
-<section class="relative pb-16 -mt-32 pt-0 gradient-blob-1" style="z-index: 5;">
+<section class="relative pb-6 sm:pb-8 -mt-32 pt-0 gradient-blob-1" style="z-index: 5;">
   <div class="max-w-6xl mx-auto px-6">
     <!-- Mobile: booking app image -->
     <div class="dashboard-mobile">
@@ -703,7 +796,7 @@
 <!-- Tall scroll container: 4 panels x 100vh each -->
 <div id="core-features-scroll" style="height: 500vh; position: relative;">
   <!-- Sticky viewport — stays pinned while user scrolls through the 400vh -->
-  <div style="position: sticky; top: 0; height: 100vh; overflow: hidden; background: #fff;">
+  <div style="position: sticky; top: 0; height: 90vh; overflow: hidden; background: #fff;">
     <div class="max-w-6xl mx-auto px-6 flex flex-col justify-center" style="height: 100%;">
       <div class="pt-2">
         <p class="text-center text-sm text-gray-400 mb-3">
@@ -1293,14 +1386,6 @@
   <canvas id="ai-shader-bg" class="absolute inset-0 w-full h-full" style="z-index: 0;"></canvas>
 
   <div class="max-w-6xl mx-auto px-6 relative z-10">
-    <!-- Section badge -->
-    <div class="flex justify-center mb-8">
-      <div class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-5 py-2">
-        <span class="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] lang-inline-en">AI That Thinks For You</span>
-        <span class="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] lang-inline-vi">AI Suy Nghĩ Thay Bạn</span>
-      </div>
-    </div>
-
     <!-- Heading -->
     <div class="text-center mb-6">
       <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white tracking-[-0.01em] leading-tight">
@@ -1313,8 +1398,9 @@
       <span class="lang-inline-vi">Không phải chatbot. Không phải chiêu trò. Trí tuệ thực sự được tích hợp vào mọi phần của salon — luôn hoạt động, luôn đi trước một bước.</span>
     </p>
 
-    <!-- Feature cards grid -->
-    <div class="grid md:grid-cols-2 gap-5">
+    <!-- Feature cards grid — desktop: 2-col grid, mobile: carousel with 2 cards per slide -->
+    <!-- Desktop grid (hidden on mobile) -->
+    <div class="hidden md:grid md:grid-cols-2 gap-5">
 
       <!-- AI Receptionist -->
       <div class="rounded-2xl border border-white/[0.07] p-7 transition-transform duration-300 ease-out hover:-translate-y-1" style="background: linear-gradient(135deg, rgba(14,14,30,0.97) 0%, rgba(12,12,28,0.95) 100%);">
@@ -1541,6 +1627,18 @@
       </div>
 
     </div>
+
+    <!-- Mobile carousel (hidden on desktop) -->
+    <div id="ai-cards-carousel" class="md:hidden relative">
+      <div class="overflow-hidden">
+        <div id="ai-cards-track" class="flex transition-transform duration-500 ease-out">
+          <!-- Slides injected by JS from desktop grid -->
+        </div>
+      </div>
+      <!-- Dots -->
+      <div id="ai-cards-dots" class="flex justify-center gap-2 mt-6"></div>
+    </div>
+
   </div>
 </section>
 
@@ -1715,8 +1813,18 @@
       </p>
     </div>
 
-    <!-- Auto-scrolling testimonial columns -->
-    <div class="flex justify-center gap-6 max-h-[700px] overflow-hidden" style="-webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent); mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);">
+    <!-- Mobile: single testimonial carousel -->
+    <div id="testimonial-carousel" class="md:hidden relative">
+      <div class="overflow-hidden">
+        <div id="testimonial-track" class="flex transition-transform duration-500 ease-out">
+          <!-- Slides cloned from desktop columns by JS -->
+        </div>
+      </div>
+      <div id="testimonial-dots" class="flex justify-center gap-2 mt-6"></div>
+    </div>
+
+    <!-- Desktop: Auto-scrolling testimonial columns (hidden on mobile) -->
+    <div class="hidden md:flex justify-center gap-6 max-h-[700px] overflow-hidden" style="-webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent); mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);">
 
       <!-- Column 1 -->
       <div class="testimonial-col flex-shrink-0 w-[320px]" data-duration="16">
@@ -2041,29 +2149,37 @@
     const PANEL_COUNT = 5;
     let currentIdx = 0;
 
+    function isMobile() { return window.innerWidth < 640; }
+
+    function switchPanel(idx) {
+      panels[currentIdx].classList.remove('is-active');
+      panels[idx].classList.add('is-active');
+      tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
+      currentIdx = idx;
+    }
+
     function updateFeature() {
+      if (isMobile()) return; // Desktop only: scroll-driven switching
       const rect = container.getBoundingClientRect();
       const scrollH = container.offsetHeight - window.innerHeight;
-      // How far through the scroll container (0 to 1)
       const rawProgress = Math.max(0, Math.min(1, -rect.top / scrollH));
-      // Map to panel index
       const idx = Math.min(PANEL_COUNT - 1, Math.floor(rawProgress * PANEL_COUNT));
 
-      if (idx !== currentIdx) {
-        panels[currentIdx].classList.remove('is-active');
-        panels[idx].classList.add('is-active');
-        tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
-        currentIdx = idx;
-      }
-      // Update progress bar
+      if (idx !== currentIdx) switchPanel(idx);
       progress.style.width = ((rawProgress * 100) || 25) + '%';
     }
 
     window.addEventListener('scroll', updateFeature, { passive: true });
     updateFeature();
 
-    // Click tab → scroll to that panel's position
+    // Click tab → on mobile just switch panel, on desktop scroll to position
     window.scrollToFeature = function(idx) {
+      if (isMobile()) {
+        switchPanel(idx);
+        progress.style.width = (((idx + 1) / PANEL_COUNT) * 100) + '%';
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
       const scrollH = container.offsetHeight - window.innerHeight;
       const targetY = container.offsetTop + (scrollH * idx / PANEL_COUNT);
       window.scrollTo({ top: targetY, behavior: 'smooth' });
@@ -2447,6 +2563,180 @@
       revealMask.setAttribute('cx', cx + '%');
       revealMask.setAttribute('cy', cy + '%');
     });
+  })();
+
+  // Trust badges mobile carousel — auto-rotate 3 badges
+  (function() {
+    const track = document.getElementById('trust-badges-track');
+    const dotsContainer = document.getElementById('trust-badges-dots');
+    if (!track || !dotsContainer) return;
+
+    const slides = track.querySelectorAll('.trust-badge-slide');
+    const slideCount = slides.length;
+    if (!slideCount) return;
+    let current = 0;
+    let timer = null;
+
+    // Build dots
+    for (let i = 0; i < slideCount; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'trust-badge-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Badge ' + (i + 1));
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    }
+    const dots = dotsContainer.querySelectorAll('.trust-badge-dot');
+
+    function goTo(idx) {
+      current = idx;
+      track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+    function next() { goTo((current + 1) % slideCount); }
+    function start() { stop(); timer = setInterval(next, 3000); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+    let touchX = 0;
+    track.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; stop(); }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const diff = touchX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) { diff > 0 ? goTo(Math.min(current + 1, slideCount - 1)) : goTo(Math.max(current - 1, 0)); }
+      start();
+    }, { passive: true });
+
+    start();
+  })();
+
+  // Testimonial mobile carousel — show one testimonial at a time
+  (function() {
+    const track = document.getElementById('testimonial-track');
+    const dotsContainer = document.getElementById('testimonial-dots');
+    if (!track || !dotsContainer) return;
+
+    // Gather original testimonial cards (2 per column, skip duplicates from infinite scroll)
+    const section = document.getElementById('testimonials-section');
+    const allCards = [];
+    section.querySelectorAll('.testimonial-col-inner').forEach(inner => {
+      const children = inner.querySelectorAll(':scope > .bg-white.rounded-3xl');
+      // Each column has 2 originals + 2 clones — take only first 2
+      for (let i = 0; i < Math.min(2, children.length); i++) allCards.push(children[i]);
+    });
+    const cards = allCards;
+    if (!cards.length) return;
+
+    let currentSlide = 0;
+    let autoplayTimer = null;
+    const slideCount = cards.length;
+
+    // Build slides — one card per slide
+    cards.forEach(card => {
+      const slide = document.createElement('div');
+      slide.className = 'testimonial-slide';
+      slide.appendChild(card.cloneNode(true));
+      track.appendChild(slide);
+    });
+
+    // Build dots
+    for (let i = 0; i < slideCount; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'testimonial-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Testimonial ' + (i + 1));
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    }
+    const dots = dotsContainer.querySelectorAll('.testimonial-dot');
+
+    function goTo(idx) {
+      currentSlide = idx;
+      track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+
+    function next() { goTo((currentSlide + 1) % slideCount); }
+
+    function startAutoplay() { stopAutoplay(); autoplayTimer = setInterval(next, 5000); }
+    function stopAutoplay() { if (autoplayTimer) { clearInterval(autoplayTimer); autoplayTimer = null; } }
+
+    // Touch swipe
+    let touchStartX = 0;
+    track.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; stopAutoplay(); }, { passive: true });
+    track.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) goTo(Math.min(currentSlide + 1, slideCount - 1));
+        else goTo(Math.max(currentSlide - 1, 0));
+      }
+      startAutoplay();
+    }, { passive: true });
+
+    startAutoplay();
+  })();
+
+  // AI Cards mobile carousel — clone cards from desktop grid into slides of 2
+  (function() {
+    const track = document.getElementById('ai-cards-track');
+    const dotsContainer = document.getElementById('ai-cards-dots');
+    if (!track || !dotsContainer) return;
+
+    const desktopGrid = track.closest('section').querySelector('.hidden.md\\:grid');
+    if (!desktopGrid) return;
+
+    const cards = desktopGrid.querySelectorAll(':scope > div');
+    const CARDS_PER_SLIDE = 2;
+    const slideCount = Math.ceil(cards.length / CARDS_PER_SLIDE);
+    let currentSlide = 0;
+    let autoplayTimer = null;
+
+    // Build slides
+    for (let s = 0; s < slideCount; s++) {
+      const slide = document.createElement('div');
+      slide.className = 'ai-carousel-slide';
+      for (let c = s * CARDS_PER_SLIDE; c < Math.min((s + 1) * CARDS_PER_SLIDE, cards.length); c++) {
+        slide.appendChild(cards[c].cloneNode(true));
+      }
+      track.appendChild(slide);
+    }
+
+    // Build dots
+    for (let i = 0; i < slideCount; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'ai-carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    }
+    const dots = dotsContainer.querySelectorAll('.ai-carousel-dot');
+
+    function goTo(idx) {
+      currentSlide = idx;
+      track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+
+    function next() { goTo((currentSlide + 1) % slideCount); }
+
+    function startAutoplay() {
+      stopAutoplay();
+      autoplayTimer = setInterval(next, 4000);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer) { clearInterval(autoplayTimer); autoplayTimer = null; }
+    }
+
+    // Touch swipe support
+    let touchStartX = 0;
+    track.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; stopAutoplay(); }, { passive: true });
+    track.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) goTo(Math.min(currentSlide + 1, slideCount - 1));
+        else goTo(Math.max(currentSlide - 1, 0));
+      }
+      startAutoplay();
+    }, { passive: true });
+
+    startAutoplay();
   })();
 </script>
 
