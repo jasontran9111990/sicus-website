@@ -1,0 +1,2334 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SICUS — AI-Powered Salon Software</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { green: '#8CB82B', 'green-dark': '#6A9A10', 'green-light': '#B8E060', red: '#E31E24', 'red-dark': '#B8161B' },
+            surface: { 50: '#FAFAFA', 100: '#F5F5F5', 200: '#EEEEEE', 300: '#E0E0E0' },
+          },
+          fontFamily: { display: ['Playfair Display', 'serif'], body: ['Be Vietnam Pro', 'sans-serif'] },
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Be Vietnam Pro', sans-serif; }
+    h1, h2, .font-display { font-family: 'Playfair Display', serif; }
+    html { scroll-behavior: smooth; }
+
+    .btn-spring { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease; }
+    .btn-spring:hover { transform: translateY(-2px); }
+    .btn-spring:active { transform: translateY(0) scale(0.98); }
+
+    .card-hover { transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+
+    .gradient-blob-1 {
+      background: radial-gradient(ellipse at 30% 0%, rgba(140,184,43,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 100%, rgba(227,30,36,0.05) 0%, transparent 60%);
+    }
+    .gradient-blob-2 {
+      background: radial-gradient(ellipse at 80% 20%, rgba(140,184,43,0.06) 0%, transparent 50%),
+                  radial-gradient(ellipse at 20% 80%, rgba(227,30,36,0.04) 0%, transparent 50%);
+    }
+
+    .tab-btn { transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease; }
+    .tab-btn.active { background: #1a1a1a; color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+
+    .feature-tab-btn { transition: background 0.2s ease, color 0.2s ease; }
+    .feature-tab-btn.active { background: #F5F5F5; border-color: #E0E0E0; }
+
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .faq-item.open .faq-answer { max-height: 200px; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-chevron { transition: transform 0.3s ease; }
+
+    /* Language toggle */
+    .lang-en, .lang-vi { display: none; }
+    html[lang="en"] .lang-en { display: initial; }
+    html[lang="vi"] .lang-vi { display: initial; }
+    html[lang="en"] .lang-block-en { display: block !important; }
+    html[lang="vi"] .lang-block-vi { display: block !important; }
+    html[lang="en"] .lang-block-vi { display: none !important; }
+    html[lang="vi"] .lang-block-en { display: none !important; }
+    html[lang="en"] .lang-flex-en { display: flex !important; }
+    html[lang="vi"] .lang-flex-vi { display: flex !important; }
+    html[lang="en"] .lang-flex-vi { display: none !important; }
+    html[lang="vi"] .lang-flex-en { display: none !important; }
+    html[lang="en"] .lang-grid-en { display: grid !important; }
+    html[lang="vi"] .lang-grid-vi { display: grid !important; }
+    html[lang="en"] .lang-grid-vi { display: none !important; }
+    html[lang="vi"] .lang-grid-en { display: none !important; }
+    html[lang="en"] .lang-inline-en { display: inline !important; }
+    html[lang="vi"] .lang-inline-vi { display: inline !important; }
+    html[lang="en"] .lang-inline-vi { display: none !important; }
+    html[lang="vi"] .lang-inline-en { display: none !important; }
+
+    .mockup-shadow { box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 4px 16px rgba(0,0,0,0.05); }
+
+    /* Audio example playing state */
+    .audio-example-btn.is-playing {
+      border-color: rgba(140,184,43,0.3);
+      background: rgba(140,184,43,0.04);
+    }
+
+    /* Testimonial auto-scroll columns */
+    @keyframes scrollUp {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+    .testimonial-col-inner {
+      animation: scrollUp var(--duration, 16s) linear infinite;
+    }
+    .testimonial-col:hover .testimonial-col-inner {
+      animation-play-state: paused;
+    }
+
+
+
+    /* Sticky scroll features */
+    .feature-panel {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s cubic-bezier(0.25,0.4,0.25,1), transform 0.5s cubic-bezier(0.25,0.4,0.25,1);
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .feature-panel.is-active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+  </style>
+</head>
+<body class="bg-white text-gray-900 overflow-x-hidden">
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2">
+      <img src="brand_assets/topbar.png" alt="SICUS MEDIA" class="h-8">
+    </a>
+    <div class="flex items-center gap-3">
+      <!-- Language Toggle -->
+      <button onclick="toggleLang()" class="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-brand-green" title="Toggle language">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg>
+        <span id="langLabel">EN</span>
+      </button>
+      <a href="#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold text-sm px-5 py-2 rounded-full shadow-[0_2px_12px_rgba(140,184,43,0.25)] hover:shadow-[0_4px_20px_rgba(140,184,43,0.4)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green-dark">
+        <span class="lang-inline-en">Schedule a Demo</span><span class="lang-inline-vi">Đặt lịch Demo</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section id="hero-grid" class="relative min-h-screen flex flex-col justify-center items-center text-center pt-16 pb-40 overflow-hidden bg-white">
+  <!-- Gradient background -->
+  <div class="absolute inset-0 z-0" style="background: radial-gradient(125% 125% at 50% 10%, #fff 40%, #8CB82B 100%);"></div>
+
+  <!-- Sparkles particle layer -->
+  <div id="hero-sparkles" class="absolute inset-0 z-[4] pointer-events-none"></div>
+
+  <!-- Glow blobs -->
+  <div class="absolute inset-0 pointer-events-none z-[3]">
+    <div class="absolute right-[-20%] top-[-20%] w-[40%] h-[40%] rounded-full blur-[120px]" style="background: rgba(140,184,43,0.15);"></div>
+    <div class="absolute left-[-10%] bottom-[-20%] w-[40%] h-[40%] rounded-full blur-[120px]" style="background: rgba(59,130,246,0.08);"></div>
+  </div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6">
+      <!-- Heading -->
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-[52px] leading-[1.1] tracking-[-0.01em] text-gray-900 mb-3">
+        <span class="lang-inline-en">The all-in-one AI platform</span><span class="lang-inline-vi">Nền tảng AI tất cả trong một</span><br>
+        <span class="lang-inline-en">for salon owners</span><span class="lang-inline-vi">cho chủ tiệm nail & salon</span>
+      </h1>
+      <p class="text-xl sm:text-2xl font-body font-semibold text-gray-400 uppercase tracking-widest mb-6">
+        <span class="lang-inline-en">THAT <span class="text-brand-green">THINKS AHEAD</span></span>
+        <span class="lang-inline-vi"><span class="text-brand-green">NGHĨ TRƯỚC</span> CHO BẠN</span>
+      </p>
+
+      <!-- Subtitle -->
+      <p class="text-base text-gray-500 max-w-2xl mx-auto leading-relaxed mb-2">
+        <span class="lang-inline-en font-semibold text-gray-700">Most booking apps help you manage. Sicus Booking helps you grow.</span>
+        <span class="lang-inline-vi font-semibold text-gray-700">Hầu hết ứng dụng đặt lịch giúp bạn quản lý. Sicus Booking giúp bạn phát triển.</span>
+      </p>
+      <p class="text-base text-gray-500 max-w-2xl mx-auto leading-relaxed mb-8">
+        <span class="lang-inline-en">AI that flags at-risk clients before they leave, answers your phone while you work, and tells you exactly what to do next — not just what happened.</span>
+        <span class="lang-inline-vi">AI phát hiện khách hàng có nguy cơ rời đi, trả lời điện thoại khi bạn đang làm việc, và cho bạn biết chính xác bước tiếp theo — không chỉ những gì đã xảy ra.</span>
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex items-center justify-center gap-4 mb-14">
+        <a href="#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold text-base px-7 py-3.5 rounded-full shadow-[0_4px_20px_rgba(140,184,43,0.3)] hover:shadow-[0_6px_30px_rgba(140,184,43,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green-dark">
+          <span class="lang-inline-en">Schedule a Demo</span><span class="lang-inline-vi">Đặt lịch Demo</span>
+        </a>
+        <a href="javascript:void(0)" onclick="scrollToFeature(0)" class="btn-spring inline-flex items-center gap-2 border border-gray-300 hover:border-gray-400 text-gray-700 font-medium text-base px-7 py-3.5 rounded-full hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green">
+          <span class="lang-inline-en">Explore Features</span><span class="lang-inline-vi">Khám phá tính năng</span>
+        </a>
+      </div>
+
+      <!-- Trust badges -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-10 flex-wrap">
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-11 h-11 rounded-xl bg-brand-green/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+          </div>
+          <h4 class="text-sm font-semibold text-gray-900 lang-inline-en">Start Free</h4><h4 class="text-sm font-semibold text-gray-900 lang-inline-vi">Bắt đầu miễn phí</h4>
+          <p class="text-xs text-gray-500 max-w-[180px] text-center lang-inline-en">Pay only when you grow. No credit card required.</p>
+          <p class="text-xs text-gray-500 max-w-[180px] text-center lang-inline-vi">Chỉ trả khi phát triển. Không cần thẻ tín dụng.</p>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center">
+            <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h4 class="text-sm font-semibold text-gray-900 lang-inline-en">Every Feature</h4><h4 class="text-sm font-semibold text-gray-900 lang-inline-vi">Mọi tính năng</h4>
+          <p class="text-xs text-gray-500 max-w-[180px] text-center lang-inline-en">Nothing locked behind upgrades. You get it all.</p>
+          <p class="text-xs text-gray-500 max-w-[180px] text-center lang-inline-vi">Không khóa sau gói nâng cấp. Bạn có tất cả.</p>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center">
+            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.049.58.025 1.193-.14 1.743"/></svg>
+          </div>
+          <h4 class="text-sm font-semibold text-gray-900 lang-inline-en">Built on Request</h4><h4 class="text-sm font-semibold text-gray-900 lang-inline-vi">Xây theo yêu cầu</h4>
+          <p class="text-xs text-gray-500 max-w-[180px] text-center lang-inline-en">Request a feature and we'll build it — guaranteed.</p>
+          <p class="text-xs text-gray-500 max-w-[180px] text-center lang-inline-vi">Yêu cầu tính năng và chúng tôi sẽ xây — cam kết.</p>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- ==================== DASHBOARD MOCKUP ==================== -->
+<section class="relative pb-16 -mt-32 pt-0 gradient-blob-1" style="z-index: 5;">
+  <div class="max-w-6xl mx-auto px-6">
+    <!-- Dashboard UI mockup — matches actual product -->
+    <div class="mockup-shadow rounded-2xl border border-gray-200 bg-white overflow-hidden">
+      <!-- Browser chrome -->
+      <div class="flex items-center gap-3 px-5 py-3 border-b border-gray-100 bg-gray-50/50">
+        <div class="flex gap-1.5">
+          <div class="w-3 h-3 rounded-full bg-red-400"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+          <div class="w-3 h-3 rounded-full bg-green-400"></div>
+        </div>
+        <div class="flex-1 flex justify-center">
+          <div class="bg-white border border-gray-200 rounded-lg px-4 py-1 text-xs text-gray-400 w-72 text-center">app.sicusmedia.com</div>
+        </div>
+      </div>
+      <!-- App content -->
+      <div class="flex">
+        <!-- Sidebar -->
+        <div class="w-48 border-r border-gray-100 bg-white p-4 hidden sm:flex flex-col" style="min-height:480px">
+          <div class="mb-1">
+            <img src="brand_assets/topbar.png" alt="SICUS" class="h-5">
+            <p class="text-[8px] text-brand-red font-semibold tracking-wider mt-0.5">AI-POWERED SALON MANAGEMENT</p>
+          </div>
+          <!-- Ask AI -->
+          <button class="flex items-center gap-2 mt-4 mb-2 px-3 py-2 rounded-lg bg-brand-green/8 text-brand-green text-xs font-medium w-full">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"/></svg>
+            Ask Sicus Booking AI...
+          </button>
+          <!-- Check In button -->
+          <button class="flex items-center justify-center gap-2 mb-4 px-3 py-2.5 rounded-lg bg-gradient-to-r from-brand-red to-orange-500 text-white text-xs font-semibold w-full shadow-[0_2px_8px_rgba(227,30,36,0.3)]">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Check In
+          </button>
+          <!-- Nav items -->
+          <div class="space-y-0.5 flex-1">
+            <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-orange-50 text-orange-600 text-xs font-medium">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+              Dashboard
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-500 text-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              Calendar
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-500 text-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+              Services
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-500 text-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              Clients
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-500 text-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+              Team
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-500 text-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+              Marketing
+              <svg class="w-3 h-3 ml-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-500 text-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+              Reports
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-500 text-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+              Google Reviews
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-500 text-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              Automations
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-500 text-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              AI Receptionist
+            </div>
+            <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-500 text-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Rewards
+            </div>
+          </div>
+          <!-- User at bottom -->
+          <div class="flex items-center gap-2 mt-4 pt-3 border-t border-gray-100">
+            <div class="w-7 h-7 rounded-full bg-orange-100 flex items-center justify-center text-[10px] font-bold text-orange-600">JT</div>
+            <div>
+              <p class="text-[10px] font-semibold text-gray-800">Jason Tran</p>
+              <p class="text-[8px] text-gray-400 uppercase tracking-wider">OWNER</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main dashboard content -->
+        <div class="flex-1 p-5 bg-gray-50/30">
+          <!-- Top bar with icons -->
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <h3 class="text-base font-bold text-gray-900">Dashboard</h3>
+              <p class="text-[11px] text-gray-400">Welcome back! Here's what's happening at <span class="font-semibold text-gray-600">Luxe Nails Spa</span> today.</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="flex items-center gap-1.5 bg-orange-50 border border-orange-200 rounded-lg px-2.5 py-1">
+                <svg class="w-3.5 h-3.5 text-orange-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+                <span class="text-[10px] font-bold text-orange-600">284</span>
+              </div>
+              <div class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">
+                <svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">
+                <svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sicus Booking AI card -->
+          <div class="bg-white rounded-xl border border-gray-200 p-4 mb-4">
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-7 h-7 rounded-lg bg-brand-green/15 flex items-center justify-center">
+                <svg class="w-4 h-4 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-gray-900">Sicus Booking AI</p>
+                <p class="text-[9px] text-gray-400">Your AI-powered salon manager</p>
+              </div>
+            </div>
+            <!-- AI Alert cards -->
+            <div class="grid grid-cols-2 gap-3 mb-3">
+              <div class="bg-orange-50 border border-orange-200 rounded-lg p-3">
+                <div class="flex items-center gap-1.5 mb-1">
+                  <span class="text-orange-500 text-xs">⚠</span>
+                  <p class="text-[10px] font-semibold text-orange-700">14 no-shows this week</p>
+                </div>
+                <p class="text-[9px] text-orange-600/70">Consider sending appointment reminders or adjusting your cancellation policy.</p>
+                <button class="mt-2 text-[9px] font-semibold text-white bg-orange-500 px-2.5 py-1 rounded">Analyze no-shows</button>
+              </div>
+              <div class="bg-red-50 border border-red-200 rounded-lg p-3">
+                <div class="flex items-center gap-1.5 mb-1">
+                  <span class="text-red-500 text-xs">🎂</span>
+                  <p class="text-[10px] font-semibold text-red-700">2 client birthdays coming up</p>
+                </div>
+                <p class="text-[9px] text-red-600/70">Make them feel special with a birthday offer.</p>
+                <button class="mt-2 text-[9px] font-semibold text-white bg-red-500 px-2.5 py-1 rounded">Learn more</button>
+              </div>
+            </div>
+            <!-- Try asking -->
+            <p class="text-[9px] font-semibold text-brand-green uppercase tracking-wider mb-2">TRY ASKING</p>
+            <div class="flex gap-3 mb-3">
+              <span class="text-[9px] text-gray-500">🎯 Help me run ads to grow my client base</span>
+              <span class="text-[9px] text-gray-500">📱 Create a promo to fill slow periods this week</span>
+              <span class="text-[9px] text-gray-500 hidden lg:inline">📈 How can I increase my average ticket size?</span>
+            </div>
+            <!-- Ask input -->
+            <div class="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2">
+              <input type="text" placeholder="Ask a question..." class="flex-1 bg-transparent text-[10px] text-gray-400 outline-none" disabled>
+              <div class="w-6 h-6 rounded-full bg-brand-green flex items-center justify-center">
+                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stat cards row -->
+          <div class="grid grid-cols-4 gap-3 mb-4">
+            <div class="bg-white rounded-xl border border-gray-200 p-3">
+              <p class="text-[10px] text-gray-500 mb-0.5">Today's Bookings</p>
+              <p class="text-xl font-bold text-gray-900">18</p>
+              <p class="text-[9px] text-gray-400">6 upcoming · 12 done</p>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-200 p-3">
+              <p class="text-[10px] text-gray-500 mb-0.5">Revenue</p>
+              <p class="text-xl font-bold text-gray-900">$1,245</p>
+              <p class="text-[9px] text-gray-400">expected today</p>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-200 p-3">
+              <p class="text-[10px] text-gray-500 mb-0.5">Online This Week</p>
+              <p class="text-xl font-bold text-brand-green">47</p>
+              <p class="text-[9px] text-gray-400">vs 12 walk-ins</p>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-200 p-3">
+              <p class="text-[10px] text-gray-500 mb-0.5">Messages Sent</p>
+              <p class="text-xl font-bold text-gray-900">36</p>
+              <p class="text-[9px] text-gray-400">today</p>
+            </div>
+          </div>
+
+          <!-- No-shows warning -->
+          <p class="text-[10px] text-brand-red font-medium mb-3">2 no-show(s) today</p>
+
+          <!-- Weekly Revenue chart + schedule -->
+          <div class="grid grid-cols-5 gap-3">
+            <div class="col-span-3">
+              <div class="bg-white rounded-xl border border-gray-200 p-4 mb-3">
+                <div class="flex items-center justify-between mb-1">
+                  <div>
+                    <p class="text-xs font-semibold text-gray-900">Weekly Revenue</p>
+                    <p class="text-[9px] text-gray-400">Total this week: $6,842.00</p>
+                  </div>
+                  <a href="#" class="text-[9px] text-brand-green font-medium">View Reports →</a>
+                </div>
+                <!-- Y-axis labels + bars -->
+                <div class="flex mt-3">
+                  <div class="flex flex-col justify-between h-20 pr-2 text-right">
+                    <span class="text-[7px] text-gray-400">$2K</span>
+                    <span class="text-[7px] text-gray-400">$1.5K</span>
+                    <span class="text-[7px] text-gray-400">$1K</span>
+                    <span class="text-[7px] text-gray-400">$500</span>
+                    <span class="text-[7px] text-gray-400">$0</span>
+                  </div>
+                  <div class="flex-1 flex items-end gap-2 h-20 border-b border-gray-100 pb-1 relative">
+                    <!-- Grid lines -->
+                    <div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+                      <div class="border-t border-dashed border-gray-100"></div>
+                      <div class="border-t border-dashed border-gray-100"></div>
+                      <div class="border-t border-dashed border-gray-100"></div>
+                      <div class="border-t border-dashed border-gray-100"></div>
+                      <div></div>
+                    </div>
+                    <div class="flex-1 bg-gradient-to-t from-brand-green/40 to-brand-green/20 rounded-t relative z-10" style="height:55%">
+                      <div class="absolute -top-4 left-1/2 -translate-x-1/2 text-[7px] text-gray-500 font-medium whitespace-nowrap">$820</div>
+                    </div>
+                    <div class="flex-1 bg-gradient-to-t from-brand-green/40 to-brand-green/20 rounded-t relative z-10" style="height:72%">
+                      <div class="absolute -top-4 left-1/2 -translate-x-1/2 text-[7px] text-gray-500 font-medium whitespace-nowrap">$1,080</div>
+                    </div>
+                    <div class="flex-1 bg-gradient-to-t from-brand-green/40 to-brand-green/20 rounded-t relative z-10" style="height:48%">
+                      <div class="absolute -top-4 left-1/2 -translate-x-1/2 text-[7px] text-gray-500 font-medium whitespace-nowrap">$720</div>
+                    </div>
+                    <div class="flex-1 bg-gradient-to-t from-brand-green/40 to-brand-green/20 rounded-t relative z-10" style="height:63%">
+                      <div class="absolute -top-4 left-1/2 -translate-x-1/2 text-[7px] text-gray-500 font-medium whitespace-nowrap">$945</div>
+                    </div>
+                    <div class="flex-1 bg-gradient-to-t from-brand-green/50 to-brand-green/30 rounded-t relative z-10" style="height:88%">
+                      <div class="absolute -top-4 left-1/2 -translate-x-1/2 text-[7px] text-gray-500 font-medium whitespace-nowrap">$1,320</div>
+                    </div>
+                    <div class="flex-1 bg-gradient-to-t from-brand-green/60 to-brand-green/35 rounded-t relative z-10" style="height:97%">
+                      <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[7px] px-1.5 py-0.5 rounded font-medium whitespace-nowrap">$1,957</div>
+                    </div>
+                    <div class="flex-1 bg-gradient-to-t from-brand-green/30 to-brand-green/15 rounded-t relative z-10 border border-dashed border-brand-green/30" style="height:25%">
+                      <div class="absolute -top-4 left-1/2 -translate-x-1/2 text-[7px] text-brand-green font-medium whitespace-nowrap italic">~$380</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex mt-1" style="padding-left:28px">
+                  <div class="flex-1 text-center"><span class="text-[8px] text-gray-400">Mon</span></div>
+                  <div class="flex-1 text-center"><span class="text-[8px] text-gray-400">Tue</span></div>
+                  <div class="flex-1 text-center"><span class="text-[8px] text-gray-400">Wed</span></div>
+                  <div class="flex-1 text-center"><span class="text-[8px] text-gray-400">Thu</span></div>
+                  <div class="flex-1 text-center"><span class="text-[8px] text-gray-400">Fri</span></div>
+                  <div class="flex-1 text-center"><span class="text-[8px] font-semibold text-gray-600">Sat</span></div>
+                  <div class="flex-1 text-center"><span class="text-[8px] text-gray-400 italic">Sun</span></div>
+                </div>
+              </div>
+              <!-- Today's Schedule -->
+              <div class="bg-white rounded-xl border border-gray-200 p-4">
+                <div class="flex items-center justify-between mb-3">
+                  <p class="text-xs font-semibold text-gray-900">Today's Schedule</p>
+                  <a href="#" class="text-[9px] text-brand-green font-medium">View Calendar →</a>
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between py-2 border-b border-gray-50">
+                    <div class="flex items-center gap-3">
+                      <div class="text-center"><p class="text-[10px] font-bold text-gray-900">9:00</p><p class="text-[8px] text-gray-400">AM</p></div>
+                      <div><p class="text-[10px] font-semibold text-gray-900">Peter</p><p class="text-[9px] text-gray-400">Acrylic Full Set · Jenny Le</p></div>
+                    </div>
+                    <div class="text-right"><p class="text-[10px] font-semibold text-gray-900">$44</p><p class="text-[8px] font-bold text-brand-red">NO SHOW</p></div>
+                  </div>
+                  <div class="flex items-center justify-between py-2">
+                    <div class="flex items-center gap-3">
+                      <div class="text-center"><p class="text-[10px] font-bold text-gray-900">10:00</p><p class="text-[8px] text-gray-400">AM</p></div>
+                      <div><p class="text-[10px] font-semibold text-gray-900">Peter</p><p class="text-[9px] text-gray-400">Lash Lift & Tint · Mai Tran</p></div>
+                    </div>
+                    <div class="text-right"><p class="text-[10px] font-semibold text-gray-900">$75</p><p class="text-[8px] font-bold text-brand-red">NO SHOW</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Notifications + Top Clients + Waitlist -->
+            <div class="col-span-2 space-y-3">
+              <!-- Notifications -->
+              <div class="bg-white rounded-xl border border-gray-200 p-4">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-red-500 text-xs">🔔</span>
+                    <p class="text-[10px] font-bold text-gray-900 uppercase tracking-wider">Notifications</p>
+                  </div>
+                  <a href="#" class="text-[9px] text-brand-green font-medium">View all →</a>
+                </div>
+                <div class="space-y-3">
+                  <div class="border-b border-gray-50 pb-2">
+                    <p class="text-[10px] font-semibold text-gray-900">New Booking</p>
+                    <p class="text-[9px] text-gray-400">Jacob booked Classic Manicure on Apr 5 at 9:15 AM</p>
+                  </div>
+                  <div class="border-b border-gray-50 pb-2">
+                    <p class="text-[10px] font-semibold text-gray-900">New Booking</p>
+                    <p class="text-[9px] text-gray-400">Test Test booked Acrylic Full Set on Apr 4 at 9:00 AM — Member: ...</p>
+                  </div>
+                  <div>
+                    <p class="text-[10px] font-semibold text-gray-900">New Booking</p>
+                    <p class="text-[9px] text-gray-400">Jason Test booked Lash Lift & Tint on Apr 4 at 10:00 AM — Membe...</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Waitlist -->
+              <div class="bg-white rounded-xl border border-gray-200 p-4">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-xs">⏳</span>
+                    <p class="text-[10px] font-bold text-gray-900 uppercase tracking-wider">Waitlist</p>
+                  </div>
+                  <a href="#" class="text-[9px] text-brand-green font-medium">View all →</a>
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between bg-orange-50/50 rounded-lg px-3 py-2.5 border border-orange-100">
+                    <div class="flex items-center gap-2">
+                      <div class="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-[8px] font-bold text-orange-600">MT</div>
+                      <div>
+                        <p class="text-[10px] font-semibold text-gray-900">Mai Tran</p>
+                        <p class="text-[8px] text-gray-400">Gel Full Set · Walk-in</p>
+                      </div>
+                    </div>
+                    <p class="text-[9px] text-orange-600 font-medium">~15 min</p>
+                  </div>
+                  <div class="flex items-center justify-between bg-orange-50/50 rounded-lg px-3 py-2.5 border border-orange-100">
+                    <div class="flex items-center gap-2">
+                      <div class="w-6 h-6 rounded-full bg-pink-100 flex items-center justify-center text-[8px] font-bold text-pink-600">KL</div>
+                      <div>
+                        <p class="text-[10px] font-semibold text-gray-900">Karen Lee</p>
+                        <p class="text-[8px] text-gray-400">Pedicure Deluxe · Walk-in</p>
+                      </div>
+                    </div>
+                    <p class="text-[9px] text-orange-600 font-medium">~30 min</p>
+                  </div>
+                  <div class="flex items-center justify-between bg-orange-50/50 rounded-lg px-3 py-2.5 border border-orange-100">
+                    <div class="flex items-center gap-2">
+                      <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-[8px] font-bold text-blue-600">DP</div>
+                      <div>
+                        <p class="text-[10px] font-semibold text-gray-900">David Pham</p>
+                        <p class="text-[8px] text-gray-400">Haircut & Style · Walk-in</p>
+                      </div>
+                    </div>
+                    <p class="text-[9px] text-orange-600 font-medium">~45 min</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Logo strip -->
+  <div class="max-w-5xl mx-auto px-6 mt-14 text-center">
+    <p class="text-sm text-gray-400 mb-6">
+      <span class="text-brand-green">●</span>
+      <span class="lang-inline-en"> Trusted by 2,500+ Vietnamese salon owners across America</span>
+      <span class="lang-inline-vi"> Được tin dùng bởi hơn 2,500 chủ tiệm nail Việt Nam tại Mỹ</span>
+    </p>
+    <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 opacity-40">
+      <span class="text-lg font-bold text-gray-400 tracking-tight">LuxeNails</span>
+      <span class="text-lg font-bold text-gray-400 tracking-tight">SaigonSpa</span>
+      <span class="text-lg font-bold text-gray-400 tracking-tight">VietBeauty</span>
+      <span class="text-lg font-bold text-gray-400 tracking-tight">PhoNails</span>
+      <span class="text-lg font-bold text-gray-400 tracking-tight">JadeStudio</span>
+      <span class="text-lg font-bold text-gray-400 tracking-tight">GoldenTouch</span>
+      <span class="text-lg font-bold text-gray-400 tracking-tight">MaiSpa</span>
+      <span class="text-lg font-bold text-gray-400 tracking-tight">StarNails</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CORE FEATURES (STICKY SCROLL) ==================== -->
+<!-- Tall scroll container: 4 panels x 100vh each -->
+<div id="core-features-scroll" style="height: 500vh; position: relative;">
+  <!-- Sticky viewport — stays pinned while user scrolls through the 400vh -->
+  <div style="position: sticky; top: 0; height: 100vh; overflow: hidden; background: #fff;">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col justify-center" style="height: 100%;">
+      <div class="pt-2">
+        <p class="text-center text-sm text-gray-400 mb-3">
+          <span class="lang-inline-en">→ 5 Core Features</span><span class="lang-inline-vi">→ 5 Tính năng chính</span>
+        </p>
+        <h2 class="font-display text-3xl sm:text-4xl text-gray-900 text-center mb-2">
+          <span class="lang-inline-en">Built with all the</span><span class="lang-inline-vi">Được xây dựng với tất cả</span>
+        </h2>
+        <h2 class="font-display text-3xl sm:text-4xl text-gray-900 text-center font-bold mb-8">
+          <span class="lang-inline-en">essentials you need</span><span class="lang-inline-vi">những gì bạn cần</span>
+        </h2>
+
+        <!-- Feature tabs (visual indicator only, also clickable) -->
+        <div class="flex flex-wrap gap-2 justify-center mb-8">
+          <button onclick="scrollToFeature(0)" class="feature-tab-btn active flex items-center gap-2 px-5 py-2.5 rounded-xl border border-transparent text-sm font-medium text-gray-700 focus-visible:outline-2 focus-visible:outline-brand-green">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            <span class="lang-inline-en">AI Assistant</span><span class="lang-inline-vi">Trợ lý AI</span>
+          </button>
+          <button onclick="scrollToFeature(1)" class="feature-tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl border border-transparent text-sm font-medium text-gray-700 focus-visible:outline-2 focus-visible:outline-brand-green">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            <span class="lang-inline-en">AI Receptionist</span><span class="lang-inline-vi">Lễ tân AI</span>
+          </button>
+          <button onclick="scrollToFeature(2)" class="feature-tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl border border-transparent text-sm font-medium text-gray-700 focus-visible:outline-2 focus-visible:outline-brand-green">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            <span class="lang-inline-en">Smart Insights</span><span class="lang-inline-vi">Báo cáo thông minh</span>
+          </button>
+          <button onclick="scrollToFeature(3)" class="feature-tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl border border-transparent text-sm font-medium text-gray-700 focus-visible:outline-2 focus-visible:outline-brand-green">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span class="lang-inline-en">Custom Workflows</span><span class="lang-inline-vi">Quy trình tùy chỉnh</span>
+          </button>
+          <button onclick="scrollToFeature(4)" class="feature-tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl border border-transparent text-sm font-medium text-gray-700 focus-visible:outline-2 focus-visible:outline-brand-green">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.049.58.025 1.193-.14 1.743"/></svg>
+            <span class="lang-inline-en">Built For You</span><span class="lang-inline-vi">Xây dựng cho bạn</span>
+          </button>
+        </div>
+
+        <!-- Scroll progress bar -->
+        <div class="max-w-md mx-auto mb-8">
+          <div class="h-1 bg-gray-100 rounded-full overflow-hidden">
+            <div id="feature-progress" class="h-full bg-brand-green rounded-full" style="width: 25%; transition: width 0.3s ease;"></div>
+          </div>
+        </div>
+
+        <!-- Panels container (stacked, only one visible at a time) -->
+        <div style="position: relative; min-height: 420px;">
+
+          <!-- Panel 0: AI Assistant -->
+          <div class="feature-panel is-active" id="feature-0">
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+              <div>
+                <p class="text-sm text-brand-green font-medium mb-2">01</p>
+                <h3 class="font-display text-2xl sm:text-3xl text-gray-900 mb-4 lang-block-en" style="display:none">AI assistant that<br>does the work for you</h3>
+                <h3 class="font-display text-2xl sm:text-3xl text-gray-900 mb-4 lang-block-vi" style="display:none">Trợ lý AI<br>làm việc thay bạn</h3>
+                <p class="text-sm text-gray-500 leading-relaxed mb-6 lang-block-en" style="display:none">Your AI assistant handles client communications, manages schedules, sends follow-ups, and suggests actions — all automatically. It learns your preferences and gets smarter over time.</p>
+                <p class="text-sm text-gray-500 leading-relaxed mb-6 lang-block-vi" style="display:none">Trợ lý AI xử lý giao tiếp khách hàng, quản lý lịch, gửi nhắc nhở, và gợi ý hành động — tất cả tự động. Nó học thói quen của bạn và ngày càng thông minh hơn.</p>
+                <div class="flex flex-wrap gap-3 mb-6">
+                  <span class="flex items-center gap-1.5 text-xs text-gray-600"><svg class="w-4 h-4 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="lang-inline-en">Auto-scheduling</span><span class="lang-inline-vi">Tự động lên lịch</span></span>
+                  <span class="flex items-center gap-1.5 text-xs text-gray-600"><svg class="w-4 h-4 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="lang-inline-en">Client follow-ups</span><span class="lang-inline-vi">Theo dõi khách hàng</span></span>
+                  <span class="flex items-center gap-1.5 text-xs text-gray-600"><svg class="w-4 h-4 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="lang-inline-en">AI-powered learning</span><span class="lang-inline-vi">Học từ dữ liệu</span></span>
+                </div>
+              </div>
+              <!-- Sicus Booking AI Chat Mockup -->
+              <div class="rounded-2xl border border-purple-100 overflow-hidden" style="background: linear-gradient(135deg, #f5f0ff 0%, #ede5ff 100%); box-shadow: 0 8px 32px rgba(139,92,246,0.10);">
+                <div class="bg-white/80 backdrop-blur rounded-xl m-3 p-4" style="box-shadow: 0 2px 12px rgba(0,0,0,0.04);">
+                  <!-- Chat header -->
+                  <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-2.5">
+                      <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #8B5CF6, #7C3AED);">
+                        <svg class="w-4.5 h-4.5 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+                      </div>
+                      <div>
+                        <p class="text-sm font-bold text-gray-900">Sicus Booking AI</p>
+                        <p class="text-[10px] text-gray-400">Your AI-powered salon manager</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-400">
+                      <span class="text-[10px] font-medium">New chat</span>
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5"/></svg>
+                    </div>
+                  </div>
+
+                  <!-- User message -->
+                  <div class="flex justify-end mb-3">
+                    <div class="rounded-2xl rounded-tr-md px-4 py-2.5 max-w-[85%]" style="background: linear-gradient(135deg, #8B5CF6, #A855F7);">
+                      <p class="text-xs text-white leading-relaxed">Help me to create a SMS and email promotion for 20% off all services this weekend</p>
+                    </div>
+                  </div>
+
+                  <!-- AI response -->
+                  <div class="flex justify-start mb-3">
+                    <div class="bg-gray-50 rounded-2xl rounded-tl-md px-4 py-3 max-w-[90%] border border-gray-100">
+                      <p class="text-xs text-gray-700 leading-relaxed mb-2">Your SMS and email promotion draft is ready:</p>
+                      <div class="space-y-1 text-xs text-gray-600 leading-relaxed">
+                        <p>- Campaign: 20% Off All Services This Weekend</p>
+                        <p>- Audience: All clients</p>
+                        <p>- Estimated cost: about 371 SMS credits</p>
+                        <p>- Note: you currently have 284 SMS credits, so you'll need to buy more before sending</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Action buttons -->
+                  <div class="flex justify-start mb-3">
+                    <div class="bg-gray-50 rounded-2xl rounded-tl-md px-4 py-2.5 border border-gray-100 flex items-center gap-2">
+                      <button class="inline-flex items-center gap-1 bg-brand-green text-white text-[10px] font-semibold px-3 py-1.5 rounded-lg">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        Confirm
+                      </button>
+                      <button class="text-[10px] font-medium text-gray-500 border border-gray-200 px-3 py-1.5 rounded-lg bg-white">Cancel</button>
+                    </div>
+                  </div>
+
+                  <!-- Success message -->
+                  <div class="flex justify-start mb-3">
+                    <div class="rounded-full px-3 py-1.5" style="background: rgba(140,184,43,0.08);">
+                      <p class="text-xs text-gray-700 font-medium">✅ Campaign draft created!</p>
+                    </div>
+                  </div>
+
+                  <!-- Input bar -->
+                  <div class="flex items-center gap-2 mt-2">
+                    <div class="flex-1 bg-gray-50 border border-gray-200 rounded-full px-4 py-2">
+                      <p class="text-[10px] text-gray-300">Ask a question...</p>
+                    </div>
+                    <div class="w-7 h-7 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, #D8B4FE, #C084FC);">
+                      <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/></svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 1: AI Receptionist -->
+          <div class="feature-panel" id="feature-1">
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+              <div>
+                <p class="text-sm text-brand-green font-medium mb-2">02</p>
+                <h3 class="font-display text-2xl sm:text-3xl text-gray-900 mb-4 lang-block-en" style="display:none">Grow your salon<br>without hiring</h3>
+                <h3 class="font-display text-2xl sm:text-3xl text-gray-900 mb-4 lang-block-vi" style="display:none">Phát triển tiệm<br>không cần tuyển thêm</h3>
+                <p class="text-sm text-gray-500 leading-relaxed mb-5 lang-block-en" style="display:none">The average salon misses 40% of incoming calls. Each one is a booking that walked away. Your AI Receptionist answers every call instantly — books the appointment, upsells your deals, and sends the confirmation. All while you're busy with clients.</p>
+                <p class="text-sm text-gray-500 leading-relaxed mb-5 lang-block-vi" style="display:none">Trung bình salon bỏ lỡ 40% cuộc gọi đến. Mỗi cuộc gọi là một lịch hẹn bị mất. Lễ tân AI trả lời mọi cuộc gọi ngay lập tức — đặt lịch, giới thiệu khuyến mãi, và gửi xác nhận. Tất cả trong khi bạn đang bận phục vụ khách.</p>
+                <div class="flex flex-wrap gap-3 mb-5">
+                  <span class="flex items-center gap-1.5 text-xs text-gray-600"><svg class="w-4 h-4 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="lang-inline-en">Zero missed calls → More bookings</span><span class="lang-inline-vi">Không bỏ lỡ cuộc gọi → Nhiều lịch hẹn hơn</span></span>
+                  <span class="flex items-center gap-1.5 text-xs text-gray-600"><svg class="w-4 h-4 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="lang-inline-en">Upsells happy hours & promotions automatically</span><span class="lang-inline-vi">Tự động giới thiệu khuyến mãi & happy hour</span></span>
+                  <span class="flex items-center gap-1.5 text-xs text-gray-600"><svg class="w-4 h-4 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="lang-inline-en">Clients rebook without you lifting a finger</span><span class="lang-inline-vi">Khách tự đặt lại mà bạn không cần làm gì</span></span>
+                </div>
+                <!-- Audio case studies -->
+                <div class="mt-2">
+                  <p class="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-3 lang-block-en" style="display:none">Listen to real examples</p>
+                  <p class="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-3 lang-block-vi" style="display:none">Nghe ví dụ thực tế</p>
+                  <div class="space-y-2" id="audio-examples">
+                    <button onclick="toggleAudioExample(this, 'audio/audio-1.mp3')" class="audio-example-btn group w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-100 bg-white hover:border-brand-green/30 hover:bg-brand-green/[0.03] transition-colors duration-200 text-left">
+                      <div class="w-7 h-7 rounded-full bg-brand-green/10 group-hover:bg-brand-green/20 flex items-center justify-center flex-shrink-0 transition-colors duration-200">
+                        <svg class="w-3 h-3 text-brand-green play-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+                        <svg class="w-3 h-3 text-brand-green pause-icon hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M5.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75A.75.75 0 007.25 3h-1.5zM12.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75a.75.75 0 00-.75-.75h-1.5z"/></svg>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <p class="text-xs font-medium text-gray-700 truncate lang-inline-en">New Client Books an Appointment</p>
+                        <p class="text-xs font-medium text-gray-700 truncate lang-inline-vi">Khách mới đặt lịch hẹn</p>
+                      </div>
+                      <span class="audio-time text-[10px] text-gray-300 flex-shrink-0"></span>
+                    </button>
+                    <button onclick="toggleAudioExample(this, 'audio/audio-2.mp3')" class="audio-example-btn group w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-100 bg-white hover:border-brand-green/30 hover:bg-brand-green/[0.03] transition-colors duration-200 text-left">
+                      <div class="w-7 h-7 rounded-full bg-brand-green/10 group-hover:bg-brand-green/20 flex items-center justify-center flex-shrink-0 transition-colors duration-200">
+                        <svg class="w-3 h-3 text-brand-green play-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+                        <svg class="w-3 h-3 text-brand-green pause-icon hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M5.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75A.75.75 0 007.25 3h-1.5zM12.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75a.75.75 0 00-.75-.75h-1.5z"/></svg>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <p class="text-xs font-medium text-gray-700 truncate lang-inline-en">Returning Client Recognized by Phone</p>
+                        <p class="text-xs font-medium text-gray-700 truncate lang-inline-vi">Nhận diện khách quen qua số điện thoại</p>
+                      </div>
+                      <span class="audio-time text-[10px] text-gray-300 flex-shrink-0"></span>
+                    </button>
+                    <button onclick="toggleAudioExample(this, 'audio/audio-3.mp3')" class="audio-example-btn group w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-100 bg-white hover:border-brand-green/30 hover:bg-brand-green/[0.03] transition-colors duration-200 text-left">
+                      <div class="w-7 h-7 rounded-full bg-brand-green/10 group-hover:bg-brand-green/20 flex items-center justify-center flex-shrink-0 transition-colors duration-200">
+                        <svg class="w-3 h-3 text-brand-green play-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+                        <svg class="w-3 h-3 text-brand-green pause-icon hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M5.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75A.75.75 0 007.25 3h-1.5zM12.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75a.75.75 0 00-.75-.75h-1.5z"/></svg>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <p class="text-xs font-medium text-gray-700 truncate lang-inline-en">After Hours Call</p>
+                        <p class="text-xs font-medium text-gray-700 truncate lang-inline-vi">Cuộc gọi ngoài giờ làm việc</p>
+                      </div>
+                      <span class="audio-time text-[10px] text-gray-300 flex-shrink-0"></span>
+                    </button>
+                    <button onclick="toggleAudioExample(this, 'audio/audio-4.mp3')" class="audio-example-btn group w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-100 bg-white hover:border-brand-green/30 hover:bg-brand-green/[0.03] transition-colors duration-200 text-left">
+                      <div class="w-7 h-7 rounded-full bg-brand-green/10 group-hover:bg-brand-green/20 flex items-center justify-center flex-shrink-0 transition-colors duration-200">
+                        <svg class="w-3 h-3 text-brand-green play-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+                        <svg class="w-3 h-3 text-brand-green pause-icon hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M5.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75A.75.75 0 007.25 3h-1.5zM12.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75a.75.75 0 00-.75-.75h-1.5z"/></svg>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <p class="text-xs font-medium text-gray-700 truncate lang-inline-en">Caller Asks About Deals</p>
+                        <p class="text-xs font-medium text-gray-700 truncate lang-inline-vi">Khách hỏi về khuyến mãi</p>
+                      </div>
+                      <span class="audio-time text-[10px] text-gray-300 flex-shrink-0"></span>
+                    </button>
+                    <button onclick="toggleAudioExample(this, 'audio/audio-5.mp3')" class="audio-example-btn group w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-100 bg-white hover:border-brand-green/30 hover:bg-brand-green/[0.03] transition-colors duration-200 text-left">
+                      <div class="w-7 h-7 rounded-full bg-brand-green/10 group-hover:bg-brand-green/20 flex items-center justify-center flex-shrink-0 transition-colors duration-200">
+                        <svg class="w-3 h-3 text-brand-green play-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+                        <svg class="w-3 h-3 text-brand-green pause-icon hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M5.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75A.75.75 0 007.25 3h-1.5zM12.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75a.75.75 0 00-.75-.75h-1.5z"/></svg>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <p class="text-xs font-medium text-gray-700 truncate lang-inline-en">Automatic Transfer to Human</p>
+                        <p class="text-xs font-medium text-gray-700 truncate lang-inline-vi">Tự động chuyển cho nhân viên</p>
+                      </div>
+                      <span class="audio-time text-[10px] text-gray-300 flex-shrink-0"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="rounded-2xl overflow-hidden border border-gray-200" style="box-shadow: 0 8px 32px rgba(0,0,0,0.08);">
+                <img src="brand_assets/ai-receptionist.png" alt="AI Receptionist booking conversation" class="w-full h-auto object-cover rounded-2xl">
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 2: Smart Insights -->
+          <div class="feature-panel" id="feature-2">
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+              <div>
+                <p class="text-sm text-brand-green font-medium mb-2">03</p>
+                <h3 class="font-display text-2xl sm:text-3xl text-gray-900 mb-4 lang-block-en" style="display:none">Smart insights that<br>surface what matters</h3>
+                <h3 class="font-display text-2xl sm:text-3xl text-gray-900 mb-4 lang-block-vi" style="display:none">Báo cáo thông minh<br>nổi bật điều quan trọng</h3>
+                <p class="text-sm text-gray-500 leading-relaxed mb-6 lang-block-en" style="display:none">AI continuously analyzes your salon data to surface issues, identify trends, and suggest concrete actions — so you always know what's happening and what to do next.</p>
+                <p class="text-sm text-gray-500 leading-relaxed mb-6 lang-block-vi" style="display:none">AI liên tục phân tích dữ liệu tiệm để phát hiện vấn đề, nhận diện xu hướng, và gợi ý hành động cụ thể — để bạn luôn biết chuyện gì đang xảy ra và làm gì tiếp.</p>
+                <div class="flex flex-wrap gap-3 mb-6">
+                  <span class="flex items-center gap-1.5 text-xs text-gray-600"><svg class="w-4 h-4 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="lang-inline-en">Revenue trends</span><span class="lang-inline-vi">Xu hướng doanh thu</span></span>
+                  <span class="flex items-center gap-1.5 text-xs text-gray-600"><svg class="w-4 h-4 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="lang-inline-en">Client retention</span><span class="lang-inline-vi">Giữ chân khách</span></span>
+                  <span class="flex items-center gap-1.5 text-xs text-gray-600"><svg class="w-4 h-4 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="lang-inline-en">Performance tracking</span><span class="lang-inline-vi">Theo dõi hiệu suất</span></span>
+                </div>
+              </div>
+              <!-- AI Insights Cards (matching platform UI) -->
+              <div class="space-y-3 max-h-[420px] overflow-y-auto pr-1" style="scrollbar-width: thin; scrollbar-color: #e5e7eb transparent;">
+
+                <!-- AI Staff Insights -->
+                <div class="bg-white rounded-xl border border-gray-100 p-4" style="box-shadow: 0 1px 4px rgba(0,0,0,0.04);">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-2.5">
+                      <div class="w-8 h-8 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #A78BFA, #8B5CF6);">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+                      </div>
+                      <div>
+                        <p class="text-xs font-bold text-gray-900">AI Staff Insights</p>
+                        <p class="text-[10px] text-gray-400">5d ago</p>
+                      </div>
+                    </div>
+                    <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+                  </div>
+                  <div class="flex items-center gap-3 text-[10px] text-gray-500 mb-2">
+                    <span>6 staff</span><span>43 appts (60d)</span><span>Busiest: Monday</span>
+                  </div>
+                  <div class="space-y-1.5">
+                    <div class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 flex-shrink-0"></span><p class="text-[11px] text-gray-600 leading-relaxed">Friday and Saturday show very low appointment demand but have full staff coverage, leading to significant overstaffing.</p></div>
+                    <div class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></span><p class="text-[11px] text-gray-600 leading-relaxed">Reduce hours for all staff on Friday and Saturday to 09:00-15:00 to better match low demand.</p></div>
+                  </div>
+                  <p class="text-[10px] text-gray-400 italic mt-2 leading-relaxed">Staff coverage should concentrate on Monday to Wednesday with full shifts; reduce staff and hours Friday to Sunday to match low demand.</p>
+                </div>
+
+                <!-- AI Client Insights -->
+                <div class="bg-white rounded-xl border border-gray-100 p-4" style="box-shadow: 0 1px 4px rgba(0,0,0,0.04);">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-2.5">
+                      <div class="w-8 h-8 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #A78BFA, #8B5CF6);">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+                      </div>
+                      <div>
+                        <p class="text-xs font-bold text-gray-900">AI Client Insights</p>
+                        <p class="text-[10px] text-gray-400">2d ago</p>
+                      </div>
+                    </div>
+                    <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+                  </div>
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="text-[10px] font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">Healthy</span>
+                    <span class="text-[10px] text-gray-500">45 clients · 86% retention</span>
+                  </div>
+                  <div class="space-y-1.5">
+                    <div class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 flex-shrink-0"></span><p class="text-[11px] text-gray-600 leading-relaxed">Over 53% of clients (24 out of 45) are new, indicating strong growth but a need to focus on converting them into loyal clients.</p></div>
+                    <div class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></span><p class="text-[11px] text-gray-600 leading-relaxed">Launch a targeted loyalty program to convert new clients (24) into repeat customers by offering discounts after their second visit.</p></div>
+                  </div>
+                </div>
+
+                <!-- AI Revenue & No-Show Insights -->
+                <div class="bg-white rounded-xl border border-gray-100 p-4" style="box-shadow: 0 1px 4px rgba(0,0,0,0.04);">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-2.5">
+                      <div class="w-8 h-8 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #A78BFA, #8B5CF6);">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+                      </div>
+                      <div>
+                        <p class="text-xs font-bold text-gray-900">AI Revenue & No-Show Insights</p>
+                        <p class="text-[10px] text-gray-400">3d ago</p>
+                      </div>
+                    </div>
+                    <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+                  </div>
+                  <div class="flex items-center gap-3 text-[10px] text-gray-500 mb-2">
+                    <span>$1,275</span><span class="text-emerald-500 font-medium">+136%</span><span>109 bookings</span><span>69% no-show</span>
+                  </div>
+                  <div class="space-y-1.5">
+                    <div class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 flex-shrink-0"></span><p class="text-[11px] text-gray-600 leading-relaxed">Revenue increased by 136% to CAD 1275 with 45 more bookings, driven by a rise in completed services from 9 to 32.</p></div>
+                    <div class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></span><p class="text-[11px] text-gray-600 leading-relaxed">Focus marketing on increasing completed bookings from the 75 no-shows to boost revenue.</p></div>
+                  </div>
+                </div>
+
+                <!-- Competitor Analysis -->
+                <div class="bg-white rounded-xl border border-gray-100 p-4" style="box-shadow: 0 1px 4px rgba(0,0,0,0.04);">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-2.5">
+                      <div class="w-8 h-8 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #F9A8D4, #E879A0);">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+                      </div>
+                      <div>
+                        <p class="text-xs font-bold text-gray-900">Competitor Analysis</p>
+                        <p class="text-[10px] text-gray-400">2d ago</p>
+                      </div>
+                    </div>
+                    <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+                  </div>
+                  <div class="flex flex-wrap gap-1.5 mb-2">
+                    <span class="text-[10px] font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100">2 cheaper</span>
+                    <span class="text-[10px] font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">2 competitive</span>
+                    <span class="text-[10px] font-medium text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-100">1 pricier</span>
+                    <span class="text-[10px] font-medium text-red-500 bg-red-50 px-2 py-0.5 rounded-full border border-red-100">3 gaps</span>
+                  </div>
+                  <div class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></span><p class="text-[11px] text-gray-600 leading-relaxed">Set a competitive price for Dip Powder Manicure to capture demand for this popular service.</p></div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 3: Custom Workflows -->
+          <div class="feature-panel" id="feature-3">
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+              <div>
+                <p class="text-sm text-brand-green font-medium mb-2">04</p>
+                <h3 class="font-display text-2xl sm:text-3xl text-gray-900 mb-4 lang-block-en" style="display:none">Turn first-time visitors<br>into lifelong clients</h3>
+                <h3 class="font-display text-2xl sm:text-3xl text-gray-900 mb-4 lang-block-vi" style="display:none">Biến khách lần đầu<br>thành khách trọn đời</h3>
+                <p class="text-sm text-gray-500 leading-relaxed mb-5 lang-block-en" style="display:none">Build automated workflows that nurture every client — from their first booking to VIP status. Welcome new clients with a special offer, reward repeat visits with loyalty points, win back inactive clients with re-engagement campaigns, and upsell premium services to your top spenders. All on autopilot.</p>
+                <p class="text-sm text-gray-500 leading-relaxed mb-5 lang-block-vi" style="display:none">Xây dựng quy trình tự động chăm sóc mọi khách hàng — từ lần đặt lịch đầu tiên đến hạng VIP. Chào đón khách mới bằng ưu đãi đặc biệt, thưởng điểm cho khách quay lại, kéo lại khách không hoạt động, và bán thêm dịch vụ cao cấp. Tất cả trên chế độ tự động.</p>
+                <div class="space-y-2 mb-5">
+                  <div class="flex items-start gap-2">
+                    <svg class="w-4 h-4 text-brand-green flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    <div>
+                      <p class="text-xs font-semibold text-gray-700 lang-inline-en">New Client → Loyal Client</p>
+                      <p class="text-xs font-semibold text-gray-700 lang-inline-vi">Khách mới → Khách trung thành</p>
+                      <p class="text-[11px] text-gray-400 leading-relaxed lang-inline-en">Automatically send a welcome offer after their first visit, then a loyalty invite after their second.</p>
+                      <p class="text-[11px] text-gray-400 leading-relaxed lang-inline-vi">Tự động gửi ưu đãi chào mừng sau lần đầu, rồi lời mời tích điểm sau lần thứ hai.</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <svg class="w-4 h-4 text-brand-green flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    <div>
+                      <p class="text-xs font-semibold text-gray-700 lang-inline-en">Upsell & Cross-sell</p>
+                      <p class="text-xs font-semibold text-gray-700 lang-inline-vi">Bán thêm & Bán chéo</p>
+                      <p class="text-[11px] text-gray-400 leading-relaxed lang-inline-en">When a client books a manicure, suggest a pedicure add-on. When they earn enough points, remind them to redeem.</p>
+                      <p class="text-[11px] text-gray-400 leading-relaxed lang-inline-vi">Khi khách đặt manicure, gợi ý thêm pedicure. Khi đủ điểm, nhắc họ đổi thưởng.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Workflow visual mockup -->
+              <div class="space-y-3">
+                <!-- Workflow pipeline -->
+                <div class="bg-white rounded-xl border border-gray-100 p-5" style="box-shadow: 0 1px 4px rgba(0,0,0,0.04);">
+                  <p class="text-xs font-bold text-gray-900 mb-4">Client Journey Automation</p>
+                  <!-- Flow steps -->
+                  <div class="flex items-center gap-2 mb-4">
+                    <div class="flex-1 text-center rounded-lg py-2 px-1 border border-brand-green/20" style="background: rgba(140,184,43,0.06);">
+                      <p class="text-[10px] font-semibold text-brand-green">1st Visit</p>
+                      <p class="text-[9px] text-gray-400">Welcome offer</p>
+                    </div>
+                    <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                    <div class="flex-1 text-center rounded-lg py-2 px-1 border border-blue-100" style="background: rgba(59,130,246,0.06);">
+                      <p class="text-[10px] font-semibold text-blue-500">2nd Visit</p>
+                      <p class="text-[9px] text-gray-400">Loyalty invite</p>
+                    </div>
+                    <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                    <div class="flex-1 text-center rounded-lg py-2 px-1 border border-purple-100" style="background: rgba(139,92,246,0.06);">
+                      <p class="text-[10px] font-semibold text-purple-500">Regular</p>
+                      <p class="text-[9px] text-gray-400">Earn points</p>
+                    </div>
+                    <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                    <div class="flex-1 text-center rounded-lg py-2 px-1 border border-amber-100" style="background: rgba(245,158,11,0.06);">
+                      <p class="text-[10px] font-semibold text-amber-500">VIP</p>
+                      <p class="text-[9px] text-gray-400">Exclusive perks</p>
+                    </div>
+                  </div>
+                  <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
+                    <div class="flex items-center gap-2 mb-1">
+                      <div class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></div>
+                      <p class="text-[10px] font-semibold text-gray-700">Active Workflows</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 mt-2">
+                      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span><p class="text-[10px] text-gray-500">Welcome series</p></div>
+                      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span><p class="text-[10px] text-gray-500">Loyalty program</p></div>
+                      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span><p class="text-[10px] text-gray-500">Re-engagement</p></div>
+                      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span><p class="text-[10px] text-gray-500">Upsell triggers</p></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Recent automations log -->
+                <div class="bg-white rounded-xl border border-gray-100 p-4" style="box-shadow: 0 1px 4px rgba(0,0,0,0.04);">
+                  <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Recent Automations</p>
+                  <div class="space-y-2">
+                    <div class="flex items-center gap-2">
+                      <div class="w-5 h-5 rounded-full bg-brand-green/10 flex items-center justify-center flex-shrink-0"><svg class="w-2.5 h-2.5 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                      <p class="text-[11px] text-gray-600 flex-1">Welcome offer sent to <strong>Sarah M.</strong></p>
+                      <span class="text-[9px] text-gray-300">2m ago</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <div class="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0"><svg class="w-2.5 h-2.5 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                      <p class="text-[11px] text-gray-600 flex-1">Loyalty invite sent to <strong>Jenny T.</strong> (2nd visit)</p>
+                      <span class="text-[9px] text-gray-300">15m ago</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <div class="w-5 h-5 rounded-full bg-amber-50 flex items-center justify-center flex-shrink-0"><svg class="w-2.5 h-2.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                      <p class="text-[11px] text-gray-600 flex-1">Re-engagement SMS to <strong>Lisa N.</strong> (45d inactive)</p>
+                      <span class="text-[9px] text-gray-300">1h ago</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <div class="w-5 h-5 rounded-full bg-purple-50 flex items-center justify-center flex-shrink-0"><svg class="w-2.5 h-2.5 text-purple-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                      <p class="text-[11px] text-gray-600 flex-1">Pedicure upsell suggested to <strong>Kim P.</strong></p>
+                      <span class="text-[9px] text-gray-300">2h ago</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 4: Built For You -->
+          <div class="feature-panel" id="feature-4">
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+              <div>
+                <p class="text-sm text-brand-green font-medium mb-2">05</p>
+                <h3 class="font-display text-2xl sm:text-3xl text-gray-900 mb-4 lang-block-en" style="display:none">Built for your salon.<br>Not someone else's.</h3>
+                <h3 class="font-display text-2xl sm:text-3xl text-gray-900 mb-4 lang-block-vi" style="display:none">Xây dựng cho tiệm bạn.<br>Không phải tiệm khác.</h3>
+                <p class="text-sm text-gray-500 leading-relaxed mb-6 lang-block-en" style="display:none">One size doesn't fit all. Every salon has its own flow — from how you greet clients to how you handle no-shows. Tell us what you need, and we'll build it into your app. Custom booking rules, unique loyalty programs, specialized reports, branded client experiences — if you can dream it, we'll make it work.</p>
+                <p class="text-sm text-gray-500 leading-relaxed mb-6 lang-block-vi" style="display:none">Không có giải pháp nào phù hợp cho tất cả. Mỗi tiệm có quy trình riêng — từ cách chào khách đến cách xử lý no-show. Cho chúng tôi biết bạn cần gì, chúng tôi sẽ xây dựng vào app. Quy tắc đặt lịch tùy chỉnh, chương trình tích điểm riêng, báo cáo chuyên biệt, trải nghiệm khách hàng theo thương hiệu — nếu bạn mơ được, chúng tôi làm được.</p>
+                <div class="flex flex-wrap gap-3 mb-6">
+                  <span class="flex items-center gap-1.5 text-xs text-gray-600"><svg class="w-4 h-4 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="lang-inline-en">Custom booking rules</span><span class="lang-inline-vi">Quy tắc đặt lịch riêng</span></span>
+                  <span class="flex items-center gap-1.5 text-xs text-gray-600"><svg class="w-4 h-4 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="lang-inline-en">Branded experiences</span><span class="lang-inline-vi">Trải nghiệm thương hiệu</span></span>
+                  <span class="flex items-center gap-1.5 text-xs text-gray-600"><svg class="w-4 h-4 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="lang-inline-en">Specialized reports</span><span class="lang-inline-vi">Báo cáo chuyên biệt</span></span>
+                  <span class="flex items-center gap-1.5 text-xs text-gray-600"><svg class="w-4 h-4 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="lang-inline-en">Unique loyalty programs</span><span class="lang-inline-vi">Chương trình tích điểm riêng</span></span>
+                </div>
+              </div>
+              <div class="rounded-2xl overflow-hidden border border-gray-100" style="box-shadow: 0 8px 32px rgba(0,0,0,0.08);">
+                <img src="images/feature-5.png" alt="Built For You" class="w-full h-auto object-cover">
+              </div>
+            </div>
+          </div>
+
+        </div><!-- end panels container -->
+      </div>
+    </div><!-- end sticky -->
+  </div>
+</div><!-- end scroll container -->
+
+<!-- ==================== COMPARISON ==================== -->
+<section class="py-24 bg-surface-50">
+  <div class="max-w-5xl mx-auto px-6">
+    <!-- Heading -->
+    <div class="text-center mb-14">
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-gray-900 tracking-[-0.01em] leading-tight mb-4">
+        <span class="lang-inline-en">Your current booking app waits.<br><strong>Sicus Booking thinks.</strong></span>
+        <span class="lang-inline-vi">Ứng dụng đặt lịch hiện tại chờ đợi.<br><strong>Sicus Booking suy nghĩ.</strong></span>
+      </h2>
+      <p class="text-base text-gray-500 max-w-xl mx-auto leading-relaxed">
+        <span class="lang-inline-en">Other tools show you what happened yesterday. Sicus Booking tells you what to do tomorrow.</span>
+        <span class="lang-inline-vi">Công cụ khác cho bạn biết chuyện đã xảy ra. Sicus Booking cho bạn biết việc cần làm ngày mai.</span>
+      </p>
+    </div>
+
+    <!-- Comparison cards -->
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Other Software -->
+      <div class="bg-white rounded-2xl border border-gray-200 p-8 relative">
+        <div class="inline-block bg-gray-100 border border-gray-200 rounded-md px-3 py-1 mb-8">
+          <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest lang-inline-en">Other Salon Software</span>
+          <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest lang-inline-vi">Phần mềm salon khác</span>
+        </div>
+        <div class="space-y-5">
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </div>
+            <p class="text-sm text-gray-500 leading-relaxed lang-inline-en">Shows you reports — you figure out what they mean</p>
+            <p class="text-sm text-gray-500 leading-relaxed lang-inline-vi">Hiển thị báo cáo — bạn tự tìm hiểu ý nghĩa</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </div>
+            <p class="text-sm text-gray-500 leading-relaxed lang-inline-en">Lets clients churn silently — you notice too late</p>
+            <p class="text-sm text-gray-500 leading-relaxed lang-inline-vi">Để khách rời đi âm thầm — bạn nhận ra quá muộn</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </div>
+            <p class="text-sm text-gray-500 leading-relaxed lang-inline-en">Misses calls while you're with a client</p>
+            <p class="text-sm text-gray-500 leading-relaxed lang-inline-vi">Bỏ lỡ cuộc gọi khi bạn đang phục vụ khách</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </div>
+            <p class="text-sm text-gray-500 leading-relaxed lang-inline-en">One-size-fits-all reminders, promotions — no real customized automation</p>
+            <p class="text-sm text-gray-500 leading-relaxed lang-inline-vi">Nhắc nhở, khuyến mãi chung chung — không có tự động hóa thực sự</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </div>
+            <p class="text-sm text-gray-500 leading-relaxed lang-inline-en">Gives you raw data and dashboards</p>
+            <p class="text-sm text-gray-500 leading-relaxed lang-inline-vi">Cho bạn dữ liệu thô và bảng điều khiển</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </div>
+            <p class="text-sm text-gray-500 leading-relaxed lang-inline-en">Requires you to check everything manually</p>
+            <p class="text-sm text-gray-500 leading-relaxed lang-inline-vi">Yêu cầu bạn kiểm tra mọi thứ thủ công</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SICUS -->
+      <div class="bg-white rounded-2xl border-2 border-brand-green/40 p-8 relative shadow-[0_8px_40px_rgba(140,184,43,0.08)]">
+        <div class="inline-block bg-brand-green rounded-md px-3 py-1 mb-8">
+          <span class="text-[10px] font-bold text-white uppercase tracking-widest">SICUS</span>
+        </div>
+        <div class="space-y-5">
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-brand-green/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <p class="text-sm text-gray-700 leading-relaxed lang-inline-en"><strong>Pushes AI insights</strong> that tell you exactly what to do</p>
+            <p class="text-sm text-gray-700 leading-relaxed lang-inline-vi"><strong>Đẩy thông tin AI</strong> cho bạn biết chính xác cần làm gì</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-brand-green/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <p class="text-sm text-gray-700 leading-relaxed lang-inline-en"><strong>Flags at-risk clients</strong> before they stop coming back</p>
+            <p class="text-sm text-gray-700 leading-relaxed lang-inline-vi"><strong>Cảnh báo khách có nguy cơ</strong> trước khi họ ngừng quay lại</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-brand-green/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <p class="text-sm text-gray-700 leading-relaxed lang-inline-en"><strong>AI receptionist</strong> answers calls, books 24/7, and upsells & cross-sells better than your best employee</p>
+            <p class="text-sm text-gray-700 leading-relaxed lang-inline-vi"><strong>Lễ tân AI</strong> trả lời cuộc gọi, đặt lịch 24/7, và bán thêm tốt hơn nhân viên giỏi nhất của bạn</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-brand-green/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <p class="text-sm text-gray-700 leading-relaxed lang-inline-en"><strong>Real workflows</strong> — automatically nurture new clients to VIP, catch no-shows before they cost you, re-engage clients who drift away</p>
+            <p class="text-sm text-gray-700 leading-relaxed lang-inline-vi"><strong>Quy trình thực</strong> — tự động chăm sóc khách mới thành VIP, phát hiện no-show trước khi tốn chi phí, kéo lại khách đang rời xa</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-brand-green/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <p class="text-sm text-gray-700 leading-relaxed lang-inline-en"><strong>Analyzes your data</strong> and gives you a plan</p>
+            <p class="text-sm text-gray-700 leading-relaxed lang-inline-vi"><strong>Phân tích dữ liệu</strong> và đưa cho bạn kế hoạch</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-brand-green/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-3 h-3 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <p class="text-sm text-gray-700 leading-relaxed lang-inline-en"><strong>Nudges you</strong> when something needs attention</p>
+            <p class="text-sm text-gray-700 leading-relaxed lang-inline-vi"><strong>Nhắc nhở bạn</strong> khi có điều cần chú ý</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== AI THAT THINKS FOR YOU ==================== -->
+<section class="py-24 relative overflow-hidden" style="background: #0a0a1a;">
+  <!-- WebGL Shader Background -->
+  <canvas id="ai-shader-bg" class="absolute inset-0 w-full h-full" style="z-index: 0;"></canvas>
+
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <!-- Section badge -->
+    <div class="flex justify-center mb-8">
+      <div class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-5 py-2">
+        <span class="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] lang-inline-en">AI That Thinks For You</span>
+        <span class="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] lang-inline-vi">AI Suy Nghĩ Thay Bạn</span>
+      </div>
+    </div>
+
+    <!-- Heading -->
+    <div class="text-center mb-6">
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white tracking-[-0.01em] leading-tight">
+        <span class="lang-inline-en">AI That Thinks For You</span>
+        <span class="lang-inline-vi">AI Suy Nghĩ Thay Bạn</span>
+      </h2>
+    </div>
+    <p class="text-center text-gray-400 max-w-2xl mx-auto leading-relaxed mb-16 text-base">
+      <span class="lang-inline-en">Not a chatbot. Not a gimmick. Real intelligence built into every part of your salon — always working, always one step ahead.</span>
+      <span class="lang-inline-vi">Không phải chatbot. Không phải chiêu trò. Trí tuệ thực sự được tích hợp vào mọi phần của salon — luôn hoạt động, luôn đi trước một bước.</span>
+    </p>
+
+    <!-- Feature cards grid -->
+    <div class="grid md:grid-cols-2 gap-5">
+
+      <!-- AI Receptionist -->
+      <div class="rounded-2xl border border-white/[0.07] p-7 transition-transform duration-300 ease-out hover:-translate-y-1" style="background: linear-gradient(135deg, rgba(14,14,30,0.97) 0%, rgba(12,12,28,0.95) 100%);">
+        <div class="flex items-start justify-between mb-4">
+          <div class="flex items-center gap-4">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background: rgba(251,191,36,0.12);">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FBBF24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+            </div>
+            <h3 class="font-display text-lg text-white">
+              <span class="lang-inline-en">AI Receptionist</span>
+              <span class="lang-inline-vi">Lễ Tân AI</span>
+            </h3>
+          </div>
+          <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-wider" style="background: rgba(59,130,246,0.12); color: #60A5FA;">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+            <span class="lang-inline-en">24/7 AI Worker</span>
+            <span class="lang-inline-vi">Hoạt Động 24/7</span>
+          </span>
+        </div>
+        <p class="text-sm text-gray-400 leading-relaxed mb-5">
+          <span class="lang-inline-en">Your AI answers the phone 24/7 — books appointments, answers pricing questions, reschedules, and transfers to staff when needed. Speaks naturally. Works while you sleep.</span>
+          <span class="lang-inline-vi">AI trả lời điện thoại 24/7 — đặt lịch, trả lời giá cả, đổi lịch, chuyển nhân viên khi cần. Nói tự nhiên. Làm việc khi bạn ngủ.</span>
+        </p>
+        <a href="#" class="inline-flex items-center gap-1 text-sm font-medium text-brand-green hover:text-brand-green-light transition-colors duration-200">
+          <span class="lang-inline-en">→ Never miss a call again</span>
+          <span class="lang-inline-vi">→ Không bao giờ bỏ lỡ cuộc gọi</span>
+        </a>
+      </div>
+
+      <!-- AI-Risk Client Alerts -->
+      <div class="rounded-2xl border border-white/[0.07] p-7 transition-transform duration-300 ease-out hover:-translate-y-1" style="background: linear-gradient(135deg, rgba(14,14,30,0.97) 0%, rgba(12,12,28,0.95) 100%);">
+        <div class="flex items-start justify-between mb-4">
+          <div class="flex items-center gap-4">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background: rgba(239,68,68,0.12);">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#EF4444"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+            </div>
+            <h3 class="font-display text-lg text-white">
+              <span class="lang-inline-en">AI-Risk Client Alerts</span>
+              <span class="lang-inline-vi">Cảnh Báo Khách Rủi Ro</span>
+            </h3>
+          </div>
+          <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-wider" style="background: rgba(239,68,68,0.12); color: #F87171;">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-400"></span>
+            <span class="lang-inline-en">Proactive Alerts</span>
+            <span class="lang-inline-vi">Cảnh Báo Chủ Động</span>
+          </span>
+        </div>
+        <p class="text-sm text-gray-400 leading-relaxed mb-5">
+          <span class="lang-inline-en">Sicus Booking tracks visit frequency and flags clients who are overdue. You get a nudge before they ghost — not after. VIP, At Risk, and New Customer segments are auto-calculated.</span>
+          <span class="lang-inline-vi">Sicus Booking theo dõi tần suất và cảnh báo khách quá hạn. Bạn nhận thông báo trước khi họ biến mất. Phân loại VIP, Rủi Ro, Khách Mới tự động.</span>
+        </p>
+        <a href="#" class="inline-flex items-center gap-1 text-sm font-medium text-brand-green hover:text-brand-green-light transition-colors duration-200">
+          <span class="lang-inline-en">→ Stop clients from leaving</span>
+          <span class="lang-inline-vi">→ Ngăn khách rời đi</span>
+        </a>
+      </div>
+
+      <!-- Weekly AI Insights -->
+      <div class="rounded-2xl border border-white/[0.07] p-7 transition-transform duration-300 ease-out hover:-translate-y-1" style="background: linear-gradient(135deg, rgba(14,14,30,0.97) 0%, rgba(12,12,28,0.95) 100%);">
+        <div class="flex items-start justify-between mb-4">
+          <div class="flex items-center gap-4">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background: rgba(16,185,129,0.12);">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#10B981"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+            </div>
+            <h3 class="font-display text-lg text-white">
+              <span class="lang-inline-en">Weekly AI Insights</span>
+              <span class="lang-inline-vi">Phân Tích AI Hàng Tuần</span>
+            </h3>
+          </div>
+          <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-wider" style="background: rgba(16,185,129,0.12); color: #34D399;">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span class="lang-inline-en">Auto-Pilot</span>
+            <span class="lang-inline-vi">Tự Động</span>
+          </span>
+        </div>
+        <p class="text-sm text-gray-400 leading-relaxed mb-5">
+          <span class="lang-inline-en">Every week, Sicus Booking analyzes your clients, staff performance, revenue trends, and no-shows — then tells you exactly what to change. Delivered automatically.</span>
+          <span class="lang-inline-vi">Mỗi tuần, Sicus Booking phân tích khách hàng, hiệu suất nhân viên, xu hướng doanh thu và no-show — rồi cho bạn biết chính xác cần thay đổi gì.</span>
+        </p>
+        <a href="#" class="inline-flex items-center gap-1 text-sm font-medium text-brand-green hover:text-brand-green-light transition-colors duration-200">
+          <span class="lang-inline-en">→ Know what to do, not just what happened</span>
+          <span class="lang-inline-vi">→ Biết cần làm gì, không chỉ chuyện đã xảy ra</span>
+        </a>
+      </div>
+
+      <!-- AI Nudge Hub -->
+      <div class="rounded-2xl border border-white/[0.07] p-7 transition-transform duration-300 ease-out hover:-translate-y-1" style="background: linear-gradient(135deg, rgba(14,14,30,0.97) 0%, rgba(12,12,28,0.95) 100%);">
+        <div class="flex items-start justify-between mb-4">
+          <div class="flex items-center gap-4">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background: rgba(168,85,247,0.12);">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#A855F7"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
+            </div>
+            <h3 class="font-display text-lg text-white">
+              <span class="lang-inline-en">AI Nudge Hub</span>
+              <span class="lang-inline-vi">Trung Tâm Nhắc Nhở AI</span>
+            </h3>
+          </div>
+          <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-wider" style="background: rgba(168,85,247,0.12); color: #C084FC;">
+            <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+            <span class="lang-inline-en">Real-Time</span>
+            <span class="lang-inline-vi">Thời Gian Thực</span>
+          </span>
+        </div>
+        <p class="text-sm text-gray-400 leading-relaxed mb-5">
+          <span class="lang-inline-en">A smart notification center that surfaces what matters — at-risk clients, scheduling gaps, stale competitor data, fresh insights. You act. It thinks.</span>
+          <span class="lang-inline-vi">Trung tâm thông báo thông minh hiển thị điều quan trọng — khách rủi ro, lỗ hổng lịch, dữ liệu đối thủ cũ. Bạn hành động. Nó suy nghĩ.</span>
+        </p>
+        <a href="#" class="inline-flex items-center gap-1 text-sm font-medium text-brand-green hover:text-brand-green-light transition-colors duration-200">
+          <span class="lang-inline-en">→ Proactive, not reactive</span>
+          <span class="lang-inline-vi">→ Chủ động, không bị động</span>
+        </a>
+      </div>
+
+      <!-- AI Creative Studio -->
+      <div class="rounded-2xl border border-white/[0.07] p-7 transition-transform duration-300 ease-out hover:-translate-y-1" style="background: linear-gradient(135deg, rgba(14,14,30,0.97) 0%, rgba(12,12,28,0.95) 100%);">
+        <div class="flex items-start justify-between mb-4">
+          <div class="flex items-center gap-4">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background: rgba(59,130,246,0.12);">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#3B82F6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
+            </div>
+            <h3 class="font-display text-lg text-white">
+              <span class="lang-inline-en">AI Creative Studio</span>
+              <span class="lang-inline-vi">Studio Sáng Tạo AI</span>
+            </h3>
+          </div>
+          <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-wider" style="background: rgba(16,185,129,0.12); color: #34D399;">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span class="lang-inline-en">Auto-Generate</span>
+            <span class="lang-inline-vi">Tự Tạo</span>
+          </span>
+        </div>
+        <p class="text-sm text-gray-400 leading-relaxed mb-5">
+          <span class="lang-inline-en">Describe your promotion, pick a vibe. AI generates professional marketing images in seconds. No design skills. No templates. Just results.</span>
+          <span class="lang-inline-vi">Mô tả khuyến mãi, chọn phong cách. AI tạo ảnh marketing chuyên nghiệp trong vài giây. Không cần kỹ năng thiết kế.</span>
+        </p>
+        <a href="#" class="inline-flex items-center gap-1 text-sm font-medium text-brand-green hover:text-brand-green-light transition-colors duration-200">
+          <span class="lang-inline-en">→ Marketing without a designer</span>
+          <span class="lang-inline-vi">→ Marketing không cần designer</span>
+        </a>
+      </div>
+
+      <!-- AI Pricing Advisor -->
+      <div class="rounded-2xl border border-white/[0.07] p-7 transition-transform duration-300 ease-out hover:-translate-y-1" style="background: linear-gradient(135deg, rgba(14,14,30,0.97) 0%, rgba(12,12,28,0.95) 100%);">
+        <div class="flex items-start justify-between mb-4">
+          <div class="flex items-center gap-4">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background: rgba(251,191,36,0.12);">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FBBF24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="font-display text-lg text-white">
+              <span class="lang-inline-en">AI Pricing Advisor</span>
+              <span class="lang-inline-vi">Tư Vấn Giá AI</span>
+            </h3>
+          </div>
+          <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-wider" style="background: rgba(251,191,36,0.12); color: #FCD34D;">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+            <span class="lang-inline-en">Profit Booster</span>
+            <span class="lang-inline-vi">Tăng Lợi Nhuận</span>
+          </span>
+        </div>
+        <p class="text-sm text-gray-400 leading-relaxed mb-5">
+          <span class="lang-inline-en">Sicus Booking scrapes competitor websites, compares their prices to yours, and tells you where you stand — cheaper, competitive, or premium. Data-driven pricing in one click.</span>
+          <span class="lang-inline-vi">Sicus Booking thu thập giá đối thủ, so sánh với giá của bạn, và cho bạn biết vị trí — rẻ hơn, cạnh tranh, hay cao cấp. Định giá dựa trên dữ liệu.</span>
+        </p>
+        <a href="#" class="inline-flex items-center gap-1 text-sm font-medium text-brand-green hover:text-brand-green-light transition-colors duration-200">
+          <span class="lang-inline-en">→ Price with confidence</span>
+          <span class="lang-inline-vi">→ Định giá tự tin</span>
+        </a>
+      </div>
+
+      <!-- AI Salon Manager -->
+      <div class="rounded-2xl border border-white/[0.07] p-7 transition-transform duration-300 ease-out hover:-translate-y-1" style="background: linear-gradient(135deg, rgba(14,14,30,0.97) 0%, rgba(12,12,28,0.95) 100%);">
+        <div class="flex items-start justify-between mb-4">
+          <div class="flex items-center gap-4">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background: rgba(140,184,43,0.12);">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#8CB82B"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/></svg>
+            </div>
+            <h3 class="font-display text-lg text-white">
+              <span class="lang-inline-en">AI Salon Manager</span>
+              <span class="lang-inline-vi">Quản Lý Salon AI</span>
+            </h3>
+          </div>
+          <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-wider" style="background: rgba(140,184,43,0.12); color: #B8E060;">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green-light"></span>
+            <span class="lang-inline-en">Always On</span>
+            <span class="lang-inline-vi">Luôn Hoạt Động</span>
+          </span>
+        </div>
+        <p class="text-sm text-gray-400 leading-relaxed mb-5">
+          <span class="lang-inline-en">Your AI Assistant knows your services, staff, clients, and pricing. Ask it anything about your business and get instant answers — like having a free AI salon manager right in your navigation, available 24/7.</span>
+          <span class="lang-inline-vi">Trợ lý AI biết dịch vụ, nhân viên, khách hàng và giá cả. Hỏi bất cứ điều gì về salon và nhận câu trả lời ngay — như có quản lý AI miễn phí 24/7.</span>
+        </p>
+        <a href="#" class="inline-flex items-center gap-1 text-sm font-medium text-brand-green hover:text-brand-green-light transition-colors duration-200">
+          <span class="lang-inline-en">→ You're Iron Man. This is your Jarvis.</span>
+          <span class="lang-inline-vi">→ Bạn là Iron Man. Đây là Jarvis của bạn.</span>
+        </a>
+      </div>
+
+      <!-- AI-Assisted Writing -->
+      <div class="rounded-2xl border border-white/[0.07] p-7 transition-transform duration-300 ease-out hover:-translate-y-1" style="background: linear-gradient(135deg, rgba(14,14,30,0.97) 0%, rgba(12,12,28,0.95) 100%);">
+        <div class="flex items-start justify-between mb-4">
+          <div class="flex items-center gap-4">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background: rgba(244,114,182,0.12);">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#F472B6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"/></svg>
+            </div>
+            <h3 class="font-display text-lg text-white">
+              <span class="lang-inline-en">AI-Assisted Writing</span>
+              <span class="lang-inline-vi">Viết Với Hỗ Trợ AI</span>
+            </h3>
+          </div>
+          <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-wider" style="background: rgba(16,185,129,0.12); color: #34D399;">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span class="lang-inline-en">All Channels</span>
+            <span class="lang-inline-vi">Mọi Kênh</span>
+          </span>
+        </div>
+        <p class="text-sm text-gray-400 leading-relaxed mb-5">
+          <span class="lang-inline-en">SMS campaigns, review replies, and marketing copy — written for you in seconds. Bilingual support for English and Vietnamese. Just review and send.</span>
+          <span class="lang-inline-vi">Chiến dịch SMS, trả lời đánh giá, nội dung marketing — viết cho bạn trong vài giây. Hỗ trợ song ngữ Anh-Việt. Chỉ cần xem lại và gửi.</span>
+        </p>
+        <a href="#" class="inline-flex items-center gap-1 text-sm font-medium text-brand-green hover:text-brand-green-light transition-colors duration-200">
+          <span class="lang-inline-en">→ Write less, say more</span>
+          <span class="lang-inline-vi">→ Viết ít, nói nhiều hơn</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PLUS EVERYTHING (Carousel) ==================== -->
+<section class="py-16 bg-white">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <h2 class="font-display text-2xl sm:text-3xl text-gray-900 mb-2">
+          <span class="lang-inline-en">Plus Everything You'd Expect</span>
+          <span class="lang-inline-vi">Cùng Mọi Thứ Bạn Cần</span>
+        </h2>
+        <p class="text-sm text-gray-400 max-w-lg">
+          <span class="lang-inline-en">Custom-built for your salon — all the tools you need, built in, not bolted on.</span>
+          <span class="lang-inline-vi">Xây dựng riêng cho salon — mọi công cụ bạn cần, tích hợp sẵn.</span>
+        </p>
+      </div>
+      <div class="hidden sm:flex items-center gap-2">
+        <button id="features-prev" class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-gray-400 hover:text-gray-700 transition-colors duration-200 disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green" disabled>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button id="features-next" class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-gray-400 hover:text-gray-700 transition-colors duration-200 disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Carousel track (contained within inner container) -->
+    <div class="relative overflow-hidden">
+      <div id="features-carousel" class="flex gap-5 overflow-x-auto scroll-smooth" style="scroll-snap-type: x mandatory; -ms-overflow-style: none; scrollbar-width: none;">
+        <style>#features-carousel::-webkit-scrollbar { display: none; }</style>
+
+      <!-- Smart Calendar -->
+      <div class="features-slide flex-shrink-0 w-[280px] sm:w-[320px] scroll-snap-align-start" style="scroll-snap-align: start;">
+        <div class="bg-surface-50 rounded-2xl p-6 h-full border border-gray-100 hover:-translate-y-1 transition-transform duration-300">
+          <div class="w-10 h-10 rounded-xl bg-gray-900 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+          </div>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-en">Smart Calendar</p>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-vi">Lịch Thông Minh</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-en">Week and day views with walk-in support, staff filtering, check-in codes, and no-show detection that frees blocked slots automatically.</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-vi">Xem theo tuần/ngày, hỗ trợ walk-in, lọc nhân viên, mã check-in, và phát hiện no-show tự động mở lại slot.</p>
+        </div>
+      </div>
+
+      <!-- Client CRM -->
+      <div class="features-slide flex-shrink-0 w-[280px] sm:w-[320px]" style="scroll-snap-align: start;">
+        <div class="bg-surface-50 rounded-2xl p-6 h-full border border-gray-100 hover:-translate-y-1 transition-transform duration-300">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: #E8F5E9;">
+            <svg class="w-5 h-5" fill="none" stroke="#4CAF50" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+          </div>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-en">Client CRM</p>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-vi">CRM Khách Hàng</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-en">Full client profiles with visit history, custom tags, birthday tracking, CSV import, and auto-calculated status badges (VIP, At Risk, New).</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-vi">Hồ sơ khách đầy đủ với lịch sử, tags, sinh nhật, import CSV, và phân loại tự động (VIP, Rủi ro, Mới).</p>
+        </div>
+      </div>
+
+      <!-- Automated Messaging -->
+      <div class="features-slide flex-shrink-0 w-[280px] sm:w-[320px]" style="scroll-snap-align: start;">
+        <div class="bg-surface-50 rounded-2xl p-6 h-full border border-gray-100 hover:-translate-y-1 transition-transform duration-300">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: #FFF3E0;">
+            <svg class="w-5 h-5" fill="none" stroke="#FF9800" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg>
+          </div>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-en">Automated Messaging</p>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-vi">Tin Nhắn Tự Động</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-en">Confirmations, 24h + 2h reminders, review requests, birthday offers, no-show follow-ups, and re-engagement — all via SMS and email.</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-vi">Xác nhận, nhắc 24h + 2h, yêu cầu đánh giá, ưu đãi sinh nhật, theo dõi no-show — qua SMS và email.</p>
+        </div>
+      </div>
+
+      <!-- Loyalty Program -->
+      <div class="features-slide flex-shrink-0 w-[280px] sm:w-[320px]" style="scroll-snap-align: start;">
+        <div class="bg-surface-50 rounded-2xl p-6 h-full border border-gray-100 hover:-translate-y-1 transition-transform duration-300">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: #FFF8E1;">
+            <svg class="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-en">Loyalty Program</p>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-vi">Chương Trình Tích Điểm</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-en">Points per visit and per dollar, custom tiers with multipliers, redeemable rewards. Clients can self-redeem at booking. Free for all salons.</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-vi">Tích điểm theo lượt/chi tiêu, hạng tùy chỉnh, đổi thưởng. Khách tự đổi khi đặt lịch. Miễn phí cho mọi salon.</p>
+        </div>
+      </div>
+
+      <!-- Online Booking Page -->
+      <div class="features-slide flex-shrink-0 w-[280px] sm:w-[320px]" style="scroll-snap-align: start;">
+        <div class="bg-surface-50 rounded-2xl p-6 h-full border border-gray-100 hover:-translate-y-1 transition-transform duration-300">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: #E0F2F1;">
+            <svg class="w-5 h-5" fill="none" stroke="#009688" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"/></svg>
+          </div>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-en">Online Booking Page</p>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-vi">Trang Đặt Lịch Online</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-en">A branded booking page your clients actually want to use. Service and staff selection, loyalty points, and instant SMS confirmation.</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-vi">Trang đặt lịch thương hiệu mà khách muốn dùng. Chọn dịch vụ, nhân viên, tích điểm, xác nhận SMS ngay.</p>
+        </div>
+      </div>
+
+      <!-- Reports -->
+      <div class="features-slide flex-shrink-0 w-[280px] sm:w-[320px]" style="scroll-snap-align: start;">
+        <div class="bg-surface-50 rounded-2xl p-6 h-full border border-gray-100 hover:-translate-y-1 transition-transform duration-300">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: #FCE4EC;">
+            <svg class="w-5 h-5" fill="none" stroke="#E91E63" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+          </div>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-en">Reports</p>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-vi">Báo Cáo</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-en">Revenue, staff utilization, no-show rates, and service profitability — with AI analysis that tells you what the numbers mean.</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-vi">Doanh thu, hiệu suất nhân viên, tỉ lệ no-show, lợi nhuận dịch vụ — với AI phân tích ý nghĩa con số.</p>
+        </div>
+      </div>
+
+      <!-- Google Reviews -->
+      <div class="features-slide flex-shrink-0 w-[280px] sm:w-[320px]" style="scroll-snap-align: start;">
+        <div class="bg-surface-50 rounded-2xl p-6 h-full border border-gray-100 hover:-translate-y-1 transition-transform duration-300">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: #E3F2FD;">
+            <span class="text-base font-bold" style="color: #4285F4;">G</span>
+          </div>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-en">Google Reviews</p>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-vi">Đánh Giá Google</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-en">Auto-sync reviews, send review requests after appointments, and track your reputation. One link — set it and forget it.</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-vi">Đồng bộ đánh giá, gửi yêu cầu đánh giá sau hẹn, theo dõi uy tín. Một link — cài và quên.</p>
+        </div>
+      </div>
+
+      <!-- Campaigns -->
+      <div class="features-slide flex-shrink-0 w-[280px] sm:w-[320px]" style="scroll-snap-align: start;">
+        <div class="bg-surface-50 rounded-2xl p-6 h-full border border-gray-100 hover:-translate-y-1 transition-transform duration-300">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: #FDE7F0;">
+            <svg class="w-5 h-5" fill="none" stroke="#EC407A" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/></svg>
+          </div>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-en">Campaigns</p>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-vi">Chiến Dịch</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-en">Target clients by status, tags, or custom segments. Build audiences, schedule sends, and track delivery — all from one screen.</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-vi">Nhắm khách theo trạng thái, tags, hoặc phân khúc. Tạo nhóm, lên lịch gửi, theo dõi — từ một màn hình.</p>
+        </div>
+      </div>
+
+      <!-- Team Management -->
+      <div class="features-slide flex-shrink-0 w-[280px] sm:w-[320px]" style="scroll-snap-align: start;">
+        <div class="bg-surface-50 rounded-2xl p-6 h-full border border-gray-100 hover:-translate-y-1 transition-transform duration-300">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: #EDE7F6;">
+            <svg class="w-5 h-5" fill="none" stroke="#7C4DFF" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+          </div>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-en">Team Management</p>
+          <p class="text-sm font-bold text-gray-900 mb-2 lang-inline-vi">Quản Lý Nhân Viên</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-en">Staff profiles, weekly schedules, service assignments, role-based access (Owner, Admin, Staff), and team invite links.</p>
+          <p class="text-xs text-gray-400 leading-relaxed lang-inline-vi">Hồ sơ nhân viên, lịch tuần, phân công dịch vụ, phân quyền (Chủ, Admin, NV), và link mời nhóm.</p>
+        </div>
+      </div>
+
+      </div>
+    </div>
+
+    <!-- Dot indicators -->
+    <div id="features-dots" class="flex justify-center gap-2 mt-8"></div>
+  </div>
+</section>
+
+<!-- ==================== TESTIMONIALS (Auto-scroll columns) ==================== -->
+<section class="py-20 bg-surface-50" id="testimonials-section">
+  <div class="max-w-5xl mx-auto px-6">
+    <!-- Header -->
+    <div class="flex flex-col items-center justify-center max-w-lg mx-auto mb-10">
+      <div class="border border-gray-200 py-1 px-4 rounded-lg text-sm text-gray-500 mb-5">
+        <span class="lang-inline-en">Testimonials</span><span class="lang-inline-vi">Đánh giá</span>
+      </div>
+      <h2 class="font-display text-3xl sm:text-4xl text-gray-900 text-center mb-3">
+        <span class="lang-inline-en">What our users say</span><span class="lang-inline-vi">Khách hàng nói gì</span>
+      </h2>
+      <p class="text-center text-gray-500">
+        <span class="lang-inline-en">See what salon owners have to say about SICUS.</span>
+        <span class="lang-inline-vi">Xem chủ tiệm nói gì về SICUS.</span>
+      </p>
+    </div>
+
+    <!-- Auto-scrolling testimonial columns -->
+    <div class="flex justify-center gap-6 max-h-[700px] overflow-hidden" style="-webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent); mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);">
+
+      <!-- Column 1 -->
+      <div class="testimonial-col flex-shrink-0 w-[320px]" data-duration="16">
+        <div class="testimonial-col-inner flex flex-col gap-6 pb-6">
+          <div class="bg-white rounded-3xl border border-gray-100 p-7 shadow-lg shadow-brand-green/5">
+            <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-en">&ldquo;We used to miss so many calls during busy hours. Since switching to SICUS, the AI receptionist picks up every single one. Our Saturday bookings went up 40% in the first month.&rdquo;</p>
+            <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-vi">&ldquo;Trước đây bỏ lỡ rất nhiều cuộc gọi lúc bận. Từ khi dùng SICUS, lễ tân AI trả lời mọi cuộc gọi. Lịch hẹn thứ Bảy tăng 40% trong tháng đầu.&rdquo;</p>
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-full bg-brand-green/12 flex items-center justify-center text-xs font-bold text-brand-green">AN</div>
+              <div><p class="text-sm font-semibold text-gray-900">Anh Nguyen</p><p class="text-[11px] text-gray-400">A Nail Story — Dallas, TX</p></div>
+            </div>
+          </div>
+          <div class="bg-white rounded-3xl border border-gray-100 p-7 shadow-lg shadow-brand-green/5">
+            <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-en">&ldquo;The weekly AI insights told us our dip powder revenue was up 136% but our no-show rate was killing us. We turned on no-show policy through the app and cut no-shows in half within two weeks.&rdquo;</p>
+            <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-vi">&ldquo;Báo cáo AI hàng tuần cho biết doanh thu dip powder tăng 136% nhưng tỉ lệ no-show đang giết doanh thu. Bật chính sách no-show qua app, giảm một nửa trong hai tuần.&rdquo;</p>
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-full bg-purple-100 flex items-center justify-center text-xs font-bold text-purple-500">KT</div>
+              <div><p class="text-sm font-semibold text-gray-900">Kim Tran</p><p class="text-[11px] text-gray-400">Kayo Nails &amp; Spa — Orlando, FL</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 2 -->
+      <div class="testimonial-col flex-shrink-0 w-[320px] hidden md:block" data-duration="20">
+        <div class="testimonial-col-inner flex flex-col gap-6 pb-6">
+          <div class="bg-white rounded-3xl border border-gray-100 p-7 shadow-lg shadow-brand-green/5">
+            <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-en">&ldquo;My staff speaks mostly Vietnamese and they love that the whole app works in Vietnamese. The loyalty program brought back so many regulars — clients actually ask about their points now.&rdquo;</p>
+            <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-vi">&ldquo;Nhân viên nói tiếng Việt và thích rằng toàn bộ app hỗ trợ tiếng Việt. Chương trình tích điểm mang lại nhiều khách quen — khách giờ chủ động hỏi về điểm.&rdquo;</p>
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-full bg-pink-100 flex items-center justify-center text-xs font-bold text-pink-500">TL</div>
+              <div><p class="text-sm font-semibold text-gray-900">Thuy Le</p><p class="text-[11px] text-gray-400">La Bell Nail &amp; Spa — Houston, TX</p></div>
+            </div>
+          </div>
+          <div class="bg-white rounded-3xl border border-gray-100 p-7 shadow-lg shadow-brand-green/5">
+            <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-en">&ldquo;I run two locations and SICUS is the only software that lets me see both in one dashboard. The competitor pricing tool helped me realize I was undercharging on gel sets by $8.&rdquo;</p>
+            <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-vi">&ldquo;Tôi quản lý hai chi nhánh và SICUS là phần mềm duy nhất cho xem cả hai trên một bảng. Công cụ so sánh giá giúp nhận ra đang tính rẻ hơn $8 cho gel.&rdquo;</p>
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold text-blue-500">LP</div>
+              <div><p class="text-sm font-semibold text-gray-900">Linh Pham</p><p class="text-[11px] text-gray-400">LP Nails Spa — San Jose, CA</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 3 -->
+      <div class="testimonial-col flex-shrink-0 w-[320px] hidden lg:block" data-duration="18">
+        <div class="testimonial-col-inner flex flex-col gap-6 pb-6">
+          <div class="bg-white rounded-3xl border border-gray-100 p-7 shadow-lg shadow-brand-green/5">
+            <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-en">&ldquo;The Google review integration is a game changer. We went from 47 reviews to over 200 in three months just by automating the ask. Our booking page conversion doubled.&rdquo;</p>
+            <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-vi">&ldquo;Tích hợp Google review thay đổi cuộc chơi. Từ 47 lên hơn 200 đánh giá trong ba tháng chỉ bằng tự động hỏi. Tỉ lệ đặt lịch tăng gấp đôi.&rdquo;</p>
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-full bg-amber-100 flex items-center justify-center text-xs font-bold text-amber-600">SV</div>
+              <div><p class="text-sm font-semibold text-gray-900">Son Vo</p><p class="text-[11px] text-gray-400">SV Nails &amp; Spa — Atlanta, GA</p></div>
+            </div>
+          </div>
+          <div class="bg-white rounded-3xl border border-gray-100 p-7 shadow-lg shadow-brand-green/5">
+            <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-en">&ldquo;We switched from Vagaro and the difference is night and day. The AI creative studio generates our promo images in seconds — we used to spend hours on Canva.&rdquo;</p>
+            <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-vi">&ldquo;Chuyển từ Vagaro sang và khác biệt hoàn toàn. AI creative studio tạo ảnh khuyến mãi trong vài giây — trước mất hàng giờ trên Canva.&rdquo;</p>
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center text-xs font-bold text-emerald-600">HN</div>
+              <div><p class="text-sm font-semibold text-gray-900">Hoa Nguyen</p><p class="text-[11px] text-gray-400">Diamond Nails — Phoenix, AZ</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- ==================== SCHEDULE A DEMO / CONTACT ==================== -->
+<section id="schedule-demo" class="py-24 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex flex-col lg:flex-row justify-between gap-16">
+      <!-- Left: Heading -->
+      <div class="max-w-md mx-auto lg:mx-0 flex flex-col justify-center">
+        <div class="text-center lg:text-left">
+          <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl text-gray-900 tracking-[-0.01em] leading-tight mb-4">
+            <span class="lang-inline-en">Schedule a Demo</span>
+            <span class="lang-inline-vi">Đặt Lịch Demo</span>
+          </h2>
+          <p class="text-gray-500 leading-relaxed">
+            <span class="lang-inline-en">Ready to see how Sicus Booking can transform your salon? Book a free demo and we'll show you everything — personalized to your business.</span>
+            <span class="lang-inline-vi">Sẵn sàng xem Sicus Booking có thể thay đổi tiệm của bạn? Đặt lịch demo miễn phí và chúng tôi sẽ trình bày mọi thứ — được cá nhân hóa cho doanh nghiệp của bạn.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: Contact Form -->
+      <div class="w-full max-w-lg mx-auto lg:mx-0">
+        <!-- Form -->
+        <div id="demo-form-wrapper" class="rounded-2xl border border-gray-200 p-8 sm:p-10 bg-white shadow-sm">
+          <form id="demo-form" class="space-y-5">
+            <input type="hidden" name="_subject" value="New Demo Request — SICUS MEDIA">
+            <div class="flex gap-4">
+              <div class="flex-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">
+                  <span class="lang-inline-en">First Name</span><span class="lang-inline-vi">Tên</span>
+                </label>
+                <input type="text" name="first_name" required class="w-full h-10 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-green/40 focus:border-brand-green transition-colors duration-200" placeholder="John">
+              </div>
+              <div class="flex-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">
+                  <span class="lang-inline-en">Last Name</span><span class="lang-inline-vi">Họ</span>
+                </label>
+                <input type="text" name="last_name" required class="w-full h-10 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-green/40 focus:border-brand-green transition-colors duration-200" placeholder="Doe">
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
+              <input type="email" name="email" required class="w-full h-10 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-green/40 focus:border-brand-green transition-colors duration-200" placeholder="john@salon.com">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">
+                <span class="lang-inline-en">Salon Name</span><span class="lang-inline-vi">Tên Tiệm</span>
+              </label>
+              <input type="text" name="salon_name" class="w-full h-10 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-green/40 focus:border-brand-green transition-colors duration-200" placeholder="My Nail Spa">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">
+                <span class="lang-inline-en">Message</span><span class="lang-inline-vi">Tin nhắn</span>
+              </label>
+              <textarea name="message" rows="4" class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-green/40 focus:border-brand-green transition-colors duration-200 resize-none" placeholder="Tell us about your salon..."></textarea>
+            </div>
+            <button type="submit" id="demo-submit-btn" class="btn-spring w-full h-11 rounded-full bg-brand-green hover:bg-brand-green-dark text-white font-semibold text-sm shadow-[0_4px_20px_rgba(140,184,43,0.3)] hover:shadow-[0_6px_30px_rgba(140,184,43,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green-dark transition-colors duration-200">
+              <span class="lang-inline-en">Schedule a Demo</span><span class="lang-inline-vi">Đặt Lịch Demo</span>
+            </button>
+          </form>
+        </div>
+        <!-- Thank You (hidden by default) -->
+        <div id="demo-thank-you" class="hidden rounded-2xl border border-brand-green/20 p-10 sm:p-12 bg-brand-green/5 text-center">
+          <div class="w-16 h-16 rounded-full bg-brand-green/15 flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-brand-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+          </div>
+          <h3 class="font-display text-2xl text-gray-900 mb-3">
+            <span class="lang-inline-en">Thank You!</span>
+            <span class="lang-inline-vi">Cảm Ơn Bạn!</span>
+          </h3>
+          <p class="text-gray-500 leading-relaxed max-w-sm mx-auto">
+            <span class="lang-inline-en">We've received your information and our team will reach out within 24 hours to schedule your personalized demo. We look forward to showing you what Sicus Booking can do for your salon.</span>
+            <span class="lang-inline-vi">Chúng tôi đã nhận thông tin của bạn và đội ngũ sẽ liên hệ trong vòng 24 giờ để sắp xếp demo riêng cho bạn. Rất mong được giới thiệu Sicus Booking có thể làm gì cho tiệm của bạn.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="relative overflow-hidden rounded-3xl m-4 sm:m-8" style="background: #0F0F11;">
+  <!-- Background gradient -->
+  <div class="absolute inset-0 z-0" style="background: radial-gradient(125% 125% at 50% 10%, rgba(15,15,17,0.4) 50%, rgba(140,184,43,0.2) 100%);"></div>
+
+  <div class="max-w-7xl mx-auto px-6 sm:px-14 pt-14 pb-8 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 lg:gap-16 pb-12">
+      <!-- Brand -->
+      <div class="flex flex-col space-y-4">
+        <img src="brand_assets/topbar.png" alt="SICUS MEDIA" class="h-8 w-fit brightness-0 invert">
+        <p class="text-sm text-gray-400 leading-relaxed lang-inline-en">AI-powered salon management platform built for Vietnamese nail, hair, and spa businesses.</p>
+        <p class="text-sm text-gray-400 leading-relaxed lang-inline-vi">Nền tảng quản lý tiệm bằng AI dành cho doanh nghiệp nail, tóc, và spa Việt Nam.</p>
+      </div>
+
+      <!-- Product -->
+      <div>
+        <h4 class="text-white text-lg font-semibold mb-6 lang-inline-en">Product</h4><h4 class="text-white text-lg font-semibold mb-6 lang-inline-vi">Sản phẩm</h4>
+        <ul class="space-y-3">
+          <li><a href="#features" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-en">Features</a><a href="#features" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-vi">Tính năng</a></li>
+          <li><a href="#" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-en">AI Assistant</a><a href="#" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-vi">Trợ lý AI</a></li>
+          <li><a href="#" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-en">AI Receptionist</a><a href="#" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-vi">Lễ tân AI</a></li>
+          <li><a href="#" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-en">Pricing</a><a href="#" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-vi">Bảng giá</a></li>
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div>
+        <h4 class="text-white text-lg font-semibold mb-6 lang-inline-en">Company</h4><h4 class="text-white text-lg font-semibold mb-6 lang-inline-vi">Công ty</h4>
+        <ul class="space-y-3">
+          <li><a href="#" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-en">About Us</a><a href="#" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-vi">Về chúng tôi</a></li>
+          <li><a href="#" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-en">Careers</a><a href="#" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-vi">Tuyển dụng</a></li>
+          <li><a href="#resources" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-en">Blog</a><a href="#resources" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-vi">Bài viết</a></li>
+          <li class="relative">
+            <a href="#" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-en">Live Chat</a>
+            <a href="#" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-vi">Chat trực tiếp</a>
+            <span class="absolute top-0 -right-3 w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+          </li>
+          <li><a href="https://reviews.sicusmedia.com/#/" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-en">Client Login</a><a href="https://reviews.sicusmedia.com/#/" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200 lang-inline-vi">Đăng nhập</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="text-white text-lg font-semibold mb-6 lang-inline-en">Contact</h4><h4 class="text-white text-lg font-semibold mb-6 lang-inline-vi">Liên hệ</h4>
+        <ul class="space-y-4">
+          <li class="flex items-center gap-3">
+            <svg class="w-[18px] h-[18px] text-brand-green flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+            <a href="mailto:info@sicusmedia.com" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200">info@sicusmedia.com</a>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="w-[18px] h-[18px] text-brand-green flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+            <a href="tel:+14034787979" class="text-sm text-gray-400 hover:text-brand-green transition-colors duration-200">(403) 478-7979</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="border-t border-gray-700/50 my-8">
+
+    <!-- Footer bottom -->
+    <div class="flex flex-col md:flex-row justify-between items-center text-sm space-y-4 md:space-y-0">
+      <!-- Social icons -->
+      <div class="flex items-center gap-4 text-gray-500">
+        <a href="#" class="hover:text-brand-green transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-brand-green" aria-label="Facebook"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="#" class="hover:text-brand-green transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-brand-green" aria-label="Instagram"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="#" class="hover:text-brand-green transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-brand-green" aria-label="YouTube"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      </div>
+      <!-- Copyright & links -->
+      <div class="flex items-center gap-6">
+        <a href="privacy-policy.html" class="text-xs text-gray-500 hover:text-brand-green transition-colors duration-200">Privacy Policy</a>
+        <a href="terms-of-service.html" class="text-xs text-gray-500 hover:text-brand-green transition-colors duration-200">Terms of Service</a>
+        <p class="text-xs text-gray-500">&copy; 2026 SICUS MEDIA. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Large SVG text hover effect (desktop only) -->
+  <div class="hidden lg:flex h-[30rem] -mt-52 -mb-36 relative z-10">
+    <svg id="footer-hover-svg" width="100%" height="100%" viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg" class="select-none uppercase cursor-pointer">
+      <defs>
+        <linearGradient id="footerTextGradient" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#8CB82B" />
+          <stop offset="25%" stop-color="#ef4444" />
+          <stop offset="50%" stop-color="#80eeb4" />
+          <stop offset="75%" stop-color="#06b6d4" />
+          <stop offset="100%" stop-color="#8b5cf6" />
+        </linearGradient>
+        <radialGradient id="footerRevealMask" gradientUnits="userSpaceOnUse" r="20%" cx="50%" cy="50%">
+          <stop offset="0%" stop-color="white" />
+          <stop offset="100%" stop-color="black" />
+        </radialGradient>
+        <mask id="footerTextMask">
+          <rect x="0" y="0" width="100%" height="100%" fill="url(#footerRevealMask)" />
+        </mask>
+      </defs>
+      <!-- Ghost outline (visible on hover) -->
+      <text id="footer-ghost-text" x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" stroke-width="0.3" fill="transparent" stroke="#333" font-family="Helvetica, Arial, sans-serif" font-size="72" font-weight="bold" style="opacity: 0;">SICUS</text>
+      <!-- Stroke-animated text -->
+      <text id="footer-stroke-text" x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" stroke-width="0.3" fill="transparent" stroke="#8CB82B" stroke-opacity="0.6" font-family="Helvetica, Arial, sans-serif" font-size="72" font-weight="bold" stroke-dasharray="1000" stroke-dashoffset="1000">SICUS</text>
+      <!-- Gradient reveal text (masked) -->
+      <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" stroke-width="0.3" fill="transparent" stroke="url(#footerTextGradient)" mask="url(#footerTextMask)" font-family="Helvetica, Arial, sans-serif" font-size="72" font-weight="bold">SICUS</text>
+    </svg>
+  </div>
+</footer>
+
+<script>
+  // Sparkles particle effect (vanilla tsparticles)
+  (async function() {
+    const { tsParticles } = window;
+    if (!tsParticles) return;
+    await tsParticles.load({
+      id: "hero-sparkles",
+      options: {
+        background: { color: { value: "transparent" } },
+        fullScreen: { enable: false },
+        fpsLimit: 120,
+        interactivity: {
+          events: { onClick: { enable: true, mode: "push" }, onHover: { enable: false } },
+          modes: { push: { quantity: 4 } }
+        },
+        particles: {
+          color: { value: ["#4a7a10", "#6A9A10", "#8CB82B"] },
+          move: {
+            enable: true,
+            direction: "none",
+            outModes: { default: "out" },
+            random: true,
+            speed: { min: 0.1, max: 0.5 },
+            straight: false
+          },
+          number: {
+            density: { enable: true, width: 600, height: 600 },
+            value: 60
+          },
+          opacity: {
+            value: { min: 0.15, max: 0.5 },
+            animation: { enable: true, speed: 1, sync: false, startValue: "random", mode: "auto" }
+          },
+          shape: { type: "circle" },
+          size: {
+            value: { min: 0.8, max: 2.5 },
+          },
+        },
+        detectRetina: true
+      }
+    });
+  })();
+
+  // Language toggle
+  function toggleLang() {
+    const html = document.getElementById('htmlRoot');
+    const label = document.getElementById('langLabel');
+    if (html.lang === 'en') { html.lang = 'vi'; label.textContent = 'VI'; }
+    else { html.lang = 'en'; label.textContent = 'EN'; }
+  }
+
+  // Stat tab switcher
+  function switchStatTab(tab) {
+    document.getElementById('stat-daily').classList.toggle('hidden', tab !== 'daily');
+    document.getElementById('stat-ai').classList.toggle('hidden', tab !== 'ai');
+    document.getElementById('tab-daily').classList.toggle('active', tab === 'daily');
+    document.getElementById('tab-ai').classList.toggle('active', tab === 'ai');
+  }
+
+  // Sticky scroll feature carousel
+  (function() {
+    const container = document.getElementById('core-features-scroll');
+    if (!container) return;
+    const panels = [0,1,2,3,4].map(i => document.getElementById('feature-' + i));
+    const tabs = document.querySelectorAll('.feature-tab-btn');
+    const progress = document.getElementById('feature-progress');
+    const PANEL_COUNT = 5;
+    let currentIdx = 0;
+
+    function updateFeature() {
+      const rect = container.getBoundingClientRect();
+      const scrollH = container.offsetHeight - window.innerHeight;
+      // How far through the scroll container (0 to 1)
+      const rawProgress = Math.max(0, Math.min(1, -rect.top / scrollH));
+      // Map to panel index
+      const idx = Math.min(PANEL_COUNT - 1, Math.floor(rawProgress * PANEL_COUNT));
+
+      if (idx !== currentIdx) {
+        panels[currentIdx].classList.remove('is-active');
+        panels[idx].classList.add('is-active');
+        tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
+        currentIdx = idx;
+      }
+      // Update progress bar
+      progress.style.width = ((rawProgress * 100) || 25) + '%';
+    }
+
+    window.addEventListener('scroll', updateFeature, { passive: true });
+    updateFeature();
+
+    // Click tab → scroll to that panel's position
+    window.scrollToFeature = function(idx) {
+      const scrollH = container.offsetHeight - window.innerHeight;
+      const targetY = container.offsetTop + (scrollH * idx / PANEL_COUNT);
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    };
+  })();
+
+  // FAQ accordion
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  // Audio example player
+  let currentAudio = null;
+  let currentBtn = null;
+
+  function toggleAudioExample(btn, src) {
+    const playIcon = btn.querySelector('.play-icon');
+    const pauseIcon = btn.querySelector('.pause-icon');
+    const timeEl = btn.querySelector('.audio-time');
+
+    // If clicking the same button that's playing, pause it
+    if (currentBtn === btn && currentAudio && !currentAudio.paused) {
+      currentAudio.pause();
+      playIcon.classList.remove('hidden');
+      pauseIcon.classList.add('hidden');
+      btn.classList.remove('is-playing');
+      return;
+    }
+
+    // Stop any currently playing audio
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentBtn) {
+        currentBtn.querySelector('.play-icon').classList.remove('hidden');
+        currentBtn.querySelector('.pause-icon').classList.add('hidden');
+        currentBtn.classList.remove('is-playing');
+        currentBtn.querySelector('.audio-time').textContent = '';
+      }
+    }
+
+    // Play new audio
+    currentAudio = new Audio(src);
+    currentBtn = btn;
+
+    playIcon.classList.add('hidden');
+    pauseIcon.classList.remove('hidden');
+    btn.classList.add('is-playing');
+
+    currentAudio.addEventListener('timeupdate', () => {
+      const cur = Math.floor(currentAudio.currentTime);
+      const dur = Math.floor(currentAudio.duration) || 0;
+      const fmt = s => Math.floor(s/60) + ':' + String(s%60).padStart(2,'0');
+      timeEl.textContent = fmt(cur) + ' / ' + fmt(dur);
+    });
+
+    currentAudio.addEventListener('ended', () => {
+      playIcon.classList.remove('hidden');
+      pauseIcon.classList.add('hidden');
+      btn.classList.remove('is-playing');
+      timeEl.textContent = '';
+      currentAudio = null;
+      currentBtn = null;
+    });
+
+    currentAudio.play();
+  }
+
+
+  // WebGL Shader Background for AI section
+  (function() {
+    const canvas = document.getElementById('ai-shader-bg');
+    if (!canvas) return;
+    const gl = canvas.getContext('webgl');
+    if (!gl) return;
+
+    const vsSource = 'attribute vec4 aVertexPosition; void main() { gl_Position = aVertexPosition; }';
+
+    const fsSource = `
+      precision highp float;
+      uniform vec2 iResolution;
+      uniform float iTime;
+
+      const float overallSpeed = 0.2;
+      const float gridSmoothWidth = 0.015;
+      const float axisWidth = 0.05;
+      const float majorLineWidth = 0.025;
+      const float minorLineWidth = 0.0125;
+      const float majorLineFrequency = 5.0;
+      const float minorLineFrequency = 1.0;
+      const float scale = 5.0;
+      const vec4 lineColor = vec4(0.4, 0.2, 0.8, 1.0);
+      const float minLineWidth = 0.01;
+      const float maxLineWidth = 0.2;
+      const float lineSpeed = 1.0 * overallSpeed;
+      const float lineAmplitude = 1.0;
+      const float lineFrequency = 0.2;
+      const float warpSpeed = 0.2 * overallSpeed;
+      const float warpFrequency = 0.5;
+      const float warpAmplitude = 1.0;
+      const float offsetFrequency = 0.5;
+      const float offsetSpeed = 1.33 * overallSpeed;
+      const float minOffsetSpread = 0.6;
+      const float maxOffsetSpread = 2.0;
+      const int linesPerGroup = 16;
+
+      #define drawCircle(pos, radius, coord) smoothstep(radius + gridSmoothWidth, radius, length(coord - (pos)))
+      #define drawSmoothLine(pos, halfWidth, t) smoothstep(halfWidth, 0.0, abs(pos - (t)))
+      #define drawCrispLine(pos, halfWidth, t) smoothstep(halfWidth + gridSmoothWidth, halfWidth, abs(pos - (t)))
+
+      float random(float t) {
+        return (cos(t) + cos(t * 1.3 + 1.3) + cos(t * 1.4 + 1.4)) / 3.0;
+      }
+
+      float getPlasmaY(float x, float horizontalFade, float offset) {
+        return random(x * lineFrequency + iTime * lineSpeed) * horizontalFade * lineAmplitude + offset;
+      }
+
+      void main() {
+        vec2 uv = gl_FragCoord.xy / iResolution.xy;
+        vec2 space = (gl_FragCoord.xy - iResolution.xy / 2.0) / iResolution.x * 2.0 * scale;
+
+        float horizontalFade = 1.0 - (cos(uv.x * 6.28) * 0.5 + 0.5);
+        float verticalFade = 1.0 - (cos(uv.y * 6.28) * 0.5 + 0.5);
+
+        space.y += random(space.x * warpFrequency + iTime * warpSpeed) * warpAmplitude * (0.5 + horizontalFade);
+        space.x += random(space.y * warpFrequency + iTime * warpSpeed + 2.0) * warpAmplitude * horizontalFade;
+
+        vec4 lines = vec4(0.0);
+        vec4 bgColor1 = vec4(0.04, 0.04, 0.1, 1.0);
+        vec4 bgColor2 = vec4(0.12, 0.04, 0.2, 1.0);
+
+        for(int l = 0; l < linesPerGroup; l++) {
+          float normalizedLineIndex = float(l) / float(linesPerGroup);
+          float offsetTime = iTime * offsetSpeed;
+          float offsetPosition = float(l) + space.x * offsetFrequency;
+          float rand = random(offsetPosition + offsetTime) * 0.5 + 0.5;
+          float halfWidth = mix(minLineWidth, maxLineWidth, rand * horizontalFade) / 2.0;
+          float offset = random(offsetPosition + offsetTime * (1.0 + normalizedLineIndex)) * mix(minOffsetSpread, maxOffsetSpread, horizontalFade);
+          float linePosition = getPlasmaY(space.x, horizontalFade, offset);
+          float line = drawSmoothLine(linePosition, halfWidth, space.y) / 2.0 + drawCrispLine(linePosition, halfWidth * 0.15, space.y);
+
+          float circleX = mod(float(l) + iTime * lineSpeed, 25.0) - 12.0;
+          vec2 circlePosition = vec2(circleX, getPlasmaY(circleX, horizontalFade, offset));
+          float circle = drawCircle(circlePosition, 0.01, space) * 4.0;
+
+          line = line + circle;
+          lines += line * lineColor * rand;
+        }
+
+        vec4 fragColor = mix(bgColor1, bgColor2, uv.x);
+        fragColor *= verticalFade;
+        fragColor.a = 1.0;
+        fragColor += lines;
+        gl_FragColor = fragColor;
+      }
+    `;
+
+    function loadShader(gl, type, source) {
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.error('Shader error:', gl.getShaderInfoLog(shader));
+        gl.deleteShader(shader);
+        return null;
+      }
+      return shader;
+    }
+
+    const vs = loadShader(gl, gl.VERTEX_SHADER, vsSource);
+    const fs = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
+    if (!vs || !fs) return;
+
+    const program = gl.createProgram();
+    gl.attachShader(program, vs);
+    gl.attachShader(program, fs);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
+
+    const posBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+
+    const posLoc = gl.getAttribLocation(program, 'aVertexPosition');
+    const resLoc = gl.getUniformLocation(program, 'iResolution');
+    const timeLoc = gl.getUniformLocation(program, 'iTime');
+
+    function resize() {
+      const section = canvas.parentElement;
+      canvas.width = section.offsetWidth;
+      canvas.height = section.offsetHeight;
+      gl.viewport(0, 0, canvas.width, canvas.height);
+    }
+
+    let resizeTimer;
+    window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(resize, 100); });
+    resize();
+
+    const startTime = Date.now();
+    let animId;
+    // Only animate when section is visible
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (!animId) tick();
+        } else {
+          if (animId) { cancelAnimationFrame(animId); animId = null; }
+        }
+      });
+    }, { threshold: 0 });
+    observer.observe(canvas.parentElement);
+
+    function tick() {
+      const t = (Date.now() - startTime) / 1000;
+      gl.clearColor(0, 0, 0, 1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.useProgram(program);
+      gl.uniform2f(resLoc, canvas.width, canvas.height);
+      gl.uniform1f(timeLoc, t);
+      gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
+      gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+      gl.enableVertexAttribArray(posLoc);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      animId = requestAnimationFrame(tick);
+    }
+  })();
+
+  // Testimonial auto-scroll: duplicate cards for infinite loop
+  document.querySelectorAll('.testimonial-col').forEach(col => {
+    const inner = col.querySelector('.testimonial-col-inner');
+    if (!inner) return;
+    const duration = col.dataset.duration || '16';
+    inner.style.setProperty('--duration', duration + 's');
+    // Clone all cards to create seamless loop
+    const cards = inner.innerHTML;
+    inner.innerHTML = cards + cards;
+  });
+
+  // Features carousel
+  (function() {
+    const track = document.getElementById('features-carousel');
+    const prevBtn = document.getElementById('features-prev');
+    const nextBtn = document.getElementById('features-next');
+    const dotsContainer = document.getElementById('features-dots');
+    if (!track) return;
+
+    const slides = track.querySelectorAll('.features-slide');
+    const totalSlides = slides.length;
+    let currentIndex = 0;
+
+    // Build dots
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'w-2 h-2 rounded-full transition-colors duration-200';
+      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      dot.addEventListener('click', () => scrollToSlide(i));
+      dotsContainer.appendChild(dot);
+    }
+
+    function updateDots() {
+      const dots = dotsContainer.children;
+      for (let i = 0; i < dots.length; i++) {
+        dots[i].style.background = i === currentIndex ? '#8CB82B' : '#d1d5db';
+      }
+    }
+
+    function updateButtons() {
+      if (prevBtn) prevBtn.disabled = currentIndex === 0;
+      if (nextBtn) nextBtn.disabled = currentIndex >= totalSlides - 1;
+    }
+
+    function scrollToSlide(index) {
+      currentIndex = Math.max(0, Math.min(index, totalSlides - 1));
+      const slide = slides[currentIndex];
+      track.scrollTo({ left: slide.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+      updateDots();
+      updateButtons();
+    }
+
+    // Detect current slide from scroll position
+    let scrollTimer;
+    track.addEventListener('scroll', () => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        const trackLeft = track.scrollLeft + track.offsetLeft;
+        let closest = 0;
+        let closestDist = Infinity;
+        slides.forEach((slide, i) => {
+          const dist = Math.abs(slide.offsetLeft - track.offsetLeft - track.scrollLeft);
+          if (dist < closestDist) { closestDist = dist; closest = i; }
+        });
+        currentIndex = closest;
+        updateDots();
+        updateButtons();
+      }, 50);
+    });
+
+    if (prevBtn) prevBtn.addEventListener('click', () => scrollToSlide(currentIndex - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => scrollToSlide(currentIndex + 1));
+
+    updateDots();
+    updateButtons();
+  })();
+
+  // Demo form submission via FormSubmit
+  (function() {
+    const form = document.getElementById('demo-form');
+    if (!form) return;
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('demo-submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      const formData = new FormData(form);
+      fetch('https://formsubmit.co/ajax/marketingsicusmedia@gmail.com', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      })
+      .then(function(res) { return res.json(); })
+      .then(function() {
+        document.getElementById('demo-form-wrapper').classList.add('hidden');
+        document.getElementById('demo-thank-you').classList.remove('hidden');
+      })
+      .catch(function() {
+        document.getElementById('demo-form-wrapper').classList.add('hidden');
+        document.getElementById('demo-thank-you').classList.remove('hidden');
+      });
+    });
+  })();
+
+  // Footer SVG text hover effect
+  (function() {
+    const svg = document.getElementById('footer-hover-svg');
+    if (!svg) return;
+
+    const ghostText = document.getElementById('footer-ghost-text');
+    const strokeText = document.getElementById('footer-stroke-text');
+    const revealMask = document.getElementById('footerRevealMask');
+    const gradient = document.getElementById('footerTextGradient');
+
+    // Stroke draw-in animation
+    let offset = 1000;
+    function animateStroke() {
+      if (offset > 0) {
+        offset -= 2;
+        strokeText.setAttribute('stroke-dashoffset', offset);
+        requestAnimationFrame(animateStroke);
+      }
+    }
+
+    // Start stroke animation when footer is visible
+    const observer = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        animateStroke();
+        observer.disconnect();
+      }
+    }, { threshold: 0.3 });
+    observer.observe(svg);
+
+    // Mouse hover: show ghost outline + gradient reveal
+    svg.addEventListener('mouseenter', function() {
+      ghostText.style.opacity = '0.7';
+      gradient.innerHTML = '<stop offset="0%" stop-color="#8CB82B"/><stop offset="25%" stop-color="#ef4444"/><stop offset="50%" stop-color="#80eeb4"/><stop offset="75%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#8b5cf6"/>';
+    });
+    svg.addEventListener('mouseleave', function() {
+      ghostText.style.opacity = '0';
+      gradient.innerHTML = '';
+    });
+
+    // Mouse move: update radial gradient mask position
+    svg.addEventListener('mousemove', function(e) {
+      const rect = svg.getBoundingClientRect();
+      const cx = ((e.clientX - rect.left) / rect.width) * 100;
+      const cy = ((e.clientY - rect.top) / rect.height) * 100;
+      revealMask.setAttribute('cx', cx + '%');
+      revealMask.setAttribute('cy', cy + '%');
+    });
+  })();
+</script>
+
+</body>
+</html>
