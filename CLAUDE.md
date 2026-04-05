@@ -101,6 +101,24 @@ Publish 8–12 articles targeting mid/long-tail keywords (1,500–2,500 words ea
 ### Top Competitors
 Fresha, GlossGenius, Vagaro, Booksy, Square, Mangomint, Boulevard, Zenoti
 
+### Blog Page Layout (UI/UX Standard)
+All blog articles must follow the layout in `blog/best-nail-salon-software.html`:
+
+1. **Navbar** — Fixed `bg-white/80 backdrop-blur-xl`. Includes: logo, language toggle, "Blog" link, "Schedule a Demo" CTA button.
+2. **Hero Section** — `pt-28 sm:pt-32 pb-16` with radial gradient bg (`#fff 50% → brand-green/12`). Contains breadcrumb → category badge (pill with green dot) → H1 (`text-3xl sm:text-4xl lg:text-[46px]`) → subtitle → author card (avatar + name + date + read time).
+3. **Article Body** — `max-w-3xl mx-auto px-6`. TOC is a **content box** (`bg-surface-50 border border-gray-200 rounded-2xl p-6 sm:p-8 mb-12`) with numbered `<ol>` list — **not a sidebar**. Article content inside `<div class="article-body">`.
+4. **CTA** — Green gradient (`linear-gradient(135deg, #8CB82B, #6A9A10)`) with SVG noise texture. **White button** (`bg-white text-brand-green-dark`). Not dark bg.
+5. **Related Articles** — 3-col grid of flat cards (`bg-surface-50 rounded-xl p-5 border border-gray-100 hover:border-brand-green/30`). Each card: category label + title. No image/icon area.
+6. **Footer** — Dark `#0F0F11`, 4-column grid, consistent across all pages.
+
+**Article body typography:**
+- h2: `1.75rem` (sm: `2rem`), h3: `1.35rem` (sm: `1.5rem`)
+- p/li: `1.065rem` (sm: `1.125rem`), line-height `1.75`
+- Links: `color: #8CB82B; text-decoration: underline; text-underline-offset: 2px`
+- Blockquotes: green left border, `#f9fdf2` bg
+
+**Landing pages** (`/nail-salon-booking-app`, `/hair-salon-booking-system`, etc.) follow a different layout from blogs — they are product pages with their own hero, features, comparison, and CTA sections.
+
 ## Hard Rules
 - Do not add sections, features, or content not in the reference
 - Do not "improve" a reference design — match it

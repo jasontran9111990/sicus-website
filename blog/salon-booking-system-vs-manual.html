@@ -174,19 +174,21 @@
 
     /* Article typography */
     .article-body h2 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; margin-top: 2.5rem; margin-bottom: 1rem; color: #111; }
-    .article-body h3 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; margin-top: 2rem; margin-bottom: 0.75rem; color: #222; }
-    .article-body p { font-size: 1.0625rem; line-height: 1.8; color: #374151; margin-bottom: 1.25rem; }
+    .article-body h3 { font-size: 1.35rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; margin-top: 2rem; margin-bottom: 0.75rem; color: #1a1a1a; }
+    .article-body p { font-size: 1.065rem; line-height: 1.75; color: #374151; margin-bottom: 1.25rem; }
     .article-body ul, .article-body ol { margin-bottom: 1.25rem; padding-left: 1.5rem; }
-    .article-body li { font-size: 1.0625rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+    .article-body li { font-size: 1.065rem; line-height: 1.75; color: #374151; margin-bottom: 0.5rem; }
     .article-body ul li { list-style-type: disc; }
     .article-body ol li { list-style-type: decimal; }
     .article-body strong { color: #111; font-weight: 600; }
+    .article-body a { color: #8CB82B; text-decoration: underline; text-underline-offset: 2px; }
+    .article-body a:hover { color: #6A9A10; }
     .article-body blockquote { border-left: 4px solid #8CB82B; padding: 1rem 1.5rem; margin: 1.5rem 0; background: #f9fdf2; border-radius: 0 0.5rem 0.5rem 0; }
     .article-body blockquote p { color: #4a5568; font-style: italic; margin-bottom: 0; }
 
     @media (min-width: 640px) {
       .article-body h2 { font-size: 2rem; }
-      .article-body h3 { font-size: 1.375rem; }
+      .article-body h3 { font-size: 1.5rem; }
       .article-body p, .article-body li { font-size: 1.125rem; }
     }
 
@@ -233,6 +235,8 @@
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg>
         <span id="langLabel">EN</span>
       </button>
+      <a href="index.html" class="text-sm text-gray-500 hover:text-gray-900 transition-colors duration-200"><span class="lang-inline-en">Blog</span><span class="lang-inline-vi">Bai viet</span></a>
+      <a href="index.html#free-tools" class="text-sm text-gray-500 hover:text-gray-900 transition-colors duration-200"><span class="lang-inline-en">Tools</span><span class="lang-inline-vi">Công cụ</span></a>
       <a href="../index.html#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold text-sm px-5 py-2 rounded-full shadow-[0_2px_12px_rgba(140,184,43,0.25)] hover:shadow-[0_4px_20px_rgba(140,184,43,0.4)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green-dark">
         <span class="lang-inline-en">Schedule a Demo</span><span class="lang-inline-vi">Dat lich Demo</span>
       </a>
@@ -240,106 +244,80 @@
   </div>
 </nav>
 
-<!-- ==================== BREADCRUMB ==================== -->
-<div class="pt-20 pb-4 bg-surface-50 border-b border-gray-100">
-  <div class="max-w-3xl mx-auto px-6">
-    <nav aria-label="Breadcrumb" class="text-sm text-gray-400">
-      <ol class="flex items-center gap-2">
-        <li><a href="../index.html" class="hover:text-brand-green transition-colors duration-200">
-          <span class="lang-inline-en">Home</span><span class="lang-inline-vi">Trang chu</span>
-        </a></li>
-        <li><svg class="w-3.5 h-3.5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li>
-        <li><a href="../index.html#resources" class="hover:text-brand-green transition-colors duration-200">Blog</a></li>
-        <li><svg class="w-3.5 h-3.5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li>
-        <li class="text-gray-600 font-medium">
-          <span class="lang-inline-en">Salon Booking System vs. Manual Scheduling</span><span class="lang-inline-vi">He thong dat lich Salon vs. Dat lich thu cong</span>
-        </li>
-      </ol>
+<!-- ==================== ARTICLE HERO ==================== -->
+<section class="relative pt-28 sm:pt-32 pb-16 overflow-hidden">
+  <!-- Gradient background -->
+  <div class="absolute inset-0 z-0" style="background: radial-gradient(125% 100% at 50% 0%, #fff 50%, rgba(140,184,43,0.12) 100%);"></div>
+
+  <div class="relative z-10 max-w-3xl mx-auto px-6">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm text-gray-400 mb-6" aria-label="Breadcrumb">
+      <a href="../index.html" class="hover:text-brand-green transition-colors duration-200">
+        <span class="lang-inline-en">Home</span><span class="lang-inline-vi">Trang chu</span>
+      </a>
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      <span class="lang-inline-en">Blog</span><span class="lang-inline-vi">Bai viet</span>
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      <span class="text-gray-600 lang-inline-en">Booking System vs. Manual</span>
+      <span class="text-gray-600 lang-inline-vi">He thong dat lich vs. Thu cong</span>
     </nav>
-  </div>
-</div>
 
-<!-- ==================== ARTICLE ==================== -->
-<main class="blog-gradient">
-<article class="max-w-3xl mx-auto px-6 pt-10 pb-20">
-
-  <!-- Article Header -->
-  <header class="mb-10">
     <!-- Category badge -->
-    <div class="mb-4">
-      <span class="inline-block text-xs font-semibold tracking-wider uppercase text-brand-green bg-brand-green/10 px-3 py-1 rounded-full">
-        <span class="lang-inline-en">Salon Management</span><span class="lang-inline-vi">Quan ly Salon</span>
-      </span>
+    <div class="inline-flex items-center gap-2 bg-brand-green/10 border border-brand-green/20 rounded-full px-4 py-1.5 mb-6">
+      <span class="w-2 h-2 rounded-full bg-brand-green"></span>
+      <span class="text-sm font-medium text-brand-green-dark lang-inline-en">Salon Management</span>
+      <span class="text-sm font-medium text-brand-green-dark lang-inline-vi">Quan ly Salon</span>
     </div>
 
     <!-- Title -->
-    <h1 class="font-display text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.12] tracking-[-0.025em] text-gray-900 font-bold mb-5">
+    <h1 class="font-display text-3xl sm:text-4xl lg:text-[46px] leading-[1.15] tracking-[-0.025em] text-gray-900 mb-6">
       <span class="lang-inline-en">Salon Booking System vs. Manual Scheduling: Why It&rsquo;s Time to Switch</span>
       <span class="lang-inline-vi">He thong dat lich Salon vs. Dat lich thu cong: Tai sao da den luc thay doi</span>
     </h1>
 
-    <!-- Meta line -->
-    <div class="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-6">
-      <div class="flex items-center gap-2">
-        <div class="w-8 h-8 rounded-full bg-brand-green/15 flex items-center justify-center">
-          <svg class="w-4 h-4 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-        </div>
-        <span class="font-medium text-gray-600">SICUS Media</span>
+    <!-- Subtitle -->
+    <p class="text-lg sm:text-xl text-gray-500 leading-relaxed mb-8">
+      <span class="lang-inline-en">Compare the real costs of paper books, spreadsheets &amp; phone scheduling against modern salon booking software &mdash; and see why switching saves time, cuts no-shows, and grows revenue.</span>
+      <span class="lang-inline-vi">So sanh chi phi thuc te cua so hen giay, bang tinh &amp; dat lich qua dien thoai voi phan mem dat lich salon hien dai &mdash; va xem tai sao chuyen doi tiet kiem thoi gian, giam no-show, va tang doanh thu.</span>
+    </p>
+
+    <!-- Author & date -->
+    <div class="flex items-center gap-4 text-sm text-gray-500">
+      <div class="w-10 h-10 rounded-full bg-brand-green/15 flex items-center justify-center">
+        <svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
       </div>
-      <span class="text-gray-300">|</span>
-      <time datetime="2026-04-05">
-        <span class="lang-inline-en">April 5, 2026</span><span class="lang-inline-vi">5 thang 4, 2026</span>
-      </time>
-      <span class="text-gray-300">|</span>
-      <span>
-        <span class="lang-inline-en">10 min read</span><span class="lang-inline-vi">10 phut doc</span>
-      </span>
+      <div>
+        <p class="text-gray-900 font-medium text-sm">SICUS Media Team</p>
+        <p class="text-gray-400 text-xs">
+          <span class="lang-inline-en">April 5, 2026 &middot; 10 min read</span>
+          <span class="lang-inline-vi">5 thang 4, 2026 &middot; 10 phut doc</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ARTICLE BODY ==================== -->
+<section class="pb-20">
+  <div class="max-w-3xl mx-auto px-6">
+
+    <!-- Table of Contents -->
+    <div class="bg-surface-50 border border-gray-200 rounded-2xl p-6 sm:p-8 mb-12 toc">
+      <h2 class="text-base font-semibold text-gray-900 mb-4 lang-inline-en">Table of Contents</h2>
+      <h2 class="text-base font-semibold text-gray-900 mb-4 lang-inline-vi">Muc luc</h2>
+      <ol class="space-y-1 list-decimal list-inside">
+        <li><a href="#intro" class="lang-inline-en">Introduction</a><a href="#intro" class="lang-inline-vi">Gioi thieu</a></li>
+        <li><a href="#hidden-costs" class="lang-inline-en">The Hidden Costs of Manual Scheduling</a><a href="#hidden-costs" class="lang-inline-vi">Chi phi an cua dat lich thu cong</a></li>
+        <li><a href="#what-booking-does" class="lang-inline-en">What a Booking System Actually Does</a><a href="#what-booking-does" class="lang-inline-vi">He thong dat lich thuc su lam gi</a></li>
+        <li><a href="#comparison" class="lang-inline-en">Side-by-Side Comparison</a><a href="#comparison" class="lang-inline-vi">So sanh chi tiet</a></li>
+        <li><a href="#not-tech-savvy" class="lang-inline-en">"But I'm Not Tech-Savvy"</a><a href="#not-tech-savvy" class="lang-inline-vi">"Nhung toi khong gioi cong nghe"</a></li>
+        <li><a href="#when-to-switch" class="lang-inline-en">When to Switch</a><a href="#when-to-switch" class="lang-inline-vi">Khi nao nen chuyen doi</a></li>
+        <li><a href="#faq" class="lang-inline-en">Frequently Asked Questions</a><a href="#faq" class="lang-inline-vi">Cau hoi thuong gap</a></li>
+      </ol>
     </div>
 
-    <!-- Divider -->
-    <div class="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
-  </header>
-
-  <!-- Two-column layout on desktop: TOC sidebar + article -->
-  <div class="lg:flex lg:gap-12">
-
-    <!-- Table of Contents (sticky sidebar on desktop, collapsible on mobile) -->
-    <aside class="lg:w-56 lg:flex-shrink-0 mb-8 lg:mb-0">
-      <div class="lg:sticky lg:top-24">
-        <details class="lg:open group" open>
-          <summary class="flex items-center justify-between cursor-pointer lg:cursor-default text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3 list-none">
-            <span class="lang-inline-en">Table of Contents</span><span class="lang-inline-vi">Muc luc</span>
-            <svg class="w-4 h-4 lg:hidden group-open:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <nav class="flex flex-col gap-1.5 text-sm" aria-label="Table of contents">
-            <a href="#intro" class="toc-link pl-3 py-1 text-gray-500 hover:text-brand-green">
-              <span class="lang-inline-en">Introduction</span><span class="lang-inline-vi">Gioi thieu</span>
-            </a>
-            <a href="#hidden-costs" class="toc-link pl-3 py-1 text-gray-500 hover:text-brand-green">
-              <span class="lang-inline-en">The Hidden Costs</span><span class="lang-inline-vi">Chi phi an</span>
-            </a>
-            <a href="#what-booking-does" class="toc-link pl-3 py-1 text-gray-500 hover:text-brand-green">
-              <span class="lang-inline-en">What a Booking System Does</span><span class="lang-inline-vi">He thong dat lich lam gi</span>
-            </a>
-            <a href="#comparison" class="toc-link pl-3 py-1 text-gray-500 hover:text-brand-green">
-              <span class="lang-inline-en">Side-by-Side Comparison</span><span class="lang-inline-vi">So sanh chi tiet</span>
-            </a>
-            <a href="#not-tech-savvy" class="toc-link pl-3 py-1 text-gray-500 hover:text-brand-green">
-              <span class="lang-inline-en">"But I'm Not Tech-Savvy"</span><span class="lang-inline-vi">"Nhung toi khong gioi cong nghe"</span>
-            </a>
-            <a href="#when-to-switch" class="toc-link pl-3 py-1 text-gray-500 hover:text-brand-green">
-              <span class="lang-inline-en">When to Switch</span><span class="lang-inline-vi">Khi nao nen chuyen doi</span>
-            </a>
-            <a href="#faq" class="toc-link pl-3 py-1 text-gray-500 hover:text-brand-green">
-              <span class="lang-inline-en">FAQ</span><span class="lang-inline-vi">Cau hoi thuong gap</span>
-            </a>
-          </nav>
-        </details>
-      </div>
-    </aside>
-
-    <!-- Article Body -->
-    <div class="article-body lg:flex-1 min-w-0">
+    <!-- ===== ARTICLE CONTENT ===== -->
+    <div class="article-body">
 
       <!-- ===== SECTION 1: INTRO ===== -->
       <section id="intro">
@@ -871,90 +849,64 @@
       </section>
 
       <!-- ===== CTA SECTION ===== -->
-      <section class="mt-16 mb-8">
-        <div class="relative overflow-hidden rounded-2xl p-8 sm:p-10 text-center" style="background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);">
-          <!-- Gradient overlay -->
-          <div class="absolute inset-0 z-0" style="background: radial-gradient(circle at 30% 50%, rgba(140,184,43,0.15) 0%, transparent 60%);"></div>
+      <div class="relative overflow-hidden rounded-2xl p-8 sm:p-12 text-center mt-16" style="background: linear-gradient(135deg, #8CB82B 0%, #6A9A10 100%);">
+        <!-- Subtle texture -->
+        <div class="absolute inset-0 opacity-[0.06]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size: 200px;"></div>
 
-          <div class="relative z-10">
-            <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-[-0.02em] mb-3">
-              <span class="lang-inline-en">Ready to Stop Leaving Money on the Table?</span>
-              <span class="lang-inline-vi">San sang ngung de mat tien?</span>
-            </h2>
-            <p class="text-gray-400 text-base sm:text-lg mb-8 max-w-lg mx-auto">
-              <span class="lang-inline-en">See how Sicus Booking can save your salon 10+ hours per week and recover thousands in lost revenue. Setup takes 15 minutes &mdash; we will walk you through it.</span>
-              <span class="lang-inline-vi">Xem cach Sicus Booking co the tiet kiem cho tiem cua ban 10+ gio moi tuan va phuc hoi hang ngan do la doanh thu bi mat. Thiet lap mat 15 phut &mdash; chung toi se huong dan ban.</span>
-            </p>
-            <a href="../index.html#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold text-base px-8 py-3.5 rounded-full shadow-[0_4px_20px_rgba(140,184,43,0.35)] hover:shadow-[0_6px_30px_rgba(140,184,43,0.5)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green-dark">
-              <span class="lang-inline-en">Schedule a Free Demo</span><span class="lang-inline-vi">Dat lich Demo mien phi</span>
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-            </a>
-          </div>
+        <div class="relative z-10">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4 tracking-[-0.02em] !mt-0">
+            <span class="lang-inline-en">Ready to Stop Leaving Money on the Table?</span>
+            <span class="lang-inline-vi">San sang ngung de mat tien?</span>
+          </h2>
+          <p class="text-white/85 text-lg mb-8 max-w-xl mx-auto !text-white/85">
+            <span class="lang-inline-en">See how Sicus Booking can save your salon 10+ hours per week and recover thousands in lost revenue. Setup takes 15 minutes &mdash; we&rsquo;ll walk you through it.</span>
+            <span class="lang-inline-vi">Xem cach Sicus Booking co the tiet kiem cho tiem cua ban 10+ gio moi tuan va phuc hoi hang ngan do la doanh thu bi mat. Thiet lap mat 15 phut &mdash; chung toi se huong dan ban.</span>
+          </p>
+          <a href="../index.html#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-brand-green-dark font-semibold text-base sm:text-lg px-8 py-3.5 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_30px_rgba(0,0,0,0.2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+            <span class="lang-inline-en">Schedule a Free Demo</span>
+            <span class="lang-inline-vi">Dat lich Demo Mien Phi</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
         </div>
-      </section>
+      </div>
 
     </div>
+
+    <!-- ===== RELATED ARTICLES ===== -->
+    <div class="mt-16 pt-12 border-t border-gray-200">
+      <h2 class="text-xl font-bold text-gray-900 mb-6">
+        <span class="lang-inline-en">Related Articles</span><span class="lang-inline-vi">Bai viet lien quan</span>
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <a href="ai-salon-management.html" class="group block bg-surface-50 rounded-xl p-5 border border-gray-100 hover:border-brand-green/30 transition-colors duration-200">
+          <p class="text-sm text-brand-green font-medium mb-2 lang-inline-en">Salon Technology</p>
+          <p class="text-sm text-brand-green font-medium mb-2 lang-inline-vi">Cong nghe Salon</p>
+          <h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-green-dark transition-colors duration-200 leading-snug">
+            <span class="lang-inline-en">AI Salon Management: How Smart Booking Changes Everything</span>
+            <span class="lang-inline-vi">Quan ly Salon bang AI: Cach dat lich thong minh thay doi tat ca</span>
+          </h3>
+        </a>
+        <a href="best-salon-booking-apps.html" class="group block bg-surface-50 rounded-xl p-5 border border-gray-100 hover:border-brand-green/30 transition-colors duration-200">
+          <p class="text-sm text-brand-green font-medium mb-2 lang-inline-en">Software Guide</p>
+          <p class="text-sm text-brand-green font-medium mb-2 lang-inline-vi">Huong dan phan mem</p>
+          <h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-green-dark transition-colors duration-200 leading-snug">
+            <span class="lang-inline-en">Best Salon Booking Apps in 2026 (Compared)</span>
+            <span class="lang-inline-vi">Ung dung dat lich Salon tot nhat 2026 (So sanh)</span>
+          </h3>
+        </a>
+        <a href="best-nail-salon-software.html" class="group block bg-surface-50 rounded-xl p-5 border border-gray-100 hover:border-brand-green/30 transition-colors duration-200">
+          <p class="text-sm text-brand-green font-medium mb-2 lang-inline-en">Nail Salon</p>
+          <p class="text-sm text-brand-green font-medium mb-2 lang-inline-vi">Tiem Nail</p>
+          <h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-green-dark transition-colors duration-200 leading-snug">
+            <span class="lang-inline-en">Best Nail Salon Software for Small Businesses</span>
+            <span class="lang-inline-vi">Phan mem tiem Nail tot nhat cho doanh nghiep nho</span>
+          </h3>
+        </a>
+      </div>
+    </div>
+
   </div>
-
-  <!-- ===== RELATED ARTICLES ===== -->
-  <section class="mt-16 pt-12 border-t border-gray-100">
-    <h2 class="text-xl font-bold text-gray-900 mb-6">
-      <span class="lang-inline-en">Related Articles</span><span class="lang-inline-vi">Bai viet lien quan</span>
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <!-- Related 1 -->
-      <a href="ai-salon-management.html" class="group block rounded-xl border border-gray-100 overflow-hidden hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
-        <div class="h-32 bg-gradient-to-br from-brand-green/10 to-brand-green/5 flex items-center justify-center">
-          <svg class="w-10 h-10 text-brand-green/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>
-        </div>
-        <div class="p-4">
-          <h3 class="font-semibold text-gray-900 text-sm group-hover:text-brand-green transition-colors duration-200 mb-1">
-            <span class="lang-inline-en">AI Salon Management</span>
-            <span class="lang-inline-vi">Quan ly Salon bang AI</span>
-          </h3>
-          <p class="text-xs text-gray-400">
-            <span class="lang-inline-en">How smart booking and AI are changing the salon industry</span>
-            <span class="lang-inline-vi">Cach dat lich thong minh va AI dang thay doi nganh salon</span>
-          </p>
-        </div>
-      </a>
-      <!-- Related 2 -->
-      <a href="best-salon-booking-apps.html" class="group block rounded-xl border border-gray-100 overflow-hidden hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
-        <div class="h-32 bg-gradient-to-br from-brand-red/10 to-brand-red/5 flex items-center justify-center">
-          <svg class="w-10 h-10 text-brand-red/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
-        </div>
-        <div class="p-4">
-          <h3 class="font-semibold text-gray-900 text-sm group-hover:text-brand-green transition-colors duration-200 mb-1">
-            <span class="lang-inline-en">Best Salon Booking Apps</span>
-            <span class="lang-inline-vi">Ung dung dat lich Salon tot nhat</span>
-          </h3>
-          <p class="text-xs text-gray-400">
-            <span class="lang-inline-en">Top salon booking apps compared for 2026</span>
-            <span class="lang-inline-vi">So sanh cac ung dung dat lich salon hang dau 2026</span>
-          </p>
-        </div>
-      </a>
-      <!-- Related 3 -->
-      <a href="best-nail-salon-software.html" class="group block rounded-xl border border-gray-100 overflow-hidden hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
-        <div class="h-32 bg-gradient-to-br from-brand-green/10 to-brand-red/5 flex items-center justify-center">
-          <svg class="w-10 h-10 text-brand-green/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
-        </div>
-        <div class="p-4">
-          <h3 class="font-semibold text-gray-900 text-sm group-hover:text-brand-green transition-colors duration-200 mb-1">
-            <span class="lang-inline-en">Best Nail Salon Software</span>
-            <span class="lang-inline-vi">Phan mem tiem Nail tot nhat</span>
-          </h3>
-          <p class="text-xs text-gray-400">
-            <span class="lang-inline-en">Purpose-built software for nail salons and spas</span>
-            <span class="lang-inline-vi">Phan mem chuyen biet cho tiem nail va spa</span>
-          </p>
-        </div>
-      </a>
-    </div>
-  </section>
-
-</article>
-</main>
+</section>
 
 <!-- ==================== FOOTER ==================== -->
 <footer class="relative overflow-hidden rounded-3xl m-4 sm:m-8" style="background: #0F0F11;">
