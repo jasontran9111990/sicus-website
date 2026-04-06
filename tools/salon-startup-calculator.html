@@ -388,12 +388,12 @@
       </div>
       <div>
         <h3 class="font-bold text-gray-900 mb-1">
-          <span class="lang-inline-en">Your Technology & Software cost: <span class="text-brand-green">$0 with Sicus Booking</span></span>
-          <span class="lang-inline-vi">Chi phi cong nghe & phan mem: <span class="text-brand-green">$0 voi Sicus Booking</span></span>
+          <span class="lang-inline-en">Your Technology & Software cost: <span class="text-brand-green">Starts at $0/mo with Sicus Booking</span></span>
+          <span class="lang-inline-vi">Chi phi cong nghe & phan mem: <span class="text-brand-green">Bat dau tu $0/thang voi Sicus Booking</span></span>
         </h3>
         <p class="text-sm text-gray-600 leading-relaxed">
-          <span class="lang-inline-en">Most salon software charges $100-$400/month. Sicus Booking includes online booking, CRM, automated messaging, and AI receptionist — all free to start. That's <strong>$1,200-$4,800 saved in your first year alone</strong>.</span>
-          <span class="lang-inline-vi">Hau het phan mem salon tinh phi $100-$400/thang. Sicus Booking bao gom dat lich online, CRM, tin nhan tu dong va le tan AI — tat ca mien phi. Tiet kiem <strong>$1,200-$4,800 trong nam dau tien</strong>.</span>
+          <span class="lang-inline-en">Most salon software charges $100-$400/month. Sicus Booking starts at $0/month with online booking, CRM, and automated messaging included. <strong>Pay only when you scale up</strong> — no credit card required to get started.</span>
+          <span class="lang-inline-vi">Hau het phan mem salon tinh phi $100-$400/thang. Sicus Booking bat dau tu $0/thang voi dat lich online, CRM va tin nhan tu dong. <strong>Chi tra khi ban mo rong</strong> — khong can the tin dung de bat dau.</span>
         </p>
       </div>
     </div>
@@ -823,7 +823,7 @@ function calculate() {
   const invLow = d.inventoryBase[type][0] + d.inventoryPerStation[type][0] * stations;
   const invHigh = d.inventoryBase[type][1] + d.inventoryPerStation[type][1] * stations;
 
-  // 5. Technology & Software = $0 with Sicus
+  // 5. Technology & Software — starts at $0/mo with Sicus
   const techLow = 0;
   const techHigh = 0;
 
@@ -887,7 +887,7 @@ function calculate() {
         '</span>' +
       '</div>' +
       '<span class="text-sm font-bold ' + (isHighlight ? 'text-brand-green' : 'text-gray-900') + '">' +
-        (isHighlight ? '<span class="lang-inline-en">$0 with Sicus Booking</span><span class="lang-inline-vi">$0 voi Sicus Booking</span>' : fmtRange(cat.low, cat.high)) +
+        (isHighlight ? '<span class="lang-inline-en">Starts at $0/mo</span><span class="lang-inline-vi">Bat dau tu $0/thang</span>' : fmtRange(cat.low, cat.high)) +
       '</span>';
     listEl.appendChild(div);
   });
@@ -902,7 +902,7 @@ function calculate() {
     const color = barColors[i % barColors.length];
     const isZero = cat.low === 0 && cat.high === 0;
     const valLabel = isZero
-      ? '<span class="lang-inline-en">$0 with Sicus Booking</span><span class="lang-inline-vi">$0 voi Sicus Booking</span>'
+      ? '<span class="lang-inline-en">Starts at $0/mo</span><span class="lang-inline-vi">Bat dau tu $0/thang</span>'
       : fmtRange(cat.low, cat.high);
     const row = document.createElement('div');
     row.className = 'flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3';
