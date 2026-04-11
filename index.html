@@ -848,7 +848,7 @@
         </div>
 
         <!-- Panels container (stacked, only one visible at a time) -->
-        <div style="position: relative; min-height: 420px;">
+        <div id="panels-container" style="position: relative; min-height: 420px; transition: min-height 0.4s ease;">
 
           <!-- Panel 0: AI Assistant -->
           <div class="feature-panel is-active" id="feature-0">
@@ -2164,11 +2164,24 @@
 
     function isMobile() { return window.innerWidth < 640; }
 
+    var panelsContainer = document.getElementById('panels-container');
+
+    function resizePanelsContainer(idx) {
+      var panel = panels[idx];
+      // Active panel is absolutely positioned, so we need to measure it differently.
+      // Temporarily switch to relative positioning to get its natural height.
+      panel.style.position = 'relative';
+      var h = panel.scrollHeight;
+      panel.style.position = '';
+      if (h > 0) panelsContainer.style.minHeight = h + 'px';
+    }
+
     function switchPanel(idx) {
       panels[currentIdx].classList.remove('is-active');
       panels[idx].classList.add('is-active');
       tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
       currentIdx = idx;
+      resizePanelsContainer(idx);
     }
 
     function updateFeature() {
@@ -2184,6 +2197,8 @@
 
     window.addEventListener('scroll', updateFeature, { passive: true });
     updateFeature();
+    // Set initial container height for the active panel
+    resizePanelsContainer(currentIdx);
 
     // Click tab → on mobile just switch panel, on desktop scroll to position
     window.scrollToFeature = function(idx) {
