@@ -103,6 +103,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sicusmedia.com/tools/salon-idea-validator.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sicusmedia.com/privacy-policy.html</loc>
     <lastmod>2026-04-05</lastmod>
     <changefreq>yearly</changefreq>
