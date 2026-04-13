@@ -3,32 +3,88 @@
 ## Always Do First
 - **Invoke the `frontend-design` skill** before writing any frontend code, every session, no exceptions.
 
+## Build System & Page Creation
+
+This site uses a templated build system. **Do not create new `.html` files at the project root** — they will not be served. All pages live in `src/pages/` and are built into `dist/` by `build.mjs`.
+
+### Repository layout
+- `src/pages/` — page sources. Mirrors live URL structure (e.g. `src/pages/blog/foo.html` → `/blog/foo.html`).
+- `src/partials/` — shared markup. Pages include partials via `<!-- @include partials/X.html -->` markers that `build.mjs` resolves at build time.
+  - `head-common.html` — GTM head script, charset, viewport, Tailwind CDN, Google Fonts, Tailwind config (brand colors). Use on every standard page.
+  - `gtm-head.html` — GTM head script only. Use on pages with their own non-standard head/font setup (privacy-policy, terms-of-service).
+  - `gtm-noscript.html` — GTM `<noscript>` iframe. Goes immediately after `<body>`.
+  - `nav.html` — top navbar (logo, language toggle, Blog/Tools/Demo). Uses root-relative paths.
+  - `footer.html` — dark site footer. Uses root-relative paths.
+- `build.mjs` — resolves include markers, writes to `dist/`, copies static assets (`brand_assets/`, `robots.txt`, `sitemap.xml`, root `*.png` mockups, 32-hex-char `*.html` domain verification files).
+- `dist/` — generated output. **Never edit files here directly — they are overwritten on every build.** Gitignored.
+- `vercel.json` — tells Vercel to run `node build.mjs` and serve from `dist/`.
+
+### Creating a new page
+1. Create the file in the right `src/pages/` location:
+   - Landing page → `src/pages/foo.html`
+   - Blog post → `src/pages/blog/foo.html`
+   - Tool → `src/pages/tools/foo.html`
+2. Use this skeleton (page-specific bits in `<head>` and the body content; everything else inherited from partials):
+   ```html
+   <!DOCTYPE html>
+   <html lang="en" id="htmlRoot">
+   <head>
+   <!-- @include partials/head-common.html -->
+
+     <title>...</title>
+     <meta name="description" content="...">
+     <link rel="canonical" href="https://sicusmedia.com/foo.html">
+     <!-- OG, Twitter, JSON-LD as needed (page-specific) -->
+
+     <style>
+       /* page-specific styles only — shared CSS lives in head-common */
+     </style>
+   </head>
+   <body class="bg-white text-gray-900 overflow-x-hidden">
+   <!-- @include partials/gtm-noscript.html -->
+   <!-- @include partials/nav.html -->
+
+   <!-- ...page content... -->
+
+   <!-- @include partials/footer.html -->
+   </body>
+   </html>
+   ```
+3. Build and test locally:
+   ```bash
+   node build.mjs
+   node serve.mjs dist
+   ```
+   Open `http://localhost:3000/foo.html` in a browser to verify.
+4. Commit `src/pages/foo.html` and push. Vercel auto-builds and deploys.
+
+### Editing shared markup (nav, footer, GTM, etc.)
+Edit the relevant file in `src/partials/`. Run `node build.mjs` to regenerate `dist/`. Every page picks up the change automatically — no per-file edits.
+
+### Hard rules for the build system
+- **Never create or edit `.html` files at the project root.** Only static assets (`robots.txt`, `sitemap.xml`, domain verification files, image mockups) belong at root.
+- **Never edit files in `dist/`** — they are generated and will be overwritten.
+- **Never duplicate GTM, nav, or footer markup in a page.** Always use the `<!-- @include partials/X.html -->` markers.
+- **Always test with `node build.mjs && node serve.mjs dist`** before committing.
+- The 21 legacy `.html` files still at the project root (other than `index.html`-style entry points) are dead duplicates from the migration. Do not edit them. They will be removed in a future cleanup commit.
+
 ## Reference Images
 - If a reference image is provided: match layout, spacing, typography, and color exactly. Swap in placeholder content (images via `https://placehold.co/`, generic copy). Do not improve or add to the design.
 - If no reference image: design from scratch with high craft (see guardrails below).
-- Screenshot your output, compare against reference, fix mismatches, re-screenshot. Do at least 2 comparison rounds. Stop only when no visible differences remain or user says so.
+- Compare visually with the reference and iterate until it matches. Be specific about deltas ("heading is 32px but reference shows ~24px", "card gap is 16px but should be 24px"). Check spacing/padding, font size/weight/line-height, colors (exact hex), alignment, border-radius, shadows, image sizing.
 
 ## Local Server
-- **Always serve on localhost** — never screenshot a `file:///` URL.
-- Start the dev server: `node serve.mjs` (serves the project root at `http://localhost:3000`)
-- `serve.mjs` lives in the project root. Start it in the background before taking any screenshots.
+- Start the dev server pointing at the build output: `node serve.mjs dist` (serves `dist/` at `http://localhost:3000`).
+- For ad-hoc checks of the source repo (rare), `node serve.mjs` with no arg serves the project root.
+- `serve.mjs` lives in the project root and resolves directory paths to `index.html` automatically.
 - If the server is already running, do not start a second instance.
 
-## Screenshot Workflow
-- Puppeteer is installed at `C:/Users/nateh/AppData/Local/Temp/puppeteer-test/`. Chrome cache is at `C:/Users/nateh/.cache/puppeteer/`.
-- **Always screenshot from localhost:** `node screenshot.mjs http://localhost:3000`
-- Screenshots are saved automatically to `./temporary screenshots/screenshot-N.png` (auto-incremented, never overwritten).
-- Optional label suffix: `node screenshot.mjs http://localhost:3000 label` → saves as `screenshot-N-label.png`
-- `screenshot.mjs` lives in the project root. Use it as-is.
-- After screenshotting, read the PNG from `temporary screenshots/` with the Read tool — Claude can see and analyze the image directly.
-- When comparing, be specific: "heading is 32px but reference shows ~24px", "card gap is 16px but should be 24px"
-- Check: spacing/padding, font size/weight/line-height, colors (exact hex), alignment, border-radius, shadows, image sizing
-
 ## Output Defaults
-- Single `index.html` file, all styles inline, unless user says otherwise
-- Tailwind CSS via CDN: `<script src="https://cdn.tailwindcss.com"></script>`
-- Placeholder images: `https://placehold.co/WIDTHxHEIGHT`
-- Mobile-first responsive
+- New pages go in `src/pages/` and use the templated structure (see "Build System & Page Creation" above) — never single self-contained files at root.
+- Tailwind CSS via CDN is already loaded by `head-common.html`. Page-specific styles go in the page's own `<style>` block.
+- Brand colors (`brand-green`, `brand-green-dark`, `surface-*`) are already configured in `head-common.html`'s Tailwind config — use them, do not redefine.
+- Placeholder images (only for unfinished mockups): `https://placehold.co/WIDTHxHEIGHT`
+- Mobile-first responsive.
 
 ## Brand Assets
 - Always check the `brand_assets/` folder before designing. It may contain logos, color guides, style guides, or images.
@@ -122,6 +178,7 @@ All blog articles must follow the layout in `blog/best-nail-salon-software.html`
 ## Hard Rules
 - Do not add sections, features, or content not in the reference
 - Do not "improve" a reference design — match it
-- Do not stop after one screenshot pass
 - Do not use `transition-all`
 - Do not use default Tailwind blue/indigo as primary color
+- Never create new `.html` files at the project root (use `src/pages/` — see "Build System & Page Creation")
+- Never edit files in `dist/` (they are generated)
