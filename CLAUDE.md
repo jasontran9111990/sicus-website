@@ -158,7 +158,7 @@ Publish 8–12 articles targeting mid/long-tail keywords (1,500–2,500 words ea
 Fresha, GlossGenius, Vagaro, Booksy, Square, Mangomint, Boulevard, Zenoti
 
 ### Blog Page Layout (UI/UX Standard)
-All blog articles must follow the layout in `blog/best-nail-salon-software.html`:
+All blog articles must follow the layout in `src/pages/blog/best-nail-salon-software.html` (the templated source — never reference files in `dist/` or the legacy root `blog/` folder):
 
 1. **Navbar** — Fixed `bg-white/80 backdrop-blur-xl`. Includes: logo, language toggle, "Blog" link, "Schedule a Demo" CTA button.
 2. **Hero Section** — `pt-28 sm:pt-32 pb-16` with radial gradient bg (`#fff 50% → brand-green/12`). Contains breadcrumb → category badge (pill with green dot) → H1 (`text-3xl sm:text-4xl lg:text-[46px]`) → subtitle → author card (avatar + name + date + read time).
