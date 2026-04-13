@@ -50,13 +50,29 @@ This site uses a templated build system. **Do not create new `.html` files at th
    </body>
    </html>
    ```
-3. Build and test locally:
+3. Build, verify, and test locally:
    ```bash
-   node build.mjs
-   node serve.mjs dist
+   node build.mjs        # generate dist/
+   node verify.mjs       # confirm every referenced asset exists
+   node serve.mjs dist   # serve dist/ at localhost:3000
    ```
-   Open `http://localhost:3000/foo.html` in a browser to verify.
+   Open `http://localhost:3000/foo.html` in a browser to verify visually.
 4. Commit `src/pages/foo.html` and push. Vercel auto-builds and deploys.
+
+### Pre-push checklist
+**Always run before pushing:**
+```bash
+node build.mjs && node verify.mjs
+```
+`verify.mjs` walks every built HTML file in `dist/`, extracts every `src=`/`href=`/asset reference, and checks that the file exists. If anything 404s, it exits non-zero and prints the offending references. Catches missing assets, mistyped paths, broken nav links — exactly the class of bug that's hard to spot by eye.
+
+### Preview deploys (recommended for big changes)
+Vercel auto-creates a preview deploy for every git branch. For non-trivial changes (new section, refactor, multi-page work), push to a branch instead of `main`:
+```bash
+git checkout -b feature-x
+git push origin feature-x
+```
+Vercel will give you a preview URL like `https://sicus-website-git-feature-x-<user>.vercel.app`. Click around, verify, then merge to `main`. For routine "add a blog post" work, direct-to-main is fine.
 
 ### Editing shared markup (nav, footer, GTM, etc.)
 Edit the relevant file in `src/partials/`. Run `node build.mjs` to regenerate `dist/`. Every page picks up the change automatically — no per-file edits.
@@ -74,9 +90,9 @@ Edit the relevant file in `src/partials/`. Run `node build.mjs` to regenerate `d
 - Compare visually with the reference and iterate until it matches. Be specific about deltas ("heading is 32px but reference shows ~24px", "card gap is 16px but should be 24px"). Check spacing/padding, font size/weight/line-height, colors (exact hex), alignment, border-radius, shadows, image sizing.
 
 ## Local Server
-- Start the dev server pointing at the build output: `node serve.mjs dist` (serves `dist/` at `http://localhost:3000`).
+- Standard local test flow: `node build.mjs && node verify.mjs && node serve.mjs dist` — builds, checks all referenced assets exist, then serves `dist/` at `http://localhost:3000`.
 - For ad-hoc checks of the source repo (rare), `node serve.mjs` with no arg serves the project root.
-- `serve.mjs` lives in the project root and resolves directory paths to `index.html` automatically.
+- `serve.mjs` resolves directory paths to `index.html` automatically (so `/blog/` works).
 - If the server is already running, do not start a second instance.
 
 ## Output Defaults
