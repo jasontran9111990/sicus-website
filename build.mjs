@@ -69,13 +69,12 @@ for (const file of walk(SRC_PAGES)) {
 }
 
 // Auto-copy any asset directory at project root.
-// Directories listed here are NOT copied (build/source/dev-only/legacy).
+// Directories listed here are NOT copied (build/source/dev-only).
 const DIR_EXCLUDES = new Set([
   '.git', '.claude', '.github', 'node_modules',
   'dist', 'src',
   'temporary screenshots',
   'components', // dev-time .tsx prototypes, not runtime assets
-  'blog', 'tools', // legacy templated pages now live in src/pages/
 ]);
 for (const entry of fs.readdirSync(ROOT, { withFileTypes: true })) {
   if (!entry.isDirectory()) continue;
