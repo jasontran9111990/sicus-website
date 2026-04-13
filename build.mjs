@@ -68,8 +68,22 @@ for (const file of walk(SRC_PAGES)) {
   pageCount++;
 }
 
-// Copy static assets
-copyDir(path.join(ROOT, 'brand_assets'), path.join(DIST, 'brand_assets'));
+// Auto-copy any asset directory at project root.
+// Directories listed here are NOT copied (build/source/dev-only/legacy).
+const DIR_EXCLUDES = new Set([
+  '.git', '.claude', '.github', 'node_modules',
+  'dist', 'src',
+  'temporary screenshots',
+  'components', // dev-time .tsx prototypes, not runtime assets
+  'blog', 'tools', // legacy templated pages now live in src/pages/
+]);
+for (const entry of fs.readdirSync(ROOT, { withFileTypes: true })) {
+  if (!entry.isDirectory()) continue;
+  if (DIR_EXCLUDES.has(entry.name)) continue;
+  copyDir(path.join(ROOT, entry.name), path.join(DIST, entry.name));
+}
+
+// Static files at root
 copyFileIfExists(path.join(ROOT, 'robots.txt'), path.join(DIST, 'robots.txt'));
 copyFileIfExists(path.join(ROOT, 'sitemap.xml'), path.join(DIST, 'sitemap.xml'));
 
