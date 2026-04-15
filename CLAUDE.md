@@ -217,6 +217,31 @@ Lead magnets are wired via **Resend** (transactional email) + a Vercel serverles
 - If assets exist there, use them. Do not use placeholders where real assets are available.
 - If a logo is present, use it. If a color palette is defined, use those exact values — do not invent brand colors.
 
+## Brand Color Usage
+
+The SICUS Media logo has **two equal-weight colors**: brand-green (top) and brand-red (bottom). The Tailwind config in `head-common.html` defines both:
+
+- `brand-green` `#8CB82B` / `brand-green-dark` `#6A9A10` / `brand-green-light` `#B8E060`
+- `brand-red` `#E31E24` / `brand-red-dark` `#B8161B`
+
+**Primary vs secondary treatment:**
+- **Brand-green = primary.** Use for main CTAs (Schedule a Demo, Book a Free Strategy Call), hero headline accents, active states, positive metrics, progress indicators, category badges on general content, primary buttons.
+- **Brand-red = secondary.** Use sparingly for moments that reinforce brand identity without competing with the primary. Good uses:
+  - **Logo-mirror decorative accents** on the hero (sparkle alternate color, gradient blob secondary color, animated underline alternate) so the site visually echoes the two-color logo.
+  - **Warning / negative metric states** — no-shows, negative numbers in P&L tables, "at-risk client" callouts, deadline pressure moments.
+  - **Secondary CTAs** when we explicitly want the reader to notice an alternative path (e.g., "Or email us" next to a primary demo CTA). Use as an outline button, not filled.
+  - **Specific category badges** for content with regulatory/legal/warning tone — Licensing, Compliance, Insurance — to differentiate them visually from generic Startup/Software/Growth content which stays green.
+  - **Blockquote / pull quote left border variant** when the quote is a warning or cautionary note rather than an inspirational pull quote (which stays green).
+
+**Hard rules:**
+- **Never use brand-red as the primary CTA color.** Schedule a Demo and similar must always be green.
+- **Never use brand-red on a large area.** It's a vibrant, aggressive red — works great as a small accent, reads as "error/danger" when used for 20%+ of a page.
+- **Never pair brand-red with default Tailwind red** (`red-500`, `red-600`, etc.) in the same component. Stick to `brand-red` / `brand-red-dark` for consistency.
+- **Never use brand-red and brand-green together in a single gradient.** Looks Christmas-y.
+- **Don't introduce a third brand color** (gold, blue, purple, etc.) as an accent. If red doesn't fit the moment, use green with different opacity or the surface palette.
+
+When in doubt, default to brand-green. Reserve brand-red for 5–10% of the visual weight on any given page.
+
 ## Anti-Generic Guardrails
 - **Colors:** Never use default Tailwind palette (indigo-500, blue-600, etc.). Pick a custom brand color and derive from it.
 - **Shadows:** Never use flat `shadow-md`. Use layered, color-tinted shadows with low opacity.
