@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<!-- @include partials/head-common.html -->
+  <title>White-Label Salon App — Your Salon, Your Branded App | SICUS Media</title>
+  <meta name="description" content="Launch your salon's own branded mobile and web app in 2-4 weeks. Your logo, your colors, your domain, your name on the App Store — powered by Sicus Booking under the hood. Ideal for mid-size salons and small chains.">
+  <meta name="keywords" content="white label salon app, branded salon app, custom salon app, salon app development, your own salon app, white label booking app, salon mobile app">
+  <link rel="canonical" href="https://sicusmedia.com/services/white-label-salon-app.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sicusmedia.com/services/white-label-salon-app.html">
+  <meta property="og:title" content="White-Label Salon App — Your Salon, Your Branded App">
+  <meta property="og:description" content="Launch your own branded salon app in 2-4 weeks. Your brand on top, Sicus Booking underneath. Ideal for mid-size salons and small chains.">
+  <meta property="og:image" content="https://sicusmedia.com/brand_assets/topbar.png">
+  <meta property="og:site_name" content="SICUS Media">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="White-Label Salon App — Your Salon, Your App | SICUS Media">
+  <meta name="twitter:description" content="Launch your own branded salon app in 2-4 weeks. Your brand, Sicus Booking underneath.">
+  <meta name="twitter:image" content="https://sicusmedia.com/brand_assets/topbar.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "White-Label Salon App",
+    "serviceType": "Branded salon mobile and web application",
+    "description": "SICUS Media builds and launches branded salon apps for independent salons and small chains. The salon gets their own logo, colors, domain, and App Store listing; the underlying platform is Sicus Booking, fully managed by SICUS. Setup in 2-4 weeks.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Sicus Media Inc.",
+      "url": "https://sicusmedia.com"
+    },
+    "areaServed": "North America",
+    "url": "https://sicusmedia.com/services/white-label-salon-app.html"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do I own the app?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The app is licensed to you under your salon's brand for as long as you're a SICUS customer. You own the brand, the domain, the App Store listing, and your client data. SICUS owns the underlying platform code and handles all the engineering, updates, security, and app store submissions. This is the same model Shopify uses for merchants — your store feels 100% yours, but the platform is managed by Shopify. If you ever leave, you keep your client list and history; the app itself shuts down."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much can I customize beyond my logo and colors?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The standard white-label build lets you customize your logo, brand colors, typography, splash screen, app icon, domain name, App Store listing (name, description, screenshots), welcome message, notification voice, and the core service/pricing data. If you need deeper changes — new features, custom workflows, integration with other tools — that's a separate conversation under our Custom Salon Software service."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does it take to launch?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Typically 2-4 weeks from kickoff to live, depending on how quickly you can provide brand assets and review the staging app. The first week is setup and branding, week two is staging review and refinement, weeks three and four are App Store submission and Apple/Google review. We handle the App Store paperwork."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does it cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pricing is a one-time setup fee plus a flat monthly license. Exact numbers are tailored during the discovery call based on how many locations you have, how much custom branding work you need, and whether you want the app on both iOS and Android. We will send you a clear quote within 24 hours of the discovery call — no surprise overages, no per-booking fees."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if I want to leave or switch providers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You keep your client list, booking history, and brand assets. We provide a one-time export in standard formats (CSV for client data, JSON for bookings). The white-label app itself shuts down since it runs on our platform, but nothing you'd need to walk away with is locked up. We believe in no-lock-in contracts — if the product stops working for you, you should be able to leave clean."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    * { font-family: 'Be Vietnam Pro', sans-serif; }
+    html { scroll-behavior: smooth; }
+
+    .btn-spring { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease; }
+    .btn-spring:hover { transform: translateY(-2px); }
+    .btn-spring:active { transform: translateY(0) scale(0.98); }
+
+    .lang-en, .lang-vi { display: none; }
+    html[lang="en"] .lang-en { display: initial; }
+    html[lang="vi"] .lang-vi { display: initial; }
+    html[lang="en"] .lang-inline-en { display: inline !important; }
+    html[lang="vi"] .lang-inline-vi { display: inline !important; }
+    html[lang="en"] .lang-inline-vi { display: none !important; }
+    html[lang="vi"] .lang-inline-en { display: none !important; }
+
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .faq-item.open .faq-answer { max-height: 600px; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-chevron { transition: transform 0.3s ease; }
+
+    .feature-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 1.25rem; padding: 1.75rem; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease, border-color 0.3s ease; height: 100%; }
+    .feature-card:hover { transform: translateY(-3px); border-color: rgba(140,184,43,0.35); box-shadow: 0 12px 40px rgba(140,184,43,0.08); }
+    .feature-icon { width: 2.75rem; height: 2.75rem; border-radius: 0.75rem; background: rgba(140,184,43,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    .feature-icon svg { width: 1.4rem; height: 1.4rem; color: #6A9A10; }
+
+    .process-step { display: flex; gap: 1.25rem; padding-bottom: 2rem; position: relative; }
+    .process-step:not(:last-child)::before { content: ''; position: absolute; left: 1.5rem; top: 3rem; bottom: 0; width: 2px; background: linear-gradient(180deg, #8CB82B, transparent); }
+    .process-num { flex-shrink: 0; width: 3rem; height: 3rem; border-radius: 9999px; background: linear-gradient(135deg, #8CB82B, #6A9A10); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.125rem; font-weight: 700; box-shadow: 0 4px 14px rgba(140,184,43,0.3); }
+    .process-content { padding-top: 0.4rem; }
+    .process-content h3 { font-size: 1.2rem; font-weight: 700; color: #111; margin-bottom: 0.4rem; }
+    .process-content p { font-size: 0.975rem; line-height: 1.65; color: #4b5563; }
+
+    .placeholder-note { background: #fffbeb; border: 1px dashed #f59e0b; border-radius: 0.625rem; padding: 0.625rem 1rem; margin: 0.75rem 0; font-size: 0.8rem; color: #92400e; font-style: italic; }
+  </style>
+</head>
+<body class="bg-white text-gray-900 overflow-x-hidden">
+<!-- @include partials/gtm-noscript.html -->
+<!-- @include partials/nav.html -->
+
+<!-- ==================== HERO ==================== -->
+<section class="relative pt-28 pb-12 sm:pt-32 sm:pb-16 overflow-hidden">
+  <div class="absolute inset-0 z-0" style="background: radial-gradient(125% 100% at 50% 0%, #fff 50%, rgba(140,184,43,0.12) 100%);"></div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6">
+    <nav aria-label="Breadcrumb" class="mb-6">
+      <ol class="flex items-center gap-2 text-sm text-gray-400">
+        <li><a href="/" class="hover:text-brand-green transition-colors duration-200">Home</a></li>
+        <li><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li><a href="/services/" class="hover:text-brand-green transition-colors duration-200">Services</a></li>
+        <li><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li class="text-gray-700 font-medium">White-Label Salon App</li>
+      </ol>
+    </nav>
+
+    <div class="inline-flex items-center gap-2 bg-brand-green/10 border border-brand-green/20 rounded-full px-4 py-1.5 mb-5">
+      <span class="w-2 h-2 rounded-full bg-brand-green"></span>
+      <span class="text-sm font-medium text-brand-green-dark">Done-For-You Service</span>
+    </div>
+
+    <h1 class="font-display text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-[-0.02em] text-gray-900 mb-5">
+      Your salon, your branded app — live in 2-4 weeks
+    </h1>
+    <p class="text-lg sm:text-xl text-gray-500 leading-relaxed max-w-3xl mb-8">
+      Launch your own branded mobile and web app with your logo, your colors, your domain, and your name on the App Store. Under the hood it's <strong class="text-gray-900">Sicus Booking</strong> — online booking, AI receptionist, SMS reminders, loyalty, and everything else — fully managed by our team. <strong class="text-gray-900">You get the premium "own-brand" feel without the engineering team.</strong>
+    </p>
+
+    <div class="flex flex-wrap gap-3">
+      <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-bold text-base px-6 py-3.5 rounded-full shadow-[0_4px_20px_rgba(140,184,43,0.3)] hover:shadow-[0_6px_30px_rgba(140,184,43,0.45)]">
+        Book a Free Discovery Call
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+      <a href="mailto:info@sicusmedia.com?subject=White-Label%20Salon%20App%20inquiry" class="btn-spring inline-flex items-center gap-2 bg-white border-2 border-brand-green/40 hover:border-brand-green hover:bg-brand-green/5 text-brand-green-dark font-semibold text-base px-6 py-3.5 rounded-full">
+        Email info@sicusmedia.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== WHY WHITE-LABEL ==================== -->
+<section class="pt-8 sm:pt-16 pb-16">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="bg-surface-50 border border-gray-200 rounded-2xl p-6 sm:p-10">
+      <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Why a branded app instead of just using ours?</h2>
+      <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-4">
+        Your clients don't want to book "on SICUS." They want to book "at Bloom Nail &amp; Beauty" — your brand, not ours. A branded app feels premium, reinforces client loyalty, lives on the home screen of their phone alongside Instagram and Apple Pay, and sends push notifications under your name. For high-end salons and mid-size chains, this is the difference between feeling like a local shop using software and feeling like a real brand.
+      </p>
+      <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-4">
+        Building a custom salon app from scratch costs <strong class="text-gray-900">$50,000 to $200,000+</strong> and takes 6-12 months with an outside agency. And once it's built, you're on the hook for updates, iOS compliance, Android fragmentation, payment integration, SMS deliverability, security patches, and App Store review rejections. Most salon owners don't want that project.
+      </p>
+      <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-0">
+        <strong class="text-gray-900">Our white-label service gives you a branded app in 2-4 weeks</strong> at a fraction of the cost. You bring your brand. We bring the platform — same code that powers Sicus Booking, same AI, same bilingual support. When we ship improvements, your app gets them automatically.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== WHAT YOU GET ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 tracking-tight">What you get</h2>
+      <p class="text-lg text-gray-500 max-w-2xl mx-auto">A complete branded app experience — customer-facing and staff-facing — with all the features of Sicus Booking built in.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Custom brand identity</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Your logo, colors, typography, splash screen, and app icon — every pixel reinforces your salon's brand. Clients never see the word "SICUS."</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H5a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Your own domain</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Clients book at <strong>bloomnails.app</strong> or <strong>book.yoursalon.com</strong> — not a SICUS subdomain. Custom domain is included and we handle DNS, SSL, and renewals.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Your name on the App Store</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">The iOS and Android listings go live under your salon's name with your screenshots, your description, and your support contact. We handle Apple &amp; Google submission paperwork.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Full Sicus Booking platform</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Online booking, AI receptionist, SMS reminders, tip tracking, loyalty, smart insights, and bilingual EN/VI support — the same platform we sell to every customer, now in your brand.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Automatic updates, zero effort</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">When we ship AI improvements, new features, or security patches to Sicus Booking, your app gets them automatically. You never pay for a "version 2.0" rebuild. No iOS compliance headaches on your end.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 5.81c.377-.924.677-1.896.893-2.905m-6.152 3.977A12.935 12.935 0 013 19.36c0-5.523 4.477-10 10-10"/></svg>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">You own the client relationship</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Your clients are <em>your</em> clients. You own the list, the booking history, the review data. If you ever leave, we give you a clean export in standard formats. No lock-in on your own data.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PROCESS ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 tracking-tight">How it works — 2 to 4 weeks from kickoff to launch</h2>
+      <p class="text-lg text-gray-500">No 6-month agency project, no surprises, no rewrites.</p>
+    </div>
+
+    <div class="process-step">
+      <div class="process-num">1</div>
+      <div class="process-content">
+        <h3>Free Discovery Call</h3>
+        <p>30-minute call to understand your salon, your brand, your launch timeline, and whether you need iOS, Android, web, or all three. You get a clear scope, a fixed quote, and an answer on whether white-label is the right fit — or whether you need a full Custom Salon Software build instead.</p>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="process-num">2</div>
+      <div class="process-content">
+        <h3>Brand Asset Kickoff (Week 1)</h3>
+        <p>You send us your logo files, brand colors (hex codes), font preferences, and any existing photography. We provision your custom domain, set up SSL, and configure the app shell in your brand. You also fill out your salon intake form (services, staff, hours, pricing, policies) same as any Sicus Booking customer.</p>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="process-num">3</div>
+      <div class="process-content">
+        <h3>Staging Review (Week 2)</h3>
+        <p>We hand you a live staging version of your app with your brand fully applied. You click through, test the booking flow, review copy, and request adjustments to colors, layouts, or wording. Two rounds of revisions are included; more are available if needed.</p>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="process-num">4</div>
+      <div class="process-content">
+        <h3>App Store Submission (Week 3)</h3>
+        <p>We submit your app to the Apple App Store and Google Play Store under your salon's developer account (or under SICUS's developer account if you don't want to set one up). This takes 3-7 business days for review. We handle rejection responses and resubmissions. You get daily status updates.</p>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="process-num">5</div>
+      <div class="process-content">
+        <h3>Launch &amp; Ongoing Support (Week 4+)</h3>
+        <p>App is live. We help you announce it to existing clients with a launch campaign template. From then on, you have direct Slack or email access to our team for questions, and we push feature updates to your app automatically. Monthly performance reports included — bookings, chat volume, AI savings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PRICING ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="bg-surface-50 border border-gray-200 rounded-2xl p-6 sm:p-10">
+      <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Pricing</h2>
+      <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-4">
+        White-Label Salon App is priced as a <strong class="text-gray-900">one-time setup fee</strong> plus a <strong class="text-gray-900">flat monthly license</strong>. No per-booking fees, no surprise overages, no separate App Store fees.
+      </p>
+      <div class="placeholder-note">[TBD — exact pricing tailored during the discovery call based on number of locations, platforms (iOS / Android / web), and branding complexity. Setup + monthly license sent as a written quote within 24 hours.]</div>
+      <p class="text-base sm:text-lg text-gray-600 leading-relaxed mt-4 mb-0">
+        Custom salon app projects at traditional agencies start at $50,000-$200,000 with 6-12 months of build time. Our white-label service is a fraction of that — and your app is live in 2-4 weeks. <strong class="text-gray-900">Book a discovery call</strong> for an exact quote.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-8">Frequently Asked Questions</h2>
+    <div class="space-y-3">
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4">Do I own the app?</span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">The app is licensed to you under your salon's brand for as long as you're a SICUS customer. <strong>You own the brand, the domain, the App Store listing, and your client data.</strong> SICUS owns the underlying platform code and handles all the engineering, updates, security, and app store paperwork. This is the same model Shopify uses — your store feels 100% yours, but the platform is managed. If you ever leave, you keep your client list and history; the app itself shuts down.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4">How much can I customize beyond my logo and colors?</span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">Standard white-label covers: logo, brand colors, typography, splash screen, app icon, domain name, App Store listing, welcome message, notification voice, and core service/pricing data. If you need deeper changes — new features, custom workflows, integration with other tools — that's a separate conversation under our <a href="/services/custom-salon-software.html" class="text-brand-green hover:text-brand-green-dark underline">Custom Salon Software</a> service.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4">How long does it take to launch?</span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">Typically <strong>2 to 4 weeks</strong> from kickoff to live. Week 1 is brand setup, week 2 is staging review, weeks 3-4 are App Store submission and Apple/Google review. Timeline depends on how quickly you can share brand assets and how fast Apple/Google review your listing (usually 3-7 business days).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4">How much does it cost?</span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">One-time setup fee plus a flat monthly license. Exact numbers are tailored during the discovery call based on number of locations, platforms (iOS / Android / web), and branding complexity. <strong>Much less than a traditional agency build</strong> ($50k-$200k typical). You get a written quote within 24 hours of the discovery call.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4">What if I want to leave or switch providers later?</span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">You keep your client list, booking history, and brand assets. We provide a one-time export in standard formats (CSV for clients, JSON for bookings). The white-label app itself shuts down since it runs on our platform, but <strong>nothing you'd need to walk away with is locked up</strong>. We believe in no-lock-in contracts — if the product stops working for you, you should be able to leave clean.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="relative overflow-hidden rounded-2xl p-8 sm:p-12 text-center" style="background: linear-gradient(135deg, #8CB82B 0%, #6A9A10 100%);">
+      <div class="absolute inset-0 opacity-[0.06]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size: 200px;"></div>
+
+      <div class="relative z-10">
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">Ready for your own salon app?</h2>
+        <p class="text-white/85 text-base sm:text-lg mb-8 max-w-xl mx-auto">Book a free 30-minute discovery call. We'll walk through your brand, your goals, and whether white-label is the right fit. No pressure, no pitch.</p>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-brand-green-dark font-bold text-base sm:text-lg px-8 py-3.5 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_30px_rgba(0,0,0,0.2)]">
+            Book a Free Discovery Call
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+          <a href="mailto:info@sicusmedia.com?subject=White-Label%20Salon%20App%20inquiry" class="btn-spring inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/30 font-semibold text-base sm:text-lg px-8 py-3.5 rounded-full">
+            Email info@sicusmedia.com
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- @include partials/footer.html -->
+
+<script>
+  function toggleLang() {
+    var html = document.getElementById('htmlRoot');
+    var label = document.getElementById('langLabel');
+    if (html.lang === 'en') { html.lang = 'vi'; label.textContent = 'VI'; }
+    else { html.lang = 'en'; label.textContent = 'EN'; }
+  }
+  function toggleFaq(btn) {
+    var item = btn.closest('.faq-item');
+    var wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+    if (!wasOpen) item.classList.add('open');
+  }
+</script>
+</body>
+</html>
