@@ -1,17 +1,22 @@
 <!-- ==================== NAVBAR ==================== -->
 <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100">
   <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2">
-      <img src="/brand_assets/topbar.png" alt="SICUS MEDIA" class="h-8">
-    </a>
+    <!-- Left cluster: logo + primary nav links -->
+    <div class="flex items-center gap-6 sm:gap-8">
+      <a href="/" class="flex items-center gap-2">
+        <img src="/brand_assets/topbar.png" alt="SICUS MEDIA" class="h-8">
+      </a>
+      <a href="/services/" class="text-sm font-medium text-gray-600 hover:text-brand-green-dark transition-colors duration-200"><span class="lang-inline-en">Services</span><span class="lang-inline-vi">Dịch vụ</span></a>
+    </div>
+    <!-- Right cluster: secondary nav + CTA -->
     <div class="flex items-center gap-3">
       <!-- Language Toggle -->
       <button onclick="toggleLang()" class="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-brand-green" title="Toggle language">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg>
         <span id="langLabel">EN</span>
       </button>
-      <a href="/blog/" class="text-sm text-gray-500 hover:text-gray-900 transition-colors duration-200"><span class="lang-inline-en">Blog</span><span class="lang-inline-vi">Bài viết</span></a>
-      <a href="/blog/#free-tools" class="text-sm text-gray-500 hover:text-gray-900 transition-colors duration-200"><span class="lang-inline-en">Tools</span><span class="lang-inline-vi">Công cụ</span></a>
+      <a href="/blog/" class="hidden sm:inline text-sm text-gray-500 hover:text-gray-900 transition-colors duration-200"><span class="lang-inline-en">Blog</span><span class="lang-inline-vi">Bài viết</span></a>
+      <a href="/blog/#free-tools" class="hidden sm:inline text-sm text-gray-500 hover:text-gray-900 transition-colors duration-200"><span class="lang-inline-en">Tools</span><span class="lang-inline-vi">Công cụ</span></a>
       <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold text-sm px-5 py-2 rounded-full shadow-[0_2px_12px_rgba(140,184,43,0.25)] hover:shadow-[0_4px_20px_rgba(140,184,43,0.4)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green-dark">
         <span class="lang-inline-en">Schedule a Demo</span><span class="lang-inline-vi">Đặt lịch Demo</span>
       </a>
