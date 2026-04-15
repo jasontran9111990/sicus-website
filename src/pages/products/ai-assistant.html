@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<!-- @include partials/head-common.html -->
+  <title>AI Assistant for Salons (Standalone) — Embed on Any Website | SICUS Media</title>
+  <meta name="description" content="SICUS AI Assistant as a standalone product — an AI chat widget that answers client questions, recommends services, and captures bookings directly on your salon website. Works with Wix, Squarespace, WordPress, Shopify, or custom sites. English and Vietnamese.">
+  <meta name="keywords" content="AI chat widget salon, salon website chatbot, standalone AI assistant, salon chatbot, AI chat salon website, nail salon chatbot, embed chat widget salon">
+  <link rel="canonical" href="https://sicusmedia.com/products/ai-assistant.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sicusmedia.com/products/ai-assistant.html">
+  <meta property="og:title" content="AI Assistant for Salons (Standalone) — Embed on Any Website">
+  <meta property="og:description" content="An AI chat widget that lives on your salon website. Answers questions, recommends services, captures bookings. Embeds in one line of code. Bilingual EN/VI.">
+  <meta property="og:image" content="https://sicusmedia.com/brand_assets/topbar.png">
+  <meta property="og:site_name" content="SICUS Media">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Assistant for Salons (Standalone) | SICUS Media">
+  <meta name="twitter:description" content="Embed an AI chat widget on your salon website. Answers questions, recommends services, captures bookings. Bilingual EN/VI.">
+  <meta name="twitter:image" content="https://sicusmedia.com/brand_assets/topbar.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SICUS AI Assistant (Standalone)",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Cloud",
+    "description": "A standalone AI chat assistant for salon websites. Embeds as a chat widget, answers client questions, recommends services, and captures bookings or leads. Integrates with any website builder (Wix, Squarespace, WordPress, Shopify, custom) and any existing booking system. Bilingual English and Vietnamese. Sold separately from the full Sicus Booking platform.",
+    "url": "https://sicusmedia.com/products/ai-assistant.html",
+    "offers": { "@type": "Offer", "description": "Contact for quote", "priceCurrency": "CAD" },
+    "provider": {
+      "@type": "Organization",
+      "name": "Sicus Media Inc.",
+      "url": "https://sicusmedia.com"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What website builders does the AI Assistant work with?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The AI Assistant embeds on any website that lets you add a snippet of HTML or a script tag in the page footer. That covers Wix, Squarespace, WordPress, Shopify, Webflow, Weebly, Carrd, Framer, and custom-built sites. For platforms that restrict raw script embeds on their free plans, you may need to upgrade to a paid tier — we confirm compatibility during the discovery call. We also provide a WordPress plugin for one-click install if that's your platform."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What can the AI Assistant actually do?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The AI Assistant answers questions about your services, pricing, hours, and policies; recommends services based on what a client describes (e.g. 'I want something low-maintenance for a wedding'); captures booking requests with name, phone, service, and preferred time; and hands the lead off to you via email, SMS, or directly into your existing booking system. It learns your salon's specific details during onboarding and stays honest when a question falls outside its trained scope."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is this different from the AI Receptionist?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AI Receptionist answers your phone line. AI Assistant answers your website. Phone calls are handled by AI Receptionist; website chat, website forms, and after-hours web visitors are handled by AI Assistant. Many salons eventually run both, but you can start with whichever channel is leaking more bookings for your business. We help you figure out which one to prioritize during the free discovery call."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the AI Assistant integrate with my booking system?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Three integration levels: (1) Lead handoff, where the AI captures the booking request and sends it to you via email or SMS — you add it to your booking system manually. (2) Shared calendar, where the AI pushes bookings into a Google Calendar or iCloud/Microsoft 365 calendar that your booking platform syncs with. (3) Direct API integration for supported booking platforms, where bookings appear in your calendar in real time. Level is chosen during onboarding based on your existing setup."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does standalone AI Assistant cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pricing is tailored based on your website traffic, the integration level you need, and whether you want English, Vietnamese, or both languages. Flat monthly — no per-message charges or surprise overages. Contact us for a quote — we send a tailored price within 24 hours of a 15-minute discovery call."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    * { font-family: 'Be Vietnam Pro', sans-serif; }
+    html { scroll-behavior: smooth; }
+
+    .btn-spring { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease; }
+    .btn-spring:hover { transform: translateY(-2px); }
+    .btn-spring:active { transform: translateY(0) scale(0.98); }
+
+    .lang-en, .lang-vi { display: none; }
+    html[lang="en"] .lang-en { display: initial; }
+    html[lang="vi"] .lang-vi { display: initial; }
+    html[lang="en"] .lang-inline-en { display: inline !important; }
+    html[lang="vi"] .lang-inline-vi { display: inline !important; }
+    html[lang="en"] .lang-inline-vi { display: none !important; }
+    html[lang="vi"] .lang-inline-en { display: none !important; }
+
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .faq-item.open .faq-answer { max-height: 600px; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-chevron { transition: transform 0.3s ease; }
+
+    /* Feature card */
+    .feature-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 1.25rem; padding: 1.75rem; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease, border-color 0.3s ease; height: 100%; }
+    .feature-card:hover { transform: translateY(-3px); border-color: rgba(227,30,36,0.35); box-shadow: 0 12px 40px rgba(227,30,36,0.08); }
+    .feature-icon { width: 2.75rem; height: 2.75rem; border-radius: 0.75rem; background: rgba(227,30,36,0.08); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    .feature-icon svg { width: 1.4rem; height: 1.4rem; color: #B8161B; }
+
+    /* Integration option card */
+    .integration-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 1.25rem; padding: 1.75rem; margin: 1rem 0; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+    .integration-card:hover { border-color: rgba(227,30,36,0.35); box-shadow: 0 8px 24px rgba(227,30,36,0.06); }
+    .integration-card h3 { margin-top: 0 !important; display: flex; align-items: center; gap: 0.75rem; }
+    .integration-card .int-num { display: inline-flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; border-radius: 9999px; background: linear-gradient(135deg, #E31E24, #B8161B); color: #fff; font-size: 0.875rem; font-weight: 700; flex-shrink: 0; }
+    .integration-meta { margin: 0.75rem 0; padding: 0.75rem 1rem; background: #fafafa; border-radius: 0.625rem; font-size: 0.875rem; color: #4b5563; }
+    .integration-meta strong { color: #B8161B; }
+
+    /* Process step */
+    .process-step { display: flex; gap: 1.25rem; padding-bottom: 2rem; position: relative; }
+    .process-step:not(:last-child)::before { content: ''; position: absolute; left: 1.5rem; top: 3rem; bottom: 0; width: 2px; background: linear-gradient(180deg, #E31E24, transparent); }
+    .process-num { flex-shrink: 0; width: 3rem; height: 3rem; border-radius: 9999px; background: linear-gradient(135deg, #E31E24, #B8161B); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.125rem; font-weight: 700; box-shadow: 0 4px 14px rgba(227,30,36,0.3); }
+    .process-content { padding-top: 0.4rem; }
+    .process-content h3 { font-size: 1.2rem; font-weight: 700; color: #111; margin-bottom: 0.4rem; }
+    .process-content p { font-size: 0.975rem; line-height: 1.65; color: #4b5563; }
+
+    /* Chat transcript (website-style bubbles) */
+    .chat { background: #fafafa; border: 1px solid #e5e7eb; border-radius: 1rem; padding: 1.5rem 1.25rem; margin: 1.5rem 0; }
+    .chat .bubble { max-width: 78%; padding: 0.7rem 1rem; border-radius: 1.1rem; font-size: 0.925rem; line-height: 1.5; margin: 0.4rem 0; display: inline-block; clear: both; }
+    .chat .row { display: flex; margin: 0.35rem 0; }
+    .chat .row.ai { justify-content: flex-start; }
+    .chat .row.user { justify-content: flex-end; }
+    .chat .bubble.ai { background: #fff; border: 1px solid #e5e7eb; border-bottom-left-radius: 0.35rem; color: #111; }
+    .chat .bubble.user { background: linear-gradient(135deg, #E31E24, #B8161B); color: #fff; border-bottom-right-radius: 0.35rem; }
+
+    /* Code snippet block */
+    .code-block { background: #0f0f11; color: #e5e7eb; border-radius: 0.75rem; padding: 1rem 1.25rem; font-family: 'SF Mono', 'Monaco', 'Consolas', monospace; font-size: 0.85rem; line-height: 1.6; overflow-x: auto; margin: 1rem 0 0; }
+    .code-block .tag { color: #f87171; }
+    .code-block .attr { color: #fbbf24; }
+    .code-block .str { color: #86efac; }
+    .code-block .cmt { color: #6b7280; }
+
+    /* Placeholder callout */
+    .placeholder-note { background: #fffbeb; border: 1px dashed #f59e0b; border-radius: 0.625rem; padding: 0.625rem 1rem; margin: 0.75rem 0; font-size: 0.8rem; color: #92400e; font-style: italic; }
+  </style>
+</head>
+<body class="bg-white text-gray-900 overflow-x-hidden">
+<!-- @include partials/gtm-noscript.html -->
+<!-- @include partials/nav.html -->
+
+<!-- ==================== HERO ==================== -->
+<section class="relative pt-28 pb-12 sm:pt-32 sm:pb-16 overflow-hidden">
+  <div class="absolute inset-0 z-0" style="background: radial-gradient(125% 100% at 50% 0%, #fff 50%, rgba(227,30,36,0.08) 100%);"></div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6">
+    <nav aria-label="Breadcrumb" class="mb-6">
+      <ol class="flex items-center gap-2 text-sm text-gray-400">
+        <li><a href="/" class="hover:text-brand-red transition-colors duration-200">Home</a></li>
+        <li><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li><a href="/products/" class="hover:text-brand-red transition-colors duration-200">Products</a></li>
+        <li><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li class="text-gray-700 font-medium">AI Assistant</li>
+      </ol>
+    </nav>
+
+    <div class="inline-flex items-center gap-2 bg-brand-red/10 border border-brand-red/20 rounded-full px-4 py-1.5 mb-5">
+      <span class="w-2 h-2 rounded-full bg-brand-red"></span>
+      <span class="text-sm font-medium text-brand-red-dark">Standalone Product</span>
+    </div>
+
+    <h1 class="font-display text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-[-0.02em] text-gray-900 mb-5">
+      AI Assistant — Drop it onto the salon website you already have
+    </h1>
+    <p class="text-lg sm:text-xl text-gray-500 leading-relaxed max-w-3xl mb-8">
+      A smart chat widget trained on your salon's services, staff, and policies. Answers visitor questions, recommends the right service, captures bookings, and hands the lead off to your existing booking system. Embeds in one line of code on Wix, Squarespace, WordPress, Shopify, or custom sites. Bilingual English and Vietnamese. <strong class="text-gray-900">No website rebuild required.</strong>
+    </p>
+
+    <div class="flex flex-wrap gap-3">
+      <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-red hover:bg-brand-red-dark text-white font-bold text-base px-6 py-3.5 rounded-full shadow-[0_4px_20px_rgba(227,30,36,0.3)] hover:shadow-[0_6px_30px_rgba(227,30,36,0.45)]">
+        Book a Free 15-min Discovery Call
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+      <a href="mailto:info@sicusmedia.com?subject=AI%20Assistant%20inquiry" class="btn-spring inline-flex items-center gap-2 bg-white border-2 border-brand-red/40 hover:border-brand-red hover:bg-brand-red/5 text-brand-red-dark font-semibold text-base px-6 py-3.5 rounded-full">
+        Email info@sicusmedia.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== WHY STANDALONE ==================== -->
+<section class="pb-16">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="bg-surface-50 border border-gray-200 rounded-2xl p-6 sm:p-10">
+      <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Why a standalone AI Assistant?</h2>
+      <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-4">
+        Most people visiting a salon website aren't ready to click "Book" right away — they have questions first. <em>"Do you do gel extensions?" "How long does a pedicure take?" "Do you take walk-ins on Sundays?"</em> If there's no one to answer, most of them leave. A static FAQ page doesn't change that.
+      </p>
+      <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-4">
+        Most AI chatbot products force you to rebuild your website on their platform, switch booking systems, or hand off your customer data to their marketing cloud. For a small salon that's overkill.
+      </p>
+      <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-0">
+        <strong class="text-gray-900">SICUS AI Assistant is sold standalone</strong> — you keep your Wix / Squarespace / WordPress site, you add a single script tag, and the AI starts answering visitors trained on your salon's real services and prices. Same AI that powers the full Sicus Booking platform, packaged so you can drop it in without changing anything else.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== WHAT IT DOES ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 tracking-tight">What the AI actually does on your website</h2>
+      <p class="text-lg text-gray-500 max-w-2xl mx-auto">Not a canned chatbot that returns "Sorry, I didn't understand that" — a real conversation that ends in a booking.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Answers service questions instantly</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Pricing, durations, what's included, technician specialties, walk-in availability, parking, cancellation policy. Whatever you'd normally answer by phone or email — the AI handles it in seconds.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Recommends the right service</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">"I want something low-maintenance for a wedding" → AI suggests gel, nail art options, and a specific technician. Turns uncertain browsers into confident bookers by asking the right follow-up questions.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Captures bookings in-chat</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Name, phone, service, preferred time — collected in natural conversation, not a five-field form visitors abandon. The booking request goes straight to your inbox or booking system.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Bilingual English + Vietnamese</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Detects the visitor's language automatically and responds in kind. Critical for Vietnamese-Canadian and Vietnamese-American salon clients who prefer chatting in their first language.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">24/7, no staff required</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Most booking decisions happen after hours — evenings and Sunday mornings. The AI works while you're closed, capturing leads you'd otherwise lose to a competitor whose site happens to answer.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Honest when it doesn't know</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">If a question is outside the trained scope, the AI says so, captures the visitor's contact info, and hands the thread off to you. No hallucinations, no invented prices, no made-up policies.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SAMPLE CHAT ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 tracking-tight text-center">What a conversation looks like</h2>
+    <p class="text-lg text-gray-500 max-w-2xl mx-auto text-center mb-8">A representative example — not a script. The AI adapts to whatever the visitor types.</p>
+
+    <div class="chat">
+      <div class="row ai"><div class="bubble ai">Hi! I'm Bloom Nail &amp; Beauty's virtual assistant. How can I help you today?</div></div>
+      <div class="row user"><div class="bubble user">Hey — looking for something for my friend's wedding next Saturday. What do you recommend?</div></div>
+      <div class="row ai"><div class="bubble ai">Exciting! For weddings, most clients go with either a gel manicure ($45, 50 min) or a full set of soft-gel extensions ($75, 90 min) with optional nail art. Are you going for low-maintenance or more of a statement?</div></div>
+      <div class="row user"><div class="bubble user">Low-maintenance, but something that looks nice in photos.</div></div>
+      <div class="row ai"><div class="bubble ai">Perfect — gel manicure in a neutral tone with a subtle shimmer accent is our most popular for that. Linh and Sarah both do great minimalist work. Want me to check availability for Saturday?</div></div>
+      <div class="row user"><div class="bubble user">Yes please, Saturday morning if possible</div></div>
+      <div class="row ai"><div class="bubble ai">Saturday morning I have Linh at 10:00 AM or Sarah at 11:30 AM. Which works better?</div></div>
+      <div class="row user"><div class="bubble user">10 with Linh, that's great</div></div>
+      <div class="row ai"><div class="bubble ai">Got it. Can I grab your name and phone number to confirm the booking?</div></div>
+      <div class="row user"><div class="bubble user">Maria, 403-555-0142</div></div>
+      <div class="row ai"><div class="bubble ai">Thanks Maria! You're booked with Linh this Saturday at 10:00 AM for a gel manicure. You'll get a text confirmation in a moment. Have a great wedding!</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== INTEGRATION OPTIONS ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 tracking-tight">3 ways to embed on your website</h2>
+      <p class="text-lg text-gray-500 max-w-2xl mx-auto">Pick the level that matches your website builder. We recommend the right one during onboarding.</p>
+    </div>
+
+    <div class="integration-card">
+      <h3><span class="int-num">1</span>Script Tag (One-Line Embed)</h3>
+      <div class="integration-meta">
+        <strong>Complexity:</strong> Lowest &middot;
+        <strong>Setup time:</strong> Under 1 day &middot;
+        <strong>Works with:</strong> Wix, Squarespace, Webflow, Shopify, custom sites, any platform that allows custom HTML in the footer
+      </div>
+      <p style="font-size: 0.95rem; line-height: 1.65; color: #4b5563; margin: 0;">Paste a single script tag into your website's footer or custom code area. The chat bubble appears in the bottom-right corner automatically. Colors, position, and greeting message are all configured from a dashboard — no code changes needed after install. This is how 80% of our customers go live.</p>
+      <div class="code-block">
+<span class="cmt">&lt;!-- Paste before the closing &lt;/body&gt; tag --&gt;</span>
+<span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="str">"https://cdn.sicusmedia.com/assistant.js"</span>
+        <span class="attr">data-salon-id</span>=<span class="str">"your-salon-id"</span> <span class="attr">defer</span><span class="tag">&gt;&lt;/script&gt;</span>
+      </div>
+      <div class="placeholder-note">[TBD — exact script URL and data attributes will be finalized when the standalone product launches. The embed pattern shown is representative.]</div>
+    </div>
+
+    <div class="integration-card">
+      <h3><span class="int-num">2</span>WordPress Plugin</h3>
+      <div class="integration-meta">
+        <strong>Complexity:</strong> Lowest &middot;
+        <strong>Setup time:</strong> Under 1 hour &middot;
+        <strong>Works with:</strong> WordPress (self-hosted and WordPress.com Business plan or higher)
+      </div>
+      <p style="font-size: 0.95rem; line-height: 1.65; color: #4b5563; margin: 0;">For WordPress sites, we provide a dedicated plugin: install from the WordPress plugin directory, enter your salon ID, and the assistant is live. No code, no footer editing, no risk of breaking your theme. Updates happen automatically whenever we ship improvements to the AI.</p>
+      <div class="placeholder-note">[TBD — WordPress plugin is planned for the standalone product launch. Until then, WordPress sites can use the script tag option above, which works identically.]</div>
+    </div>
+
+    <div class="integration-card">
+      <h3><span class="int-num">3</span>API / SDK (Custom Build)</h3>
+      <div class="integration-meta">
+        <strong>Complexity:</strong> Highest &middot;
+        <strong>Setup time:</strong> 1-2 weeks &middot;
+        <strong>Works with:</strong> Custom-built websites, native mobile apps, headless CMS setups
+      </div>
+      <p style="font-size: 0.95rem; line-height: 1.65; color: #4b5563; margin: 0;">If you want a fully custom chat UI that matches your brand pixel-perfectly — or if you want the AI inside a native iOS / Android app — we expose a REST API and a lightweight JavaScript SDK. Your developer builds the interface; we handle the AI, the training, the conversation state, and the booking handoff. Only needed if you have a specific design requirement the script-tag embed can't meet.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SETUP PROCESS ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 tracking-tight">How to get started — 3 to 5 days to go live</h2>
+      <p class="text-lg text-gray-500">No long migration projects, no multi-week onboarding.</p>
+    </div>
+
+    <div class="process-step">
+      <div class="process-num">1</div>
+      <div class="process-content">
+        <h3>Free 15-min Discovery Call</h3>
+        <p>We learn about your salon — services, website platform, current booking system, languages needed. You get a clear recommendation on which integration option fits and a tailored quote. No pressure, no pitch.</p>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="process-num">2</div>
+      <div class="process-content">
+        <h3>Share Your Salon Details</h3>
+        <p>You fill out an intake form with your services and pricing, staff names and specialties, business hours, cancellation policy, and any FAQs you want the AI to handle. Takes 30-45 minutes.</p>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="process-num">3</div>
+      <div class="process-content">
+        <h3>AI Training &amp; Widget Setup</h3>
+        <p>We train the AI on your salon-specific data and configure the widget's appearance (colors, greeting, position). You review sample conversations and approve the tone before it goes live. Takes 2-3 business days.</p>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="process-num">4</div>
+      <div class="process-content">
+        <h3>Embed on Your Website</h3>
+        <p>You paste the one-line script tag into your site's footer (or install the WordPress plugin). We walk through it live on a screenshare if you want. The chat bubble appears instantly.</p>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="process-num">5</div>
+      <div class="process-content">
+        <h3>Monthly Review &amp; Tuning</h3>
+        <p>Once a month we send you a performance report — total chats, bookings captured, top questions, missed handoffs, revenue attributed. We update the AI's responses based on what visitors actually asked.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PRICING ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="bg-surface-50 border border-gray-200 rounded-2xl p-6 sm:p-10">
+      <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Pricing</h2>
+      <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-4">
+        Standalone AI Assistant is priced as a <strong class="text-gray-900">flat monthly subscription</strong> based on your website traffic and the integration level you choose. No per-message charges, no surprise overages.
+      </p>
+      <div class="placeholder-note">[TBD — pricing starting point will be published here once the standalone product launches. For now, the intake process is: 15-min discovery call → tailored quote within 24 hours.]</div>
+      <p class="text-base sm:text-lg text-gray-600 leading-relaxed mt-4 mb-0">
+        Most standalone AI chat products on the market today range from $75 to $300/month depending on features and message volume. SICUS pricing is designed to be competitive for small and mid-size salons. <strong class="text-gray-900">Book a discovery call</strong> to get an exact number for your situation.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-8">Frequently Asked Questions</h2>
+    <div class="space-y-3">
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4">What website builders does the AI Assistant work with?</span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">Any website that allows a snippet of HTML or script tag in the page footer: <strong>Wix, Squarespace, WordPress, Shopify, Webflow, Weebly, Carrd, Framer</strong>, and custom-built sites. Some platforms restrict raw script embeds on free plans, so you may need to upgrade to a paid tier — we confirm compatibility during the discovery call. A dedicated WordPress plugin is planned for one-click install.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4">What can the AI Assistant actually do?</span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">Answers service questions, recommends services based on what a visitor describes, captures bookings end-to-end (name, phone, service, time), and hands leads to you via email, SMS, or straight into your booking system. It's trained on YOUR salon's services, staff, pricing, and policies — not a generic chatbot.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4">How is this different from AI Receptionist?</span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed"><strong>AI Receptionist answers your phone.</strong> <strong>AI Assistant answers your website.</strong> Phone calls go to the Receptionist. Website chat, forms, and after-hours web visitors go to the Assistant. Many salons eventually run both, but start with whichever channel is leaking more bookings for you. We help you figure that out on the discovery call.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4">Does it integrate with my booking system?</span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">Yes. Three integration levels: <strong>(1) Lead handoff</strong> via email or SMS — you add the booking manually. <strong>(2) Shared calendar</strong> — AI pushes bookings into Google Calendar / iCloud / Microsoft 365, which your booking platform syncs from. <strong>(3) Direct API</strong> — bookings appear in your existing system in real time (select platforms only). Chosen during onboarding based on your setup.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4">How much does standalone AI Assistant cost?</span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">Pricing is tailored based on your website traffic, integration level, and language needs. Flat monthly — no per-message charges or surprise overages. <strong>Book a 15-minute discovery call</strong> and we'll send you a quote within 24 hours.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="relative overflow-hidden rounded-2xl p-8 sm:p-12 text-center" style="background: linear-gradient(135deg, #E31E24 0%, #B8161B 100%);">
+      <div class="absolute inset-0 opacity-[0.06]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size: 200px;"></div>
+
+      <div class="relative z-10">
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">Stop losing bookings to a silent website</h2>
+        <p class="text-white/85 text-base sm:text-lg mb-8 max-w-xl mx-auto">Book a free 15-minute discovery call. We'll look at your current site, your booking system, and the questions visitors most commonly ask, then tell you whether AI Assistant is a fit. No commitment, no pitch.</p>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-brand-red-dark font-bold text-base sm:text-lg px-8 py-3.5 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_30px_rgba(0,0,0,0.2)]">
+            Book a Free 15-min Call
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+          <a href="mailto:info@sicusmedia.com?subject=AI%20Assistant%20inquiry" class="btn-spring inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/30 font-semibold text-base sm:text-lg px-8 py-3.5 rounded-full">
+            Email info@sicusmedia.com
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- @include partials/footer.html -->
+
+<script>
+  function toggleLang() {
+    var html = document.getElementById('htmlRoot');
+    var label = document.getElementById('langLabel');
+    if (html.lang === 'en') { html.lang = 'vi'; label.textContent = 'VI'; }
+    else { html.lang = 'en'; label.textContent = 'EN'; }
+  }
+  function toggleFaq(btn) {
+    var item = btn.closest('.faq-item');
+    var wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+    if (!wasOpen) item.classList.add('open');
+  }
+</script>
+</body>
+</html>
