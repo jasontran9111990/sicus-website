@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<!-- @include partials/head-common.html -->
+  <title>Salon Financial Projections Calculator — Free 3-Year P&amp;L Tool (2026) | SICUS</title>
+  <meta name="description" content="Free salon financial projections calculator. Enter 9 numbers, get a realistic 12-month P&L, break-even month, Year 2 and Year 3 forecasts, and a funding gap analysis — ready to copy into your bank business plan.">
+  <meta name="keywords" content="salon financial projections, salon financial projections calculator, salon revenue projector, salon P&L calculator, salon profit projection, salon financial forecast, salon 3-year projection, salon pro forma">
+  <link rel="canonical" href="https://sicusmedia.com/tools/salon-financial-projections-calculator.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sicusmedia.com/tools/salon-financial-projections-calculator.html">
+  <meta property="og:title" content="Salon Financial Projections Calculator — Free 3-Year P&L Tool">
+  <meta property="og:description" content="Enter 9 numbers, get a realistic 12-month P&L, break-even month, Year 2/3 forecasts, and a funding gap analysis. Ready for your bank business plan.">
+  <meta property="og:image" content="https://sicusmedia.com/brand_assets/topbar.png">
+  <meta property="og:site_name" content="SICUS Media">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Salon Financial Projections Calculator — Free 3-Year P&L Tool">
+  <meta name="twitter:description" content="9 inputs → 12-month P&L, break-even, Year 2/3, funding gap. Bank-ready salon projections in 2 minutes.">
+  <meta name="twitter:image" content="https://sicusmedia.com/brand_assets/topbar.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Salon Financial Projections Calculator",
+    "description": "A free interactive tool that produces a 12-month profit and loss projection, break-even analysis, 3-year revenue forecast, and funding gap analysis for a new or existing salon, based on 9 input variables.",
+    "url": "https://sicusmedia.com/tools/salon-financial-projections-calculator.html",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "provider": {
+      "@type": "Organization",
+      "name": "Sicus Media Inc.",
+      "url": "https://sicusmedia.com"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What are financial projections for a salon?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Salon financial projections are forecasts of your revenue, costs, and profit over a future period — typically 12 months in monthly detail, plus Year 2 and Year 3 summaries. Banks and SBA lenders require them with every loan application. A complete set includes a month-by-month profit and loss statement, a cash flow statement, a break-even analysis, and key assumptions (chair utilization, average ticket, cost structure)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I calculate projected revenue for my salon?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The simplest model is: number of chairs × services per chair per week × weeks per month × average ticket price = monthly revenue. For a 4-chair salon doing 20 services per chair per week at an average ticket of $50, that's 4 × 20 × 4.33 × $50 = $17,320 per month. Real projections ramp up utilization over the first 12 months as the salon fills its client book, which this calculator handles automatically."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a realistic profit margin for a salon?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Typical net profit margins for a small salon range from 8% to 18% after all expenses including rent, payroll, product cost of goods, utilities, and owner compensation. New salons often run break-even or small losses in Year 1 and reach healthy margins by Year 2. Anything above 20% net margin for a small salon is exceptional and usually means the owner is undercounting their own labor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the break-even point for a salon?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The break-even point is the month when your monthly revenue first covers all your monthly costs (rent, payroll, product COGS, utilities, loan service, etc.). For most new salons, break-even happens in month 6 to 9 — earlier if the owner brings an existing client base, later if they're building a book from scratch. This calculator shows you exactly when break-even happens based on your inputs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I turn these projections into a bank-ready document?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Copy the 12-month P&L table and the Year 1 through Year 3 summary into Section 8 of a salon business plan template. Most banks and SBA lenders expect financial projections in a specific format — our free Salon Business Plan Template provides a complete, bank-ready example you can customize with the numbers this tool produces."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    * { font-family: 'Be Vietnam Pro', sans-serif; }
+    html { scroll-behavior: smooth; }
+
+    .btn-spring { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease; }
+    .btn-spring:hover { transform: translateY(-2px); }
+    .btn-spring:active { transform: translateY(0) scale(0.98); }
+
+    .lang-en, .lang-vi { display: none; }
+    html[lang="en"] .lang-en { display: initial; }
+    html[lang="vi"] .lang-vi { display: initial; }
+    html[lang="en"] .lang-inline-en { display: inline !important; }
+    html[lang="vi"] .lang-inline-vi { display: inline !important; }
+    html[lang="en"] .lang-inline-vi { display: none !important; }
+    html[lang="vi"] .lang-inline-en { display: none !important; }
+    html[lang="en"] .lang-block-en { display: block !important; }
+    html[lang="vi"] .lang-block-vi { display: block !important; }
+    html[lang="en"] .lang-block-vi { display: none !important; }
+    html[lang="vi"] .lang-block-en { display: none !important; }
+
+    /* Form inputs */
+    .input-field {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.625rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #111827;
+      background: #fff;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: #8CB82B;
+      box-shadow: 0 0 0 3px rgba(140,184,43,0.15);
+    }
+    .input-prefix { position: relative; }
+    .input-prefix::before {
+      content: attr(data-prefix);
+      position: absolute;
+      left: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      font-weight: 500;
+      pointer-events: none;
+    }
+    .input-prefix .input-field { padding-left: 1.9rem; }
+    .input-suffix { position: relative; }
+    .input-suffix::after {
+      content: attr(data-suffix);
+      position: absolute;
+      right: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      font-weight: 500;
+      pointer-events: none;
+    }
+    .input-suffix .input-field { padding-right: 2.3rem; }
+
+    /* Result cards */
+    .metric-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 1rem; padding: 1.5rem; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
+    .metric-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: #6b7280; font-weight: 600; margin-bottom: 0.35rem; }
+    .metric-value { font-size: 1.75rem; font-weight: 700; color: #111827; letter-spacing: -0.02em; }
+    .metric-sub { font-size: 0.85rem; color: #9ca3af; margin-top: 0.25rem; }
+
+    /* P&L table with bar chart */
+    .pl-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .pl-table th { background: #f0f7e0; color: #111; font-weight: 600; text-align: left; padding: 0.65rem 0.75rem; border-bottom: 2px solid #8CB82B; position: sticky; top: 0; }
+    .pl-table td { padding: 0.55rem 0.75rem; border-bottom: 1px solid #e5e7eb; color: #374151; vertical-align: middle; }
+    .pl-table td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .pl-table tr:last-child td { border-bottom: none; }
+    .pl-table tfoot td { font-weight: 700; background: #fafdf5; color: #111; border-top: 2px solid #8CB82B; }
+    .pl-table .neg { color: #b91c1c; }
+    .pl-table .pos { color: #047857; }
+
+    /* CSS bar chart — width = revenue relative to max month */
+    .bar-cell { min-width: 120px; padding-right: 0 !important; }
+    .bar-wrap { display: flex; align-items: center; gap: 0.5rem; }
+    .bar { height: 10px; background: linear-gradient(90deg, #8CB82B, #6A9A10); border-radius: 999px; min-width: 2px; }
+
+    /* Funding gap callout */
+    .funding-gap { background: #fff7ed; border-left: 4px solid #f59e0b; padding: 1.25rem 1.5rem; border-radius: 0 0.75rem 0.75rem 0; margin-top: 1.5rem; }
+    .funding-gap h4 { color: #92400e; margin: 0 0 0.4rem 0; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .funding-gap p { color: #451a03; margin-bottom: 0.6rem; font-size: 0.95rem; line-height: 1.6; }
+    .funding-gap p:last-child { margin-bottom: 0; }
+    .funding-gap a { color: #6a9a10; font-weight: 600; text-decoration: underline; }
+
+    .pos-section { background: #f0f7e0; border-left: 4px solid #8CB82B; padding: 1.25rem 1.5rem; border-radius: 0 0.75rem 0.75rem 0; margin-top: 1.5rem; }
+    .pos-section h4 { color: #6A9A10; margin: 0 0 0.4rem 0; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .pos-section p { color: #1f4619; margin-bottom: 0.6rem; font-size: 0.95rem; line-height: 1.6; }
+    .pos-section p:last-child { margin-bottom: 0; }
+
+    /* FAQ */
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .faq-item.open .faq-answer { max-height: 500px; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-chevron { transition: transform 0.3s ease; }
+  </style>
+</head>
+<body class="bg-white text-gray-900 overflow-x-hidden">
+<!-- @include partials/gtm-noscript.html -->
+<!-- @include partials/nav.html -->
+
+<!-- ==================== HERO ==================== -->
+<section class="relative pt-28 pb-10 sm:pt-32 sm:pb-14 overflow-hidden">
+  <div class="absolute inset-0 z-0" style="background: radial-gradient(125% 100% at 50% 0%, #fff 50%, rgba(140,184,43,0.12) 100%);"></div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+    <nav aria-label="Breadcrumb" class="mb-6">
+      <ol class="flex items-center justify-center gap-2 text-sm text-gray-400">
+        <li><a href="/" class="hover:text-brand-green transition-colors duration-200">Home</a></li>
+        <li><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li><a href="/blog/#free-tools" class="hover:text-brand-green transition-colors duration-200">Tools</a></li>
+        <li><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li class="text-gray-700 font-medium">Financial Projections</li>
+      </ol>
+    </nav>
+
+    <div class="inline-flex items-center gap-2 bg-brand-green/10 border border-brand-green/20 rounded-full px-4 py-1.5 mb-5">
+      <span class="w-2 h-2 rounded-full bg-brand-green"></span>
+      <span class="text-sm font-medium text-brand-green-dark">Free Salon Tool</span>
+    </div>
+
+    <h1 class="font-display text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-[-0.02em] text-gray-900 mb-5">
+      Salon Financial Projections Calculator
+    </h1>
+    <p class="text-lg sm:text-xl text-gray-500 leading-relaxed max-w-2xl mx-auto mb-2">
+      Enter 9 numbers. Get a realistic 12-month P&amp;L, break-even month, Year 2 &amp; 3 forecasts, and a funding gap analysis — ready to paste into your bank business plan.
+    </p>
+    <p class="text-sm text-gray-400">No signup. No email. Free forever.</p>
+  </div>
+</section>
+
+<!-- ==================== INPUT FORM ==================== -->
+<section class="pb-8 sm:pb-12">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="bg-white rounded-2xl border border-gray-200 p-6 sm:p-10" style="box-shadow: 0 4px 24px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.02);">
+
+      <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">Your Inputs</h2>
+      <p class="text-sm text-gray-500 mb-6">Use realistic numbers. Conservative inputs produce defensible projections.</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">Number of service chairs / stations</label>
+          <input type="number" id="chairs" class="input-field" value="4" min="1" max="20" step="1">
+          <p class="text-xs text-gray-400 mt-1">Nail stations, hair chairs, treatment rooms</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">Avg services per chair per week (at launch)</label>
+          <input type="number" id="servicesStart" class="input-field" value="15" min="0" max="100" step="1">
+          <p class="text-xs text-gray-400 mt-1">Starting utilization — be conservative</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">Avg services per chair per week (by month 12)</label>
+          <input type="number" id="servicesEnd" class="input-field" value="25" min="0" max="100" step="1">
+          <p class="text-xs text-gray-400 mt-1">Target utilization once fully booked</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">Average ticket ($)</label>
+          <div class="input-prefix" data-prefix="$">
+            <input type="number" id="avgTicket" class="input-field" value="55" min="1" step="1">
+          </div>
+          <p class="text-xs text-gray-400 mt-1">Blended across all services</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">Monthly rent ($)</label>
+          <div class="input-prefix" data-prefix="$">
+            <input type="number" id="rent" class="input-field" value="3500" min="0" step="50">
+          </div>
+          <p class="text-xs text-gray-400 mt-1">Base rent + CAM + property tax</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">Monthly payroll ($)</label>
+          <div class="input-prefix" data-prefix="$">
+            <input type="number" id="payroll" class="input-field" value="12000" min="0" step="100">
+          </div>
+          <p class="text-xs text-gray-400 mt-1">All staff including owner wage + employer costs</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">Other fixed monthly costs ($)</label>
+          <div class="input-prefix" data-prefix="$">
+            <input type="number" id="otherFixed" class="input-field" value="1800" min="0" step="50">
+          </div>
+          <p class="text-xs text-gray-400 mt-1">Insurance, software, utilities, marketing, loan payment</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">Product cost of goods (% of revenue)</label>
+          <div class="input-suffix" data-suffix="%">
+            <input type="number" id="cogs" class="input-field" value="8" min="0" max="40" step="0.5">
+          </div>
+          <p class="text-xs text-gray-400 mt-1">Consumable products, disposables (8-12% typical)</p>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">Year-over-year growth rate (%)</label>
+          <div class="input-suffix" data-suffix="%">
+            <input type="number" id="growth" class="input-field" value="15" min="-20" max="100" step="1">
+          </div>
+          <p class="text-xs text-gray-400 mt-1">Applied to Year 2 and Year 3 revenue. 10-20% is typical for a growing salon.</p>
+        </div>
+
+      </div>
+
+      <button id="calcBtn" onclick="calculate()" class="btn-spring w-full bg-brand-green hover:bg-brand-green-dark text-white font-bold text-lg px-8 py-4 rounded-xl shadow-[0_4px_20px_rgba(140,184,43,0.3)] hover:shadow-[0_6px_30px_rgba(140,184,43,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green-dark">
+        Generate 3-Year Projection →
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== RESULTS ==================== -->
+<section id="resultsSection" class="pb-16 sm:pb-20 hidden">
+  <div class="max-w-4xl mx-auto px-6">
+
+    <!-- Key metrics -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+      <div class="metric-card">
+        <p class="metric-label">Year 1 Revenue</p>
+        <p class="metric-value" id="m-rev1">—</p>
+      </div>
+      <div class="metric-card">
+        <p class="metric-label">Year 1 Net Profit</p>
+        <p class="metric-value" id="m-net1">—</p>
+        <p class="metric-sub" id="m-marg1">—</p>
+      </div>
+      <div class="metric-card">
+        <p class="metric-label">Break-Even Month</p>
+        <p class="metric-value" id="m-be">—</p>
+      </div>
+      <div class="metric-card">
+        <p class="metric-label">3-Year Revenue</p>
+        <p class="metric-value" id="m-rev3">—</p>
+      </div>
+    </div>
+
+    <!-- Monthly P&L table -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-6 sm:p-10 mb-8" style="box-shadow: 0 4px 24px rgba(0,0,0,0.04);">
+      <h2 class="text-xl font-bold text-gray-900 mb-1">Year 1 — Month-by-Month P&amp;L</h2>
+      <p class="text-sm text-gray-500 mb-6">Revenue ramps from launch utilization to target utilization over 12 months. Bars show relative revenue scale.</p>
+      <div class="overflow-x-auto">
+        <table class="pl-table">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th class="bar-cell">Revenue</th>
+              <th style="text-align:right">COGS</th>
+              <th style="text-align:right">Fixed Costs</th>
+              <th style="text-align:right">Net Profit</th>
+            </tr>
+          </thead>
+          <tbody id="pl-body">
+          </tbody>
+          <tfoot>
+            <tr>
+              <td><strong>Total</strong></td>
+              <td class="num" id="t-rev">—</td>
+              <td class="num" id="t-cogs">—</td>
+              <td class="num" id="t-fixed">—</td>
+              <td class="num" id="t-net">—</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <!-- Year 2 & 3 summary -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-6 sm:p-10 mb-8" style="box-shadow: 0 4px 24px rgba(0,0,0,0.04);">
+      <h2 class="text-xl font-bold text-gray-900 mb-1">Year 2 &amp; Year 3 Forecast</h2>
+      <p class="text-sm text-gray-500 mb-6">Assumes your YoY growth rate compounds on the Year 1 base. Fixed costs grow at 3% annually (rent escalation).</p>
+      <div class="overflow-x-auto">
+        <table class="pl-table">
+          <thead>
+            <tr>
+              <th>&nbsp;</th>
+              <th style="text-align:right">Revenue</th>
+              <th style="text-align:right">COGS</th>
+              <th style="text-align:right">Fixed Costs</th>
+              <th style="text-align:right">Net Profit</th>
+              <th style="text-align:right">Margin</th>
+            </tr>
+          </thead>
+          <tbody id="yr-body">
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Funding gap OR positive section (dynamically shown) -->
+    <div id="funding-callout"></div>
+
+    <!-- CTAs -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+      <a href="/blog/salon-business-plan-template.html" class="btn-spring bg-brand-green hover:bg-brand-green-dark text-white font-bold text-center px-6 py-4 rounded-xl shadow-[0_4px_20px_rgba(140,184,43,0.3)] hover:shadow-[0_6px_30px_rgba(140,184,43,0.45)]">
+        Use These Numbers in the Business Plan Template →
+      </a>
+      <a href="/blog/salon-funding-options.html" class="btn-spring bg-white border border-gray-200 hover:border-brand-green/40 text-gray-900 hover:text-brand-green-dark font-semibold text-center px-6 py-4 rounded-xl">
+        Explore Salon Funding Options →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-8">Frequently Asked Questions</h2>
+    <div class="space-y-3">
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4">What are financial projections for a salon?</span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">Salon financial projections are forecasts of your revenue, costs, and profit over a future period — typically 12 months in monthly detail, plus Year 2 and Year 3 summaries. Banks and SBA lenders require them with every loan application. A complete set includes a month-by-month profit and loss statement, a cash flow statement, a break-even analysis, and key assumptions.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4">How do I calculate projected revenue for my salon?</span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">The simplest model is: <strong>number of chairs × services per chair per week × 4.33 weeks × average ticket</strong>. For a 4-chair salon doing 20 services per chair per week at an average ticket of $50, that's 4 × 20 × 4.33 × $50 = $17,320 per month. Real projections ramp up utilization over the first 12 months as the salon fills its client book — which this calculator handles automatically.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4">What is a realistic profit margin for a salon?</span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">Typical net profit margins for a small salon range from <strong>8% to 18%</strong> after all expenses. New salons often run break-even or small losses in Year 1 and reach healthy margins by Year 2. Anything above 20% net margin for a small salon is exceptional and usually means the owner is undercounting their own labor.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4">What is the break-even point for a salon?</span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">The break-even point is the month when your monthly revenue first covers all your monthly costs. For most new salons, break-even happens in <strong>month 6 to 9</strong> — earlier if the owner brings an existing client base, later if they're building a book from scratch. This calculator shows you exactly when break-even happens based on your inputs.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4">How do I turn these projections into a bank-ready document?</span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">Copy the 12-month P&amp;L table and the Year 1-3 summary into Section 8 of a salon business plan template. Most banks and SBA lenders expect financial projections in a specific format — our free <a href="/blog/salon-business-plan-template.html" class="text-brand-green underline hover:text-brand-green-dark">Salon Business Plan Template</a> provides a complete, bank-ready example you can customize with the numbers this tool produces.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="relative overflow-hidden rounded-2xl p-8 sm:p-12 text-center" style="background: linear-gradient(135deg, #8CB82B 0%, #6A9A10 100%);">
+      <div class="absolute inset-0 opacity-[0.06]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size: 200px;"></div>
+
+      <div class="relative z-10">
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">Projections Done. Now You Need the Software.</h2>
+        <p class="text-white/85 text-base sm:text-lg mb-8 max-w-xl mx-auto">SICUS Booking tracks every metric in this calculator automatically — chair utilization, average ticket, no-shows, rebook rate. Free to start.</p>
+        <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-brand-green-dark font-bold text-base sm:text-lg px-8 py-3.5 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_30px_rgba(0,0,0,0.2)]">
+          See SICUS Booking
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== RELATED TOOLS ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-4xl mx-auto px-6">
+    <h2 class="text-xl font-bold text-gray-900 mb-6">More Free Salon Planning Tools</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <a href="/tools/salon-startup-calculator.html" class="group block bg-surface-50 rounded-xl p-5 border border-gray-100 hover:border-brand-green/30 transition-colors duration-200">
+        <p class="text-sm text-brand-green font-medium mb-2">Free Tool</p>
+        <h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-green-dark leading-snug">Salon Startup Cost Calculator</h3>
+      </a>
+      <a href="/tools/salon-breakeven-calculator.html" class="group block bg-surface-50 rounded-xl p-5 border border-gray-100 hover:border-brand-green/30 transition-colors duration-200">
+        <p class="text-sm text-brand-green font-medium mb-2">Free Tool</p>
+        <h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-green-dark leading-snug">Salon Breakeven Calculator</h3>
+      </a>
+      <a href="/tools/salon-idea-validator.html" class="group block bg-surface-50 rounded-xl p-5 border border-gray-100 hover:border-brand-green/30 transition-colors duration-200">
+        <p class="text-sm text-brand-green font-medium mb-2">Free Tool</p>
+        <h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-green-dark leading-snug">Salon Business Idea Validator</h3>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- @include partials/footer.html -->
+
+<script>
+  function toggleLang() {
+    var html = document.getElementById('htmlRoot');
+    var label = document.getElementById('langLabel');
+    if (html.lang === 'en') { html.lang = 'vi'; label.textContent = 'VI'; }
+    else { html.lang = 'en'; label.textContent = 'EN'; }
+  }
+
+  function toggleFaq(btn) {
+    var item = btn.closest('.faq-item');
+    var wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  function fmt(n) {
+    if (!isFinite(n)) return '—';
+    var rounded = Math.round(n);
+    return '$' + Math.abs(rounded).toLocaleString('en-US') + (rounded < 0 ? '' : '');
+  }
+  function fmtSigned(n) {
+    if (!isFinite(n)) return '—';
+    var rounded = Math.round(n);
+    var sign = rounded < 0 ? '-' : '';
+    return sign + '$' + Math.abs(rounded).toLocaleString('en-US');
+  }
+  function num(id) {
+    var v = parseFloat(document.getElementById(id).value);
+    return isFinite(v) ? v : 0;
+  }
+
+  function calculate() {
+    var chairs = num('chairs');
+    var svcStart = num('servicesStart');
+    var svcEnd = num('servicesEnd');
+    var avgTicket = num('avgTicket');
+    var rent = num('rent');
+    var payroll = num('payroll');
+    var otherFixed = num('otherFixed');
+    var cogsPct = num('cogs') / 100;
+    var growthPct = num('growth') / 100;
+
+    var fixedMonthly = rent + payroll + otherFixed;
+    var weeksPerMonth = 4.33;
+
+    // Build 12-month projection
+    var months = [];
+    var totalRev = 0, totalCogs = 0, totalFixed = 0, totalNet = 0;
+    var breakEvenMonth = null;
+    var cumulativeCash = 0;
+    var peakDeficit = 0;
+    var maxMonthlyRev = 0;
+
+    for (var m = 1; m <= 12; m++) {
+      // Linear interpolation of services per chair per week
+      var svcWeek = svcStart + (svcEnd - svcStart) * ((m - 1) / 11);
+      var monthlyServices = chairs * svcWeek * weeksPerMonth;
+      var revenue = monthlyServices * avgTicket;
+      var cogs = revenue * cogsPct;
+      var net = revenue - cogs - fixedMonthly;
+
+      months.push({ m: m, rev: revenue, cogs: cogs, fixed: fixedMonthly, net: net });
+      totalRev += revenue;
+      totalCogs += cogs;
+      totalFixed += fixedMonthly;
+      totalNet += net;
+
+      if (revenue > maxMonthlyRev) maxMonthlyRev = revenue;
+      if (breakEvenMonth === null && net >= 0) breakEvenMonth = m;
+
+      cumulativeCash += net;
+      if (cumulativeCash < peakDeficit) peakDeficit = cumulativeCash;
+    }
+
+    // Year 2 & 3
+    var y1Rev = totalRev;
+    var y1Cogs = totalCogs;
+    var y1Fixed = totalFixed;
+    var y1Net = totalNet;
+
+    var y2Rev = y1Rev * (1 + growthPct);
+    var y2Cogs = y2Rev * cogsPct;
+    var y2Fixed = y1Fixed * 1.03; // 3% fixed cost escalation
+    var y2Net = y2Rev - y2Cogs - y2Fixed;
+    var y2Margin = y2Rev > 0 ? (y2Net / y2Rev * 100) : 0;
+
+    var y3Rev = y2Rev * (1 + growthPct);
+    var y3Cogs = y3Rev * cogsPct;
+    var y3Fixed = y2Fixed * 1.03;
+    var y3Net = y3Rev - y3Cogs - y3Fixed;
+    var y3Margin = y3Rev > 0 ? (y3Net / y3Rev * 100) : 0;
+
+    var y1Margin = y1Rev > 0 ? (y1Net / y1Rev * 100) : 0;
+    var threeYearRev = y1Rev + y2Rev + y3Rev;
+
+    // --- Render metrics ---
+    document.getElementById('m-rev1').textContent = fmt(y1Rev);
+    document.getElementById('m-net1').textContent = fmtSigned(y1Net);
+    document.getElementById('m-marg1').textContent = y1Margin.toFixed(1) + '% margin';
+    document.getElementById('m-be').textContent = breakEvenMonth ? 'Month ' + breakEvenMonth : 'Not in Yr 1';
+    document.getElementById('m-rev3').textContent = fmt(threeYearRev);
+
+    // --- Render P&L table ---
+    var plBody = document.getElementById('pl-body');
+    plBody.innerHTML = '';
+    months.forEach(function(r) {
+      var row = document.createElement('tr');
+      var barWidth = maxMonthlyRev > 0 ? (r.rev / maxMonthlyRev * 100) : 0;
+      var netCls = r.net < 0 ? 'neg' : 'pos';
+      row.innerHTML =
+        '<td><strong>M' + r.m + '</strong></td>' +
+        '<td class="bar-cell"><div class="bar-wrap">' +
+          '<span style="min-width:70px;text-align:right;font-variant-numeric:tabular-nums">' + fmt(r.rev) + '</span>' +
+          '<div class="bar" style="width:' + barWidth + '%"></div>' +
+        '</div></td>' +
+        '<td class="num">' + fmt(r.cogs) + '</td>' +
+        '<td class="num">' + fmt(r.fixed) + '</td>' +
+        '<td class="num ' + netCls + '">' + fmtSigned(r.net) + '</td>';
+      plBody.appendChild(row);
+    });
+    document.getElementById('t-rev').textContent = fmt(totalRev);
+    document.getElementById('t-cogs').textContent = fmt(totalCogs);
+    document.getElementById('t-fixed').textContent = fmt(totalFixed);
+    document.getElementById('t-net').textContent = fmtSigned(totalNet);
+    document.getElementById('t-net').className = 'num ' + (totalNet < 0 ? 'neg' : 'pos');
+
+    // --- Render Year 2 & 3 table ---
+    var yrBody = document.getElementById('yr-body');
+    yrBody.innerHTML =
+      '<tr><td><strong>Year 1</strong></td>' +
+      '<td class="num">' + fmt(y1Rev) + '</td>' +
+      '<td class="num">' + fmt(y1Cogs) + '</td>' +
+      '<td class="num">' + fmt(y1Fixed) + '</td>' +
+      '<td class="num ' + (y1Net < 0 ? 'neg' : 'pos') + '">' + fmtSigned(y1Net) + '</td>' +
+      '<td class="num">' + y1Margin.toFixed(1) + '%</td></tr>' +
+
+      '<tr><td><strong>Year 2</strong></td>' +
+      '<td class="num">' + fmt(y2Rev) + '</td>' +
+      '<td class="num">' + fmt(y2Cogs) + '</td>' +
+      '<td class="num">' + fmt(y2Fixed) + '</td>' +
+      '<td class="num ' + (y2Net < 0 ? 'neg' : 'pos') + '">' + fmtSigned(y2Net) + '</td>' +
+      '<td class="num">' + y2Margin.toFixed(1) + '%</td></tr>' +
+
+      '<tr><td><strong>Year 3</strong></td>' +
+      '<td class="num">' + fmt(y3Rev) + '</td>' +
+      '<td class="num">' + fmt(y3Cogs) + '</td>' +
+      '<td class="num">' + fmt(y3Fixed) + '</td>' +
+      '<td class="num ' + (y3Net < 0 ? 'neg' : 'pos') + '">' + fmtSigned(y3Net) + '</td>' +
+      '<td class="num">' + y3Margin.toFixed(1) + '%</td></tr>';
+
+    // --- Funding gap callout ---
+    var callout = document.getElementById('funding-callout');
+    if (peakDeficit < 0) {
+      var needed = Math.abs(Math.round(peakDeficit));
+      callout.innerHTML =
+        '<div class="funding-gap">' +
+          '<h4>⚠ Funding Gap Detected</h4>' +
+          '<p>Your cumulative cash flow goes as low as <strong>' + fmtSigned(peakDeficit) + '</strong> before recovering. That means you need to fund operations out of reserves or a loan until revenue catches up with costs.</p>' +
+          '<p><strong>Recommended working capital reserve:</strong> ' + fmt(needed * 1.25) + ' (peak deficit plus a 25% buffer).</p>' +
+          '<p>→ <a href="/blog/salon-funding-options.html">See the 7 salon funding options guide</a> to choose a financing path that covers this gap.</p>' +
+        '</div>';
+    } else {
+      callout.innerHTML =
+        '<div class="pos-section">' +
+          '<h4>✓ Cash Flow Positive From Month 1</h4>' +
+          '<p>Your projected revenue covers costs from the start — no working capital gap to fund. You still need startup capital for build-out and equipment; use the <a href="/tools/salon-startup-calculator.html" class="text-brand-green-dark underline">Salon Startup Cost Calculator</a> to budget those separately.</p>' +
+        '</div>';
+    }
+
+    // Show results and scroll to them
+    var rs = document.getElementById('resultsSection');
+    rs.classList.remove('hidden');
+    setTimeout(function() {
+      rs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  }
+</script>
+</body>
+</html>
