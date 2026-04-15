@@ -284,6 +284,24 @@ Publish 8–12 articles targeting mid/long-tail keywords (1,500–2,500 words ea
 Fresha, GlossGenius, Vagaro, Booksy, Square, Mangomint, Boulevard, Zenoti
 
 ### Blog Page Layout (UI/UX Standard)
+
+**Spacing rule for the article body section:** the section that contains the Table of Contents and article content must start with `pt-8 sm:pt-16` so the TOC has breathing room below the hero banner. Example:
+
+```html
+<section class="pt-8 sm:pt-16 pb-20">
+  <div class="max-w-3xl mx-auto px-6">
+
+    <!-- Table of Contents -->
+    <div class="bg-surface-50 border border-gray-200 rounded-2xl p-6 sm:p-8 mb-12 toc">
+      ...
+    </div>
+    ...
+  </div>
+</section>
+```
+
+Without this top padding the TOC sits tight against the hero (only the hero's `pb-16` as a gap, which feels cramped). The same pattern is applied to the `/services/` hub, `/tools/` hub, and `/blog/` index for visual consistency across hub pages.
+
 All blog articles must follow the layout in `src/pages/blog/best-nail-salon-software.html` (the templated source — never reference files in `dist/` or the legacy root `blog/` folder):
 
 1. **Navbar** — Fixed `bg-white/80 backdrop-blur-xl`. Includes: logo, language toggle, "Blog" link, "Schedule a Demo" CTA button.
