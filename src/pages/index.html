@@ -289,12 +289,11 @@
   <div class="relative z-10 max-w-4xl mx-auto px-6">
       <!-- Heading -->
       <h1 class="font-display text-5xl sm:text-6xl lg:text-[64px] leading-[1.08] tracking-[-0.02em] text-gray-900 mb-4">
-        <span class="lang-inline-en">The all-in-one AI-powered booking app</span><span class="lang-inline-vi">Ứng dụng đặt lịch AI tất cả trong một</span><br>
-        <span class="lang-inline-en">for salon owners</span><span class="lang-inline-vi">cho chủ tiệm nail & salon</span>
+        <span class="lang-inline-en">The all-in-one AI-powered booking app</span><span class="lang-inline-vi">Ứng dụng đặt lịch AI tất cả trong một</span>
       </h1>
       <p class="text-2xl sm:text-3xl font-body font-semibold text-gray-400 uppercase tracking-widest mb-7">
-        <span class="lang-inline-en">THAT <span class="text-brand-green" id="scramble-en">THINKS AHEAD</span></span>
-        <span class="lang-inline-vi"><span class="text-brand-green" id="scramble-vi">NGHĨ TRƯỚC</span> CHO BẠN</span>
+        <span class="lang-inline-en">FOR <span class="text-brand-green">SALON OWNERS</span></span>
+        <span class="lang-inline-vi">CHO <span class="text-brand-green">CHỦ TIỆM NAIL &amp; SALON</span></span>
       </p>
 
       <!-- Subtitle -->
@@ -2620,65 +2619,6 @@
 
     startAutoplay();
   })();
-</script>
-
-<!-- Text Scramble Animation -->
-<script>
-(function() {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  const duration = 0.8;
-  const speed = 0.04;
-
-  function scramble(el) {
-    const finalText = el.getAttribute('data-text');
-    const steps = duration / speed;
-    let step = 0;
-
-    const interval = setInterval(function() {
-      let scrambled = '';
-      const progress = step / steps;
-
-      for (let i = 0; i < finalText.length; i++) {
-        if (finalText[i] === ' ') {
-          scrambled += ' ';
-        } else if (progress * finalText.length > i) {
-          scrambled += finalText[i];
-        } else {
-          scrambled += chars[Math.floor(Math.random() * chars.length)];
-        }
-      }
-
-      el.textContent = scrambled;
-      step++;
-
-      if (step > steps) {
-        clearInterval(interval);
-        el.textContent = finalText;
-      }
-    }, speed * 1000);
-  }
-
-  function initScramble() {
-    var els = [document.getElementById('scramble-en'), document.getElementById('scramble-vi')];
-    els.forEach(function(el) {
-      if (!el) return;
-      el.setAttribute('data-text', el.textContent);
-    });
-
-    // Run on page load with a short delay so user sees it
-    setTimeout(function() {
-      els.forEach(function(el) {
-        if (el) scramble(el);
-      });
-    }, 400);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initScramble);
-  } else {
-    initScramble();
-  }
-})();
 </script>
 
 </body>
