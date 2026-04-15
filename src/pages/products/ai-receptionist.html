@@ -48,7 +48,7 @@
         "name": "Can the AI Receptionist work with my existing booking system?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. SICUS AI Receptionist is designed to work alongside whatever booking system you're already using — Fresha, Vagaro, Booksy, Square Appointments, Mangomint, or a paper calendar. We offer three integration levels: (1) Forward + email/SMS, the simplest — calls are forwarded to our AI, which captures the booking and sends you the details; (2) Forward + shared calendar, where we push confirmed bookings into a Google Calendar or similar that your existing system reads from; (3) Direct API integration for supported booking systems, where appointments appear directly in your booking platform's calendar. We pick the integration level during onboarding based on what you're already using."
+          "text": "Yes. SICUS AI Receptionist is designed to work alongside whatever booking system you're already using — Fresha, Vagaro, Booksy, Square Appointments, Mangomint, or a paper calendar. We offer three integration levels: (1) Forward + email/SMS, the simplest — calls are forwarded to our AI, which captures the booking and sends you the details by email or SMS (works with any booking system, including paper calendars); (2) Shared Google Calendar, for Vagaro users only — the AI pushes bookings into a Google Calendar that Vagaro imports from, and your team converts the imported event into a real appointment in one tap; (3) Direct API integration for Square Appointments and other platforms with open public APIs, where appointments appear directly in your booking system. We pick the integration level during onboarding based on what you're already using."
         }
       },
       {
@@ -297,13 +297,13 @@
     </div>
 
     <div class="integration-card">
-      <h3><span class="int-num">2</span>Shared Calendar Integration</h3>
+      <h3><span class="int-num">2</span>Shared Calendar (Vagaro only, today)</h3>
       <div class="integration-meta">
         <strong>Complexity:</strong> Medium &middot;
         <strong>Setup time:</strong> 3-5 days &middot;
-        <strong>Works with:</strong> Google Calendar, Microsoft 365, iCloud, any system that syncs with a standard calendar
+        <strong>Works with:</strong> Vagaro (via Google Calendar)
       </div>
-      <p style="font-size: 0.95rem; line-height: 1.65; color: #4b5563; margin: 0;">The AI pushes confirmed bookings directly into a shared Google Calendar (or Microsoft 365 / iCloud calendar) that your existing booking system reads from. Most modern booking platforms (Fresha, Vagaro, Booksy, Square) support two-way calendar sync, so bookings created by the AI appear automatically in your main system within a minute. You review and confirm on your end. Most salons end up here after starting with Option 1.</p>
+      <p style="font-size: 0.95rem; line-height: 1.65; color: #4b5563; margin: 0;">The AI pushes confirmed bookings into a Google Calendar that Vagaro reads from. Your team opens the imported event in Vagaro and converts it to a real appointment with one tap — faster than re-typing the details from an email. Google Calendar only, not Microsoft 365 or iCloud. Fresha, Booksy, and Square don't support this workflow — for those platforms, use Option 1 or Option 3.</p>
     </div>
 
     <div class="integration-card">
@@ -398,7 +398,7 @@
         </button>
         <div class="faq-answer px-6">
           <div class="pb-5">
-            <p class="text-gray-600 text-sm sm:text-base leading-relaxed"><strong>Yes.</strong> Designed to work alongside whatever booking system you're already using — Fresha, Vagaro, Booksy, Square Appointments, Mangomint, or a paper calendar. We offer 3 integration levels (see above) and pick the right one during onboarding based on your setup.</p>
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed"><strong>Yes</strong> — but the integration style depends on which platform you use. <strong>Option 1 (forward + email/SMS)</strong> works with every booking system on earth, including Fresha, Vagaro, Booksy, Square, Mangomint, and paper calendars, because we just deliver a formatted booking request to your inbox and you or your front desk types it in. <strong>Option 2 (shared Google Calendar)</strong> works with Vagaro only. <strong>Option 3 (direct API)</strong> works with Square Appointments and other platforms with open public APIs. Fresha and Booksy do not currently expose a public API, so direct integration with those two is not available.</p>
           </div>
         </div>
       </div>
