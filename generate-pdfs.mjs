@@ -29,7 +29,21 @@ const TARGETS = [
     outFile: 'salon-business-plan-template.pdf',
     label: 'Salon Business Plan Template',
   },
-  // Add future magnets here
+  {
+    sourceUrl: `http://localhost:${PORT}/blog/how-to-open-a-salon.html`,
+    outFile: 'how-to-open-a-salon.pdf',
+    label: 'How to Open a Salon — 15-Step Guide + Checklist',
+  },
+  {
+    sourceUrl: `http://localhost:${PORT}/blog/salon-funding-options.html`,
+    outFile: 'salon-funding-options.pdf',
+    label: 'Salon Funding Options — 7 Ways to Finance Your Salon',
+  },
+  {
+    sourceUrl: `http://localhost:${PORT}/blog/salon-licences-alberta.html`,
+    outFile: 'salon-licences-alberta.pdf',
+    label: 'Salon Licences in Alberta — Complete 2026 Guide',
+  },
 ];
 
 // --- Simple HTTP server (reuses the same logic as serve.mjs) ---

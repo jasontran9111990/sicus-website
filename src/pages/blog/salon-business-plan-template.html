@@ -182,7 +182,7 @@
       .template-box { border: 1px solid #999; box-shadow: none; }
       a { color: #000 !important; text-decoration: none !important; }
       #hero-section { padding-top: 0 !important; }
-      #download-buttons { display: none !important; }
+      #lead-magnet { display: none !important; }
     }
   </style>
 </head>
@@ -236,7 +236,7 @@
             <p class="text-xs sm:text-sm text-gray-500 mb-0">Complete salon business plan template, ready to customize for your bank loan application.</p>
           </div>
         </div>
-        <form id="lm-form" class="flex flex-col sm:flex-row gap-2">
+        <form id="lm-form" data-magnet="business-plan-template" class="flex flex-col sm:flex-row gap-2">
           <input type="email" id="lm-email" required placeholder="your@email.com" autocomplete="email" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/20">
           <button type="submit" id="lm-submit" class="btn-spring inline-flex items-center justify-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-bold text-sm px-6 py-3 rounded-lg shadow-[0_2px_12px_rgba(140,184,43,0.25)] hover:shadow-[0_4px_20px_rgba(140,184,43,0.4)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green-dark whitespace-nowrap">
             <span id="lm-submit-text">Email Me the PDF</span>
@@ -905,10 +905,11 @@
 
       setLoading(true);
       try {
+        var magnet = form.getAttribute('data-magnet') || 'business-plan-template';
         var res = await fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email, magnet: 'business-plan-template' }),
+          body: JSON.stringify({ email: email, magnet: magnet }),
         });
         var data = await res.json().catch(function() { return {}; });
         if (!res.ok) {

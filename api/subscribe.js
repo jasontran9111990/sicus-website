@@ -9,8 +9,24 @@ const MAGNETS = {
     blurb: 'A complete, bank-ready salon business plan built around a hypothetical Calgary nail & beauty spa. Customize the numbers, submit it to your lender.',
     pdfUrl: 'https://sicusmedia.com/downloads/salon-business-plan-template.pdf',
   },
-  // Add future magnets here following the same shape:
-  // 'how-to-open-checklist': { subject, title, blurb, pdfUrl },
+  'how-to-open-checklist': {
+    subject: 'Your 90-Day Salon Startup Guide + Checklist (Free Download)',
+    title: 'How to Open a Salon — 15-Step Guide + 90-Day Checklist',
+    blurb: 'The complete 15-step guide from concept validation to opening day, with a printable 90-day startup checklist organized by phase. Everything you need to stay on track.',
+    pdfUrl: 'https://sicusmedia.com/downloads/how-to-open-a-salon.pdf',
+  },
+  'funding-options-cheatsheet': {
+    subject: 'Your Salon Funding Options Cheatsheet (Free Download)',
+    title: 'Salon Funding Options: 7 Ways to Finance Your New Salon',
+    blurb: 'Compare SBA loans, BDC loans, bank loans, lines of credit, equipment financing, investors, and grants — with 2026 rates, qualifications, and a decision tree to pick the right option.',
+    pdfUrl: 'https://sicusmedia.com/downloads/salon-funding-options.pdf',
+  },
+  'alberta-licensing-guide': {
+    subject: 'Your Alberta Salon Licensing Guide (Free Download)',
+    title: 'Salon Licences in Alberta — Complete 2026 Guide',
+    blurb: 'Every permit, licence, and registration you need to legally open a nail, hair, or beauty salon in Alberta, with real 2026 fees, a 6-week timeline, and a printable checklist for Calgary and Edmonton owners.',
+    pdfUrl: 'https://sicusmedia.com/downloads/salon-licences-alberta.pdf',
+  },
 };
 
 const FROM_ADDRESS = 'SICUS Media <hello@sicusmedia.com>';

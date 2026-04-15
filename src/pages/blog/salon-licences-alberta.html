@@ -264,13 +264,14 @@
     .step-card.required { border-left: 4px solid #8CB82B; }
     .step-card.conditional { border-left: 4px solid #E0C060; }
 
-    /* Printable checklist */
+    /* Print — clean document output (used by both browser print and lead-magnet PDF generator) */
     @media print {
-      body * { visibility: hidden; }
-      #printable-checklist, #printable-checklist * { visibility: visible; }
-      #printable-checklist { position: absolute; left: 0; top: 0; width: 100%; padding: 20mm; background: white !important; }
-      #printable-checklist a { color: #000 !important; text-decoration: none !important; }
-      .no-print { display: none !important; }
+      nav, footer, .no-print, #lead-magnet { display: none !important; }
+      body { background: #fff !important; }
+      .article-body { max-width: 100% !important; }
+      a { color: #000 !important; text-decoration: none !important; }
+      .step-card, table, .checklist-item { page-break-inside: avoid; }
+      h2, h3 { page-break-after: avoid; }
     }
     .checklist-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.625rem 0; border-bottom: 1px dashed #e5e7eb; }
     .checklist-item:last-child { border-bottom: 0; }
@@ -338,12 +339,43 @@
     </div>
 
     <!-- Disclaimer box -->
-    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3 text-sm text-amber-900">
+    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3 text-sm text-amber-900 mb-6">
       <svg class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
       <p class="leading-relaxed">
         <span class="lang-inline-en"><strong>Not legal advice.</strong> Fees and regulations change. Before applying, verify current requirements directly with the City of Calgary, City of Edmonton, and Alberta Health Services. Sources are linked throughout this article.</span>
         <span class="lang-inline-vi"><strong>Không phải tư vấn pháp lý.</strong> Phí và quy định có thể thay đổi. Trước khi nộp đơn, hãy xác minh yêu cầu hiện tại trực tiếp với City of Calgary, City of Edmonton, và Alberta Health Services.</span>
       </p>
+    </div>
+
+    <!-- Lead magnet — email capture form -->
+    <div id="lead-magnet">
+      <div id="lm-initial" class="bg-white border-2 border-brand-green/30 rounded-2xl p-5 sm:p-6 shadow-[0_8px_32px_rgba(140,184,43,0.08)]">
+        <div class="flex items-start gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-brand-green/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+          </div>
+          <div>
+            <p class="font-bold text-gray-900 text-sm sm:text-base mb-0.5"><span class="lang-inline-en">Get the Alberta licensing guide (PDF)</span><span class="lang-inline-vi">Nhận hướng dẫn giấy phép Alberta (PDF)</span></p>
+            <p class="text-xs sm:text-sm text-gray-500 mb-0"><span class="lang-inline-en">Every licence and permit with 2026 fees, a 6-week timeline, and a printable checklist you can take to city hall.</span><span class="lang-inline-vi">Mọi giấy phép với phí 2026, thời gian 6 tuần, và bảng kiểm tra in được mang đi thành phố.</span></p>
+          </div>
+        </div>
+        <form id="lm-form" data-magnet="alberta-licensing-guide" class="flex flex-col sm:flex-row gap-2">
+          <input type="email" id="lm-email" required placeholder="your@email.com" autocomplete="email" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/20">
+          <button type="submit" id="lm-submit" class="btn-spring inline-flex items-center justify-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-bold text-sm px-6 py-3 rounded-lg shadow-[0_2px_12px_rgba(140,184,43,0.25)] hover:shadow-[0_4px_20px_rgba(140,184,43,0.4)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green-dark whitespace-nowrap">
+            <span id="lm-submit-text"><span class="lang-inline-en">Email Me the Guide</span><span class="lang-inline-vi">Gửi hướng dẫn</span></span>
+            <svg id="lm-submit-spinner" class="hidden animate-spin w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+          </button>
+        </form>
+        <p id="lm-error" class="hidden mt-2 text-xs text-red-600"></p>
+        <p class="mt-3 text-[11px] text-gray-400 leading-relaxed"><span class="lang-inline-en">By submitting, you agree to receive occasional emails from SICUS Media. Unsubscribe anytime. No spam, ever.</span><span class="lang-inline-vi">Khi gửi, bạn đồng ý nhận email thi thoảng từ SICUS Media. Hủy bất cứ lúc nào.</span></p>
+      </div>
+      <div id="lm-success" class="hidden bg-brand-green/5 border-2 border-brand-green rounded-2xl p-6 text-center">
+        <div class="w-12 h-12 rounded-full bg-brand-green mx-auto mb-3 flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <p class="font-bold text-gray-900 text-base mb-1"><span class="lang-inline-en">Check your inbox</span><span class="lang-inline-vi">Kiểm tra hộp thư</span></p>
+        <p class="text-sm text-gray-600 mb-0"><span class="lang-inline-en">The PDF is on its way to </span><span class="lang-inline-vi">PDF đang được gửi đến </span><span id="lm-sent-to" class="font-medium text-gray-900"></span>. <span class="lang-inline-en">It should arrive in the next minute or two. If you don't see it, check your spam folder.</span><span class="lang-inline-vi">Sẽ đến trong 1-2 phút. Nếu không thấy, kiểm tra thư mục spam.</span></p>
+      </div>
     </div>
   </div>
 </section>
@@ -1185,6 +1217,60 @@
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
     if (!wasOpen) item.classList.add('open');
   }
+
+  // Lead magnet form
+  (function() {
+    var form = document.getElementById('lm-form');
+    if (!form) return;
+    var emailInput = document.getElementById('lm-email');
+    var submitBtn = document.getElementById('lm-submit');
+    var submitText = document.getElementById('lm-submit-text');
+    var submitSpinner = document.getElementById('lm-submit-spinner');
+    var errorEl = document.getElementById('lm-error');
+    var initialBox = document.getElementById('lm-initial');
+    var successBox = document.getElementById('lm-success');
+    var sentToEl = document.getElementById('lm-sent-to');
+    var originalText = submitText.innerHTML;
+
+    function showError(msg) { errorEl.textContent = msg; errorEl.classList.remove('hidden'); }
+    function clearError() { errorEl.textContent = ''; errorEl.classList.add('hidden'); }
+    function setLoading(on) {
+      submitBtn.disabled = on;
+      if (on) { submitText.textContent = 'Sending...'; submitSpinner.classList.remove('hidden'); }
+      else { submitText.innerHTML = originalText; submitSpinner.classList.add('hidden'); }
+    }
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      clearError();
+      var email = (emailInput.value || '').trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showError('Please enter a valid email address.');
+        return;
+      }
+      setLoading(true);
+      try {
+        var magnet = form.getAttribute('data-magnet') || 'alberta-licensing-guide';
+        var res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, magnet: magnet }),
+        });
+        var data = await res.json().catch(function() { return {}; });
+        if (!res.ok) {
+          showError(data.error || 'Something went wrong. Please try again.');
+          setLoading(false);
+          return;
+        }
+        sentToEl.textContent = email;
+        initialBox.classList.add('hidden');
+        successBox.classList.remove('hidden');
+      } catch (err) {
+        showError('Network error. Please check your connection and try again.');
+        setLoading(false);
+      }
+    });
+  })();
 </script>
 
 </body>
