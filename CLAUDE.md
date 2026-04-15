@@ -8,14 +8,61 @@
 Outstanding work, ranked by priority. Update this section when items are completed or new items emerge.
 
 ### 🔴 Blockers — require Jason's action (not a code task)
-- [ ] **Complete Resend setup** so the 4 lead magnets actually deliver emails:
-  - [ ] Verify `sicusmedia.com` domain in Resend (add SPF, DKIM, DMARC DNS records)
-  - [ ] Create Resend API key named `SICUS Lead Magnets`
-  - [ ] Add `RESEND_API_KEY` env var in Vercel project settings (Production + Preview + Development)
-  - [ ] **Create a Resend Audience** (Audiences tab → Create Audience → name it e.g. `SICUS Leads`)
-  - [ ] **Add `RESEND_AUDIENCE_ID` env var** in Vercel with the Audience UUID. Optional — if not set, emails still send but subscribers aren't stored in a list.
-  - [ ] Trigger a Vercel redeploy (any git push will do)
-  - [ ] Test by submitting a form on `/blog/salon-business-plan-template.html` with a real email
+
+#### Lead magnet workflow — what it takes to go live
+The 4 lead magnet forms are deployed and will capture emails the moment Resend is set up. Until then, form submissions will error because `RESEND_API_KEY` is missing from Vercel. Complete these in order:
+
+**Part 1 — Resend account setup (~20 minutes, one-time)**
+- [ ] **Verify `sicusmedia.com` domain in Resend**
+  - Log into resend.com → Domains → Add Domain → `sicusmedia.com`
+  - Copy the 3 DNS records Resend shows (SPF TXT, DKIM CNAME, optional DMARC TXT)
+  - Add them to your DNS provider (Vercel DNS if managed there: project → Domains → DNS Records)
+  - Click Verify in Resend after ~10 min for DNS propagation
+- [ ] **Create Resend API key**
+  - Resend → API Keys → Create API Key
+  - Name: `SICUS Lead Magnets`
+  - Permission: Full access or Sending access
+  - Copy the `re_...` key (shown only once)
+- [ ] **Add `RESEND_API_KEY` env var to Vercel**
+  - Vercel project → Settings → Environment Variables
+  - Key: `RESEND_API_KEY`, Value: the `re_...` key
+  - Environments: ✅ Production, ✅ Preview, ✅ Development → Save
+- [ ] **Create a Resend Audience for lead storage**
+  - Resend → Audiences → Create Audience
+  - Name: `SICUS Leads` (or similar)
+  - Copy the Audience UUID (looks like `78261eea-8f8b-4381-83c6-79fa7120f1cf`)
+- [ ] **Add `RESEND_AUDIENCE_ID` env var to Vercel**
+  - Same place as the API key. Key: `RESEND_AUDIENCE_ID`, Value: the UUID
+  - Optional — if skipped, emails still send but subscribers aren't stored in a list
+- [ ] **Trigger a Vercel redeploy** — env vars only apply to new deployments. Push any commit, or click Redeploy in Vercel dashboard.
+
+**Part 2 — Smoke test (~5 minutes)**
+- [ ] Visit `https://sicusmedia.com/blog/salon-business-plan-template.html`
+- [ ] Submit your own email in the form
+- [ ] Check your inbox within 2 minutes — should receive an email from `hello@sicusmedia.com` with a green "Download the PDF →" button
+- [ ] Click the download button — verify the PDF opens
+- [ ] Check the Resend dashboard → Audiences → `SICUS Leads` → your email should appear as a contact
+- [ ] Repeat for the other 3 article forms (how-to-open, funding-options, salon-licences-alberta) to confirm all 4 work
+
+**Part 3 — Upgrade the business plan template to PDF + Google Doc (~15 minutes, optional but recommended)**
+This restores the original "editable PDF + Google Doc" framing on the business plan template article. The code infrastructure is already in place — just needs the actual Google Doc.
+- [ ] Create a Google Doc with the business plan content:
+  - Option A (fast): Upload `downloads/salon-business-plan-template.pdf` to Drive → right-click → Open with Google Docs → clean up formatting (10 min)
+  - Option B (clean): Start fresh, paste content from the published article at `/blog/salon-business-plan-template.html`, apply Heading styles, rebuild tables natively (~25 min)
+- [ ] Share the Doc: Share button → General access → "Anyone with the link" → Permission: "Viewer" → Copy link
+- [ ] Convert to a force-copy URL: take the link (e.g. `https://docs.google.com/document/d/ABC123/edit?usp=sharing`) and replace everything after the document ID with `/copy`:
+  ```
+  Force-copy URL: https://docs.google.com/document/d/ABC123/copy
+  ```
+- [ ] Test it in an incognito window — clicking should show Google's "Copy document" prompt, not the raw doc
+- [ ] Send the force-copy URL to Claude in a future session → Claude does a 3-line edit in `api/subscribe.js` (set `gdocUrl` in the `business-plan-template` MAGNETS entry) and updates the form copy back to "Get the editable PDF + Google Doc" on the article. ~30 seconds of Claude work.
+
+**Current state while the above is pending:**
+- Lead magnet forms are live and will show an error state on submission (looks like "Something went wrong") until Resend is set up. If this is embarrassing, the 4 forms can be temporarily reverted to plain "Save as PDF / Print" buttons — just ask Claude.
+- The business plan template form copy currently says "Get the printable PDF template" (honest stopgap) instead of "Get the editable PDF + Google Doc" (original framing). Part 3 above restores it.
+
+---
+
 - [ ] **Verify Twilio domain** by visiting https://sicusmedia.com/b624e91e8571e42c3efa1ce24dbf6918.html and clicking Verify in Twilio dashboard
 - [ ] **Submit `sitemap.xml` to Google Search Console** to speed up indexing of the content clusters
 
