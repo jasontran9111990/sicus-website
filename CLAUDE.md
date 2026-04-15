@@ -3,6 +3,46 @@
 ## Always Do First
 - **Invoke the `frontend-design` skill** before writing any frontend code, every session, no exceptions.
 
+## Open Items &amp; To-Do
+
+Outstanding work, ranked by priority. Update this section when items are completed or new items emerge.
+
+### 🔴 Blockers — require Jason's action (not a code task)
+- [ ] **Complete Resend setup** so the 4 lead magnets actually deliver emails:
+  - [ ] Verify `sicusmedia.com` domain in Resend (add SPF, DKIM, DMARC DNS records)
+  - [ ] Create Resend API key named `SICUS Lead Magnets`
+  - [ ] Add `RESEND_API_KEY` env var in Vercel project settings (Production + Preview + Development)
+  - [ ] Trigger a Vercel redeploy (any git push will do)
+  - [ ] Test by submitting a form on `/blog/salon-business-plan-template.html` with a real email
+- [ ] **Verify Twilio domain** by visiting https://sicusmedia.com/b624e91e8571e42c3efa1ce24dbf6918.html and clicking Verify in Twilio dashboard
+- [ ] **Submit `sitemap.xml` to Google Search Console** to speed up indexing of the content clusters
+
+### 🟡 Enhancements — can wait, relatively low effort
+- [ ] **Resend Audiences integration** — store every lead-magnet subscriber in a named Resend audience so they can receive broadcast newsletters and nurture sequences later. ~15 min once needed.
+- [ ] **Email nurture sequence** — 5-7 automated emails that go to everyone who downloads any magnet, gently warming them toward "Schedule a Demo". Requires Resend Audiences first.
+- [ ] **Vietnamese Salon Bundle magnet** — translate 1-2 existing PDFs into Vietnamese for the Vietnamese-Canadian niche. Uncontested market. ~1 hour.
+- [ ] **Lead magnets for the insurance cluster** — Canada insurance cheatsheet + WCB Alberta quick reference. ~30 min total (duplicate pattern from existing magnets).
+- [ ] **Lead magnet for Calgary zoning article** — "Calgary Salon Zoning Checklist" PDF. ~15 min.
+- [ ] **Delete legacy root `.html` files** — the pre-migration duplicates at the project root. Safe to remove via `git rm`. ~2 min.
+- [ ] **Analytics on magnet performance** — surface Resend delivery/open events in a simple dashboard or Slack notification.
+
+### 🟢 Content roadmap — next SEO build-outs
+- [ ] **Salon Digital Marketing content cluster** (5-8 articles) — complements the `/services/digital-marketing.html` page. Keywords: salon SEO, salon Instagram marketing, Google Business Profile for salons, salon Google reviews, salon paid ads, salon email marketing, salon content marketing, salon reputation management.
+- [ ] **Operations keyword cluster** — salon staff scheduling, salon payroll, salon inventory management, salon tip split, salon commission structure.
+- [ ] **Marketing tactics keyword cluster** — salon Google reviews, salon SMS marketing, salon loyalty programs, salon Instagram growth.
+- [ ] **Geographic expansion** — Edmonton, Vancouver, Toronto salon licensing clusters (mirror the Alberta one).
+- [ ] **Interactive tool: Salon Business Plan Generator** — long-tail follow-on to the Salon Business Plan Template article. Multi-step wizard that generates a fillable plan from user inputs. Different intent than the template (long-tail).
+- [ ] **Interactive tool: Salon Tip Split Calculator** — simple tool targeting the "salon tip split" operational keyword.
+- [ ] **About Us page** — trust-building founder-narrative page. Jason deferred earlier, but still worth building once ready. Needs founder bio, origin story, team details, metrics.
+
+### 🔵 Phase 3 SEO roadmap — authority building (from the original plan)
+- [ ] Guest posts on `thesalonbusiness.com` and `salontoday.com`
+- [ ] HARO / Connectively — respond to journalist queries about the salon industry
+- [ ] Product listings — Software Advice, G2, Capterra, GetApp, Product Hunt
+- [ ] YouTube demos — AI Receptionist, booking flow walkthrough — embed on blog
+- [ ] Local SEO — Calgary business directories, nail salon associations
+- [ ] Vietnamese community outreach — directories, forums, Facebook groups
+
 ## Build System & Page Creation
 
 This site uses a templated build system. **Do not create new `.html` files at the project root** — they will not be served. All pages live in `src/pages/` and are built into `dist/` by `build.mjs`.
