@@ -77,6 +77,27 @@ Vercel will give you a preview URL like `https://sicus-website-git-feature-x-<us
 ### Editing shared markup (nav, footer, GTM, etc.)
 Edit the relevant file in `src/partials/`. Run `node build.mjs` to regenerate `dist/`. Every page picks up the change automatically — no per-file edits.
 
+### Lead magnets (email capture + PDF delivery)
+Lead magnets are wired via **Resend** (transactional email) + a Vercel serverless function. The pattern:
+
+1. **`api/subscribe.js`** — Vercel serverless function. Receives `POST { email, magnet }`, validates, looks up the magnet in a config map, calls the Resend API with an HTML email containing the PDF download link. Uses native `fetch` (no npm dependencies). Requires `RESEND_API_KEY` environment variable set in the Vercel project.
+2. **`generate-pdfs.mjs`** — Local Puppeteer script that renders built HTML pages as PDFs using the existing `@media print` CSS. Run manually: `node generate-pdfs.mjs`. Generated PDFs are written to `downloads/` and committed to the repo. `build.mjs` auto-copies `downloads/` to `dist/downloads/`.
+3. **Form on the article** — Inline email capture form with initial/loading/success/error states. Submits to `/api/subscribe` via fetch. See `src/pages/blog/salon-business-plan-template.html` for the reference implementation.
+
+**To add a new lead magnet:**
+1. Add a new entry to the `MAGNETS` map in `api/subscribe.js` with `{ subject, title, blurb, pdfUrl }`
+2. Add the target article/source to the `TARGETS` array in `generate-pdfs.mjs`
+3. Run `node generate-pdfs.mjs` locally to produce the PDF
+4. Commit the generated PDF in `downloads/`
+5. Add the inline email form to the article (copy-paste from the business plan template and change the `magnet` value in the form JS)
+6. Push — Vercel deploys the function + the new PDF
+
+**Required Resend setup (one-time):**
+- Verify `sicusmedia.com` domain in Resend dashboard (DNS records: SPF, DKIM, DMARC)
+- Create API key
+- Add `RESEND_API_KEY` environment variable in Vercel project settings (Production + Preview + Development)
+- `from` address in `api/subscribe.js` uses `hello@sicusmedia.com` — must be on the verified domain
+
 ### Hard rules for the build system
 - **Never create or edit `.html` files at the project root.** Only static assets (`robots.txt`, `sitemap.xml`, domain verification files, image mockups) belong at root.
 - **Never edit files in `dist/`** — they are generated and will be overwritten.
