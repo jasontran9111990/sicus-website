@@ -9,37 +9,53 @@
 //
 // If RESEND_AUDIENCE_ID is not set, the email still sends but leads are not stored.
 
+// Each magnet can optionally include a `gdocUrl` — a Google Docs force-copy
+// link (ends in /copy) that prompts the recipient to duplicate the document
+// into their own Google Drive. Leave gdocUrl empty to deliver PDF only.
 const MAGNETS = {
   'business-plan-template': {
     subject: 'Your Salon Business Plan Template (Free Download)',
     title: 'Salon Business Plan Template',
     blurb: 'A complete, bank-ready salon business plan built around a hypothetical Calgary nail & beauty spa. Customize the numbers, submit it to your lender.',
     pdfUrl: 'https://sicusmedia.com/downloads/salon-business-plan-template.pdf',
+    gdocUrl: '', // TODO: paste Google Docs force-copy URL (e.g., https://docs.google.com/document/d/ABC/copy)
   },
   'how-to-open-checklist': {
     subject: 'Your 90-Day Salon Startup Guide + Checklist (Free Download)',
     title: 'How to Open a Salon — 15-Step Guide + 90-Day Checklist',
     blurb: 'The complete 15-step guide from concept validation to opening day, with a printable 90-day startup checklist organized by phase. Everything you need to stay on track.',
     pdfUrl: 'https://sicusmedia.com/downloads/how-to-open-a-salon.pdf',
+    gdocUrl: '',
   },
   'funding-options-cheatsheet': {
     subject: 'Your Salon Funding Options Cheatsheet (Free Download)',
     title: 'Salon Funding Options: 7 Ways to Finance Your New Salon',
     blurb: 'Compare SBA loans, BDC loans, bank loans, lines of credit, equipment financing, investors, and grants — with 2026 rates, qualifications, and a decision tree to pick the right option.',
     pdfUrl: 'https://sicusmedia.com/downloads/salon-funding-options.pdf',
+    gdocUrl: '',
   },
   'alberta-licensing-guide': {
     subject: 'Your Alberta Salon Licensing Guide (Free Download)',
     title: 'Salon Licences in Alberta — Complete 2026 Guide',
     blurb: 'Every permit, licence, and registration you need to legally open a nail, hair, or beauty salon in Alberta, with real 2026 fees, a 6-week timeline, and a printable checklist for Calgary and Edmonton owners.',
     pdfUrl: 'https://sicusmedia.com/downloads/salon-licences-alberta.pdf',
+    gdocUrl: '',
   },
 };
 
 const FROM_ADDRESS = 'SICUS Media <hello@sicusmedia.com>';
 const UNSUBSCRIBE_MAILTO = 'mailto:info@sicusmedia.com?subject=Unsubscribe%20me';
 
-function emailHtml({ title, blurb, pdfUrl }) {
+function emailHtml({ title, blurb, pdfUrl, gdocUrl }) {
+  // Build the download buttons — always show PDF, conditionally show Google Doc
+  var pdfButton = `<a href="${pdfUrl}" style="display:inline-block;background:linear-gradient(135deg,#8CB82B,#6A9A10);color:#ffffff;font-weight:700;font-size:16px;padding:14px 28px;border-radius:999px;text-decoration:none;box-shadow:0 4px 16px rgba(140,184,43,0.3);margin:4px;">Download the PDF →</a>`;
+  var gdocButton = gdocUrl
+    ? `<a href="${gdocUrl}" style="display:inline-block;background:#ffffff;color:#6A9A10;font-weight:700;font-size:16px;padding:13px 28px;border-radius:999px;text-decoration:none;border:2px solid #8CB82B;margin:4px;">Open in Google Docs →</a>`
+    : '';
+  var helpText = gdocUrl
+    ? `<p style="margin:12px 0 0 0;font-size:13px;line-height:1.6;color:#9ca3af;text-align:center;">Click <strong>Open in Google Docs</strong> to copy the template into your Google Drive (fully editable), or <strong>Download the PDF</strong> for printing.</p>`
+    : '';
+
   return `<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><title>${title}</title></head>
@@ -62,7 +78,9 @@ function emailHtml({ title, blurb, pdfUrl }) {
           </tr>
           <tr>
             <td align="center" style="padding:8px 40px 32px 40px;">
-              <a href="${pdfUrl}" style="display:inline-block;background:linear-gradient(135deg,#8CB82B,#6A9A10);color:#ffffff;font-weight:700;font-size:16px;padding:14px 32px;border-radius:999px;text-decoration:none;box-shadow:0 4px 16px rgba(140,184,43,0.3);">Download the PDF →</a>
+              ${pdfButton}
+              ${gdocButton}
+              ${helpText}
             </td>
           </tr>
           <tr>
