@@ -12,14 +12,16 @@ Outstanding work, ranked by priority. Update this section when items are complet
   - [ ] Verify `sicusmedia.com` domain in Resend (add SPF, DKIM, DMARC DNS records)
   - [ ] Create Resend API key named `SICUS Lead Magnets`
   - [ ] Add `RESEND_API_KEY` env var in Vercel project settings (Production + Preview + Development)
+  - [ ] **Create a Resend Audience** (Audiences tab → Create Audience → name it e.g. `SICUS Leads`)
+  - [ ] **Add `RESEND_AUDIENCE_ID` env var** in Vercel with the Audience UUID. Optional — if not set, emails still send but subscribers aren't stored in a list.
   - [ ] Trigger a Vercel redeploy (any git push will do)
   - [ ] Test by submitting a form on `/blog/salon-business-plan-template.html` with a real email
 - [ ] **Verify Twilio domain** by visiting https://sicusmedia.com/b624e91e8571e42c3efa1ce24dbf6918.html and clicking Verify in Twilio dashboard
 - [ ] **Submit `sitemap.xml` to Google Search Console** to speed up indexing of the content clusters
 
 ### 🟡 Enhancements — can wait, relatively low effort
-- [ ] **Resend Audiences integration** — store every lead-magnet subscriber in a named Resend audience so they can receive broadcast newsletters and nurture sequences later. ~15 min once needed.
-- [ ] **Email nurture sequence** — 5-7 automated emails that go to everyone who downloads any magnet, gently warming them toward "Schedule a Demo". Requires Resend Audiences first.
+- [x] ~~**Resend Audiences integration**~~ — ✅ Shipped. Subscribers are automatically added to the audience specified by `RESEND_AUDIENCE_ID` (best-effort, non-blocking). Requires Jason to create the audience in Resend and set the env var.
+- [ ] **Email nurture sequence (Phase 1B)** — 5 automated emails that go to everyone who downloads any magnet, warming them toward "Schedule a Demo". Requires Vercel Cron job + idempotency tracking + 5 email templates. ~4 hours build + Jason's review of copy. Deferred until submissions are coming in.
 - [ ] **Vietnamese Salon Bundle magnet** — translate 1-2 existing PDFs into Vietnamese for the Vietnamese-Canadian niche. Uncontested market. ~1 hour.
 - [ ] **Lead magnets for the insurance cluster** — Canada insurance cheatsheet + WCB Alberta quick reference. ~30 min total (duplicate pattern from existing magnets).
 - [ ] **Lead magnet for Calgary zoning article** — "Calgary Salon Zoning Checklist" PDF. ~15 min.

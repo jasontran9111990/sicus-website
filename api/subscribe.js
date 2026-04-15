@@ -1,6 +1,13 @@
 // Vercel serverless function — lead magnet email capture.
-// Accepts POST { email, magnet }, sends the requested lead magnet via Resend.
+// Accepts POST { email, magnet }, sends the requested PDF via Resend,
+// stores the subscriber in a Resend Audience for future broadcasts.
 // Uses native fetch (Node 18+) — no npm dependencies.
+//
+// Required env vars:
+//   RESEND_API_KEY     — Resend API key (required for email sending)
+//   RESEND_AUDIENCE_ID — Resend Audience UUID (optional; if present, subscribers are added to the audience)
+//
+// If RESEND_AUDIENCE_ID is not set, the email still sends but leads are not stored.
 
 const MAGNETS = {
   'business-plan-template': {
@@ -30,6 +37,7 @@ const MAGNETS = {
 };
 
 const FROM_ADDRESS = 'SICUS Media <hello@sicusmedia.com>';
+const UNSUBSCRIBE_MAILTO = 'mailto:info@sicusmedia.com?subject=Unsubscribe%20me';
 
 function emailHtml({ title, blurb, pdfUrl }) {
   return `<!DOCTYPE html>
@@ -69,7 +77,7 @@ function emailHtml({ title, blurb, pdfUrl }) {
           <tr>
             <td style="padding:20px 40px;background:#fafafa;border-top:1px solid #e5e7eb;">
               <p style="margin:0;font-size:12px;line-height:1.6;color:#9ca3af;text-align:center;">Sicus Media Inc. &middot; 103 Citadel Point NW, Calgary, AB T3G 5L2 &middot; <a href="mailto:info@sicusmedia.com" style="color:#9ca3af;text-decoration:underline;">info@sicusmedia.com</a></p>
-              <p style="margin:8px 0 0 0;font-size:12px;line-height:1.6;color:#9ca3af;text-align:center;">You received this email because you requested a free resource from sicusmedia.com. If this wasn't you, just ignore this email — we won't contact you again.</p>
+              <p style="margin:8px 0 0 0;font-size:12px;line-height:1.6;color:#9ca3af;text-align:center;">You received this email because you requested a free resource from sicusmedia.com. <a href="${UNSUBSCRIBE_MAILTO}" style="color:#9ca3af;text-decoration:underline;">Unsubscribe</a> anytime and we won't contact you again.</p>
             </td>
           </tr>
         </table>
@@ -78,6 +86,39 @@ function emailHtml({ title, blurb, pdfUrl }) {
   </table>
 </body>
 </html>`;
+}
+
+/**
+ * Best-effort call to add a subscriber to a Resend Audience.
+ * Non-blocking — logs errors but does not throw. The email delivery
+ * is the primary goal; audience storage is a bonus.
+ */
+async function addToAudience(apiKey, audienceId, email) {
+  if (!audienceId) return; // graceful skip if not configured
+  try {
+    const res = await fetch(`https://api.resend.com/audiences/${audienceId}/contacts`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        unsubscribed: false,
+      }),
+    });
+    if (!res.ok) {
+      const errText = await res.text();
+      // A 409 "contact already exists" is expected for returning subscribers — don't treat as error
+      if (res.status === 409 || /already exists/i.test(errText)) {
+        console.log('Contact already in audience:', email);
+        return;
+      }
+      console.error('Resend Audiences API error:', res.status, errText);
+    }
+  } catch (err) {
+    console.error('Unexpected error adding contact to audience:', err);
+  }
 }
 
 export default async function handler(req, res) {
@@ -108,12 +149,14 @@ export default async function handler(req, res) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
+  const audienceId = process.env.RESEND_AUDIENCE_ID; // optional
+
   if (!apiKey) {
     console.error('RESEND_API_KEY not configured');
     return res.status(500).json({ error: 'Email service not configured. Please try again later.' });
   }
 
-  // Send the email via Resend
+  // Send the email via Resend (primary goal)
   try {
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -126,6 +169,11 @@ export default async function handler(req, res) {
         to: [email],
         subject: magnetConfig.subject,
         html: emailHtml(magnetConfig),
+        headers: {
+          // Gmail / Outlook 2024 bulk-sender compliance — gives recipients a native unsubscribe mechanism
+          'List-Unsubscribe': `<${UNSUBSCRIBE_MAILTO}>`,
+          'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+        },
       }),
     });
 
@@ -134,6 +182,12 @@ export default async function handler(req, res) {
       console.error('Resend API error:', response.status, errText);
       return res.status(500).json({ error: 'Could not send the email. Please try again or contact info@sicusmedia.com.' });
     }
+
+    // Best-effort: add to Resend Audience for future broadcasts & nurture sequences.
+    // Fire-and-forget — we don't await this. If it fails, the user still got their PDF.
+    addToAudience(apiKey, audienceId, email).catch(function(err) {
+      console.error('addToAudience unexpected rejection:', err);
+    });
 
     return res.status(200).json({ success: true, message: 'Check your inbox in a minute or two.' });
   } catch (err) {
