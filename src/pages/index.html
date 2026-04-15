@@ -148,6 +148,31 @@
       to { stroke-dashoffset: 0; }
     }
 
+    /* Hero sparkles — twinkling SVG stars around "AI-powered" in the H1 */
+    .sparkles-text { position: relative; display: inline-block; }
+    .sparkles-text .sparkle-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: visible;
+    }
+    .sparkles-text .sparkle {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      margin-left: -9px;
+      margin-top: -9px;
+      opacity: 0;
+      transform-origin: center;
+      animation: sparkleTwinkle 0.8s infinite;
+    }
+    .sparkles-text .sparkle svg { display: block; width: 100%; height: 100%; }
+    @keyframes sparkleTwinkle {
+      0%   { opacity: 0; transform: scale(0) rotate(75deg); }
+      50%  { opacity: 1; transform: scale(var(--s, 1)) rotate(120deg); }
+      100% { opacity: 0; transform: scale(0) rotate(150deg); }
+    }
+
     .card-hover { transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease; }
     .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
 
@@ -314,7 +339,7 @@
   <div class="relative z-10 max-w-4xl mx-auto px-6">
       <!-- Heading -->
       <h1 class="font-display text-5xl sm:text-6xl lg:text-[64px] leading-[1.08] tracking-[-0.02em] text-gray-900 mb-4">
-        <span class="lang-inline-en">The all-in-one AI-powered booking app</span><span class="lang-inline-vi">Ứng dụng đặt lịch AI tất cả trong một</span>
+        <span class="lang-inline-en">The all-in-one <span class="sparkles-text">AI-powered</span> booking app</span><span class="lang-inline-vi">Ứng dụng đặt lịch <span class="sparkles-text">AI</span> tất cả trong một</span>
       </h1>
       <p class="text-2xl sm:text-3xl font-body font-semibold text-gray-400 uppercase tracking-widest mb-7">
         <span class="lang-inline-en">FOR <span class="text-brand-green animated-underline">SALON OWNERS<svg viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden="true"><path d="M 0,6 Q 75,0 150,6 T 300,6" pathLength="1"/></svg></span></span>
@@ -2644,6 +2669,48 @@
 
     startAutoplay();
   })();
+</script>
+
+<!-- Hero sparkles — twinkling SVG stars around "AI-powered" -->
+<script>
+(function() {
+  var SPARKLE_SVG = '<svg viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="M9.82531 0.843845C10.0553 0.215178 10.9446 0.215178 11.1746 0.843845L11.8618 2.72026C12.4006 4.19229 12.3916 6.39157 13.5 7.5C14.6084 8.60843 16.8077 8.59935 18.2797 9.13822L20.1561 9.82534C20.7858 10.0553 20.7858 10.9447 20.1561 11.1747L18.2797 11.8618C16.8077 12.4007 14.6084 12.3916 13.5 13.5C12.3916 14.6084 12.4006 16.8077 11.8618 18.2798L11.1746 20.1562C10.9446 20.7858 10.0553 20.7858 9.82531 20.1562L9.13819 18.2798C8.59932 16.8077 8.60843 14.6084 7.5 13.5C6.39157 12.3916 4.19225 12.4007 2.72023 11.8618L0.843814 11.1747C0.215148 10.9447 0.215148 10.0553 0.843814 9.82534L2.72023 9.13822C4.19225 8.59935 6.39157 8.60843 7.5 7.5C8.60843 6.39157 8.59932 4.19229 9.13819 2.72026L9.82531 0.843845Z" fill="currentColor"/></svg>';
+  var COUNT = 10;
+  var COLORS = ['#8CB82B', '#ffffff'];
+
+  function makeSparkle() {
+    var el = document.createElement('span');
+    el.className = 'sparkle';
+    el.innerHTML = SPARKLE_SVG;
+    el.style.left = Math.random() * 100 + '%';
+    el.style.top = Math.random() * 100 + '%';
+    el.style.color = COLORS[Math.random() > 0.5 ? 0 : 1];
+    el.style.setProperty('--s', (Math.random() * 1 + 0.3).toFixed(2));
+    el.style.animationDelay = (Math.random() * 2).toFixed(2) + 's';
+    return el;
+  }
+
+  function initSparkles() {
+    document.querySelectorAll('.sparkles-text').forEach(function(word) {
+      var layer = document.createElement('span');
+      layer.className = 'sparkle-layer';
+      word.appendChild(layer);
+      for (var i = 0; i < COUNT; i++) layer.appendChild(makeSparkle());
+
+      setInterval(function() {
+        if (!layer.children.length) return;
+        var idx = Math.floor(Math.random() * layer.children.length);
+        layer.children[idx].replaceWith(makeSparkle());
+      }, 1000);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSparkles);
+  } else {
+    initSparkles();
+  }
+})();
 </script>
 
 </body>
