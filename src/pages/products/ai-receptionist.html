@@ -130,14 +130,11 @@
     .process-content h3 { font-size: 1.2rem; font-weight: 700; color: #111; margin-bottom: 0.4rem; }
     .process-content p { font-size: 0.975rem; line-height: 1.65; color: #4b5563; }
 
-    /* Sample call transcript */
-    .transcript { background: #fafafa; border: 1px solid #e5e7eb; border-radius: 1rem; padding: 1.5rem 1.75rem; margin: 1.5rem 0; font-family: 'Be Vietnam Pro', sans-serif; }
-    .transcript .msg { padding: 0.5rem 0; font-size: 0.925rem; line-height: 1.6; }
-    .transcript .msg.ai { color: #111; }
-    .transcript .msg.client { color: #4b5563; }
-    .transcript .label { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.15rem 0.5rem; border-radius: 0.25rem; margin-right: 0.5rem; }
-    .transcript .label.ai { background: rgba(140,184,43,0.1); color: #6A9A10; }
-    .transcript .label.client { background: #e5e7eb; color: #4b5563; }
+    /* Audio example player */
+    .audio-example-btn.is-playing {
+      border-color: rgba(140,184,43,0.3);
+      background: rgba(140,184,43,0.04);
+    }
 
     /* Placeholder callout */
     .placeholder-note { background: #fffbeb; border: 1px dashed #f59e0b; border-radius: 0.625rem; padding: 0.625rem 1rem; margin: 0.75rem 0; font-size: 0.8rem; color: #92400e; font-style: italic; }
@@ -258,22 +255,72 @@
   </div>
 </section>
 
-<!-- ==================== SAMPLE CALL ==================== -->
+<!-- ==================== SAMPLE CALLS ==================== -->
 <section class="pb-16 sm:pb-20">
   <div class="max-w-3xl mx-auto px-6">
     <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 tracking-tight text-center">What a call sounds like</h2>
-    <p class="text-lg text-gray-500 max-w-2xl mx-auto text-center mb-8">A representative example — not a script. The AI adapts to whatever the client actually says.</p>
+    <p class="text-lg text-gray-500 max-w-2xl mx-auto text-center mb-8">Real calls — tap any one to listen. The AI adapts to whatever the client actually says, not a fixed script.</p>
 
-    <div class="transcript">
-      <div class="msg ai"><span class="label ai">AI</span>Hi, thanks for calling Bloom Nail &amp; Beauty Spa. I'm the virtual receptionist — how can I help you today?</div>
-      <div class="msg client"><span class="label client">Client</span>Yeah hi, I'm looking to book a gel manicure for Saturday afternoon if you have anything.</div>
-      <div class="msg ai"><span class="label ai">AI</span>Of course. A gel manicure is typically 50 minutes and runs $45. For Saturday, I have openings at 1:15 PM with Linh or at 3:30 PM with Sarah. Do either of those work?</div>
-      <div class="msg client"><span class="label client">Client</span>3:30 with Sarah would be great.</div>
-      <div class="msg ai"><span class="label ai">AI</span>Perfect. Can I get your name and a phone number for the booking confirmation?</div>
-      <div class="msg client"><span class="label client">Client</span>It's Maria, 403-555-0142.</div>
-      <div class="msg ai"><span class="label ai">AI</span>Thanks Maria. You're booked with Sarah this Saturday at 3:30 PM for a gel manicure, 50 minutes. You'll get a text confirmation in a moment. Also — we have a mid-week happy hour on pedicures at 20% off if you're ever looking to add one. Anything else I can help with today?</div>
-      <div class="msg client"><span class="label client">Client</span>No that's great, thanks!</div>
-      <div class="msg ai"><span class="label ai">AI</span>See you Saturday, Maria. Have a great day!</div>
+    <div class="space-y-2">
+      <button onclick="toggleAudioExample(this, '/audio/audio-1.mp3')" class="audio-example-btn group w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 bg-white hover:border-brand-green/40 hover:bg-brand-green/[0.03] transition-colors duration-200 text-left">
+        <div class="w-9 h-9 rounded-full bg-brand-green/10 group-hover:bg-brand-green/20 flex items-center justify-center flex-shrink-0 transition-colors duration-200">
+          <svg class="w-3.5 h-3.5 text-brand-green play-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+          <svg class="w-3.5 h-3.5 text-brand-green pause-icon hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M5.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75A.75.75 0 007.25 3h-1.5zM12.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75a.75.75 0 00-.75-.75h-1.5z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold text-gray-900 truncate lang-inline-en">New Client Books an Appointment</p>
+          <p class="text-sm font-semibold text-gray-900 truncate lang-inline-vi">Khách mới đặt lịch hẹn</p>
+        </div>
+        <span class="audio-time text-xs text-gray-400 flex-shrink-0"></span>
+      </button>
+
+      <button onclick="toggleAudioExample(this, '/audio/audio-2.mp3')" class="audio-example-btn group w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 bg-white hover:border-brand-green/40 hover:bg-brand-green/[0.03] transition-colors duration-200 text-left">
+        <div class="w-9 h-9 rounded-full bg-brand-green/10 group-hover:bg-brand-green/20 flex items-center justify-center flex-shrink-0 transition-colors duration-200">
+          <svg class="w-3.5 h-3.5 text-brand-green play-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+          <svg class="w-3.5 h-3.5 text-brand-green pause-icon hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M5.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75A.75.75 0 007.25 3h-1.5zM12.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75a.75.75 0 00-.75-.75h-1.5z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold text-gray-900 truncate lang-inline-en">Returning Client Recognized by Phone</p>
+          <p class="text-sm font-semibold text-gray-900 truncate lang-inline-vi">Nhận diện khách quen qua số điện thoại</p>
+        </div>
+        <span class="audio-time text-xs text-gray-400 flex-shrink-0"></span>
+      </button>
+
+      <button onclick="toggleAudioExample(this, '/audio/audio-3.mp3')" class="audio-example-btn group w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 bg-white hover:border-brand-green/40 hover:bg-brand-green/[0.03] transition-colors duration-200 text-left">
+        <div class="w-9 h-9 rounded-full bg-brand-green/10 group-hover:bg-brand-green/20 flex items-center justify-center flex-shrink-0 transition-colors duration-200">
+          <svg class="w-3.5 h-3.5 text-brand-green play-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+          <svg class="w-3.5 h-3.5 text-brand-green pause-icon hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M5.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75A.75.75 0 007.25 3h-1.5zM12.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75a.75.75 0 00-.75-.75h-1.5z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold text-gray-900 truncate lang-inline-en">After Hours Call</p>
+          <p class="text-sm font-semibold text-gray-900 truncate lang-inline-vi">Cuộc gọi ngoài giờ làm việc</p>
+        </div>
+        <span class="audio-time text-xs text-gray-400 flex-shrink-0"></span>
+      </button>
+
+      <button onclick="toggleAudioExample(this, '/audio/audio-4.mp3')" class="audio-example-btn group w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 bg-white hover:border-brand-green/40 hover:bg-brand-green/[0.03] transition-colors duration-200 text-left">
+        <div class="w-9 h-9 rounded-full bg-brand-green/10 group-hover:bg-brand-green/20 flex items-center justify-center flex-shrink-0 transition-colors duration-200">
+          <svg class="w-3.5 h-3.5 text-brand-green play-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+          <svg class="w-3.5 h-3.5 text-brand-green pause-icon hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M5.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75A.75.75 0 007.25 3h-1.5zM12.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75a.75.75 0 00-.75-.75h-1.5z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold text-gray-900 truncate lang-inline-en">Caller Asks About Deals</p>
+          <p class="text-sm font-semibold text-gray-900 truncate lang-inline-vi">Khách hỏi về khuyến mãi</p>
+        </div>
+        <span class="audio-time text-xs text-gray-400 flex-shrink-0"></span>
+      </button>
+
+      <button onclick="toggleAudioExample(this, '/audio/audio-5.mp3')" class="audio-example-btn group w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 bg-white hover:border-brand-green/40 hover:bg-brand-green/[0.03] transition-colors duration-200 text-left">
+        <div class="w-9 h-9 rounded-full bg-brand-green/10 group-hover:bg-brand-green/20 flex items-center justify-center flex-shrink-0 transition-colors duration-200">
+          <svg class="w-3.5 h-3.5 text-brand-green play-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+          <svg class="w-3.5 h-3.5 text-brand-green pause-icon hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M5.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75A.75.75 0 007.25 3h-1.5zM12.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75a.75.75 0 00-.75-.75h-1.5z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold text-gray-900 truncate lang-inline-en">Automatic Transfer to Human</p>
+          <p class="text-sm font-semibold text-gray-900 truncate lang-inline-vi">Tự động chuyển cho nhân viên</p>
+        </div>
+        <span class="audio-time text-xs text-gray-400 flex-shrink-0"></span>
+      </button>
     </div>
   </div>
 </section>
@@ -476,6 +523,58 @@
     var wasOpen = item.classList.contains('open');
     document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
     if (!wasOpen) item.classList.add('open');
+  }
+
+  // Audio example player
+  var currentAudio = null;
+  var currentBtn = null;
+  function toggleAudioExample(btn, src) {
+    var playIcon = btn.querySelector('.play-icon');
+    var pauseIcon = btn.querySelector('.pause-icon');
+    var timeEl = btn.querySelector('.audio-time');
+
+    if (currentBtn === btn && currentAudio && !currentAudio.paused) {
+      currentAudio.pause();
+      playIcon.classList.remove('hidden');
+      pauseIcon.classList.add('hidden');
+      btn.classList.remove('is-playing');
+      return;
+    }
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentBtn) {
+        currentBtn.querySelector('.play-icon').classList.remove('hidden');
+        currentBtn.querySelector('.pause-icon').classList.add('hidden');
+        currentBtn.classList.remove('is-playing');
+        currentBtn.querySelector('.audio-time').textContent = '';
+      }
+    }
+
+    currentAudio = new Audio(src);
+    currentBtn = btn;
+    playIcon.classList.add('hidden');
+    pauseIcon.classList.remove('hidden');
+    btn.classList.add('is-playing');
+
+    currentAudio.addEventListener('timeupdate', function() {
+      var cur = Math.floor(currentAudio.currentTime);
+      var dur = Math.floor(currentAudio.duration) || 0;
+      var fmt = function(s) { return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); };
+      timeEl.textContent = fmt(cur) + ' / ' + fmt(dur);
+    });
+
+    currentAudio.addEventListener('ended', function() {
+      playIcon.classList.remove('hidden');
+      pauseIcon.classList.add('hidden');
+      btn.classList.remove('is-playing');
+      timeEl.textContent = '';
+      currentAudio = null;
+      currentBtn = null;
+    });
+
+    currentAudio.play();
   }
 </script>
 </body>
