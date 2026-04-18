@@ -2,22 +2,22 @@
 <html lang="en" id="htmlRoot">
 <head>
 <!-- @include partials/head-common.html -->
-  <title>Services — Salon Marketing &amp; Growth | SICUS Media</title>
-  <meta name="description" content="SICUS Media services for salon owners — digital marketing, growth strategy, and the AI-powered booking platform. North America wide. Book a free strategy call.">
-  <meta name="keywords" content="salon services, salon marketing services, salon growth services, sicus media services">
+  <title>Services — Salon Marketing, White-Label Apps &amp; Custom Software | SICUS Media</title>
+  <meta name="description" content="SICUS Media services for salon owners — digital marketing, white-label branded apps, and custom salon software. AI-powered, bilingual EN/VI, built for Vietnamese salon owners across North America.">
+  <meta name="keywords" content="salon services, salon marketing services, white-label salon app, custom salon software, vietnamese salon software, sicus media services">
   <link rel="canonical" href="https://sicusmedia.com/services/">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sicusmedia.com/services/">
-  <meta property="og:title" content="Services — Salon Marketing &amp; Growth | SICUS Media">
-  <meta property="og:description" content="Digital marketing, growth strategy, and the AI-powered booking platform — built for salon owners across North America.">
+  <meta property="og:title" content="Services — Salon Marketing, White-Label Apps &amp; Custom Software | SICUS Media">
+  <meta property="og:description" content="Digital marketing, white-label apps, and custom software — built for Vietnamese salon owners across North America.">
   <meta property="og:image" content="https://sicusmedia.com/brand_assets/topbar.png">
   <meta property="og:site_name" content="SICUS Media">
   <meta property="og:locale" content="en_US">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Services — Salon Marketing &amp; Growth | SICUS Media">
-  <meta name="twitter:description" content="Digital marketing, growth strategy, and AI booking — for salon owners.">
+  <meta name="twitter:title" content="Services — Salon Marketing, White-Label Apps &amp; Custom Software | SICUS Media">
+  <meta name="twitter:description" content="Digital marketing, white-label apps, and custom software — for Vietnamese salon owners.">
   <meta name="twitter:image" content="https://sicusmedia.com/brand_assets/topbar.png">
 
   <script type="application/ld+json">
@@ -28,24 +28,9 @@
     "description": "The full set of growth services SICUS Media offers to salon owners across North America.",
     "url": "https://sicusmedia.com/services/",
     "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Salon Digital Marketing",
-        "url": "https://sicusmedia.com/services/digital-marketing.html"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "White-Label Salon App",
-        "url": "https://sicusmedia.com/services/white-label-salon-app.html"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Custom Salon Software",
-        "url": "https://sicusmedia.com/services/custom-salon-software.html"
-      }
+      { "@type": "ListItem", "position": 1, "name": "Salon Digital Marketing", "url": "https://sicusmedia.com/services/digital-marketing.html" },
+      { "@type": "ListItem", "position": 2, "name": "White-Label Salon App",  "url": "https://sicusmedia.com/services/white-label-salon-app.html" },
+      { "@type": "ListItem", "position": 3, "name": "Custom Salon Software",  "url": "https://sicusmedia.com/services/custom-salon-software.html" }
     ]
   }
   </script>
@@ -66,140 +51,498 @@
     html[lang="en"] .lang-inline-vi { display: none !important; }
     html[lang="vi"] .lang-inline-en { display: none !important; }
 
-    .service-card {
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      border-radius: 1.25rem;
-      padding: 2rem;
-      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease, border-color 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-    .service-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(140,184,43,0.35);
-      box-shadow: 0 12px 40px rgba(140,184,43,0.1);
-    }
-    .service-card .service-icon {
-      width: 3rem;
-      height: 3rem;
-      border-radius: 0.875rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.25rem;
-    }
+    .sparkle-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #8CB82B; animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.4; transform:scale(.7);} }
+
+    /* Quiz */
+    .quiz-container { background: linear-gradient(135deg, #ffffff 0%, #fafffb 100%); border: 1px solid #e5e7eb; border-radius: 24px; box-shadow: 0 30px 80px -30px rgba(140,184,43,0.25), 0 10px 30px -12px rgba(0,0,0,0.08); overflow: hidden; position: relative; }
+    .quiz-container::before { content: ''; position: absolute; inset: 0; background: radial-gradient(600px 300px at 100% 0%, rgba(140,184,43,0.08), transparent 60%); pointer-events: none; }
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; animation: fadeIn .35s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: translateY(0);} }
+    .quiz-option { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 20px; border: 1.5px solid #e5e7eb; border-radius: 14px; cursor: pointer; background: #fff; transition: border-color .2s ease, background .2s ease, transform .2s ease; font-weight: 500; font-size: 15px; }
+    .quiz-option:hover { border-color: #8CB82B; background: #f9fdf2; transform: translateX(4px); }
+    .quiz-option .arrow { opacity: 0; transform: translateX(-6px); transition: opacity .2s, transform .2s; color: #8CB82B; }
+    .quiz-option:hover .arrow { opacity: 1; transform: translateX(0); }
+    .quiz-option .icon { width: 40px; height: 40px; border-radius: 10px; background: #f3f6ea; display: flex; align-items: center; justify-content: center; color: #6A9A10; flex-shrink: 0; }
+    .progress-bar { height: 4px; background: #f0f0f0; border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, #8CB82B, #B8E060); border-radius: 999px; transition: width .4s cubic-bezier(0.34,1.56,0.64,1); }
+
+    /* Service cards */
+    .service-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 20px; transition: transform .4s cubic-bezier(0.34,1.56,0.64,1), box-shadow .3s, border-color .3s; display: flex; flex-direction: column; height: 100%; position: relative; overflow: hidden; }
+    .service-card-body { padding: 24px 28px 28px; display: flex; flex-direction: column; flex-grow: 1; }
+    .service-card-image { position: relative; height: 200px; overflow: hidden; background: #f5f5f5; }
+    .service-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(0.34,1.56,0.64,1); }
+    .service-card:hover .service-card-image img { transform: scale(1.05); }
+    .service-card-image::after { content:''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.35) 100%); pointer-events: none; }
+    .service-card-index { position: absolute; top: 14px; left: 16px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .service-card-index .dot { width: 6px; height: 6px; border-radius: 50%; }
+
+    .service-card[data-service="marketing"] .service-card-index { color: #6A9A10; }
+    .service-card[data-service="marketing"] .service-card-index .dot { background: #8CB82B; box-shadow: 0 0 0 3px rgba(140,184,43,0.2); }
+    .service-card[data-service="marketing"] .service-tag { background: rgba(140,184,43,0.1); color: #6A9A10; }
+    .service-card[data-service="marketing"] .service-cta { color: #6A9A10; }
+    .service-card[data-service="marketing"] .service-meta-value { color: #6A9A10; }
+
+    .service-card[data-service="whitelabel"] .service-card-index { color: #C2410C; }
+    .service-card[data-service="whitelabel"] .service-card-index .dot { background: #EA580C; box-shadow: 0 0 0 3px rgba(234,88,12,0.2); }
+    .service-card[data-service="whitelabel"] .service-tag { background: rgba(234,88,12,0.1); color: #C2410C; }
+    .service-card[data-service="whitelabel"] .service-cta { color: #C2410C; }
+    .service-card[data-service="whitelabel"] .service-meta-value { color: #C2410C; }
+    .service-card[data-service="whitelabel"]:hover { border-color: rgba(234,88,12,.35); box-shadow: 0 20px 50px rgba(234,88,12,.12); }
+    .service-card[data-service="whitelabel"]::after { background: radial-gradient(circle, rgba(234,88,12,.12), transparent 70%); }
+
+    .service-card[data-service="custom"] .service-card-index { color: #4338CA; }
+    .service-card[data-service="custom"] .service-card-index .dot { background: #6366F1; box-shadow: 0 0 0 3px rgba(99,102,241,0.2); }
+    .service-card[data-service="custom"] .service-tag { background: rgba(99,102,241,0.1); color: #4338CA; }
+    .service-card[data-service="custom"] .service-cta { color: #4338CA; }
+    .service-card[data-service="custom"] .service-meta-value { color: #4338CA; }
+    .service-card[data-service="custom"]:hover { border-color: rgba(99,102,241,.35); box-shadow: 0 20px 50px rgba(99,102,241,.12); }
+    .service-card[data-service="custom"]::after { background: radial-gradient(circle, rgba(99,102,241,.12), transparent 70%); }
+    .service-card::after { content:''; position:absolute; inset:auto -40% -40% auto; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(140,184,43,.12), transparent 70%); opacity: 0; transition: opacity .4s; pointer-events: none; }
+    .service-card:hover { transform: translateY(-6px); border-color: rgba(140,184,43,.35); box-shadow: 0 20px 50px rgba(140,184,43,.12); }
+    .service-card:hover::after { opacity: 1; }
+
+    .service-card.recommended { border: 2px solid #8CB82B; box-shadow: 0 12px 40px rgba(140,184,43,.18); background: linear-gradient(180deg, #fafffb, #ffffff); }
+    .service-card.recommended::before { content: 'Recommended for you'; position: absolute; top: 14px; right: 16px; background: #8CB82B; color: #fff; font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: 999px; letter-spacing: .03em; text-transform: uppercase; z-index: 3; box-shadow: 0 4px 12px rgba(140,184,43,0.4); }
+    @keyframes highlightIn { 0% { transform: scale(.96); opacity: .6; } 100% { transform: scale(1); opacity: 1; } }
+    .service-card.recommended { animation: highlightIn .5s cubic-bezier(0.34,1.56,0.64,1); }
+
+    /* AI strip */
+    .ai-strip { background: linear-gradient(135deg, #0F0F11 0%, #1a1d14 100%); border-radius: 24px; padding: 32px 40px; color: #fff; position: relative; overflow: hidden; }
+    .ai-strip::before { content:''; position:absolute; inset:0; background: radial-gradient(600px 300px at 10% 50%, rgba(140,184,43,.3), transparent 60%), radial-gradient(500px 300px at 90% 50%, rgba(227,30,36,.15), transparent 60%); }
+    .ai-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #8CB82B; box-shadow: 0 0 12px #8CB82B; animation: pulse 1.5s infinite; }
+
+    /* Testimonials */
+    .testi-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 20px; padding: 28px; height: 100%; display: flex; flex-direction: column; transition: border-color .3s, transform .3s; }
+    .testi-card:hover { border-color: rgba(140,184,43,.35); transform: translateY(-2px); }
+    .stars { color: #f59e0b; letter-spacing: 2px; font-size: 14px; }
+
+    /* FAQ */
+    .faq-item { border-bottom: 1px solid #e5e7eb; }
+    .faq-q { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 22px 0; font-weight: 600; font-size: 17px; color: #111; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; color: #555; line-height: 1.7; padding-right: 40px; }
+    .faq-item.open .faq-a { max-height: 280px; padding-bottom: 22px; }
+    .faq-item.open .faq-chev { transform: rotate(180deg); }
+    .faq-chev { transition: transform .3s; }
+
+    .noise { background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size: 200px; }
+
+    .underline-wavy-green { text-decoration: underline wavy #8CB82B; text-underline-offset: 8px; text-decoration-thickness: 2px; }
   </style>
 </head>
 <body class="bg-white text-gray-900 overflow-x-hidden">
 <!-- @include partials/gtm-noscript.html -->
 <!-- @include partials/nav.html -->
 
-<!-- ==================== HERO ==================== -->
+<!-- ==================== HERO WITH QUIZ ==================== -->
 <section class="relative pt-28 pb-12 sm:pt-32 sm:pb-16 overflow-hidden">
   <div class="absolute inset-0 z-0" style="background: radial-gradient(125% 100% at 50% 0%, #fff 50%, rgba(140,184,43,0.12) 100%);"></div>
 
-  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-    <nav aria-label="Breadcrumb" class="mb-6">
-      <ol class="flex items-center justify-center gap-2 text-sm text-gray-400">
-        <li><a href="/" class="hover:text-brand-green transition-colors duration-200">Home</a></li>
-        <li><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
-        <li class="text-gray-700 font-medium">Services</li>
-      </ol>
+  <div class="relative z-10 max-w-6xl mx-auto px-6">
+    <nav aria-label="Breadcrumb" class="mb-6 flex items-center gap-2 text-sm text-gray-400">
+      <a href="/" class="hover:text-brand-green-dark transition-colors duration-200">Home</a>
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      <span class="text-gray-700 font-medium lang-inline-en">Services</span>
+      <span class="text-gray-700 font-medium lang-inline-vi">Dịch vụ</span>
     </nav>
 
-    <div class="inline-flex items-center gap-2 bg-brand-green/10 border border-brand-green/20 rounded-full px-4 py-1.5 mb-5">
-      <span class="w-2 h-2 rounded-full bg-brand-green"></span>
-      <span class="text-sm font-medium text-brand-green-dark">SICUS Media Services</span>
-    </div>
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      <div>
+        <div class="inline-flex items-center gap-2 bg-brand-green/10 border border-brand-green/20 rounded-full px-4 py-1.5 mb-5">
+          <span class="sparkle-dot"></span>
+          <span class="text-sm font-medium text-brand-green-dark"><span class="lang-inline-en">3 services · 1 partner · AI-powered</span><span class="lang-inline-vi">3 dịch vụ · 1 đối tác · AI</span></span>
+        </div>
 
-    <h1 class="font-display text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-[-0.02em] text-gray-900 mb-5">
-      Done-for-you services for salon owners
-    </h1>
-    <p class="text-lg sm:text-xl text-gray-500 leading-relaxed max-w-2xl mx-auto">
-      We help salon owners across North America grow — through <strong class="text-gray-900">digital marketing</strong>, <strong class="text-gray-900">white-label app builds</strong>, and <strong class="text-gray-900">custom salon software</strong>. Pick the service that fits your stage, or book a strategy call and we'll figure it out together.
-    </p>
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-[58px] font-bold leading-[1.05] tracking-[-0.02em] text-gray-900 mb-6">
+          <span class="lang-inline-en">Which SICUS service is <span class="underline-wavy-green">right for your salon?</span></span>
+          <span class="lang-inline-vi">Dịch vụ SICUS nào <span class="underline-wavy-green">phù hợp với tiệm của bạn?</span></span>
+        </h1>
+        <p class="text-lg text-gray-500 leading-relaxed max-w-xl">
+          <span class="lang-inline-en">Answer 3 quick questions. We'll point you at the service that fits — marketing, a branded app, or custom software. Or book a call and we'll figure it out together.</span>
+          <span class="lang-inline-vi">Trả lời 3 câu hỏi. Chúng tôi sẽ gợi ý dịch vụ phù hợp — marketing, ứng dụng riêng, hoặc phần mềm tuỳ chỉnh.</span>
+        </p>
+
+        <div class="flex flex-wrap gap-3 mt-7">
+          <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold px-6 py-3 rounded-full shadow-[0_4px_20px_rgba(140,184,43,0.25)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green-dark">
+            <span class="lang-inline-en">Book a Free Strategy Call</span><span class="lang-inline-vi">Đặt lịch tư vấn miễn phí</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+          <a href="#services" class="btn-spring inline-flex items-center gap-2 bg-white border border-gray-200 hover:border-gray-300 text-gray-700 font-semibold px-6 py-3 rounded-full">
+            <span class="lang-inline-en">Browse all services</span><span class="lang-inline-vi">Xem tất cả</span>
+          </a>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-6 mt-10 text-sm text-gray-500">
+          <div class="flex items-center gap-2">
+            <span class="stars">★★★★★</span>
+            <span class="font-medium text-gray-700">4.9</span>
+            <span>·</span>
+            <span><span class="lang-inline-en">150+ salons</span><span class="lang-inline-vi">150+ tiệm</span></span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-brand-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <span><span class="lang-inline-en">Bilingual EN / VI</span><span class="lang-inline-vi">Song ngữ Anh / Việt</span></span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-brand-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/></svg>
+            <span><span class="lang-inline-en">North America wide</span><span class="lang-inline-vi">Khắp Bắc Mỹ</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz -->
+      <div>
+        <div class="quiz-container p-6 sm:p-8" id="quiz">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-green-dark">
+              <span class="lang-inline-en">Service Finder</span><span class="lang-inline-vi">Tìm dịch vụ</span>
+            </span>
+            <span class="text-xs text-gray-500"><span id="stepLabel">Step 1 of 3</span></span>
+          </div>
+          <div class="progress-bar mb-6"><div class="progress-fill" id="progressFill" style="width: 33%"></div></div>
+
+          <div class="quiz-step active" data-step="1">
+            <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">
+              <span class="lang-inline-en">What kind of salon do you run?</span>
+              <span class="lang-inline-vi">Bạn đang điều hành tiệm gì?</span>
+            </h3>
+            <p class="text-sm text-gray-500 mb-5"><span class="lang-inline-en">Helps us tailor the recommendation.</span><span class="lang-inline-vi">Giúp chúng tôi gợi ý chính xác hơn.</span></p>
+            <div class="space-y-2.5">
+              <div class="quiz-option" data-answer="nail"><div class="flex items-center gap-3"><div class="icon">💅</div><span><span class="lang-inline-en">Nail salon</span><span class="lang-inline-vi">Tiệm nail</span></span></div><span class="arrow">→</span></div>
+              <div class="quiz-option" data-answer="hair"><div class="flex items-center gap-3"><div class="icon">✂️</div><span><span class="lang-inline-en">Hair salon</span><span class="lang-inline-vi">Tiệm tóc</span></span></div><span class="arrow">→</span></div>
+              <div class="quiz-option" data-answer="beauty"><div class="flex items-center gap-3"><div class="icon">🪞</div><span><span class="lang-inline-en">Beauty / spa</span><span class="lang-inline-vi">Spa / thẩm mỹ</span></span></div><span class="arrow">→</span></div>
+              <div class="quiz-option" data-answer="multi"><div class="flex items-center gap-3"><div class="icon">🏢</div><span><span class="lang-inline-en">Multi-location / chain</span><span class="lang-inline-vi">Chuỗi nhiều chi nhánh</span></span></div><span class="arrow">→</span></div>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="2">
+            <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">
+              <span class="lang-inline-en">What's your #1 goal right now?</span>
+              <span class="lang-inline-vi">Mục tiêu lớn nhất hiện tại?</span>
+            </h3>
+            <p class="text-sm text-gray-500 mb-5"><span class="lang-inline-en">Pick the one that feels most urgent.</span><span class="lang-inline-vi">Chọn mục tiêu cấp bách nhất.</span></p>
+            <div class="space-y-2.5">
+              <div class="quiz-option" data-answer="bookings"><div class="flex items-center gap-3"><div class="icon">📈</div><span><span class="lang-inline-en">More bookings &amp; walk-ins</span><span class="lang-inline-vi">Thêm khách đặt lịch</span></span></div><span class="arrow">→</span></div>
+              <div class="quiz-option" data-answer="brand"><div class="flex items-center gap-3"><div class="icon">📱</div><span><span class="lang-inline-en">My own branded app on the App Store</span><span class="lang-inline-vi">App riêng trên App Store</span></span></div><span class="arrow">→</span></div>
+              <div class="quiz-option" data-answer="custom"><div class="flex items-center gap-3"><div class="icon">⚙️</div><span><span class="lang-inline-en">Custom tools my current software can't do</span><span class="lang-inline-vi">Công cụ tuỳ chỉnh riêng</span></span></div><span class="arrow">→</span></div>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="3">
+            <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">
+              <span class="lang-inline-en">When do you need results?</span>
+              <span class="lang-inline-vi">Bạn cần kết quả khi nào?</span>
+            </h3>
+            <p class="text-sm text-gray-500 mb-5"><span class="lang-inline-en">We'll match your pace.</span><span class="lang-inline-vi">Chúng tôi sẽ theo tốc độ của bạn.</span></p>
+            <div class="space-y-2.5">
+              <div class="quiz-option" data-answer="fast"><div class="flex items-center gap-3"><div class="icon">⚡</div><span><span class="lang-inline-en">Yesterday — start this month</span><span class="lang-inline-vi">Cần ngay tháng này</span></span></div><span class="arrow">→</span></div>
+              <div class="quiz-option" data-answer="month"><div class="flex items-center gap-3"><div class="icon">📅</div><span><span class="lang-inline-en">Next 1–2 months</span><span class="lang-inline-vi">1–2 tháng tới</span></span></div><span class="arrow">→</span></div>
+              <div class="quiz-option" data-answer="quarter"><div class="flex items-center gap-3"><div class="icon">🗓️</div><span><span class="lang-inline-en">Next quarter, planning ahead</span><span class="lang-inline-vi">Kế hoạch dài hạn</span></span></div><span class="arrow">→</span></div>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="result">
+            <div class="text-center">
+              <div class="inline-flex items-center gap-2 bg-brand-green/10 border border-brand-green/20 rounded-full px-4 py-1.5 mb-4">
+                <span class="sparkle-dot"></span>
+                <span class="text-xs font-semibold text-brand-green-dark uppercase tracking-wider"><span class="lang-inline-en">Your match</span><span class="lang-inline-vi">Kết quả</span></span>
+              </div>
+              <h3 class="text-2xl font-bold text-gray-900 mb-2" id="recTitle">Salon Digital Marketing</h3>
+              <p class="text-gray-500 text-sm mb-5 leading-relaxed" id="recBody">Local SEO, paid ads, and reputation management. Bookings start coming in ~30 days.</p>
+              <div class="flex flex-col sm:flex-row gap-2 justify-center">
+                <a href="/services/digital-marketing.html" id="recCta" class="btn-spring inline-flex items-center justify-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold px-5 py-2.5 rounded-full text-sm">
+                  <span class="lang-inline-en">See the service</span><span class="lang-inline-vi">Xem chi tiết</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </a>
+                <a href="/#schedule-demo" class="btn-spring inline-flex items-center justify-center gap-2 bg-white border border-gray-200 hover:border-brand-green/40 text-gray-700 font-semibold px-5 py-2.5 rounded-full text-sm">
+                  <span class="lang-inline-en">Book a call</span><span class="lang-inline-vi">Đặt lịch</span>
+                </a>
+                <button id="quizRestart" class="text-sm text-gray-500 hover:text-gray-700 font-medium px-3 py-2.5">
+                  <span class="lang-inline-en">Start over</span><span class="lang-inline-vi">Bắt đầu lại</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <button id="quizBack" class="mt-5 text-xs text-gray-400 hover:text-gray-700 font-medium hidden">← <span class="lang-inline-en">Back</span><span class="lang-inline-vi">Quay lại</span></button>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ==================== SERVICE CARDS ==================== -->
-<section class="pt-8 sm:pt-16 pb-20">
+<!-- ==================== AI STRIP ==================== -->
+<section class="max-w-6xl mx-auto px-6 pb-12">
+  <div class="ai-strip">
+    <div class="relative z-10 grid md:grid-cols-[auto_1fr_auto] gap-6 items-center">
+      <div class="flex items-center gap-3">
+        <span class="ai-dot"></span>
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-green-light">AI-first</span>
+      </div>
+      <p class="text-white text-lg leading-snug font-medium">
+        <span class="lang-inline-en">Every service runs on our AI Receptionist + smart booking core. 24/7 bilingual call handling, auto-rebooking, no-show prevention — built in.</span>
+        <span class="lang-inline-vi">Mọi dịch vụ đều được hỗ trợ bởi AI Receptionist + hệ thống đặt lịch thông minh. 24/7 song ngữ, tự động đặt lại lịch.</span>
+      </p>
+      <a href="/#features" class="text-brand-green-light hover:text-white text-sm font-semibold whitespace-nowrap">
+        <span class="lang-inline-en">Meet the AI →</span><span class="lang-inline-vi">Tìm hiểu AI →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ALL SERVICES ==================== -->
+<section id="services" class="pt-8 sm:pt-12 pb-20">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="text-center mb-10">
+      <span class="text-xs font-bold uppercase tracking-widest text-brand-green-dark">
+        <span class="lang-inline-en">— All three services —</span><span class="lang-inline-vi">— Ba dịch vụ —</span>
+      </span>
+      <h2 class="mt-3 font-display text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+        <span class="lang-inline-en">Done-for-you. Built for <span class="text-brand-green-dark">your salon.</span></span>
+        <span class="lang-inline-vi">Trọn gói. Cho <span class="text-brand-green-dark">tiệm của bạn.</span></span>
+      </h2>
+    </div>
 
-      <!-- Card 1: Digital Marketing -->
-      <a href="/services/digital-marketing.html" class="service-card group">
-        <div class="service-icon" style="background: rgba(140,184,43,0.1);">
-          <svg class="w-6 h-6 text-brand-green" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="serviceGrid">
+
+      <!-- Service 1: Digital Marketing -->
+      <a href="/services/digital-marketing.html" class="service-card group" data-service="marketing">
+        <div class="service-card-image">
+          <span class="service-card-index"><span class="dot"></span>01 · <span class="lang-inline-en">Marketing</span><span class="lang-inline-vi">Marketing</span></span>
+          <img src="/images/2.png" alt="Salon digital marketing — local SEO, ads, reviews">
         </div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-2 group-hover:text-brand-green-dark transition-colors duration-200">Salon Digital Marketing</h2>
-        <p class="text-base text-gray-500 leading-relaxed mb-5 flex-grow">Local SEO, social media, paid ads, content, reputation management, web design, and photography — built specifically for salon owners. We grow your bookings while you focus on your craft.</p>
-        <div class="flex flex-wrap gap-2 mb-5">
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">Local SEO</span>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">Social Media</span>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">Paid Ads</span>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">Content</span>
+        <div class="service-card-body">
+          <h3 class="text-2xl font-bold text-gray-900 mb-2"><span class="lang-inline-en">Salon Digital Marketing</span><span class="lang-inline-vi">Marketing cho tiệm</span></h3>
+          <p class="text-gray-500 text-[15px] leading-relaxed mb-4"><span class="lang-inline-en">Local SEO, Google Business Profile, social content, paid ads, and reputation management — all bilingual, all built for salons.</span><span class="lang-inline-vi">SEO địa phương, Google Business, mạng xã hội, quảng cáo, quản lý đánh giá — song ngữ, dành riêng cho tiệm.</span></p>
+
+          <div class="bg-gray-50 rounded-xl p-3 mb-4 text-xs text-gray-600 space-y-1.5 border border-gray-100">
+            <div class="flex justify-between"><span class="text-gray-400"><span class="lang-inline-en">For you if</span><span class="lang-inline-vi">Phù hợp</span></span><span class="font-medium text-gray-700"><span class="lang-inline-en">Under-booked</span><span class="lang-inline-vi">Ít khách</span></span></div>
+            <div class="flex justify-between"><span class="text-gray-400"><span class="lang-inline-en">Timeline</span><span class="lang-inline-vi">Thời gian</span></span><span class="font-medium text-gray-700">~30 <span class="lang-inline-en">days</span><span class="lang-inline-vi">ngày</span></span></div>
+            <div class="flex justify-between"><span class="text-gray-400"><span class="lang-inline-en">Typical outcome</span><span class="lang-inline-vi">Kết quả</span></span><span class="service-meta-value font-medium text-right"><span class="lang-inline-en">+50% new clients · 4× ROAS</span><span class="lang-inline-vi">+50% khách mới · 4× ROAS</span></span></div>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5 mb-5">
+            <span class="service-tag text-[11px] px-2 py-0.5 rounded-full font-medium">Local SEO</span>
+            <span class="service-tag text-[11px] px-2 py-0.5 rounded-full font-medium">Paid Ads</span>
+            <span class="service-tag text-[11px] px-2 py-0.5 rounded-full font-medium">Reviews</span>
+            <span class="service-tag text-[11px] px-2 py-0.5 rounded-full font-medium">Social</span>
+          </div>
+
+          <span class="service-cta mt-auto inline-flex items-center gap-1.5 text-sm font-semibold transition-all duration-200 group-hover:gap-2.5">
+            <span class="lang-inline-en">Explore the service</span><span class="lang-inline-vi">Xem chi tiết</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </span>
         </div>
-        <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-green group-hover:gap-2.5 transition-all duration-200">
-          Explore the service
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        </span>
       </a>
 
-      <!-- Card 2: White-Label Salon App -->
-      <a href="/services/white-label-salon-app.html" class="service-card group">
-        <div class="service-icon" style="background: rgba(140,184,43,0.1);">
-          <svg class="w-6 h-6 text-brand-green" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+      <!-- Service 2: White-Label -->
+      <a href="/services/white-label-salon-app.html" class="service-card group" data-service="whitelabel">
+        <div class="service-card-image" style="background: linear-gradient(135deg, #FFF7ED, #FFEDD5);">
+          <span class="service-card-index"><span class="dot"></span>02 · App</span>
+          <img src="/images/mobile-booking-app.png" alt="White-label salon booking app" style="object-fit: contain; padding: 18px 0;">
         </div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-2 group-hover:text-brand-green-dark transition-colors duration-200">White-Label Salon App</h2>
-        <p class="text-base text-gray-500 leading-relaxed mb-5 flex-grow">Your salon's own branded app — your logo, colors, domain, and App Store listing. Powered by Sicus Booking under the hood. Live in 2-4 weeks instead of 6-12 months with an outside agency.</p>
-        <div class="flex flex-wrap gap-2 mb-5">
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">Your brand</span>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">iOS &amp; Android</span>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">2-4 weeks</span>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">Managed</span>
+        <div class="service-card-body">
+          <h3 class="text-2xl font-bold text-gray-900 mb-2"><span class="lang-inline-en">White-Label Salon App</span><span class="lang-inline-vi">Ứng dụng riêng</span></h3>
+          <p class="text-gray-500 text-[15px] leading-relaxed mb-4"><span class="lang-inline-en">Your salon's own branded iOS + Android app. Your logo, your colors, your domain, your App Store listing — powered by Sicus Booking.</span><span class="lang-inline-vi">App iOS + Android mang thương hiệu của bạn. Logo, màu, tên miền — nền tảng Sicus bên trong.</span></p>
+
+          <div class="bg-gray-50 rounded-xl p-3 mb-4 text-xs text-gray-600 space-y-1.5 border border-gray-100">
+            <div class="flex justify-between"><span class="text-gray-400"><span class="lang-inline-en">For you if</span><span class="lang-inline-vi">Phù hợp</span></span><span class="font-medium text-gray-700"><span class="lang-inline-en">Ready to own the brand</span><span class="lang-inline-vi">Muốn app riêng</span></span></div>
+            <div class="flex justify-between"><span class="text-gray-400"><span class="lang-inline-en">Timeline</span><span class="lang-inline-vi">Thời gian</span></span><span class="font-medium text-gray-700">2–4 <span class="lang-inline-en">weeks</span><span class="lang-inline-vi">tuần</span></span></div>
+            <div class="flex justify-between"><span class="text-gray-400"><span class="lang-inline-en">Typical outcome</span><span class="lang-inline-vi">Kết quả</span></span><span class="service-meta-value font-medium text-right"><span class="lang-inline-en">−40% no-shows</span><span class="lang-inline-vi">−40% hủy hẹn</span></span></div>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5 mb-5">
+            <span class="service-tag text-[11px] px-2 py-0.5 rounded-full font-medium"><span class="lang-inline-en">Your brand</span><span class="lang-inline-vi">Thương hiệu</span></span>
+            <span class="service-tag text-[11px] px-2 py-0.5 rounded-full font-medium">iOS + Android</span>
+            <span class="service-tag text-[11px] px-2 py-0.5 rounded-full font-medium">AI Receptionist</span>
+            <span class="service-tag text-[11px] px-2 py-0.5 rounded-full font-medium"><span class="lang-inline-en">Managed</span><span class="lang-inline-vi">Quản lý</span></span>
+          </div>
+
+          <span class="service-cta mt-auto inline-flex items-center gap-1.5 text-sm font-semibold transition-all duration-200 group-hover:gap-2.5">
+            <span class="lang-inline-en">Explore the service</span><span class="lang-inline-vi">Xem chi tiết</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </span>
         </div>
-        <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-green group-hover:gap-2.5 transition-all duration-200">
-          Explore the service
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        </span>
       </a>
 
-      <!-- Card 3: Custom Salon Software -->
-      <a href="/services/custom-salon-software.html" class="service-card group">
-        <div class="service-icon" style="background: rgba(140,184,43,0.1);">
-          <svg class="w-6 h-6 text-brand-green" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+      <!-- Service 3: Custom -->
+      <a href="/services/custom-salon-software.html" class="service-card group" data-service="custom">
+        <div class="service-card-image" style="background: linear-gradient(135deg, #EEF2FF, #E0E7FF);">
+          <span class="service-card-index"><span class="dot"></span>03 · <span class="lang-inline-en">Custom</span><span class="lang-inline-vi">Tuỳ chỉnh</span></span>
+          <img src="/images/feature-5.png" alt="Custom salon software" style="object-fit: cover; object-position: center 45%;">
         </div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-2 group-hover:text-brand-green-dark transition-colors duration-200">Custom Salon Software</h2>
-        <p class="text-base text-gray-500 leading-relaxed mb-5 flex-grow">Off-the-shelf not enough? We build custom salon software from scratch or on top of the Sicus Booking core — multi-location dashboards, franchise workflows, POS integrations, bespoke mobile apps. Fixed-scope, weekly demos.</p>
-        <div class="flex flex-wrap gap-2 mb-5">
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">Bespoke build</span>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">Chains &amp; franchises</span>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">Integrations</span>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">Fixed-scope</span>
+        <div class="service-card-body">
+          <h3 class="text-2xl font-bold text-gray-900 mb-2"><span class="lang-inline-en">Custom Salon Software</span><span class="lang-inline-vi">Phần mềm tuỳ chỉnh</span></h3>
+          <p class="text-gray-500 text-[15px] leading-relaxed mb-4"><span class="lang-inline-en">Multi-location dashboards, franchise workflows, POS integrations, bespoke mobile tools. Built on Sicus Booking or from scratch.</span><span class="lang-inline-vi">Dashboard đa chi nhánh, quy trình nhượng quyền, tích hợp POS, công cụ mobile riêng.</span></p>
+
+          <div class="bg-gray-50 rounded-xl p-3 mb-4 text-xs text-gray-600 space-y-1.5 border border-gray-100">
+            <div class="flex justify-between"><span class="text-gray-400"><span class="lang-inline-en">For you if</span><span class="lang-inline-vi">Phù hợp</span></span><span class="font-medium text-gray-700"><span class="lang-inline-en">Chains &amp; franchises</span><span class="lang-inline-vi">Chuỗi</span></span></div>
+            <div class="flex justify-between"><span class="text-gray-400"><span class="lang-inline-en">Timeline</span><span class="lang-inline-vi">Thời gian</span></span><span class="font-medium text-gray-700">6–12 <span class="lang-inline-en">weeks</span><span class="lang-inline-vi">tuần</span></span></div>
+            <div class="flex justify-between"><span class="text-gray-400"><span class="lang-inline-en">Format</span><span class="lang-inline-vi">Hình thức</span></span><span class="service-meta-value font-medium"><span class="lang-inline-en">Fixed-scope</span><span class="lang-inline-vi">Báo giá cố định</span></span></div>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5 mb-5">
+            <span class="service-tag text-[11px] px-2 py-0.5 rounded-full font-medium"><span class="lang-inline-en">Multi-location</span><span class="lang-inline-vi">Đa chi nhánh</span></span>
+            <span class="service-tag text-[11px] px-2 py-0.5 rounded-full font-medium">POS</span>
+            <span class="service-tag text-[11px] px-2 py-0.5 rounded-full font-medium"><span class="lang-inline-en">Franchise</span><span class="lang-inline-vi">Nhượng quyền</span></span>
+            <span class="service-tag text-[11px] px-2 py-0.5 rounded-full font-medium"><span class="lang-inline-en">Weekly demos</span><span class="lang-inline-vi">Demo hàng tuần</span></span>
+          </div>
+
+          <span class="service-cta mt-auto inline-flex items-center gap-1.5 text-sm font-semibold transition-all duration-200 group-hover:gap-2.5">
+            <span class="lang-inline-en">Explore the service</span><span class="lang-inline-vi">Xem chi tiết</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </span>
         </div>
-        <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-green group-hover:gap-2.5 transition-all duration-200">
-          Explore the service
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        </span>
       </a>
 
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TESTIMONIALS ==================== -->
+<section id="social" class="pb-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-10">
+      <span class="text-xs font-bold uppercase tracking-widest text-brand-green-dark">
+        <span class="lang-inline-en">— Real salons, real results —</span><span class="lang-inline-vi">— Kết quả thật —</span>
+      </span>
+      <h2 class="mt-3 font-display text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+        <span class="lang-inline-en">Trusted by 150+ <span class="text-brand-green-dark">Vietnamese salon owners</span></span>
+        <span class="lang-inline-vi"><span class="text-brand-green-dark">150+ chủ tiệm</span> tin dùng</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="testi-card">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-brand-green/10 text-brand-green-dark font-semibold">Marketing</span>
+          <span class="stars">★★★★★</span>
+        </div>
+        <p class="text-gray-800 text-[17px] leading-relaxed font-medium flex-grow mb-5">
+          <span class="lang-inline-en">"Bookings doubled in 3 months. Google reviews went from 12 to 180. Finally a team that gets how Vietnamese salons actually work."</span>
+          <span class="lang-inline-vi">"Khách tăng gấp đôi trong 3 tháng. Review Google từ 12 lên 180. Cuối cùng có team hiểu tiệm người Việt."</span>
+        </p>
+        <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-green to-brand-green-dark flex items-center justify-center text-white font-bold">AT</div>
+          <div>
+            <div class="font-semibold text-sm text-gray-900">Anh Trần</div>
+            <div class="text-xs text-gray-500">Rose Nails · Calgary, AB</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-brand-green/10 text-brand-green-dark font-semibold">White-Label App</span>
+          <span class="stars">★★★★★</span>
+        </div>
+        <p class="text-gray-800 text-[17px] leading-relaxed font-medium flex-grow mb-5">
+          <span class="lang-inline-en">"My name on the App Store in 3 weeks. 62% of rebookings happen in the app now. My clients love it — they feel VIP."</span>
+          <span class="lang-inline-vi">"Tên tiệm tôi trên App Store sau 3 tuần. 62% khách đặt lại qua app. Khách thích lắm — họ thấy mình VIP."</span>
+        </p>
+        <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-green to-brand-green-dark flex items-center justify-center text-white font-bold">ML</div>
+          <div>
+            <div class="font-semibold text-sm text-gray-900">Mai L.</div>
+            <div class="text-xs text-gray-500">Le Beauty Studio · Toronto, ON</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-brand-green/10 text-brand-green-dark font-semibold">Custom Software</span>
+          <span class="stars">★★★★★</span>
+        </div>
+        <p class="text-gray-800 text-[17px] leading-relaxed font-medium flex-grow mb-5">
+          <span class="lang-inline-en">"8 locations, one dashboard, unified commission splits. They built what no off-the-shelf product could do. Weekly demos kept us in sync."</span>
+          <span class="lang-inline-vi">"8 chi nhánh, 1 dashboard, commission đồng bộ. Họ xây đúng thứ chúng tôi cần."</span>
+        </p>
+        <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-green to-brand-green-dark flex items-center justify-center text-white font-bold">CN</div>
+          <div>
+            <div class="font-semibold text-sm text-gray-900">Chi Nguyen</div>
+            <div class="text-xs text-gray-500">Luxe Nails Group · 8 locations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section id="faq" class="pb-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-10">
+      <span class="text-xs font-bold uppercase tracking-widest text-brand-green-dark"><span class="lang-inline-en">— FAQ —</span><span class="lang-inline-vi">— Câu hỏi —</span></span>
+      <h2 class="mt-3 font-display text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+        <span class="lang-inline-en">Questions we hear a lot.</span><span class="lang-inline-vi">Câu hỏi thường gặp.</span>
+      </h2>
+    </div>
+
+    <div class="bg-white border border-gray-200 rounded-2xl px-6 sm:px-8">
+      <div class="faq-item open">
+        <div class="faq-q">
+          <span><span class="lang-inline-en">Do you speak Vietnamese?</span><span class="lang-inline-vi">Các bạn nói tiếng Việt không?</span></span>
+          <svg class="w-5 h-5 faq-chev text-brand-green-dark" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+        <div class="faq-a"><span class="lang-inline-en">Yes — our whole team is bilingual, and every dashboard, customer touchpoint, and monthly report ships in English and Vietnamese.</span><span class="lang-inline-vi">Có — cả team song ngữ, mọi dashboard và báo cáo đều có tiếng Anh và tiếng Việt.</span></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span><span class="lang-inline-en">Do I need all three services?</span><span class="lang-inline-vi">Có cần dùng cả 3 dịch vụ?</span></span>
+          <svg class="w-5 h-5 faq-chev text-brand-green-dark" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+        <div class="faq-a"><span class="lang-inline-en">No. Most salons start with Marketing, add the White-Label app when they're ready to own their brand, and graduate to Custom Software only at chain scale.</span><span class="lang-inline-vi">Không. Đa số bắt đầu với Marketing, thêm App riêng khi sẵn sàng, và chỉ làm phần mềm tuỳ chỉnh khi có chuỗi.</span></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span><span class="lang-inline-en">How long until I see results?</span><span class="lang-inline-vi">Bao lâu thấy kết quả?</span></span>
+          <svg class="w-5 h-5 faq-chev text-brand-green-dark" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+        <div class="faq-a"><span class="lang-inline-en">Marketing: first bookings in ~30 days, compounding 60–90 days in. White-label app: live in 2–4 weeks. Custom: scope-dependent with weekly demos so you see progress every Friday.</span><span class="lang-inline-vi">Marketing: khách đầu tiên ~30 ngày. App: 2–4 tuần. Phần mềm tuỳ chỉnh: tuỳ dự án, có demo hàng tuần.</span></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span><span class="lang-inline-en">What does it cost?</span><span class="lang-inline-vi">Chi phí thế nào?</span></span>
+          <svg class="w-5 h-5 faq-chev text-brand-green-dark" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+        <div class="faq-a"><span class="lang-inline-en">Marketing is monthly, no long contract. White-label app is a one-time build fee plus a managed monthly. Custom software is fixed-scope, quoted after the strategy call. We'll walk you through exact numbers on the call.</span><span class="lang-inline-vi">Marketing theo tháng, không ràng buộc. App có phí build + phí hàng tháng. Phần mềm tuỳ chỉnh báo giá cố định sau buổi tư vấn.</span></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span><span class="lang-inline-en">Where are you based and who do you serve?</span><span class="lang-inline-vi">Các bạn ở đâu?</span></span>
+          <svg class="w-5 h-5 faq-chev text-brand-green-dark" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+        <div class="faq-a"><span class="lang-inline-en">Calgary, Alberta. We serve Vietnamese-owned salons across Canada and the U.S. — most clients are in Calgary, Toronto, Vancouver, Houston, and San Jose.</span><span class="lang-inline-vi">Calgary, Alberta. Chúng tôi phục vụ tiệm người Việt khắp Canada và Mỹ.</span></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span><span class="lang-inline-en">Do I own my data and my clients?</span><span class="lang-inline-vi">Tôi có sở hữu dữ liệu khách?</span></span>
+          <svg class="w-5 h-5 faq-chev text-brand-green-dark" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+        <div class="faq-a"><span class="lang-inline-en">Always. Your clients, your data, your content. Export anytime, no lock-in.</span><span class="lang-inline-vi">Luôn luôn. Dữ liệu là của bạn, xuất bất cứ lúc nào, không ràng buộc.</span></div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ==================== CTA ==================== -->
-<section class="pb-16 sm:pb-20">
+<section id="cta" class="pb-16 sm:pb-20">
   <div class="max-w-4xl mx-auto px-6">
-    <div class="relative overflow-hidden rounded-2xl p-8 sm:p-12 text-center" style="background: linear-gradient(135deg, #8CB82B 0%, #6A9A10 100%);">
-      <div class="absolute inset-0 opacity-[0.06]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size: 200px;"></div>
-
+    <div class="relative overflow-hidden rounded-3xl p-10 sm:p-14 text-center" style="background: linear-gradient(135deg, #8CB82B 0%, #6A9A10 100%);">
+      <div class="absolute inset-0 opacity-[0.08] noise"></div>
       <div class="relative z-10">
-        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">Not Sure Where to Start?</h2>
-        <p class="text-white/85 text-base sm:text-lg mb-8 max-w-xl mx-auto">Book a free 30-minute strategy call. We'll walk through your salon, your goals, and the right mix of marketing + software for your situation. No pressure, no pitch.</p>
-        <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-brand-green-dark font-bold text-base sm:text-lg px-8 py-3.5 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_30px_rgba(0,0,0,0.2)]">
-          Book a Free Strategy Call
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 tracking-tight">
+          <span class="lang-inline-en">Still not sure? Let's talk.</span><span class="lang-inline-vi">Chưa chắc chắn? Nói chuyện nhé.</span>
+        </h2>
+        <p class="text-white/90 text-base sm:text-lg mb-8 max-w-xl mx-auto leading-relaxed">
+          <span class="lang-inline-en">Free 30-minute strategy call. We'll walk through your salon, your goals, and the right mix for your situation. In English or tiếng Việt. No pitch.</span>
+          <span class="lang-inline-vi">Buổi tư vấn 30 phút miễn phí. Chúng tôi sẽ cùng bạn tìm giải pháp phù hợp. Tiếng Anh hoặc tiếng Việt. Không ép mua.</span>
+        </p>
+        <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-brand-green-dark font-bold text-base sm:text-lg px-8 py-3.5 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.15)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+          <span class="lang-inline-en">Book a Free Strategy Call</span><span class="lang-inline-vi">Đặt lịch miễn phí</span>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
         </a>
       </div>
@@ -211,11 +554,90 @@
 
 <script>
   function toggleLang() {
-    var html = document.getElementById('htmlRoot');
-    var label = document.getElementById('langLabel');
+    const html = document.getElementById('htmlRoot');
+    const label = document.getElementById('langLabel');
     if (html.lang === 'en') { html.lang = 'vi'; label.textContent = 'VI'; }
     else { html.lang = 'en'; label.textContent = 'EN'; }
   }
+
+  // ============ QUIZ ============
+  (function(){
+    const answers = {};
+    let step = 1;
+    const stepLabel = document.getElementById('stepLabel');
+    const progressFill = document.getElementById('progressFill');
+    const back = document.getElementById('quizBack');
+
+    const recs = {
+      marketing: {
+        url: '/services/digital-marketing.html',
+        title: { en: 'Salon Digital Marketing', vi: 'Marketing cho tiệm' },
+        body: { en: "Local SEO, Google Business, paid ads, and reputation management. Bookings start coming in ~30 days — bilingual reporting, monthly, no long contract.", vi: "SEO địa phương, Google Business, quảng cáo, quản lý đánh giá. Khách bắt đầu đến sau ~30 ngày — báo cáo song ngữ, theo tháng, không ràng buộc." }
+      },
+      whitelabel: {
+        url: '/services/white-label-salon-app.html',
+        title: { en: 'White-Label Salon App', vi: 'App riêng cho tiệm' },
+        body: { en: "Your branded iOS + Android app, live in 2–4 weeks. Your logo, your domain, your App Store listing. AI Receptionist + smart booking included.", vi: "App iOS + Android riêng, ra mắt trong 2–4 tuần. Logo, tên miền, và App Store của bạn. Kèm AI Receptionist." }
+      },
+      custom: {
+        url: '/services/custom-salon-software.html',
+        title: { en: 'Custom Salon Software', vi: 'Phần mềm tuỳ chỉnh' },
+        body: { en: "Multi-location dashboards, franchise workflows, POS integrations, bespoke mobile tools. Fixed-scope, weekly demos, no surprises.", vi: "Dashboard đa chi nhánh, nhượng quyền, tích hợp POS, mobile riêng. Báo giá cố định, demo hàng tuần." }
+      }
+    };
+
+    function recommend() {
+      if (answers[1] === 'multi' || answers[2] === 'custom') return 'custom';
+      if (answers[2] === 'brand') return 'whitelabel';
+      return 'marketing';
+    }
+
+    function setStep(n) {
+      document.querySelectorAll('.quiz-step').forEach(el => el.classList.remove('active'));
+      if (n === 'result') {
+        document.querySelector('.quiz-step[data-step="result"]').classList.add('active');
+        const rec = recommend();
+        const lang = document.getElementById('htmlRoot').lang;
+        document.getElementById('recTitle').textContent = recs[rec].title[lang] || recs[rec].title.en;
+        document.getElementById('recBody').textContent = recs[rec].body[lang] || recs[rec].body.en;
+        document.getElementById('recCta').href = recs[rec].url;
+        stepLabel.textContent = (lang === 'vi' ? 'Kết quả' : 'Result');
+        progressFill.style.width = '100%';
+        back.classList.remove('hidden');
+        document.querySelectorAll('.service-card').forEach(c => c.classList.remove('recommended'));
+        const match = document.querySelector('.service-card[data-service="' + rec + '"]');
+        if (match) match.classList.add('recommended');
+        return;
+      }
+      document.querySelector('.quiz-step[data-step="' + n + '"]').classList.add('active');
+      const lang = document.getElementById('htmlRoot').lang;
+      stepLabel.textContent = lang === 'vi' ? ('Bước ' + n + ' / 3') : ('Step ' + n + ' of 3');
+      progressFill.style.width = (n * 33.33) + '%';
+      back.classList.toggle('hidden', n === 1);
+      step = n;
+    }
+
+    document.querySelectorAll('.quiz-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        const s = opt.closest('.quiz-step').dataset.step;
+        answers[parseInt(s)] = opt.dataset.answer;
+        if (parseInt(s) < 3) setStep(parseInt(s) + 1);
+        else setStep('result');
+      });
+    });
+
+    back.addEventListener('click', () => { if (step > 1) setStep(step - 1); });
+    document.getElementById('quizRestart').addEventListener('click', () => {
+      Object.keys(answers).forEach(k => delete answers[k]);
+      document.querySelectorAll('.service-card').forEach(c => c.classList.remove('recommended'));
+      setStep(1);
+    });
+  })();
+
+  // ============ FAQ ============
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
+  });
 </script>
 </body>
 </html>
