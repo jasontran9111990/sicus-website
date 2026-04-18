@@ -1,22 +1,43 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" id="htmlRoot">
 <head>
 <!-- @include partials/head-common.html -->
-  <title>Products — SICUS Booking + AI Receptionist + AI Assistant | SICUS Media</title>
-  <meta name="description" content="SICUS Media products for salon owners — the all-in-one Sicus Booking app, plus standalone AI Receptionist and AI Assistant that integrate into your existing salon setup. Buy the full suite or just the piece you need.">
-  <meta name="keywords" content="SICUS products, salon booking app, AI receptionist salon, AI assistant salon, standalone salon software, salon phone AI, salon chat AI">
+  <meta charset="utf-8">
+  <!-- Preview-only fallback: load Tailwind + fonts + brand tokens when the @include isn't being expanded by the build step. In production these duplicate head-common.html harmlessly. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    if (window.tailwind) {
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-green': '#8CB82B',
+              'brand-green-dark': '#6B9620',
+              'brand-green-light': '#A8CF4F',
+            }
+          }
+        }
+      };
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Products — Sicus Booking, AI Receptionist &amp; AI Assistant | SICUS Media</title>
+  <meta name="description" content="SICUS Media products for salon owners — the all-in-one Sicus Booking platform, plus standalone AI Receptionist and AI Assistant that integrate into your existing salon setup. Buy the full suite or just the piece you need.">
+  <meta name="keywords" content="SICUS products, salon booking app, AI receptionist salon, AI assistant salon, standalone salon software, salon phone AI, salon chat AI, vietnamese salon software">
   <link rel="canonical" href="https://sicusmedia.com/products/">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sicusmedia.com/products/">
-  <meta property="og:title" content="Products — SICUS Booking + AI Receptionist + AI Assistant | SICUS Media">
+  <meta property="og:title" content="Products — Sicus Booking, AI Receptionist &amp; AI Assistant | SICUS Media">
   <meta property="og:description" content="The full Sicus Booking suite plus standalone AI Receptionist and AI Assistant that plug into your existing salon setup. Three products, one team.">
   <meta property="og:image" content="https://sicusmedia.com/brand_assets/topbar.png">
   <meta property="og:site_name" content="SICUS Media">
   <meta property="og:locale" content="en_US">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Products — SICUS Booking + AI Receptionist + AI Assistant">
+  <meta name="twitter:title" content="Products — Sicus Booking + AI Receptionist + AI Assistant">
   <meta name="twitter:description" content="Full booking app + standalone AI products for salons. Buy the suite or just the piece you need.">
   <meta name="twitter:image" content="https://sicusmedia.com/brand_assets/topbar.png">
 
@@ -41,6 +62,7 @@
 
     .btn-spring { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease; }
     .btn-spring:hover { transform: translateY(-2px); }
+    .btn-spring:active { transform: translateY(0) scale(0.98); }
 
     .lang-en, .lang-vi { display: none; }
     html[lang="en"] .lang-en { display: initial; }
@@ -50,158 +72,797 @@
     html[lang="en"] .lang-inline-vi { display: none !important; }
     html[lang="vi"] .lang-inline-en { display: none !important; }
 
-    .product-card {
-      background: #fff;
+    .sparkle-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #8CB82B; animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.4; transform:scale(.7);} }
+
+    .underline-wavy-green { text-decoration: underline wavy #8CB82B; text-underline-offset: 8px; text-decoration-thickness: 2px; }
+
+    /* ==================== SUITE/STANDALONE PICKER (hero right side) ==================== */
+    .picker-container {
+      background: linear-gradient(135deg, #ffffff 0%, #fafffb 100%);
       border: 1px solid #e5e7eb;
-      border-radius: 1.25rem;
-      padding: 2rem;
-      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease, border-color 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
+      border-radius: 24px;
+      box-shadow: 0 30px 80px -30px rgba(140,184,43,0.25), 0 10px 30px -12px rgba(0,0,0,0.08);
+      overflow: hidden;
+      position: relative;
     }
-    .product-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(140,184,43,0.35);
-      box-shadow: 0 12px 40px rgba(140,184,43,0.1);
+    .picker-container::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(600px 300px at 100% 0%, rgba(140,184,43,0.08), transparent 60%);
+      pointer-events: none;
     }
-    .product-card .product-icon {
-      width: 3rem;
-      height: 3rem;
-      border-radius: 0.875rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.25rem;
+    .picker-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #f3f4f6;
+      border-radius: 999px;
+      padding: 4px;
+      position: relative;
+      margin-bottom: 20px;
     }
-    .product-card .badge {
-      display: inline-block;
-      font-size: 0.625rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 0.25rem 0.65rem;
-      border-radius: 9999px;
-      margin-bottom: 0.75rem;
+    .picker-toggle button {
+      position: relative;
+      z-index: 2;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #6b7280;
+      transition: color .25s ease;
+      cursor: pointer;
+      background: transparent;
+      border: none;
     }
-    .product-card .badge.flagship { background: rgba(140,184,43,0.12); color: #6A9A10; }
-    .product-card .badge.standalone { background: rgba(140,184,43,0.12); color: #6A9A10; }
+    .picker-toggle button.active { color: #6A9A10; }
+    .picker-toggle .slider {
+      position: absolute;
+      top: 4px; bottom: 4px;
+      width: calc(50% - 4px);
+      background: #fff;
+      border-radius: 999px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+      transition: transform .35s cubic-bezier(0.34,1.56,0.64,1);
+      z-index: 1;
+    }
+    .picker-toggle[data-mode="standalone"] .slider { transform: translateX(calc(100% + 0px)); }
+
+    .picker-panel { display: none; animation: fadeIn .35s cubic-bezier(0.34,1.56,0.64,1); }
+    .picker-panel.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: translateY(0);} }
+
+    .picker-product {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px; border: 1.5px solid #e5e7eb; border-radius: 14px; background: #fff;
+      transition: border-color .2s ease, transform .2s ease, background .2s ease;
+    }
+    .picker-product + .picker-product { margin-top: 10px; }
+    .picker-product .tick {
+      flex-shrink: 0;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700;
+    }
+    .picker-product .tick.check { background: #8CB82B; color: #fff; }
+    .picker-product .tick.plus { background: #f3f6ea; color: #6A9A10; }
+    .picker-product .title { font-weight: 600; font-size: 15px; color: #111; }
+    .picker-product .sub { font-size: 13px; color: #6b7280; margin-top: 2px; }
+
+    /* ==================== PRODUCT CARDS ==================== */
+    .product-card {
+      background: #fff; border: 1px solid #e5e7eb; border-radius: 20px;
+      transition: transform .4s cubic-bezier(0.34,1.56,0.64,1), box-shadow .3s, border-color .3s;
+      display: flex; flex-direction: column; height: 100%;
+      position: relative; overflow: hidden;
+    }
+    .product-card-image { position: relative; height: 220px; overflow: hidden; }
+    .product-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(0.34,1.56,0.64,1); }
+    .product-card:hover .product-card-image img { transform: scale(1.05); }
+    .product-card-image::after { content:''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.25) 100%); pointer-events: none; }
+    .product-card-body { padding: 24px 28px 28px; display: flex; flex-direction: column; flex-grow: 1; }
+
+    .product-badge {
+      position: absolute; top: 14px; left: 16px; z-index: 2;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 6px 12px; border-radius: 999px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .product-badge .dot { width: 6px; height: 6px; border-radius: 50%; }
+
+    /* Sicus Booking — green (flagship) */
+    .product-card[data-product="booking"] .product-card-image { background: linear-gradient(135deg, #eefbe1 0%, #f7fbee 100%); }
+    .product-card[data-product="booking"] .product-badge { color: #6A9A10; }
+    .product-card[data-product="booking"] .product-badge .dot { background: #8CB82B; box-shadow: 0 0 0 3px rgba(140,184,43,0.2); }
+    .product-card[data-product="booking"] .product-tag { background: rgba(140,184,43,0.1); color: #6A9A10; }
+    .product-card[data-product="booking"] .product-cta { color: #6A9A10; }
+    .product-card[data-product="booking"] .product-meta-value { color: #6A9A10; }
+    .product-card[data-product="booking"]:hover { border-color: rgba(140,184,43,.35); box-shadow: 0 20px 50px rgba(140,184,43,.12); }
+    .product-card[data-product="booking"]::after { background: radial-gradient(circle, rgba(140,184,43,.12), transparent 70%); }
+
+    /* AI Receptionist — amber (phone) */
+    .product-card[data-product="reception"] .product-card-image { background: linear-gradient(135deg, #fef3c7 0%, #fffaeb 100%); }
+    .product-card[data-product="reception"] .product-badge { color: #B45309; }
+    .product-card[data-product="reception"] .product-badge .dot { background: #D97706; box-shadow: 0 0 0 3px rgba(217,119,6,0.2); }
+    .product-card[data-product="reception"] .product-tag { background: rgba(217,119,6,0.1); color: #B45309; }
+    .product-card[data-product="reception"] .product-cta { color: #B45309; }
+    .product-card[data-product="reception"] .product-meta-value { color: #B45309; }
+    .product-card[data-product="reception"]:hover { border-color: rgba(217,119,6,.35); box-shadow: 0 20px 50px rgba(217,119,6,.12); }
+    .product-card[data-product="reception"]::after { background: radial-gradient(circle, rgba(217,119,6,.12), transparent 70%); }
+
+    /* AI Assistant — indigo (web/chat) */
+    .product-card[data-product="assistant"] .product-card-image { background: linear-gradient(135deg, #e0e7ff 0%, #eef2ff 100%); }
+    .product-card[data-product="assistant"] .product-badge { color: #3730A3; }
+    .product-card[data-product="assistant"] .product-badge .dot { background: #4F46E5; box-shadow: 0 0 0 3px rgba(79,70,229,0.2); }
+    .product-card[data-product="assistant"] .product-tag { background: rgba(79,70,229,0.1); color: #3730A3; }
+    .product-card[data-product="assistant"] .product-cta { color: #3730A3; }
+    .product-card[data-product="assistant"] .product-meta-value { color: #3730A3; }
+    .product-card[data-product="assistant"]:hover { border-color: rgba(79,70,229,.35); box-shadow: 0 20px 50px rgba(79,70,229,.12); }
+    .product-card[data-product="assistant"]::after { background: radial-gradient(circle, rgba(79,70,229,.12), transparent 70%); }
+
+    .product-card::after { content:''; position:absolute; inset:auto -40% -40% auto; width: 200px; height: 200px; border-radius: 50%; opacity: 0; transition: opacity .4s; pointer-events: none; }
+    .product-card:hover { transform: translateY(-6px); }
+    .product-card:hover::after { opacity: 1; }
+
+    .product-tag { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px; }
+
+    /* Phone mockup (Sicus Booking card) */
+    .phone-mock {
+      position: absolute; inset: 0;
+      display: flex; align-items: flex-end; justify-content: center;
+      padding-top: 20px;
+    }
+    .phone-mock img {
+      width: 70%; max-width: 200px; height: auto; object-fit: contain;
+      object-position: bottom;
+      filter: drop-shadow(0 10px 30px rgba(106,154,16,0.25));
+      transform: translateY(8px);
+    }
+
+    /* Phone call illustration for AI Receptionist */
+    .call-viz {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .call-viz .phone-ring {
+      position: relative;
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 20px 40px rgba(217,119,6,0.25), 0 0 0 1px rgba(217,119,6,0.1);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .call-viz .phone-ring::before,
+    .call-viz .phone-ring::after {
+      content: ''; position: absolute; inset: 0;
+      border-radius: 50%; border: 2px solid rgba(217,119,6,0.3);
+      animation: ringPulse 2.5s ease-out infinite;
+    }
+    .call-viz .phone-ring::after { animation-delay: 1.25s; }
+    @keyframes ringPulse {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
+    .call-viz svg { width: 44px; height: 44px; color: #D97706; }
+
+    /* Chat bubbles for AI Assistant */
+    .chat-viz {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .chat-viz .chat-stack {
+      display: flex; flex-direction: column; gap: 8px;
+      width: 85%; max-width: 240px;
+    }
+    .chat-viz .bubble {
+      padding: 10px 14px; border-radius: 16px;
+      font-size: 13px; line-height: 1.35;
+      box-shadow: 0 4px 12px rgba(79,70,229,0.1);
+      animation: bubbleIn .5s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    .chat-viz .bubble.them { background: #fff; color: #374151; align-self: flex-start; border-bottom-left-radius: 4px; }
+    .chat-viz .bubble.us { background: #4F46E5; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; animation-delay: .3s; }
+    .chat-viz .bubble.typing { background: #fff; align-self: flex-start; border-bottom-left-radius: 4px; padding: 12px 16px; animation-delay: .6s; }
+    .chat-viz .typing-dots { display: inline-flex; gap: 3px; }
+    .chat-viz .typing-dots span { width: 6px; height: 6px; border-radius: 50%; background: #9ca3af; animation: typing 1.4s infinite; }
+    .chat-viz .typing-dots span:nth-child(2) { animation-delay: .2s; }
+    .chat-viz .typing-dots span:nth-child(3) { animation-delay: .4s; }
+    @keyframes bubbleIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes typing { 0%,60%,100% { opacity: .3; transform: translateY(0);} 30% { opacity: 1; transform: translateY(-2px);} }
+
+    /* ==================== COMPARISON TABLE ==================== */
+    .compare-table { border: 1px solid #e5e7eb; border-radius: 20px; overflow: hidden; background: #fff; }
+    .compare-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f3f4f6; }
+    .compare-row:last-child { border-bottom: none; }
+    .compare-row.header { background: #fafbfa; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: #6b7280; padding: 14px 20px; }
+    .compare-row.header .col-product { font-size: 13px; }
+    .compare-row .col-feature { font-weight: 500; color: #111; font-size: 15px; }
+    .compare-row .col-product { text-align: center; }
+    .compare-yes { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; }
+    .compare-yes.booking { background: #8CB82B; color: #fff; }
+    .compare-yes.reception { background: #D97706; color: #fff; }
+    .compare-yes.assistant { background: #4F46E5; color: #fff; }
+    .compare-dash { color: #d1d5db; font-weight: 700; }
+
+    @media (max-width: 768px) {
+      .compare-row { grid-template-columns: 1.5fr 1fr 1fr 1fr; padding: 14px 14px; }
+      .compare-row .col-feature { font-size: 13px; }
+      .compare-row.header .col-product { font-size: 10px; }
+    }
+
+    /* ==================== TESTIMONIALS ==================== */
+    .testi-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 20px; padding: 28px; height: 100%; display: flex; flex-direction: column; transition: border-color .3s, transform .3s; }
+    .testi-card:hover { border-color: rgba(140,184,43,.35); transform: translateY(-2px); }
+    .stars { color: #f59e0b; letter-spacing: 2px; font-size: 14px; }
+
+    /* ==================== FAQ ==================== */
+    .faq-item { border-bottom: 1px solid #e5e7eb; }
+    .faq-q { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 22px 0; font-weight: 600; font-size: 17px; color: #111; gap: 20px; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; color: #555; line-height: 1.7; padding-right: 40px; }
+    .faq-item.open .faq-a { max-height: 520px; padding-bottom: 22px; }
+    .faq-item.open .faq-chev { transform: rotate(180deg); }
+    .faq-chev { transition: transform .3s; flex-shrink: 0; }
+
+    /* ==================== STANDALONE CALLOUT ==================== */
+    .callout-box {
+      background: linear-gradient(135deg, #0F0F11 0%, #1a1d14 100%);
+      border-radius: 24px;
+      padding: 40px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .callout-box::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(600px 300px at 10% 50%, rgba(140,184,43,.25), transparent 60%), radial-gradient(500px 300px at 90% 50%, rgba(217,119,6,.15), transparent 60%);
+      pointer-events: none;
+    }
+
+    .noise { background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size: 200px; }
   </style>
 </head>
 <body class="bg-white text-gray-900 overflow-x-hidden">
 <!-- @include partials/gtm-noscript.html -->
 <!-- @include partials/nav.html -->
 
-<!-- ==================== HERO ==================== -->
+<!-- ==================== HERO WITH SUITE/STANDALONE PICKER ==================== -->
 <section class="relative pt-28 pb-12 sm:pt-32 sm:pb-16 overflow-hidden">
   <div class="absolute inset-0 z-0" style="background: radial-gradient(125% 100% at 50% 0%, #fff 50%, rgba(140,184,43,0.12) 100%);"></div>
 
-  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-    <nav aria-label="Breadcrumb" class="mb-6">
-      <ol class="flex items-center justify-center gap-2 text-sm text-gray-400">
-        <li><a href="/" class="hover:text-brand-green transition-colors duration-200">Home</a></li>
-        <li><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
-        <li class="text-gray-700 font-medium">Products</li>
-      </ol>
+  <div class="relative z-10 max-w-6xl mx-auto px-6">
+    <nav aria-label="Breadcrumb" class="mb-6 flex items-center gap-2 text-sm text-gray-400">
+      <a href="/" class="hover:text-brand-green-dark transition-colors duration-200">Home</a>
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      <span class="text-gray-700 font-medium lang-inline-en">Products</span>
+      <span class="text-gray-700 font-medium lang-inline-vi">Sản phẩm</span>
     </nav>
 
-    <div class="inline-flex items-center gap-2 bg-brand-green/10 border border-brand-green/20 rounded-full px-4 py-1.5 mb-5">
-      <span class="w-2 h-2 rounded-full bg-brand-green"></span>
-      <span class="w-2 h-2 rounded-full bg-brand-red"></span>
-      <span class="text-sm font-medium text-brand-green-dark">SICUS Products</span>
-    </div>
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      <div>
+        <div class="inline-flex items-center gap-2 bg-brand-green/10 border border-brand-green/20 rounded-full px-4 py-1.5 mb-5">
+          <span class="sparkle-dot"></span>
+          <span class="text-sm font-medium text-brand-green-dark"><span class="lang-inline-en">3 products · Buy the suite or just the piece</span><span class="lang-inline-vi">3 sản phẩm · Mua trọn bộ hoặc từng phần</span></span>
+        </div>
 
-    <h1 class="font-display text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-[-0.02em] text-gray-900 mb-5">
-      Buy the full suite or just the piece you need
-    </h1>
-    <p class="text-lg sm:text-xl text-gray-500 leading-relaxed max-w-2xl mx-auto">
-      <strong class="text-gray-900">Sicus Booking</strong> is the all-in-one platform. But the AI on the other end of your phone and the chat widget on your website are also sold <strong class="text-gray-900">standalone</strong> — so you can keep the booking system you love and still upgrade the parts that need it.
-    </p>
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-[58px] font-bold leading-[1.05] tracking-[-0.02em] text-gray-900 mb-6">
+          <span class="lang-inline-en">One complete platform. <span class="underline-wavy-green">Or just the AI piece</span> you need.</span>
+          <span class="lang-inline-vi">Nền tảng trọn gói. <span class="underline-wavy-green">Hoặc chỉ phần AI</span> bạn cần.</span>
+        </h1>
+        <p class="text-lg text-gray-500 leading-relaxed max-w-xl">
+          <span class="lang-inline-en"><strong class="text-gray-900">Sicus Booking</strong> is the all-in-one salon platform. But our <strong class="text-gray-900">AI Receptionist</strong> and <strong class="text-gray-900">AI Assistant</strong> also sell standalone — so you can keep the booking system you love and upgrade just the parts that need it.</span>
+          <span class="lang-inline-vi"><strong class="text-gray-900">Sicus Booking</strong> là nền tảng tất cả trong một. Hoặc chỉ dùng <strong class="text-gray-900">AI Receptionist</strong> và <strong class="text-gray-900">AI Assistant</strong> — tích hợp với hệ thống đặt lịch hiện tại.</span>
+        </p>
+
+        <div class="flex flex-wrap gap-3 mt-7">
+          <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold px-6 py-3 rounded-full shadow-[0_4px_20px_rgba(140,184,43,0.25)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green-dark">
+            <span class="lang-inline-en">Book a Free Strategy Call</span><span class="lang-inline-vi">Đặt lịch tư vấn miễn phí</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+          <a href="#products" class="btn-spring inline-flex items-center gap-2 bg-white border border-gray-200 hover:border-gray-300 text-gray-700 font-semibold px-6 py-3 rounded-full">
+            <span class="lang-inline-en">Browse all products</span><span class="lang-inline-vi">Xem tất cả</span>
+          </a>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-6 mt-10 text-sm text-gray-500">
+          <div class="flex items-center gap-2">
+            <span class="stars">★★★★★</span>
+            <span class="font-medium text-gray-700">4.9</span>
+            <span>·</span>
+            <span><span class="lang-inline-en">150+ salons</span><span class="lang-inline-vi">150+ tiệm</span></span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-brand-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span><span class="lang-inline-en">Plug-in friendly</span><span class="lang-inline-vi">Dễ tích hợp</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Suite / Standalone Picker -->
+      <div>
+        <div class="picker-container p-6 sm:p-8">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-green-dark">
+              <span class="lang-inline-en">What do I get?</span><span class="lang-inline-vi">Bạn nhận được gì?</span>
+            </span>
+            <span class="text-xs text-gray-500"><span class="lang-inline-en">Compare in seconds</span><span class="lang-inline-vi">So sánh nhanh</span></span>
+          </div>
+
+          <div class="picker-toggle" id="pickerToggle" data-mode="suite">
+            <div class="slider"></div>
+            <button class="active" data-mode="suite">
+              <span class="lang-inline-en">The full suite</span><span class="lang-inline-vi">Trọn bộ</span>
+            </button>
+            <button data-mode="standalone">
+              <span class="lang-inline-en">Just the AI piece</span><span class="lang-inline-vi">Chỉ phần AI</span>
+            </button>
+          </div>
+
+          <!-- Suite panel -->
+          <div class="picker-panel active" data-panel="suite">
+            <p class="text-sm text-gray-500 mb-4"><span class="lang-inline-en">Sicus Booking is the all-in-one platform — every product below, fully integrated.</span><span class="lang-inline-vi">Sicus Booking là nền tảng tất cả trong một — mọi sản phẩm tích hợp sẵn.</span></p>
+            <div>
+              <div class="picker-product">
+                <div class="tick check">✓</div>
+                <div><div class="title"><span class="lang-inline-en">Online booking platform</span><span class="lang-inline-vi">Nền tảng đặt lịch online</span></div><div class="sub"><span class="lang-inline-en">Your clients book 24/7 · tip tracking · loyalty</span><span class="lang-inline-vi">Đặt lịch 24/7 · tiền tip · khách hàng thân thiết</span></div></div>
+              </div>
+              <div class="picker-product">
+                <div class="tick check">✓</div>
+                <div><div class="title"><span class="lang-inline-en">AI Receptionist built-in</span><span class="lang-inline-vi">AI nghe điện thoại tích hợp</span></div><div class="sub"><span class="lang-inline-en">Answers every call · books appointments · upsells</span><span class="lang-inline-vi">Trả lời mọi cuộc gọi · đặt lịch · upsell</span></div></div>
+              </div>
+              <div class="picker-product">
+                <div class="tick check">✓</div>
+                <div><div class="title"><span class="lang-inline-en">AI Assistant built-in</span><span class="lang-inline-vi">AI chat web tích hợp</span></div><div class="sub"><span class="lang-inline-en">Chat widget on your salon website · captures leads</span><span class="lang-inline-vi">Chat widget trên website · thu thập lead</span></div></div>
+              </div>
+              <div class="picker-product">
+                <div class="tick check">✓</div>
+                <div><div class="title"><span class="lang-inline-en">SMS reminders &amp; loyalty rewards</span><span class="lang-inline-vi">Nhắc SMS &amp; chương trình khách hàng thân thiết</span></div><div class="sub"><span class="lang-inline-en">Automatic reminders · tip tracking · repeat-client rewards</span><span class="lang-inline-vi">Nhắc tự động · theo dõi tiền tip · thưởng khách quen</span></div></div>
+              </div>
+            </div>
+            <a href="/" class="mt-5 w-full btn-spring inline-flex items-center justify-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold px-5 py-3 rounded-full text-sm">
+              <span class="lang-inline-en">See Sicus Booking</span><span class="lang-inline-vi">Xem Sicus Booking</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </a>
+          </div>
+
+          <!-- Standalone panel -->
+          <div class="picker-panel" data-panel="standalone">
+            <p class="text-sm text-gray-500 mb-4"><span class="lang-inline-en">Already using Square, Google Calendar, or just email/SMS for bookings? Add just the AI piece that's missing.</span><span class="lang-inline-vi">Đã dùng Square, Google Calendar, hoặc chỉ email/SMS? Chỉ thêm phần AI còn thiếu.</span></p>
+            <div>
+              <div class="picker-product" style="border-color: rgba(217,119,6,0.3); background: linear-gradient(135deg, #fffaeb 0%, #fff 100%);">
+                <div class="tick" style="background: #D97706; color: #fff;">📞</div>
+                <div>
+                  <div class="title"><span class="lang-inline-en">AI Receptionist</span><span class="lang-inline-vi">AI Receptionist</span></div>
+                  <div class="sub"><span class="lang-inline-en">24/7 phone answering · integrates with Square, Google Calendar, or SMS/email</span><span class="lang-inline-vi">Nghe điện 24/7 · tích hợp Fresha, Vagaro, Booksy, Square</span></div>
+                </div>
+              </div>
+              <div class="picker-product" style="border-color: rgba(79,70,229,0.3); background: linear-gradient(135deg, #eef2ff 0%, #fff 100%);">
+                <div class="tick" style="background: #4F46E5; color: #fff;">💬</div>
+                <div>
+                  <div class="title"><span class="lang-inline-en">AI Assistant</span><span class="lang-inline-vi">AI Assistant</span></div>
+                  <div class="sub"><span class="lang-inline-en">Website chat widget · one line of code · Wix/Squarespace ready</span><span class="lang-inline-vi">Chat widget website · một dòng code · Wix/Squarespace</span></div>
+                </div>
+              </div>
+              <div class="picker-product" style="opacity: 0.65;">
+                <div class="tick plus">+</div>
+                <div><div class="title"><span class="lang-inline-en">Keep your current booking system</span><span class="lang-inline-vi">Giữ hệ thống đặt lịch hiện tại</span></div><div class="sub"><span class="lang-inline-en">No migration · no disruption · plug-and-play</span><span class="lang-inline-vi">Không chuyển đổi · không gián đoạn</span></div></div>
+              </div>
+            </div>
+            <a href="#products" class="mt-5 w-full btn-spring inline-flex items-center justify-center gap-2 bg-gray-900 hover:bg-black text-white font-semibold px-5 py-3 rounded-full text-sm">
+              <span class="lang-inline-en">See the standalone options</span><span class="lang-inline-vi">Xem các lựa chọn</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ==================== PRODUCT CARDS ==================== -->
-<section class="pt-8 sm:pt-16 pb-20 sm:pb-28">
+<section id="products" class="py-16 sm:py-24">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-      <!-- Card 1: Sicus Booking -->
-      <a href="/" class="product-card group">
-        <span class="badge flagship">Flagship</span>
-        <div class="product-icon" style="background: rgba(140,184,43,0.1);">
-          <svg class="w-6 h-6 text-brand-green" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-2 group-hover:text-brand-green-dark transition-colors duration-200">Sicus Booking</h2>
-        <p class="text-base text-gray-500 leading-relaxed mb-5 flex-grow">The all-in-one AI-powered salon software. Online booking, AI receptionist, SMS reminders, tip tracking, loyalty, bilingual EN/VI support. Built for nail, hair, and beauty salons.</p>
-        <div class="flex flex-wrap gap-2 mb-5">
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">Full platform</span>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">Free to start</span>
-        </div>
-        <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-green group-hover:gap-2.5 transition-all duration-200">
-          See the platform
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        </span>
-      </a>
-
-      <!-- Card 2: AI Receptionist Standalone -->
-      <a href="/products/ai-receptionist.html" class="product-card group">
-        <span class="badge standalone">Standalone</span>
-        <div class="product-icon" style="background: rgba(140,184,43,0.1);">
-          <svg class="w-6 h-6 text-brand-green" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-2 group-hover:text-brand-green-dark transition-colors duration-200">AI Receptionist</h2>
-        <p class="text-base text-gray-500 leading-relaxed mb-5 flex-grow">Already using Fresha, Vagaro, Booksy, or another booking system? Drop in SICUS AI Receptionist to answer every phone call, book appointments, and upsell promotions — without replacing what's already working.</p>
-        <div class="flex flex-wrap gap-2 mb-5">
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">Plug-in</span>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">24/7 phone</span>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">Bilingual</span>
-        </div>
-        <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-green group-hover:gap-2.5 transition-all duration-200">
-          Explore AI Receptionist
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        </span>
-      </a>
-
-      <!-- Card 3: AI Assistant Standalone -->
-      <a href="/products/ai-assistant.html" class="product-card group">
-        <span class="badge standalone">Standalone</span>
-        <div class="product-icon" style="background: rgba(140,184,43,0.1);">
-          <svg class="w-6 h-6 text-brand-green" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-2 group-hover:text-brand-green-dark transition-colors duration-200">AI Assistant</h2>
-        <p class="text-base text-gray-500 leading-relaxed mb-5 flex-grow">A chat widget for your salon website that answers client questions 24/7 — services, pricing, hours, location, staff availability. One line of code, or a plugin for Wix / Squarespace / WordPress.</p>
-        <div class="flex flex-wrap gap-2 mb-5">
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">Embed</span>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">24/7 chat</span>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green-dark font-medium">Bilingual</span>
-        </div>
-        <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-green group-hover:gap-2.5 transition-all duration-200">
-          Explore AI Assistant
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        </span>
-      </a>
-
+    <div class="max-w-2xl mb-10 sm:mb-14">
+      <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">
+        <span class="w-8 h-px bg-gray-300"></span>
+        <span class="lang-inline-en">Three products</span><span class="lang-inline-vi">Ba sản phẩm</span>
+      </div>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
+        <span class="lang-inline-en">Pick the one that fits where you are today.</span>
+        <span class="lang-inline-vi">Chọn sản phẩm phù hợp nhất hiện tại.</span>
+      </h2>
     </div>
 
-    <!-- Why standalone positioning -->
-    <div class="mt-16 sm:mt-20 bg-surface-50 border border-gray-200 rounded-2xl p-6 sm:p-10">
-      <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Why standalone products matter</h2>
-      <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-4">Switching booking systems is expensive and disruptive. Most salon owners who could benefit from AI receptionist or AI chat aren't going to migrate away from a booking system that's working just fine. So we sell the AI pieces <strong class="text-gray-900">separately</strong> — drop them into the salon you're already running.</p>
-      <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-0">Same AI, same bilingual support, same salon-specific training — just without the full platform swap. When you're ready to go all-in, Sicus Booking is waiting.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Card 1: Sicus Booking (Flagship, green) -->
+      <a href="/" class="product-card group" data-product="booking">
+        <div class="product-card-image">
+          <span class="product-badge"><span class="dot"></span>01 · <span class="lang-inline-en">Flagship</span><span class="lang-inline-vi">Chủ lực</span></span>
+          <div class="phone-mock">
+            <img src="https://sicusmedia.com/images/mobile-booking-app.png" alt="Sicus Booking mobile app" loading="lazy">
+          </div>
+        </div>
+        <div class="product-card-body">
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Sicus Booking</h3>
+          <p class="text-sm text-gray-500 leading-relaxed mb-4 flex-grow">
+            <span class="lang-inline-en">The all-in-one AI-powered salon platform. Online booking, AI receptionist, SMS reminders, tip tracking, loyalty — everything built for nail, hair, and beauty salons.</span>
+            <span class="lang-inline-vi">Nền tảng tất cả trong một. Đặt lịch online, AI receptionist, nhắc SMS, tiền tip, khách hàng thân thiết — cho tiệm nail, tóc, và làm đẹp.</span>
+          </p>
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="product-tag"><span class="lang-inline-en">Full platform</span><span class="lang-inline-vi">Trọn bộ</span></span>
+            <span class="product-tag"><span class="lang-inline-en">Free to start</span><span class="lang-inline-vi">Miễn phí bắt đầu</span></span>
+            <span class="product-tag"><span class="lang-inline-en">AI built-in</span><span class="lang-inline-vi">AI tích hợp</span></span>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-100 mb-4">
+            <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold"><span class="lang-inline-en">Outcome</span><span class="lang-inline-vi">Kết quả</span></span>
+            <span class="text-sm font-bold product-meta-value"><span class="lang-inline-en">Everything in one place</span><span class="lang-inline-vi">Tất cả tại một nơi</span></span>
+          </div>
+          <span class="product-cta inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all duration-200">
+            <span class="lang-inline-en">See the platform</span><span class="lang-inline-vi">Xem nền tảng</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Card 2: AI Receptionist (Standalone, amber) -->
+      <a href="/products/ai-receptionist.html" class="product-card group" data-product="reception">
+        <div class="product-card-image">
+          <span class="product-badge"><span class="dot"></span>02 · <span class="lang-inline-en">Standalone</span><span class="lang-inline-vi">Riêng lẻ</span></span>
+          <div class="call-viz">
+            <div class="phone-ring">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <h3 class="text-xl font-bold text-gray-900 mb-2">AI Receptionist</h3>
+          <p class="text-sm text-gray-500 leading-relaxed mb-4 flex-grow">
+            <span class="lang-inline-en">Already using Square, Google Calendar, or just SMS/email for bookings? Drop in SICUS AI Receptionist to answer every phone call, book appointments, and upsell promotions — without replacing what's already working.</span>
+            <span class="lang-inline-vi">Đã dùng Square, Google Calendar, hoặc chỉ SMS/email để đặt lịch? Thêm AI Receptionist để nghe mọi cuộc gọi, đặt lịch, và upsell — không cần thay hệ thống.</span>
+          </p>
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="product-tag"><span class="lang-inline-en">Plug-in</span><span class="lang-inline-vi">Tích hợp</span></span>
+            <span class="product-tag"><span class="lang-inline-en">24/7 phone</span><span class="lang-inline-vi">24/7 điện thoại</span></span>
+            <span class="product-tag"><span class="lang-inline-en">Upsells promos</span><span class="lang-inline-vi">Upsell khuyến mãi</span></span>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-100 mb-4">
+            <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold"><span class="lang-inline-en">Live in</span><span class="lang-inline-vi">Lên sóng</span></span>
+            <span class="text-sm font-bold product-meta-value">5–7 <span class="lang-inline-en">days</span><span class="lang-inline-vi">ngày</span></span>
+          </div>
+          <span class="product-cta inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all duration-200">
+            <span class="lang-inline-en">Explore AI Receptionist</span><span class="lang-inline-vi">Xem AI Receptionist</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Card 3: AI Assistant (Standalone, indigo) -->
+      <a href="/products/ai-assistant.html" class="product-card group" data-product="assistant">
+        <div class="product-card-image">
+          <span class="product-badge"><span class="dot"></span>03 · <span class="lang-inline-en">Standalone</span><span class="lang-inline-vi">Riêng lẻ</span></span>
+          <div class="chat-viz">
+            <div class="chat-stack">
+              <div class="bubble them"><span class="lang-inline-en">How much is a gel mani?</span><span class="lang-inline-vi">Gel mani giá bao nhiêu?</span></div>
+              <div class="bubble us"><span class="lang-inline-en">$45 — free today at 3pm 👌</span><span class="lang-inline-vi">$45 — còn chỗ 3h chiều 👌</span></div>
+              <div class="bubble typing"><span class="typing-dots"><span></span><span></span><span></span></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <h3 class="text-xl font-bold text-gray-900 mb-2">AI Assistant</h3>
+          <p class="text-sm text-gray-500 leading-relaxed mb-4 flex-grow">
+            <span class="lang-inline-en">A chat widget for your salon website that answers client questions 24/7 — services, pricing, hours, availability. One line of code, or a plugin for Wix, Squarespace, WordPress, or Shopify.</span>
+            <span class="lang-inline-vi">Chat widget cho website tiệm, trả lời 24/7 — dịch vụ, giá, giờ, lịch trống. Một dòng code, hoặc plugin cho Wix, Squarespace, WordPress, Shopify.</span>
+          </p>
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="product-tag"><span class="lang-inline-en">Embed</span><span class="lang-inline-vi">Nhúng</span></span>
+            <span class="product-tag"><span class="lang-inline-en">24/7 chat</span><span class="lang-inline-vi">Chat 24/7</span></span>
+            <span class="product-tag"><span class="lang-inline-en">One-line install</span><span class="lang-inline-vi">Cài một dòng</span></span>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-100 mb-4">
+            <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold"><span class="lang-inline-en">Install in</span><span class="lang-inline-vi">Cài đặt</span></span>
+            <span class="text-sm font-bold product-meta-value">&lt; 10 <span class="lang-inline-en">min</span><span class="lang-inline-vi">phút</span></span>
+          </div>
+          <span class="product-cta inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all duration-200">
+            <span class="lang-inline-en">Explore AI Assistant</span><span class="lang-inline-vi">Xem AI Assistant</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </span>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>
 
-<!-- ==================== CTA ==================== -->
+<!-- ==================== COMPARISON TABLE ==================== -->
+<section class="pb-16 sm:pb-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-2xl mb-10">
+      <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">
+        <span class="w-8 h-px bg-gray-300"></span>
+        <span class="lang-inline-en">At a glance</span><span class="lang-inline-vi">So sánh nhanh</span>
+      </div>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
+        <span class="lang-inline-en">What's in each product.</span>
+        <span class="lang-inline-vi">Mỗi sản phẩm có gì.</span>
+      </h2>
+    </div>
+
+    <div class="compare-table">
+      <div class="compare-row header">
+        <div class="col-feature"><span class="lang-inline-en">Feature</span><span class="lang-inline-vi">Tính năng</span></div>
+        <div class="col-product" style="color: #6A9A10;">Sicus Booking</div>
+        <div class="col-product" style="color: #B45309;"><span class="lang-inline-en">AI Receptionist</span><span class="lang-inline-vi">AI Receptionist</span></div>
+        <div class="col-product" style="color: #3730A3;"><span class="lang-inline-en">AI Assistant</span><span class="lang-inline-vi">AI Assistant</span></div>
+      </div>
+      <div class="compare-row">
+        <div class="col-feature"><span class="lang-inline-en">Online booking platform</span><span class="lang-inline-vi">Nền tảng đặt lịch online</span></div>
+        <div class="col-product"><span class="compare-yes booking">✓</span></div>
+        <div class="col-product"><span class="compare-dash">—</span></div>
+        <div class="col-product"><span class="compare-dash">—</span></div>
+      </div>
+      <div class="compare-row">
+        <div class="col-feature"><span class="lang-inline-en">AI answers phone calls</span><span class="lang-inline-vi">AI nghe điện thoại</span></div>
+        <div class="col-product"><span class="compare-yes booking">✓</span></div>
+        <div class="col-product"><span class="compare-yes reception">✓</span></div>
+        <div class="col-product"><span class="compare-dash">—</span></div>
+      </div>
+      <div class="compare-row">
+        <div class="col-feature"><span class="lang-inline-en">AI chat on your website</span><span class="lang-inline-vi">AI chat trên website</span></div>
+        <div class="col-product"><span class="compare-yes booking">✓</span></div>
+        <div class="col-product"><span class="compare-dash">—</span></div>
+        <div class="col-product"><span class="compare-yes assistant">✓</span></div>
+      </div>
+      <div class="compare-row">
+        <div class="col-feature"><span class="lang-inline-en">Works with Square, Google Calendar, or SMS/email</span><span class="lang-inline-vi">Tương thích Square, Google Calendar, hoặc SMS/email</span></div>
+        <div class="col-product"><span class="compare-dash">—</span></div>
+        <div class="col-product"><span class="compare-yes reception">✓</span></div>
+        <div class="col-product"><span class="compare-yes assistant">✓</span></div>
+      </div>
+      <div class="compare-row">
+        <div class="col-feature"><span class="lang-inline-en">SMS reminders &amp; tip tracking</span><span class="lang-inline-vi">Nhắc SMS &amp; theo dõi tiền tip</span></div>
+        <div class="col-product"><span class="compare-yes booking">✓</span></div>
+        <div class="col-product"><span class="compare-dash">—</span></div>
+        <div class="col-product"><span class="compare-dash">—</span></div>
+      </div>
+
+
+    </div>
+
+    <p class="text-center text-sm text-gray-500 mt-6">
+      <span class="lang-inline-en">Not sure which combination fits? <a href="/#schedule-demo" class="text-brand-green-dark font-semibold hover:underline">Book a 30-min call</a> — we'll recommend a setup based on your salon.</span>
+      <span class="lang-inline-vi">Chưa chắc combo nào phù hợp? <a href="/#schedule-demo" class="text-brand-green-dark font-semibold hover:underline">Đặt lịch 30 phút</a> — chúng tôi sẽ gợi ý theo tiệm của bạn.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ==================== WHY STANDALONE CALLOUT ==================== -->
+<section class="pb-16 sm:pb-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="callout-box">
+      <div class="absolute inset-0 noise opacity-[0.06]"></div>
+      <div class="relative z-10 grid lg:grid-cols-2 gap-8 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-5">
+            <span class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+            <span class="text-xs font-semibold uppercase tracking-wider text-white/90"><span class="lang-inline-en">Why standalone?</span><span class="lang-inline-vi">Tại sao có bản riêng?</span></span>
+          </div>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-white leading-tight mb-4">
+            <span class="lang-inline-en">Don't switch what's working. Upgrade what's missing.</span>
+            <span class="lang-inline-vi">Đừng đổi thứ đang hoạt động. Nâng cấp thứ còn thiếu.</span>
+          </h2>
+          <p class="text-white/80 text-base sm:text-lg leading-relaxed">
+            <span class="lang-inline-en">Switching booking systems is expensive and disruptive. Most salon owners who'd benefit from AI on the phone or chat on the website aren't going to migrate off a booking system that's already working. So we sell the AI pieces <strong>separately</strong> — drop them into the salon you're already running.</span>
+            <span class="lang-inline-vi">Chuyển đổi hệ thống đặt lịch rất tốn kém và gián đoạn. Nên chúng tôi bán AI <strong>riêng lẻ</strong> — thêm vào tiệm bạn đang vận hành.</span>
+          </p>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3 bg-white/5 border border-white/10 rounded-2xl p-4">
+            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-brand-green/20 flex items-center justify-center text-brand-green">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div>
+              <div class="font-semibold text-white text-sm mb-0.5"><span class="lang-inline-en">Same AI, same training, same results</span><span class="lang-inline-vi">Cùng AI, cùng đào tạo, cùng kết quả</span></div>
+              <div class="text-white/60 text-sm leading-relaxed"><span class="lang-inline-en">Whether you buy the suite or just one piece.</span><span class="lang-inline-vi">Dù bạn mua trọn bộ hay chỉ một phần.</span></div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-white/5 border border-white/10 rounded-2xl p-4">
+            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-brand-green/20 flex items-center justify-center text-brand-green">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <div>
+              <div class="font-semibold text-white text-sm mb-0.5"><span class="lang-inline-en">No migration, no disruption</span><span class="lang-inline-vi">Không chuyển đổi, không gián đoạn</span></div>
+              <div class="text-white/60 text-sm leading-relaxed"><span class="lang-inline-en">Keep Square, Google Calendar, or whatever booking flow you already run.</span><span class="lang-inline-vi">Giữ Square, Google Calendar, hoặc bất kỳ cách đặt lịch nào bạn đang dùng.</span></div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-white/5 border border-white/10 rounded-2xl p-4">
+            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-brand-green/20 flex items-center justify-center text-brand-green">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div>
+              <div class="font-semibold text-white text-sm mb-0.5"><span class="lang-inline-en">Upgrade to the full suite anytime</span><span class="lang-inline-vi">Nâng cấp trọn bộ bất cứ lúc nào</span></div>
+              <div class="text-white/60 text-sm leading-relaxed"><span class="lang-inline-en">Start with one piece. Go all-in when you're ready.</span><span class="lang-inline-vi">Bắt đầu một phần. Trọn bộ khi sẵn sàng.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TESTIMONIALS ==================== -->
+<section class="pb-16 sm:pb-24 bg-gray-50/50">
+  <div class="max-w-6xl mx-auto px-6 pt-16 sm:pt-20">
+    <div class="max-w-2xl mb-10">
+      <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">
+        <span class="w-8 h-px bg-gray-300"></span>
+        <span class="lang-inline-en">From salon owners</span><span class="lang-inline-vi">Từ chủ tiệm</span>
+      </div>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
+        <span class="lang-inline-en">Real salons. Real results.</span>
+        <span class="lang-inline-vi">Tiệm thật. Kết quả thật.</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="testi-card">
+        <div class="stars mb-4">★★★★★</div>
+        <p class="text-gray-700 leading-relaxed mb-6 flex-grow text-[15px]">
+          <span class="lang-inline-en">"Missed calls went from 40% to almost zero. The AI books appointments while I'm doing a full set — it even upsells the pedi promo. Life changer."</span>
+          <span class="lang-inline-vi">"Cuộc gọi nhỡ từ 40% xuống gần 0%. AI đặt lịch khi tôi đang làm nail — còn upsell promo pedi. Thay đổi cuộc đời."</span>
+        </p>
+        <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+          <div class="w-11 h-11 rounded-full flex items-center justify-center font-bold text-white text-sm" style="background: linear-gradient(135deg, #8CB82B, #6A9A10);">LN</div>
+          <div>
+            <div class="font-semibold text-gray-900 text-sm">Linh Nguyen</div>
+            <div class="text-xs text-gray-500"><span class="lang-inline-en">Owner, Lux Nails · Houston, TX</span><span class="lang-inline-vi">Chủ, Lux Nails · Houston, TX</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="stars mb-4">★★★★★</div>
+        <p class="text-gray-700 leading-relaxed mb-6 flex-grow text-[15px]">
+          <span class="lang-inline-en">"Kept my Square setup. Added SICUS AI Receptionist. My team gets bookings straight into Google Calendar plus a text — they just tap to confirm. Took 6 days to set up."</span>
+          <span class="lang-inline-vi">"Giữ Square. Thêm AI Receptionist. Nhóm nhận lịch qua Google Calendar và tin nhắn — chỉ cần bấm xác nhận. Cài đặt 6 ngày."</span>
+        </p>
+        <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+          <div class="w-11 h-11 rounded-full flex items-center justify-center font-bold text-white text-sm" style="background: linear-gradient(135deg, #D97706, #B45309);">TP</div>
+          <div>
+            <div class="font-semibold text-gray-900 text-sm">Tina Pham</div>
+            <div class="text-xs text-gray-500"><span class="lang-inline-en">Owner, Glow Beauty · Toronto, ON</span><span class="lang-inline-vi">Chủ, Glow Beauty · Toronto, ON</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="stars mb-4">★★★★★</div>
+        <p class="text-gray-700 leading-relaxed mb-6 flex-grow text-[15px]">
+          <span class="lang-inline-en">"Dropped the AI chat on our Squarespace site in ten minutes. First week, it captured 23 bookings from people browsing at night. We were closed — and still filling Saturday."</span>
+          <span class="lang-inline-vi">"Gắn AI chat lên Squarespace trong 10 phút. Tuần đầu, 23 lịch từ khách xem web buổi tối. Đã đóng cửa — vẫn đầy lịch thứ Bảy."</span>
+        </p>
+        <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+          <div class="w-11 h-11 rounded-full flex items-center justify-center font-bold text-white text-sm" style="background: linear-gradient(135deg, #4F46E5, #3730A3);">MD</div>
+          <div>
+            <div class="font-semibold text-gray-900 text-sm">Mai Dang</div>
+            <div class="text-xs text-gray-500"><span class="lang-inline-en">Owner, Bloom Hair Studio · Westminster, CA</span><span class="lang-inline-vi">Chủ, Bloom Hair Studio · Westminster, CA</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section class="pb-16 sm:pb-24">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">
+        <span class="w-8 h-px bg-gray-300"></span>
+        FAQ
+        <span class="w-8 h-px bg-gray-300"></span>
+      </div>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
+        <span class="lang-inline-en">Questions we hear most.</span>
+        <span class="lang-inline-vi">Câu hỏi thường gặp.</span>
+      </h2>
+    </div>
+
+    <div>
+      <div class="faq-item open">
+        <div class="faq-q">
+          <span><span class="lang-inline-en">Can the AI work with my existing booking system?</span><span class="lang-inline-vi">AI có tương thích với hệ thống đặt lịch hiện tại không?</span></span>
+          <svg class="w-5 h-5 faq-chev" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+        <div class="faq-a text-[15px]">
+          <span class="lang-inline-en">Yes. Three integration levels: <strong>(1) SMS + email handoff</strong> — the AI texts and emails you every booking, works with any system including paper. <strong>(2) Shared Google Calendar</strong> — the AI drops bookings straight into a team calendar. <strong>(3) Direct API with Square Appointments</strong> — bookings sync automatically. We pick the level during onboarding based on what you're already running.</span>
+          <span class="lang-inline-vi">Có. Ba cấp độ tích hợp: <strong>(1) SMS + email</strong> — AI gửi tin nhắn và email mỗi lịch hẹn, hợp với mọi hệ thống kể cả sổ giấy. <strong>(2) Google Calendar dùng chung</strong> — AI đưa lịch vào calendar nhóm. <strong>(3) Tích hợp API trực tiếp với Square Appointments</strong> — đồng bộ tự động. Chọn cấp độ khi onboarding theo nhu cầu.</span>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span><span class="lang-inline-en">What's the difference between AI Receptionist and AI Assistant?</span><span class="lang-inline-vi">AI Receptionist và AI Assistant khác gì?</span></span>
+          <svg class="w-5 h-5 faq-chev" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+        <div class="faq-a text-[15px]">
+          <span class="lang-inline-en"><strong>AI Receptionist answers your phone line.</strong> It handles incoming calls, books appointments, and upsells promotions. <strong>AI Assistant answers your website.</strong> It's a chat widget that captures bookings from visitors browsing your site — including after hours. Many salons run both, but start with whichever channel is leaking more bookings. We help you figure out which one to prioritize on the discovery call.</span>
+          <span class="lang-inline-vi"><strong>AI Receptionist nghe điện thoại.</strong> Trả lời cuộc gọi, đặt lịch, upsell. <strong>AI Assistant trả lời trên website.</strong> Chat widget thu lịch từ khách xem web — cả ngoài giờ. Nhiều tiệm dùng cả hai, nhưng bắt đầu với kênh đang rò rỉ nhiều lịch nhất.</span>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span><span class="lang-inline-en">How much does each product cost?</span><span class="lang-inline-vi">Giá mỗi sản phẩm?</span></span>
+          <svg class="w-5 h-5 faq-chev" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+        <div class="faq-a text-[15px]">
+          <span class="lang-inline-en">Pricing is tailored based on your salon size, call/traffic volume, integration level, and language needs. Flat monthly — <strong>no per-call or per-message charges</strong> and no surprise overages. We send a quote within 24 hours of a 15-minute discovery call. Sicus Booking has a free tier to start; standalone AI products are quote-based.</span>
+          <span class="lang-inline-vi">Giá tuỳ theo quy mô tiệm, lượng cuộc gọi/traffic, mức tích hợp, và ngôn ngữ. Phí cố định hàng tháng — <strong>không tính theo cuộc gọi/tin nhắn</strong>. Báo giá trong 24h sau cuộc gọi 15 phút. Sicus Booking có gói miễn phí; AI riêng lẻ theo yêu cầu.</span>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span><span class="lang-inline-en">What do I need to provide for setup?</span><span class="lang-inline-vi">Tôi cần cung cấp gì để cài đặt?</span></span>
+          <svg class="w-5 h-5 faq-chev" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+        <div class="faq-a text-[15px]">
+          <span class="lang-inline-en">Your services list with prices, staff names and specialties, business hours, current promotions, and any FAQs you want the AI to handle. We handle training, phone setup, integration, and bilingual voice options. Standalone setup typically takes 5–7 days; Sicus Booking takes 2–3 weeks; AI Assistant on a website can go live in under 10 minutes after training.</span>
+          <span class="lang-inline-vi">Danh sách dịch vụ + giá, nhân viên + chuyên môn, giờ làm, promo hiện tại, FAQ bạn muốn AI trả lời. Chúng tôi lo đào tạo, số điện thoại, tích hợp, song ngữ. Standalone 5–7 ngày; Sicus Booking 2–3 tuần; AI Assistant dưới 10 phút sau đào tạo.</span>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span><span class="lang-inline-en">What happens if the AI can't answer something?</span><span class="lang-inline-vi">Nếu AI không trả lời được thì sao?</span></span>
+          <svg class="w-5 h-5 faq-chev" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+        <div class="faq-a text-[15px]">
+          <span class="lang-inline-en">Two configurable options: <strong>(1) Take a message</strong> — the AI captures name, number, and question and sends you an SMS/email for follow-up. <strong>(2) Transfer to a real person</strong> — you, a team member, or a fallback number. We recommend option 1 for most small salons because it preserves the "always available" feel while giving you a clean follow-up queue. The AI is honest when it doesn't know something — it won't invent answers.</span>
+          <span class="lang-inline-vi">Hai lựa chọn: <strong>(1) Ghi lại tin nhắn</strong> — AI lấy tên, số, câu hỏi, gửi SMS/email. <strong>(2) Chuyển máy cho người thật</strong> — bạn, nhân viên, hoặc số dự phòng. Chúng tôi khuyên option 1 cho tiệm nhỏ. AI không bịa câu trả lời.</span>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span><span class="lang-inline-en">Can I start standalone and upgrade to the full suite later?</span><span class="lang-inline-vi">Tôi có thể bắt đầu với bản riêng rồi nâng cấp trọn bộ không?</span></span>
+          <svg class="w-5 h-5 faq-chev" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+        <div class="faq-a text-[15px]">
+          <span class="lang-inline-en">Yes — that's how most of our clients grow with us. Start with AI Receptionist or AI Assistant on top of your current booking system. When you're ready to consolidate, we migrate you to Sicus Booking with your AI training, client list, and brand settings preserved. No re-onboarding of the AI.</span>
+          <span class="lang-inline-vi">Có — phần lớn khách hàng phát triển theo cách đó. Bắt đầu với AI Receptionist hoặc AI Assistant trên hệ thống hiện tại. Khi sẵn sàng, chúng tôi chuyển bạn sang Sicus Booking, giữ nguyên đào tạo AI, danh sách khách, và thương hiệu.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-10">
+      <p class="text-sm text-gray-500 mb-4"><span class="lang-inline-en">Still have questions?</span><span class="lang-inline-vi">Vẫn còn câu hỏi?</span></p>
+      <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold px-6 py-3 rounded-full shadow-[0_4px_20px_rgba(140,184,43,0.25)]">
+        <span class="lang-inline-en">Book a Free Strategy Call</span><span class="lang-inline-vi">Đặt lịch tư vấn miễn phí</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FINAL CTA ==================== -->
 <section class="pb-16 sm:pb-20">
   <div class="max-w-4xl mx-auto px-6">
     <div class="relative overflow-hidden rounded-2xl p-8 sm:p-12 text-center" style="background: linear-gradient(135deg, #8CB82B 0%, #6A9A10 100%);">
-      <div class="absolute inset-0 opacity-[0.06]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size: 200px;"></div>
+      <div class="absolute inset-0 opacity-[0.06] noise"></div>
       <div class="relative z-10">
-        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">Not sure which one is right?</h2>
-        <p class="text-white/85 text-base sm:text-lg mb-8 max-w-xl mx-auto">Book a free 30-minute strategy call. We'll look at your current setup and recommend the product — or combination — that actually fits your salon. No pressure, no pitch.</p>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">
+          <span class="lang-inline-en">Not sure which one is right for your salon?</span>
+          <span class="lang-inline-vi">Chưa chắc sản phẩm nào phù hợp?</span>
+        </h2>
+        <p class="text-white/85 text-base sm:text-lg mb-8 max-w-xl mx-auto">
+          <span class="lang-inline-en">Book a free 30-minute strategy call. We'll look at your current setup and recommend the product — or combination — that actually fits. No pressure, no pitch.</span>
+          <span class="lang-inline-vi">Đặt lịch tư vấn miễn phí 30 phút. Chúng tôi xem hệ thống hiện tại và gợi ý sản phẩm phù hợp. Không ép buộc.</span>
+        </p>
         <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-brand-green-dark font-bold text-base sm:text-lg px-8 py-3.5 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_30px_rgba(0,0,0,0.2)]">
-          Book a Free Strategy Call
+          <span class="lang-inline-en">Book a Free Strategy Call</span><span class="lang-inline-vi">Đặt lịch miễn phí</span>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
         </a>
       </div>
@@ -212,12 +873,37 @@
 <!-- @include partials/footer.html -->
 
 <script>
+  // Language toggle
   function toggleLang() {
     var html = document.getElementById('htmlRoot');
     var label = document.getElementById('langLabel');
-    if (html.lang === 'en') { html.lang = 'vi'; label.textContent = 'VI'; }
-    else { html.lang = 'en'; label.textContent = 'EN'; }
+    if (html.lang === 'en') { html.lang = 'vi'; if (label) label.textContent = 'VI'; }
+    else { html.lang = 'en'; if (label) label.textContent = 'EN'; }
   }
+
+  // Suite/Standalone picker
+  (function() {
+    var toggle = document.getElementById('pickerToggle');
+    if (!toggle) return;
+    var buttons = toggle.querySelectorAll('button[data-mode]');
+    var panels = document.querySelectorAll('.picker-panel');
+    buttons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var mode = btn.getAttribute('data-mode');
+        toggle.setAttribute('data-mode', mode);
+        buttons.forEach(function(b) { b.classList.toggle('active', b === btn); });
+        panels.forEach(function(p) { p.classList.toggle('active', p.getAttribute('data-panel') === mode); });
+      });
+    });
+  })();
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(function(q) {
+    q.addEventListener('click', function() {
+      var item = q.parentElement;
+      item.classList.toggle('open');
+    });
+  });
 </script>
 </body>
 </html>
