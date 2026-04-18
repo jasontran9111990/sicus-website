@@ -1,0 +1,1026 @@
+﻿<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<!-- @include partials/head-common.html -->
+  <title>Free Salon Brand Kit — Logo, Website Design &amp; Brand Guide | SICUS Media</title>
+  <meta name="description" content="Free brand kit for salon owners. Get a custom logo concept, website design, and brand guideline — no cost, no strings. Built by a team that only works with salons. North America wide.">
+  <meta name="keywords" content="free salon logo, free salon brand kit, free brand guideline for salons, salon logo design, salon website design, free salon marketing, salon branding, Vietnamese salon branding">
+  <link rel="canonical" href="https://sicusmedia.com/free/salon-brand-kit.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sicusmedia.com/free/salon-brand-kit.html">
+  <meta property="og:title" content="Free Salon Brand Kit — Logo, Website Design &amp; Brand Guide | SICUS Media">
+  <meta property="og:description" content="Logo + website design + brand guideline, free for qualifying salon owners. No catch — we only work with salons.">
+  <meta property="og:image" content="https://sicusmedia.com/brand_assets/topbar.png">
+  <meta property="og:site_name" content="SICUS Media">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Salon Brand Kit — Logo, Website Design &amp; Brand Guide">
+  <meta name="twitter:description" content="Free logo, website, and brand guide for salon owners. Built by salon marketing specialists.">
+  <meta name="twitter:image" content="https://sicusmedia.com/brand_assets/topbar.png">
+
+  <!--
+    =========================================================================
+    BACKEND SPEC FOR DEVELOPERS
+    =========================================================================
+    The form below posts JSON to POST /api/brand-kit-leads.
+    Wire to Neon (Postgres). Suggested schema:
+
+      CREATE TABLE brand_kit_leads (
+        id             bigserial PRIMARY KEY,
+        created_at     timestamptz NOT NULL DEFAULT now(),
+        email          text NOT NULL,
+        full_name      text NOT NULL,
+        salon_name     text NOT NULL,
+        city_state     text NOT NULL,
+        salon_type     text NOT NULL,  -- 'nail' | 'hair' | 'spa' | 'other'
+        lang           text,           -- 'en' | 'vi'
+        source         text,           -- 'hero_form' | 'bottom_form' etc
+        utm_source     text,
+        utm_medium     text,
+        utm_campaign   text,
+        ip             inet,
+        user_agent     text,
+        status         text NOT NULL DEFAULT 'new'  -- 'new' | 'contacted' | 'delivered'
+      );
+      CREATE UNIQUE INDEX brand_kit_leads_email_unique ON brand_kit_leads (lower(email));
+
+    Endpoint contract:
+      POST /api/brand-kit-leads
+      Content-Type: application/json
+      Body: { email, full_name, salon_name, city_state, salon_type, lang, source, utm_* }
+      Response 201: { ok: true, id: 12345 }
+      Response 409: { ok: false, error: 'duplicate_email' }
+      Response 4xx: { ok: false, error: 'validation', fields: {...} }
+
+    After success: redirect to /free/thank-you.html.
+    Also recommend: send notification to info@sicusmedia.com and add email to
+    your ESP (Mailchimp / Brevo / ConvertKit) via their API.
+    =========================================================================
+  -->
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Offer",
+    "name": "Free Salon Brand Kit",
+    "description": "Free logo concept, website design, and brand guideline for qualifying salon owners in North America.",
+    "price": "0",
+    "priceCurrency": "USD",
+    "seller": {
+      "@type": "Organization",
+      "name": "Sicus Media Inc.",
+      "url": "https://sicusmedia.com"
+    },
+    "eligibleCustomerType": "Salon owners (nail, hair, beauty, spa)",
+    "areaServed": [
+      { "@type": "Country", "name": "Canada" },
+      { "@type": "Country", "name": "United States" }
+    ],
+    "url": "https://sicusmedia.com/free/salon-brand-kit.html"
+  }
+  </script>
+
+  <style>
+    * { font-family: 'Be Vietnam Pro', sans-serif; }
+    html { scroll-behavior: smooth; }
+
+    .btn-spring { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease; }
+    .btn-spring:hover { transform: translateY(-2px); }
+    .btn-spring:active { transform: translateY(0) scale(0.98); }
+
+    .lang-en, .lang-vi { display: none; }
+    html[lang="en"] .lang-en { display: initial; }
+    html[lang="vi"] .lang-vi { display: initial; }
+    html[lang="en"] .lang-inline-en { display: inline !important; }
+    html[lang="vi"] .lang-inline-vi { display: inline !important; }
+    html[lang="en"] .lang-inline-vi { display: none !important; }
+    html[lang="vi"] .lang-inline-en { display: none !important; }
+    html[lang="en"] .lang-block-en { display: block !important; }
+    html[lang="vi"] .lang-block-vi { display: block !important; }
+    html[lang="en"] .lang-block-vi { display: none !important; }
+    html[lang="vi"] .lang-block-en { display: none !important; }
+
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .faq-item.open .faq-answer { max-height: 700px; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-chevron { transition: transform 0.3s ease; }
+
+    /* ---------- Hero background ---------- */
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(60% 55% at 20% 0%, rgba(140,184,43,0.16), transparent 60%),
+        radial-gradient(50% 50% at 90% 15%, rgba(79,70,229,0.08), transparent 60%),
+        linear-gradient(180deg, #ffffff 0%, #f7fbee 100%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(140,184,43,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(140,184,43,0.08) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse at 50% 20%, black 30%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 20%, black 30%, transparent 70%);
+    }
+
+    /* ---------- Form card ---------- */
+    .form-card {
+      background: #fff;
+      border: 1px solid rgba(140,184,43,0.25);
+      border-radius: 1.5rem;
+      padding: 1.75rem;
+      box-shadow: 0 30px 60px -20px rgba(60,90,0,0.25), 0 10px 30px -15px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .form-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 1.5rem;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(140,184,43,0.4), transparent 50%, rgba(79,70,229,0.15));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      pointer-events: none;
+    }
+    .form-field label {
+      display: block; font-size: 0.78rem; font-weight: 600;
+      color: #374151; margin-bottom: 0.3rem; letter-spacing: 0.01em;
+    }
+    .form-field input, .form-field select {
+      width: 100%;
+      padding: 0.7rem 0.85rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.6rem;
+      font-size: 0.9rem;
+      color: #111827;
+      background: #fff;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .form-field input:focus, .form-field select:focus {
+      outline: none;
+      border-color: #8CB82B;
+      box-shadow: 0 0 0 3px rgba(140,184,43,0.15);
+    }
+    .form-field input::placeholder { color: #9ca3af; }
+
+    .radio-group { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
+    .radio-option {
+      position: relative;
+      cursor: pointer;
+    }
+    .radio-option input { position: absolute; opacity: 0; pointer-events: none; }
+    .radio-option span {
+      display: block; text-align: center;
+      padding: 0.55rem 0.5rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.55rem;
+      font-size: 0.78rem; font-weight: 600;
+      color: #6b7280;
+      transition: all .2s;
+      user-select: none;
+    }
+    .radio-option:hover span { border-color: #d1d5db; color: #111827; }
+    .radio-option input:checked + span {
+      background: rgba(140,184,43,0.1);
+      border-color: #8CB82B;
+      color: #527D07;
+    }
+
+    /* ---------- Deliverable cards ---------- */
+    .deliverable {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+      transition: transform .4s cubic-bezier(0.34,1.56,0.64,1), box-shadow .3s, border-color .3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .deliverable:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+    .deliverable .glow {
+      position: absolute; top: -50%; right: -30%; width: 120%; height: 120%;
+      pointer-events: none; opacity: 0.4;
+      transition: opacity .3s;
+    }
+    .deliverable:hover .glow { opacity: 0.7; }
+    .deliverable[data-kind="logo"] { border-color: #e5e7eb; }
+    .deliverable[data-kind="logo"]:hover { border-color: rgba(140,184,43,0.45); }
+    .deliverable[data-kind="logo"] .glow { background: radial-gradient(circle, rgba(140,184,43,0.18), transparent 60%); }
+    .deliverable[data-kind="web"]:hover { border-color: rgba(79,70,229,0.4); }
+    .deliverable[data-kind="web"] .glow { background: radial-gradient(circle, rgba(79,70,229,0.12), transparent 60%); }
+    .deliverable[data-kind="guide"]:hover { border-color: rgba(217,119,6,0.4); }
+    .deliverable[data-kind="guide"] .glow { background: radial-gradient(circle, rgba(217,119,6,0.12), transparent 60%); }
+
+    .deliverable-icon {
+      width: 3rem; height: 3rem; border-radius: 0.85rem;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .deliverable[data-kind="logo"] .deliverable-icon { background: rgba(140,184,43,0.12); color: #527D07; }
+    .deliverable[data-kind="web"] .deliverable-icon { background: rgba(79,70,229,0.1); color: #4338CA; }
+    .deliverable[data-kind="guide"] .deliverable-icon { background: rgba(217,119,6,0.12); color: #B45309; }
+    .deliverable-icon svg { width: 1.5rem; height: 1.5rem; }
+
+    /* ---------- Showcase ---------- */
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 0.85rem;
+    }
+    .showcase-item {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: #f9fafb;
+      aspect-ratio: 1/1;
+      transition: transform .5s cubic-bezier(0.34,1.56,0.64,1);
+      border: 1px solid #e5e7eb;
+    }
+    .showcase-item:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+    .showcase-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
+    .showcase-item:hover img { transform: scale(1.06); }
+    .showcase-item::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.55) 100%);
+      pointer-events: none;
+    }
+    .showcase-item .caption {
+      position: absolute; bottom: 0.65rem; left: 0.85rem; right: 0.85rem; z-index: 2;
+      display: flex; justify-content: space-between; align-items: end;
+    }
+    .showcase-item .caption-title {
+      color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: -0.01em;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .showcase-item .caption-tag {
+      font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.8); font-weight: 600;
+    }
+    /* Layout spans */
+    .showcase-item.span-3 { grid-column: span 3; }
+    .showcase-item.span-4 { grid-column: span 4; }
+    .showcase-item.span-5 { grid-column: span 5; aspect-ratio: 5/4; }
+    .showcase-item.span-6 { grid-column: span 6; aspect-ratio: 3/2; }
+    .showcase-item.span-7 { grid-column: span 7; aspect-ratio: 7/5; }
+    .showcase-item.span-8 { grid-column: span 8; aspect-ratio: 8/5; }
+    .showcase-item.span-12 { grid-column: span 12; aspect-ratio: 12/4; }
+
+    @media (max-width: 767px) {
+      .showcase-item.span-3, .showcase-item.span-4, .showcase-item.span-5,
+      .showcase-item.span-6, .showcase-item.span-7, .showcase-item.span-8,
+      .showcase-item.span-12 { grid-column: span 6; aspect-ratio: 1/1; }
+    }
+
+    /* Logo-style placeholders for showcase — each has a unique color so real or placeholder, it looks designed */
+    .logo-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      font-weight: 800; letter-spacing: -0.01em;
+      text-align: center;
+    }
+
+    /* ---------- How it works steps ---------- */
+    .how-step {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      position: relative;
+      transition: transform .3s, border-color .3s;
+    }
+    .how-step:hover { transform: translateY(-3px); border-color: rgba(140,184,43,0.35); }
+    .how-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 2.25rem; height: 2.25rem; border-radius: 999px;
+      background: linear-gradient(135deg, #8CB82B, #6A9A10);
+      color: #fff; font-size: 0.95rem; font-weight: 700;
+      box-shadow: 0 4px 14px rgba(140,184,43,0.3);
+      margin-bottom: 0.9rem;
+    }
+
+    /* ---------- Availability bar ---------- */
+    .availability-bar {
+      background: #fff;
+      border: 1px solid rgba(217,119,6,0.25);
+      border-radius: 1rem;
+      padding: 1rem 1.25rem;
+      display: flex; align-items: center; gap: 0.9rem;
+    }
+    .pulse-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #D97706;
+      box-shadow: 0 0 0 0 rgba(217,119,6,0.5);
+      animation: pulse 2s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(217,119,6,0.5); }
+      70% { box-shadow: 0 0 0 10px rgba(217,119,6,0); }
+      100% { box-shadow: 0 0 0 0 rgba(217,119,6,0); }
+    }
+
+    /* ---------- Reveal animation ---------- */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ---------- CTA band ---------- */
+    .cta-band {
+      position: relative; overflow: hidden;
+      border-radius: 2rem;
+      background: linear-gradient(135deg, #8CB82B 0%, #6A9A10 100%);
+      padding: 3rem 2rem;
+    }
+    .cta-band::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E');
+      background-size: 200px; opacity: 0.08;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900 overflow-x-hidden">
+<!-- @include partials/gtm-noscript.html -->
+<!-- @include partials/nav.html -->
+
+<!-- ==================== HERO + FORM ==================== -->
+<section class="relative pt-28 pb-14 sm:pt-32 sm:pb-20 overflow-hidden">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+
+      <!-- Left: copy -->
+      <div class="lg:col-span-7 lg:pt-6">
+        <div class="inline-flex items-center gap-2 bg-white border border-brand-green/30 rounded-full pl-1.5 pr-4 py-1.5 mb-6 shadow-sm">
+          <span class="bg-brand-green/15 text-brand-green-dark text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">Free</span>
+          <span class="text-sm font-medium text-gray-600">
+            <span class="lang-inline-en">For salon owners only · No credit card</span>
+            <span class="lang-inline-vi">Chỉ dành cho chủ tiệm · Không cần thẻ tín dụng</span>
+          </span>
+        </div>
+
+        <h1 class="font-display text-[40px] sm:text-[52px] lg:text-[64px] font-bold leading-[1.02] tracking-[-0.025em] text-gray-900 mb-5">
+          <span class="lang-inline-en">A free brand kit</span>
+          <span class="lang-inline-vi">Nhận miễn phí</span>
+          <span class="block text-brand-green-dark">
+            <span class="lang-inline-en">for your salon.</span>
+            <span class="lang-inline-vi">bộ nhận diện thương hiệu.</span>
+          </span>
+        </h1>
+
+        <p class="text-lg sm:text-xl text-gray-600 leading-relaxed mb-6 max-w-xl">
+          <span class="lang-inline-en">A custom <strong class="text-gray-900">logo concept</strong>, <strong class="text-gray-900">website design</strong>, and <strong class="text-gray-900">brand guideline</strong> — designed by a team that only works with salons. No cost, no strings.</span>
+          <span class="lang-inline-vi">Một <strong class="text-gray-900">mẫu logo</strong>, <strong class="text-gray-900">thiết kế website</strong>, và <strong class="text-gray-900">brand guideline</strong> — thiết kế bởi đội chỉ làm cho salon. Miễn phí, không ràng buộc.</span>
+        </p>
+
+        <!-- Value chips -->
+        <ul class="space-y-2.5 mb-6">
+          <li class="flex items-start gap-2.5 text-gray-700">
+            <svg class="w-5 h-5 text-brand-green flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <span class="text-[15px]"><span class="lang-inline-en"><strong>Custom logo concept</strong> — crafted around your salon's name, city, and clientele.</span><span class="lang-inline-vi"><strong>Mẫu logo riêng</strong> — thiết kế dựa trên tên tiệm, thành phố và khách hàng của bạn.</span></span></span><span class="lang-inline-vi"><strong>Mẫu logo riêng</strong> — không dùng template, không AI.</span></span>
+          </li>
+          <li class="flex items-start gap-2.5 text-gray-700">
+            <svg class="w-5 h-5 text-brand-green flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <span class="text-[15px]"><span class="lang-inline-en"><strong>Homepage design</strong> mockup — mobile-first, booking-ready.</span><span class="lang-inline-vi"><strong>Mẫu trang chủ</strong> — mobile-first, tích hợp booking.</span></span>
+          </li>
+          <li class="flex items-start gap-2.5 text-gray-700">
+            <svg class="w-5 h-5 text-brand-green flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <span class="text-[15px]"><span class="lang-inline-en"><strong>Brand guide PDF</strong> — colors, typography, voice, do's &amp; don'ts.</span><span class="lang-inline-vi"><strong>Brand guide PDF</strong> — màu sắc, typography, tone, dos &amp; don'ts.</span></span>
+          </li>
+          <li class="flex items-start gap-2.5 text-gray-700">
+            <svg class="w-5 h-5 text-brand-green flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <span class="text-[15px]"><span class="lang-inline-en"><strong>Delivered in ~7 days.</strong> We review &amp; reply within 24 hours.</span><span class="lang-inline-vi"><strong>Hoàn thành trong ~7 ngày.</strong> Chúng tôi phản hồi trong 24 giờ.</span></span>
+          </li>
+        </ul>
+
+        <!-- Availability -->
+        <div class="availability-bar">
+          <div class="pulse-dot"></div>
+          <div class="text-sm text-gray-700 leading-snug">
+            <strong class="text-gray-900">
+              <span class="lang-inline-en">5 free brand kits per month.</span>
+              <span class="lang-inline-vi">5 brand kit miễn phí mỗi tháng.</span>
+            </strong>
+            <span class="text-gray-500">
+              <span class="lang-inline-en"> We review every application to keep quality high.</span>
+              <span class="lang-inline-vi"> Chúng tôi xét duyệt từng đơn để giữ chất lượng.</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div class="lg:col-span-5">
+        <div class="form-card reveal">
+          <div class="mb-5">
+            <h2 class="text-xl font-bold text-gray-900 mb-1.5">
+              <span class="lang-inline-en">Claim your free brand kit</span>
+              <span class="lang-inline-vi">Nhận brand kit miễn phí</span>
+            </h2>
+          </div>
+
+          <form id="brandKitForm" novalidate class="space-y-3.5">
+            <input type="hidden" name="source" value="hero_form">
+            <input type="hidden" name="lang" id="formLang" value="en">
+
+            <div class="form-field">
+              <label for="fk_name">
+                <span class="lang-inline-en">Your name</span>
+                <span class="lang-inline-vi">Tên của bạn</span>
+              </label>
+              <input id="fk_name" name="full_name" type="text" required autocomplete="name" placeholder="">
+            </div>
+
+            <div class="form-field">
+              <label for="fk_email">
+                <span class="lang-inline-en">Email</span>
+                <span class="lang-inline-vi">Email</span>
+              </label>
+              <input id="fk_email" name="email" type="email" required autocomplete="email" placeholder="you@salon.com">
+            </div>
+
+            <div class="form-field">
+              <label for="fk_salon">
+                <span class="lang-inline-en">Salon name</span>
+                <span class="lang-inline-vi">Tên tiệm</span>
+              </label>
+              <input id="fk_salon" name="salon_name" type="text" required placeholder="">
+            </div>
+
+            <div class="form-field">
+              <label for="fk_city">
+                <span class="lang-inline-en">City &amp; state/province</span>
+                <span class="lang-inline-vi">Thành phố &amp; tỉnh/bang</span>
+              </label>
+              <input id="fk_city" name="city_state" type="text" required placeholder="Calgary, AB">
+            </div>
+
+            <div class="form-field">
+              <label>
+                <span class="lang-inline-en">Salon type</span>
+                <span class="lang-inline-vi">Loại hình tiệm</span>
+              </label>
+              <div class="radio-group">
+                <label class="radio-option"><input type="radio" name="salon_type" value="nail" required><span>Nail</span></label>
+                <label class="radio-option"><input type="radio" name="salon_type" value="hair"><span>Hair</span></label>
+                <label class="radio-option"><input type="radio" name="salon_type" value="spa"><span>Spa</span></label>
+                <label class="radio-option"><input type="radio" name="salon_type" value="other"><span><span class="lang-inline-en">Other</span><span class="lang-inline-vi">Khác</span></span></label>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-spring w-full inline-flex items-center justify-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-bold text-base px-6 py-3.5 rounded-full shadow-[0_4px_20px_rgba(140,184,43,0.3)] hover:shadow-[0_6px_30px_rgba(140,184,43,0.45)] mt-2">
+              <span class="lang-inline-en">Get my free brand kit</span>
+              <span class="lang-inline-vi">Nhận brand kit miễn phí</span>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </button>
+
+            <!-- Status messages -->
+            <div id="fkError" class="hidden text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-2.5"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== WHAT YOU GET ==================== -->
+<section class="pt-10 sm:pt-16 pb-16 sm:pb-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-10">
+      <p class="text-xs uppercase tracking-[0.2em] text-brand-green-dark font-semibold mb-2">
+        <span class="lang-inline-en">What you get</span>
+        <span class="lang-inline-vi">Bạn nhận được gì</span>
+      </p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
+        <span class="lang-inline-en">Three deliverables. One job: make your salon look the part.</span>
+        <span class="lang-inline-vi">Ba sản phẩm. Một mục tiêu: giúp tiệm của bạn trông chuyên nghiệp.</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+      <!-- Logo -->
+      <div class="deliverable reveal" data-kind="logo">
+        <div class="glow"></div>
+        <div class="relative z-10">
+          <div class="deliverable-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
+          </div>
+          <div class="inline-block text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full mb-2">01</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">
+            <span class="lang-inline-en">Custom logo concept</span>
+            <span class="lang-inline-vi">Mẫu logo riêng</span>
+          </h3>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            <span class="lang-inline-en">A unique mark designed around your salon's name, city, and clientele. Delivered as PNG, SVG, and with a mono/light/dark variant set.</span>
+            <span class="lang-inline-vi">Logo thiết kế riêng dựa trên tên tiệm, thành phố và khách hàng. Giao PNG, SVG, kèm bản mono/sáng/tối.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Website -->
+      <div class="deliverable reveal" data-kind="web">
+        <div class="glow"></div>
+        <div class="relative z-10">
+          <div class="deliverable-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"/></svg>
+          </div>
+          <div class="inline-block text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full mb-2">02</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">
+            <span class="lang-inline-en">Website design mockup</span>
+            <span class="lang-inline-vi">Mẫu thiết kế website</span>
+          </h3>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            <span class="lang-inline-en">A homepage mockup showing hero, services, gallery, and booking — mobile and desktop. Figma file included so your designer (or ours) can build it.</span>
+            <span class="lang-inline-vi">Thiết kế trang chủ: hero, dịch vụ, gallery, booking — mobile &amp; desktop. Kèm file Figma để dev/designer build.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Brand guide -->
+      <div class="deliverable reveal" data-kind="guide">
+        <div class="glow"></div>
+        <div class="relative z-10">
+          <div class="deliverable-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+          </div>
+          <div class="inline-block text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full mb-2">03</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">
+            <span class="lang-inline-en">Brand guideline PDF</span>
+            <span class="lang-inline-vi">Brand guideline PDF</span>
+          </h3>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            <span class="lang-inline-en">Your complete style bible: color palette, typography, voice &amp; tone, logo usage rules, social templates, and do's &amp; don'ts. Print and share with your team.</span>
+            <span class="lang-inline-vi">Sổ tay thương hiệu đầy đủ: màu sắc, typography, voice &amp; tone, quy tắc logo, template social, dos &amp; don'ts. In và chia sẻ với nhân viên.</span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SHOWCASE ==================== -->
+<section class="pb-16 sm:pb-20 bg-gradient-to-b from-white via-[#fafffb] to-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-10">
+      <p class="text-xs uppercase tracking-[0.2em] text-brand-green-dark font-semibold mb-2">
+        <span class="lang-inline-en">Past work</span>
+        <span class="lang-inline-vi">Sản phẩm đã làm</span>
+      </p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 tracking-tight">
+        <span class="lang-inline-en">Brands we've built for salons like yours.</span>
+        <span class="lang-inline-vi">Thương hiệu chúng tôi đã xây cho các salon.</span>
+      </h2>
+      <p class="text-base sm:text-lg text-gray-500 max-w-2xl mx-auto">
+        <span class="lang-inline-en">Every brand is tailored to the salon's owner, clientele, and market. No templates, no repeats.</span>
+        <span class="lang-inline-vi">Mỗi thương hiệu phù hợp với chủ tiệm, khách hàng và thị trường. Không template, không lặp.</span>
+      </p>
+    </div>
+
+    <!-- 9-item asymmetric grid. Each uses a styled logo placeholder; replace with real <img> later. -->
+    <div class="showcase-grid reveal">
+
+      <!-- 1 -->
+      <div class="showcase-item span-5">
+        <div class="logo-placeholder" style="background: linear-gradient(135deg, #0B1220 0%, #1f2a4b 100%); color: #F5E6C8;">
+          <div>
+            <div style="font-family: 'Be Vietnam Pro', serif; font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 800; letter-spacing: -0.04em;">Lotus &amp; Co.</div>
+            <div style="font-size: 0.7rem; font-weight: 500; letter-spacing: 0.35em; text-transform: uppercase; opacity: 0.7; margin-top: 0.3rem;">NAIL · HOUSTON</div>
+          </div>
+        </div>
+        <div class="caption">
+          <div>
+            <div class="caption-tag">01 · Nail</div>
+            <div class="caption-title">Lotus &amp; Co.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="showcase-item span-4">
+        <div class="logo-placeholder" style="background: linear-gradient(135deg, #F5E6DC 0%, #E8C9B4 100%); color: #6B3F2A;">
+          <div>
+            <div style="font-family: 'Be Vietnam Pro', serif; font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 800; letter-spacing: -0.03em; font-style: italic;">maison clé</div>
+            <div style="width: 40px; height: 2px; background: #6B3F2A; margin: 0.5rem auto;"></div>
+            <div style="font-size: 0.62rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;">HAIR STUDIO</div>
+          </div>
+        </div>
+        <div class="caption">
+          <div>
+            <div class="caption-tag">02 · Hair</div>
+            <div class="caption-title">Maison Clé</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="showcase-item span-3">
+        <div class="logo-placeholder" style="background: linear-gradient(180deg, #A8C49A 0%, #7DA86F 100%); color: #fff;">
+          <div>
+            <div style="font-size: clamp(1.4rem, 2vw, 1.9rem); font-weight: 800; letter-spacing: -0.02em;">SAGE</div>
+            <div style="font-size: 0.58rem; font-weight: 600; letter-spacing: 0.35em; margin-top: 0.3rem;">SPA · WELLNESS</div>
+          </div>
+        </div>
+        <div class="caption">
+          <div>
+            <div class="caption-tag">03 · Spa</div>
+            <div class="caption-title">Sage</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="showcase-item span-3">
+        <div class="logo-placeholder" style="background: #111; color: #D4AF37;">
+          <div>
+            <div style="font-size: clamp(1.6rem, 2.2vw, 2rem); font-weight: 900; letter-spacing: -0.03em;">BLVD.</div>
+            <div style="font-size: 0.6rem; font-weight: 500; letter-spacing: 0.3em; margin-top: 0.3rem; opacity: 0.8;">MEN'S GROOMING</div>
+          </div>
+        </div>
+        <div class="caption">
+          <div>
+            <div class="caption-tag">04 · Barber</div>
+            <div class="caption-title">Boulevard</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="showcase-item span-4">
+        <div class="logo-placeholder" style="background: linear-gradient(135deg, #FFE0E9 0%, #FFB8CF 100%); color: #8B1C4A;">
+          <div>
+            <div style="font-family: 'Be Vietnam Pro', cursive; font-size: clamp(1.7rem, 2.6vw, 2.4rem); font-weight: 700; letter-spacing: -0.02em; font-style: italic;">Bloom</div>
+            <div style="font-size: 0.65rem; font-weight: 600; letter-spacing: 0.3em; margin-top: 0.3rem;">NAIL BOUTIQUE</div>
+          </div>
+        </div>
+        <div class="caption">
+          <div>
+            <div class="caption-tag">05 · Nail</div>
+            <div class="caption-title">Bloom</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="showcase-item span-5">
+        <div class="logo-placeholder" style="background: linear-gradient(135deg, #2E4A3E 0%, #476B5A 100%); color: #E8DFC6;">
+          <div>
+            <div style="font-size: clamp(1.8rem, 2.7vw, 2.4rem); font-weight: 800; letter-spacing: 0.02em;">THE CURATED</div>
+            <div style="font-size: 0.85rem; font-weight: 400; letter-spacing: 0.02em; font-style: italic; margin-top: 0.1rem; opacity: 0.8;">hair · beauty · calm</div>
+          </div>
+        </div>
+        <div class="caption">
+          <div>
+            <div class="caption-tag">06 · Full service</div>
+            <div class="caption-title">The Curated</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="showcase-item span-4">
+        <div class="logo-placeholder" style="background: #F7F3EC; color: #1a1a1a;">
+          <div>
+            <div style="font-size: clamp(1.4rem, 2vw, 1.9rem); font-weight: 900; letter-spacing: -0.04em; line-height: 0.95;">ANH<br>ANH</div>
+            <div style="font-size: 0.6rem; font-weight: 600; letter-spacing: 0.4em; margin-top: 0.5rem; color: #8CB82B;">NAIL BAR</div>
+          </div>
+        </div>
+        <div class="caption">
+          <div>
+            <div class="caption-tag">07 · Nail</div>
+            <div class="caption-title">Anh Anh</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="showcase-item span-4">
+        <div class="logo-placeholder" style="background: linear-gradient(135deg, #3B2A5A 0%, #6B47B8 100%); color: #FFE3F0;">
+          <div>
+            <div style="font-size: clamp(1.6rem, 2.2vw, 2.1rem); font-weight: 800; letter-spacing: -0.02em;">Vera</div>
+            <div style="font-size: 0.65rem; font-weight: 500; letter-spacing: 0.3em; margin-top: 0.3rem; opacity: 0.85;">LASH &amp; BROW</div>
+          </div>
+        </div>
+        <div class="caption">
+          <div>
+            <div class="caption-tag">08 · Lash</div>
+            <div class="caption-title">Vera</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="showcase-item span-4">
+        <div class="logo-placeholder" style="background: linear-gradient(135deg, #FFF5E4 0%, #FFD89C 100%); color: #7A4A00;">
+          <div>
+            <div style="font-family: 'Be Vietnam Pro', sans-serif; font-size: clamp(1.5rem, 2.1vw, 2rem); font-weight: 800; letter-spacing: -0.02em;">Soleil</div>
+            <div style="width: 30px; height: 30px; border-radius: 50%; background: #7A4A00; margin: 0.4rem auto; opacity: 0.15;"></div>
+            <div style="font-size: 0.6rem; font-weight: 600; letter-spacing: 0.35em;">SUN-KISSED SPA</div>
+          </div>
+        </div>
+        <div class="caption">
+          <div>
+            <div class="caption-tag">09 · Spa</div>
+            <div class="caption-title">Soleil</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="text-center text-xs text-gray-400 mt-6 italic">
+      <span class="lang-inline-en">*Placeholder designs — real brand kits are delivered as complete logo suites + website mockups + style guides.</span>
+      <span class="lang-inline-vi">*Mẫu placeholder — brand kit thật gồm logo suite + mẫu website + style guide đầy đủ.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ==================== HOW IT WORKS ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-10">
+      <p class="text-xs uppercase tracking-[0.2em] text-brand-green-dark font-semibold mb-2">
+        <span class="lang-inline-en">How it works</span>
+        <span class="lang-inline-vi">Quy trình</span>
+      </p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
+        <span class="lang-inline-en">From form to finished kit — about a week.</span>
+        <span class="lang-inline-vi">Từ đăng ký đến hoàn thành — khoảng một tuần.</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="how-step reveal">
+        <div class="how-num">1</div>
+        <h3 class="text-base font-bold text-gray-900 mb-1.5">
+          <span class="lang-inline-en">You apply</span>
+          <span class="lang-inline-vi">Bạn đăng ký</span>
+        </h3>
+        <p class="text-sm text-gray-500 leading-relaxed">
+          <span class="lang-inline-en">Fill the short form above — takes ~2 min.</span>
+          <span class="lang-inline-vi">Điền form phía trên — khoảng 2 phút.</span>
+        </p>
+      </div>
+
+      <div class="how-step reveal">
+        <div class="how-num">2</div>
+        <h3 class="text-base font-bold text-gray-900 mb-1.5">
+          <span class="lang-inline-en">We review (24h)</span>
+          <span class="lang-inline-vi">Chúng tôi duyệt (24h)</span>
+        </h3>
+        <p class="text-sm text-gray-500 leading-relaxed">
+          <span class="lang-inline-en">We confirm you qualify and ask 3–5 follow-up questions.</span>
+          <span class="lang-inline-vi">Xác nhận đủ điều kiện và hỏi thêm 3–5 câu.</span>
+        </p>
+      </div>
+
+      <div class="how-step reveal">
+        <div class="how-num">3</div>
+        <h3 class="text-base font-bold text-gray-900 mb-1.5">
+          <span class="lang-inline-en">We design (5–7 days)</span>
+          <span class="lang-inline-vi">Chúng tôi thiết kế (5–7 ngày)</span>
+        </h3>
+        <p class="text-sm text-gray-500 leading-relaxed">
+          <span class="lang-inline-en">Logo, website mock, brand guide — all three, tailored to your salon.</span>
+          <span class="lang-inline-vi">Logo, mẫu web, brand guide — cả ba, tuỳ chỉnh theo tiệm.</span>
+        </p>
+      </div>
+
+      <div class="how-step reveal">
+        <div class="how-num">4</div>
+        <h3 class="text-base font-bold text-gray-900 mb-1.5">
+          <span class="lang-inline-en">You get the kit</span>
+          <span class="lang-inline-vi">Bạn nhận brand kit</span>
+        </h3>
+        <p class="text-sm text-gray-500 leading-relaxed">
+          <span class="lang-inline-en">Delivered as a Dropbox folder. Keep it forever — it's yours.</span>
+          <span class="lang-inline-vi">Giao qua Dropbox. Giữ mãi — của bạn.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-8 tracking-tight">
+      <span class="lang-inline-en">Common questions</span>
+      <span class="lang-inline-vi">Câu hỏi thường gặp</span>
+    </h2>
+    <div class="space-y-3">
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4"><span class="lang-inline-en">Is this really free? What's the catch?</span><span class="lang-inline-vi">Có thật sự miễn phí? Có catch gì không?</span></span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+              <span class="lang-inline-en">Yes, really free. The catch: we only give it to salons we might want to work with long-term. If you love the kit, hopefully you'll come to us for marketing or a full website. If not, you still keep the brand kit. No obligation, no bait-and-switch.</span>
+              <span class="lang-inline-vi">Có, miễn phí thật. Catch duy nhất: chúng tôi chỉ làm cho những tiệm mà chúng tôi muốn hợp tác lâu dài. Nếu ưng, hy vọng bạn quay lại cho marketing hoặc web. Nếu không, bạn vẫn giữ brand kit. Không ràng buộc.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4"><span class="lang-inline-en">Who qualifies?</span><span class="lang-inline-vi">Ai đủ điều kiện?</span></span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+              <span class="lang-inline-en">Existing or about-to-open salon owners in Canada or the U.S. We prioritize nail, hair, and spa businesses. We do <strong>not</strong> do kits for individual freelancers or non-salon businesses.</span>
+              <span class="lang-inline-vi">Chủ tiệm đang hoạt động hoặc sắp mở tại Canada hoặc Mỹ. Ưu tiên tiệm nail, tóc, spa. <strong>Không</strong> làm cho freelancer cá nhân hay doanh nghiệp ngoài ngành salon.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4"><span class="lang-inline-en">Do I own the rights?</span><span class="lang-inline-vi">Tôi có quyền sở hữu không?</span></span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+              <span class="lang-inline-en">Yes — once delivered, the logo, website mockup, and brand guide are yours to use freely. Full usage rights. We just ask that we can showcase it in our portfolio.</span>
+              <span class="lang-inline-vi">Có — sau khi bàn giao, logo, mẫu web và brand guide là của bạn, dùng tự do. Toàn quyền. Chỉ xin phép được trưng bày trong portfolio.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4"><span class="lang-inline-en">What if I already have a logo?</span><span class="lang-inline-vi">Nếu đã có logo rồi?</span></span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+              <span class="lang-inline-en">Still welcome to apply. We can either modernize your existing logo or build a complete brand system around it (colors, typography, website, guide). Just mention it in the follow-up email.</span>
+              <span class="lang-inline-vi">Vẫn đăng ký được. Chúng tôi có thể làm mới logo cũ hoặc xây brand system quanh nó (màu, font, web, guide). Chỉ cần nói trong email.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-surface-50 transition-colors duration-200">
+          <span class="font-semibold text-gray-900 pr-4"><span class="lang-inline-en">How many revisions do I get?</span><span class="lang-inline-vi">Được sửa bao nhiêu lần?</span></span>
+          <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer px-6">
+          <div class="pb-5">
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+              <span class="lang-inline-en">One round of small revisions on the free kit. If you want more rounds or a full production website/brand rollout, we offer that as paid work — quoted separately.</span>
+              <span class="lang-inline-vi">Một vòng sửa nhỏ trên brand kit miễn phí. Nếu muốn sửa thêm hoặc triển khai website/brand đầy đủ, có dịch vụ trả phí — báo giá riêng.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FINAL CTA ==================== -->
+<section class="pb-16 sm:pb-20">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="cta-band">
+      <div class="relative z-10 text-center max-w-2xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-3 tracking-tight">
+          <span class="lang-inline-en">Ready for a brand your salon deserves?</span>
+          <span class="lang-inline-vi">Sẵn sàng cho thương hiệu xứng đáng?</span>
+        </h2>
+        <p class="text-white/90 text-base sm:text-lg mb-7 max-w-xl mx-auto">
+          <span class="lang-inline-en">Claim one of this month's 5 free kits. Takes 2 minutes.</span>
+          <span class="lang-inline-vi">Nhận 1 trong 5 slot miễn phí tháng này. Mất 2 phút.</span>
+        </p>
+        <a href="#brandKitForm" onclick="document.getElementById('fk_name').focus()" class="btn-spring inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-brand-green-dark font-bold text-base sm:text-lg px-8 py-3.5 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_30px_rgba(0,0,0,0.2)]">
+          <span class="lang-inline-en">Apply now — it's free</span>
+          <span class="lang-inline-vi">Đăng ký ngay — miễn phí</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- @include partials/footer.html -->
+
+<script>
+  function toggleLang() {
+    var html = document.getElementById('htmlRoot');
+    var label = document.getElementById('langLabel');
+    var formLang = document.getElementById('formLang');
+    if (html.lang === 'en') { html.lang = 'vi'; label.textContent = 'VI'; if (formLang) formLang.value = 'vi'; }
+    else { html.lang = 'en'; label.textContent = 'EN'; if (formLang) formLang.value = 'en'; }
+  }
+
+  function toggleFaq(btn) {
+    var item = btn.closest('.faq-item');
+    var wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  // Reveal on scroll
+  (function() {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  })();
+
+  // Capture UTM params into hidden fields (devs: add these hidden inputs if you want UTM tracking)
+  function getParam(name) {
+    return new URLSearchParams(window.location.search).get(name) || '';
+  }
+
+  // Form submission
+  document.getElementById('brandKitForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var form = e.target;
+    var err = document.getElementById('fkError');
+    err.classList.add('hidden');
+    err.textContent = '';
+
+    var data = Object.fromEntries(new FormData(form).entries());
+    data.utm_source = getParam('utm_source');
+    data.utm_medium = getParam('utm_medium');
+    data.utm_campaign = getParam('utm_campaign');
+    data.lang = document.getElementById('htmlRoot').lang || 'en';
+
+    // Basic validation
+    if (!data.email || !/^\S+@\S+\.\S+$/.test(data.email)) {
+      err.textContent = (data.lang === 'vi') ? 'Email không hợp lệ.' : 'Please enter a valid email.';
+      err.classList.remove('hidden'); return;
+    }
+    if (!data.full_name || !data.salon_name || !data.city_state || !data.salon_type) {
+      err.textContent = (data.lang === 'vi') ? 'Vui lòng điền đầy đủ các trường.' : 'Please complete all fields.';
+      err.classList.remove('hidden'); return;
+    }
+
+    var btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    var origHTML = btn.innerHTML;
+    btn.innerHTML = (data.lang === 'vi') ? 'Đang gửi…' : 'Submitting…';
+
+    try {
+      var res = await fetch('/api/brand-kit-leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) {
+        var body = await res.json().catch(function(){ return {}; });
+        if (body.error === 'duplicate_email') {
+          err.textContent = (data.lang === 'vi') ? 'Email này đã đăng ký. Chúng tôi sẽ liên hệ sớm.' : 'This email is already on our list. We\'ll be in touch!';
+        } else {
+          err.textContent = (data.lang === 'vi') ? 'Lỗi kết nối. Vui lòng thử lại.' : 'Something went wrong. Please try again.';
+        }
+        err.classList.remove('hidden');
+        btn.disabled = false; btn.innerHTML = origHTML;
+        return;
+      }
+      // Success
+      window.location.href = '/free/thank-you.html';
+    } catch (ex) {
+      err.textContent = (data.lang === 'vi') ? 'Lỗi mạng. Vui lòng thử lại.' : 'Network error. Please try again.';
+      err.classList.remove('hidden');
+      btn.disabled = false; btn.innerHTML = origHTML;
+    }
+  });
+</script>
+
+<!-- ============ PREVIEW-ONLY (remove after deploy — production uses head-common partial) ============ -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  if (window.tailwind) tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'brand-green': '#8CB82B',
+          'brand-green-dark': '#6A9A10',
+          'surface-50': '#fafafa'
+        },
+        fontFamily: { 'display': ['Be Vietnam Pro', 'sans-serif'] }
+      }
+    }
+  };
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</body>
+</html>

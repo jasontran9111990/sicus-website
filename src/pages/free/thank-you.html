@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<!-- @include partials/head-common.html -->
+  <title>Thank you — Your brand kit application is in | SICUS Media</title>
+  <meta name="description" content="Your free salon brand kit application has been received. We'll be in touch within 24 hours.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://sicusmedia.com/free/thank-you.html">
+
+  <style>
+    * { font-family: 'Be Vietnam Pro', sans-serif; }
+    html { scroll-behavior: smooth; }
+
+    .lang-inline-en, .lang-inline-vi { display: none; }
+    html[lang="en"] .lang-inline-en { display: inline !important; }
+    html[lang="vi"] .lang-inline-vi { display: inline !important; }
+
+    .btn-spring { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease; }
+    .btn-spring:hover { transform: translateY(-2px); }
+
+    .check-wrap {
+      position: relative;
+      width: 96px; height: 96px;
+      margin: 0 auto;
+    }
+    .check-bg {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8CB82B, #6A9A10);
+      box-shadow: 0 18px 40px rgba(140,184,43,0.35);
+      animation: popIn 0.55s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    .check-ring {
+      position: absolute; inset: -8px;
+      border-radius: 50%;
+      border: 2px solid rgba(140,184,43,0.35);
+      animation: pulseRing 2s ease-out infinite;
+    }
+    .check-mark {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+    }
+    .check-mark svg {
+      width: 50px; height: 50px;
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      animation: drawCheck 0.7s ease-out 0.3s forwards;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.3); opacity: 0; }
+      80% { transform: scale(1.08); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes pulseRing {
+      0% { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+
+    .timeline-step {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1rem 0;
+      position: relative;
+    }
+    .timeline-step:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 1.125rem; top: 2.65rem; bottom: -0.15rem;
+      width: 2px;
+      background: linear-gradient(180deg, rgba(140,184,43,0.35), rgba(140,184,43,0.1));
+    }
+    .timeline-num {
+      width: 2.25rem; height: 2.25rem;
+      border-radius: 999px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem;
+    }
+    .timeline-step.active .timeline-num {
+      background: linear-gradient(135deg, #8CB82B, #6A9A10);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(140,184,43,0.3);
+    }
+    .timeline-step.pending .timeline-num {
+      background: #f3f4f6;
+      color: #9ca3af;
+    }
+
+    .reveal { opacity: 0; transform: translateY(14px); animation: revealUp 0.7s ease 0.15s forwards; }
+    @keyframes revealUp { to { opacity: 1; transform: none; } }
+
+    .reveal-2 { animation-delay: 0.3s; }
+    .reveal-3 { animation-delay: 0.45s; }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-white to-[#f7fbee] text-gray-900 min-h-screen">
+<!-- @include partials/gtm-noscript.html -->
+<!-- @include partials/nav.html -->
+
+<section class="relative pt-28 pb-20 sm:pt-36 sm:pb-24">
+  <!-- Ambient background -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-brand-green/10 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="relative z-10 max-w-2xl mx-auto px-6 text-center">
+
+    <!-- Animated check -->
+    <div class="check-wrap mb-7">
+      <div class="check-ring"></div>
+      <div class="check-bg"></div>
+      <div class="check-mark">
+        <svg fill="none" stroke="currentColor" stroke-width="4" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+      </div>
+    </div>
+
+    <h1 class="reveal font-display text-4xl sm:text-5xl font-bold tracking-[-0.025em] text-gray-900 mb-4">
+      <span class="lang-inline-en">You're on the list.</span>
+      <span class="lang-inline-vi">Bạn đã đăng ký thành công.</span>
+    </h1>
+
+    <p class="reveal reveal-2 text-lg sm:text-xl text-gray-600 leading-relaxed mb-10 max-w-xl mx-auto">
+      <span class="lang-inline-en">We've received your brand kit application. A human on our team will review it and reply within <strong class="text-gray-900">24 hours</strong>.</span>
+      <span class="lang-inline-vi">Chúng tôi đã nhận đơn đăng ký brand kit của bạn. Một người trong đội sẽ xét duyệt và phản hồi trong <strong class="text-gray-900">24 giờ</strong>.</span>
+    </p>
+
+    <!-- What happens next timeline -->
+    <div class="reveal reveal-3 bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 text-left shadow-sm mb-10">
+      <div class="text-xs uppercase tracking-[0.2em] text-brand-green-dark font-semibold mb-3 text-center">
+        <span class="lang-inline-en">What happens next</span>
+        <span class="lang-inline-vi">Các bước tiếp theo</span>
+      </div>
+
+      <div class="timeline-step active">
+        <div class="timeline-num">✓</div>
+        <div>
+          <div class="font-semibold text-gray-900 text-[15px]">
+            <span class="lang-inline-en">Application received</span>
+            <span class="lang-inline-vi">Đã nhận đơn đăng ký</span>
+          </div>
+          <div class="text-sm text-gray-500 mt-0.5">
+            <span class="lang-inline-en">Just now. Check your inbox for a confirmation email.</span>
+            <span class="lang-inline-vi">Vừa xong. Kiểm tra email xác nhận.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-step pending">
+        <div class="timeline-num">2</div>
+        <div>
+          <div class="font-semibold text-gray-900 text-[15px]">
+            <span class="lang-inline-en">We review &amp; reply</span>
+            <span class="lang-inline-vi">Chúng tôi xét duyệt &amp; phản hồi</span>
+          </div>
+          <div class="text-sm text-gray-500 mt-0.5">
+            <span class="lang-inline-en">Within 24 hours. We'll confirm you qualify and ask 3–5 follow-up questions to tailor the work.</span>
+            <span class="lang-inline-vi">Trong 24 giờ. Xác nhận đủ điều kiện và hỏi 3–5 câu để tùy chỉnh thiết kế.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-step pending">
+        <div class="timeline-num">3</div>
+        <div>
+          <div class="font-semibold text-gray-900 text-[15px]">
+            <span class="lang-inline-en">We design</span>
+            <span class="lang-inline-vi">Chúng tôi thiết kế</span>
+          </div>
+          <div class="text-sm text-gray-500 mt-0.5">
+            <span class="lang-inline-en">5–7 days to build your logo, website mockup, and brand guide.</span>
+            <span class="lang-inline-vi">5–7 ngày để hoàn thành logo, mẫu web, và brand guide.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-step pending">
+        <div class="timeline-num">4</div>
+        <div>
+          <div class="font-semibold text-gray-900 text-[15px]">
+            <span class="lang-inline-en">You get your kit</span>
+            <span class="lang-inline-vi">Bạn nhận brand kit</span>
+          </div>
+          <div class="text-sm text-gray-500 mt-0.5">
+            <span class="lang-inline-en">Delivered as a Dropbox folder. Yours to keep.</span>
+            <span class="lang-inline-vi">Giao qua Dropbox. Của bạn, giữ mãi.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- While you wait -->
+    <div class="mb-10">
+      <p class="text-sm uppercase tracking-[0.2em] text-gray-400 font-semibold mb-4">
+        <span class="lang-inline-en">While you wait</span>
+        <span class="lang-inline-vi">Trong lúc chờ</span>
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <a href="/services/digital-marketing.html" class="btn-spring group bg-white border border-gray-200 hover:border-brand-green/50 rounded-xl p-5 text-left transition-colors">
+          <div class="text-sm font-bold text-gray-900 mb-1 flex items-center gap-2">
+            <span class="lang-inline-en">See our marketing services</span>
+            <span class="lang-inline-vi">Xem dịch vụ marketing</span>
+            <svg class="w-4 h-4 text-brand-green-dark opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </div>
+          <p class="text-xs text-gray-500 leading-relaxed">
+            <span class="lang-inline-en">SEO, social, ads, content — one salon-specialized team.</span>
+            <span class="lang-inline-vi">SEO, social, ads, content — đội chuyên ngành salon.</span>
+          </p>
+        </a>
+        <a href="/" class="btn-spring group bg-white border border-gray-200 hover:border-brand-green/50 rounded-xl p-5 text-left transition-colors">
+          <div class="text-sm font-bold text-gray-900 mb-1 flex items-center gap-2">
+            <span class="lang-inline-en">Explore Sicus Booking</span>
+            <span class="lang-inline-vi">Khám phá Sicus Booking</span>
+            <svg class="w-4 h-4 text-brand-green-dark opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </div>
+          <p class="text-xs text-gray-500 leading-relaxed">
+            <span class="lang-inline-en">The all-in-one AI salon platform: booking, reception, SMS.</span>
+            <span class="lang-inline-vi">Nền tảng AI cho salon: booking, reception, SMS.</span>
+          </p>
+        </a>
+      </div>
+    </div>
+
+    <!-- Small print -->
+    <p class="text-xs text-gray-400">
+      <span class="lang-inline-en">Didn't get a confirmation email? Check spam or email <a href="/cdn-cgi/l/email-protection#a8c1c6cec7e8dbc1cbdddbc5cdccc1c986cbc7c5" class="text-brand-green-dark font-semibold hover:underline"><span class="__cf_email__" data-cfemail="0e676068614e7d676d7b7d636b6a676f206d6163">[email&#160;protected]</span></a>.</span>
+      <span class="lang-inline-vi">Không thấy email xác nhận? Kiểm tra spam hoặc email <a href="/cdn-cgi/l/email-protection#9ff6f1f9f0dfecf6fceaecf2fafbf6feb1fcf0f2" class="text-brand-green-dark font-semibold hover:underline"><span class="__cf_email__" data-cfemail="721b1c141d32011b1107011f17161b135c111d1f">[email&#160;protected]</span></a>.</span>
+    </p>
+
+  </div>
+</section>
+
+<!-- @include partials/footer.html -->
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script><script>
+  function toggleLang() {
+    var html = document.getElementById('htmlRoot');
+    var label = document.getElementById('langLabel');
+    if (html.lang === 'en') { html.lang = 'vi'; label.textContent = 'VI'; }
+    else { html.lang = 'en'; label.textContent = 'EN'; }
+  }
+
+  // Optional: fire GA / pixel conversion event here
+  // gtag('event', 'conversion', { 'send_to': 'AW-XXX/YYY' });
+</script>
+
+<!-- ============ PREVIEW-ONLY ============ -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  if (window.tailwind) tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'brand-green': '#8CB82B',
+          'brand-green-dark': '#6A9A10'
+        },
+        fontFamily: { 'display': ['Be Vietnam Pro', 'sans-serif'] }
+      }
+    }
+  };
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</body>
+</html>
