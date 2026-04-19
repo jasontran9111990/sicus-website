@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<!-- @include partials/head-common.html -->
+
+  <title>Portfolios — Nail Salon Website Concepts | SICUS Media</title>
+  <meta name="description" content="Four nail salon website design concepts we can build for your business. Click any concept to explore a live demo — each one is a full, interactive site ready to customize with your brand.">
+  <link rel="canonical" href="https://sicusmedia.com/portfolios/">
+
+  <meta property="og:title" content="Nail Salon Website Concepts — SICUS Media">
+  <meta property="og:description" content="Four interactive nail salon site concepts you can explore today. Pick a direction and we'll tailor it to your brand.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sicusmedia.com/portfolios/">
+
+  <style>
+    body { font-family: 'Be Vietnam Pro', sans-serif; }
+    .font-display { font-family: 'Playfair Display', serif; letter-spacing: -0.02em; }
+
+    .concept-card {
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+      will-change: transform;
+    }
+    .concept-card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px rgba(0,0,0,0.08); }
+    .concept-card:hover .concept-preview { transform: scale(1.03); }
+    .concept-card:hover .concept-cta { color: #111827; }
+    .concept-preview {
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .concept-cta {
+      transition: color 0.3s ease, gap 0.3s ease;
+    }
+
+    /* Concept 1 — Gloss Lab / lavender */
+    .preview-gloss {
+      background:
+        radial-gradient(1200px 600px at 30% 20%, #EFE8FA 0%, transparent 60%),
+        radial-gradient(900px 500px at 80% 80%, #F6E5F0 0%, transparent 55%),
+        #F2EDFA;
+    }
+    .preview-gloss .mock-title { font-family: 'Playfair Display', serif; color: #1F1535; font-weight: 600; letter-spacing: -0.02em; }
+    .preview-gloss .mock-pill { background: #1F1535; color: #fff; }
+
+    /* Concept 2 — Maison Ongle / warm beige */
+    .preview-maison {
+      background:
+        radial-gradient(1000px 500px at 20% 30%, #E9DCC5 0%, transparent 60%),
+        radial-gradient(900px 500px at 85% 70%, #D9C6A4 0%, transparent 55%),
+        #D8C4A2;
+    }
+    .preview-maison .mock-title { font-family: 'Playfair Display', serif; color: #1b1508; font-weight: 700; letter-spacing: -0.02em; }
+    .preview-maison .mock-pill { background: #B7965D; color: #fff; }
+
+    /* Concept 3 — The Nail Room / clean light gray */
+    .preview-nailroom {
+      background:
+        linear-gradient(180deg, #FFFFFF 0%, #F4F4F4 100%);
+    }
+    .preview-nailroom .mock-title { font-family: 'Be Vietnam Pro', sans-serif; color: #111111; font-weight: 800; letter-spacing: -0.03em; }
+    .preview-nailroom .mock-pill { background: #111111; color: #fff; }
+
+    /* Concept 4 — Lotus Nails & Spa / purple */
+    .preview-lotus {
+      background:
+        radial-gradient(900px 500px at 20% 30%, #EADFF5 0%, transparent 60%),
+        radial-gradient(900px 500px at 80% 80%, #E8D6EF 0%, transparent 55%),
+        #F2EBF7;
+    }
+    .preview-lotus .mock-title { font-family: 'Be Vietnam Pro', sans-serif; color: #5A2A82; font-weight: 700; letter-spacing: -0.02em; }
+    .preview-lotus .mock-pill { background: #5A2A82; color: #fff; }
+
+    .swatch-row { display: flex; gap: 6px; }
+    .swatch { width: 18px; height: 18px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.08); }
+
+    /* Subtle reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+  </style>
+</head>
+<body class="bg-white text-gray-900 overflow-x-hidden">
+<!-- @include partials/gtm-noscript.html -->
+<!-- @include partials/nav.html -->
+
+<!-- ==================== HERO ==================== -->
+<section class="pt-28 sm:pt-32 pb-10 sm:pb-14 relative">
+  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(900px 500px at 50% 0%, rgba(140,184,43,0.10), transparent 60%);"></div>
+  <div class="max-w-5xl mx-auto px-6 text-center relative">
+    <div class="inline-flex items-center gap-2 bg-brand-green/10 text-brand-green-dark text-xs font-semibold uppercase tracking-[0.15em] px-4 py-1.5 rounded-full mb-6">
+      <span class="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse"></span>
+      <span class="lang-inline-en">Our work</span><span class="lang-inline-vi">Dự án của chúng tôi</span>
+    </div>
+    <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-5 text-gray-900">
+      <span class="lang-inline-en">Nail salon websites,<br class="hidden sm:block"> designed to fill chairs.</span>
+      <span class="lang-inline-vi">Website tiệm nail,<br class="hidden sm:block"> thiết kế để kín lịch.</span>
+    </h1>
+    <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+      <span class="lang-inline-en">Four nail-salon website concepts you can explore today. Pick a direction below — we'll tailor it to your brand, load in your services, and ship the real site in about two weeks.</span>
+      <span class="lang-inline-vi">Bốn concept website tiệm nail bạn có thể khám phá ngay. Chọn hướng bạn thích — chúng tôi sẽ tùy chỉnh theo thương hiệu của bạn và đưa website thật sự lên sóng trong khoảng hai tuần.</span>
+    </p>
+    <div class="flex flex-wrap gap-3 justify-center text-xs text-gray-500">
+      <span class="flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+        <span class="lang-inline-en">4 live interactive demos</span><span class="lang-inline-vi">4 demo tương tác trực tiếp</span>
+      </span>
+      <span class="flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+        <span class="lang-inline-en">Mobile-first, booking-ready</span><span class="lang-inline-vi">Tối ưu mobile, sẵn sàng đặt lịch</span>
+      </span>
+      <span class="flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 text-brand-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+        <span class="lang-inline-en">Hair salon concepts coming soon</span><span class="lang-inline-vi">Sắp có concept tiệm tóc</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 4 CONCEPT CARDS ==================== -->
+<section class="pb-20 sm:pb-28">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+
+      <!-- Concept 1 — Gloss Lab -->
+      <a href="/portfolios/gloss-lab.html" class="concept-card group block bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-[0_1px_0_rgba(0,0,0,0.02),0_8px_24px_rgba(0,0,0,0.04)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-green-dark">
+        <div class="preview-gloss aspect-[4/3] relative overflow-hidden">
+          <div class="concept-preview absolute inset-0 p-6 sm:p-8 flex flex-col justify-between">
+            <div class="flex items-center justify-between text-[11px] font-semibold tracking-[0.2em] uppercase" style="color: #1F1535;">
+              <span>Gloss Lab</span>
+              <span class="opacity-60">Shop · Book</span>
+            </div>
+            <div>
+              <div class="mock-title text-2xl sm:text-3xl lg:text-4xl leading-[1.05]">Clean nails.<br>Elevated care.</div>
+              <div class="mt-4 flex items-center gap-2">
+                <span class="mock-pill text-[11px] font-semibold px-3 py-1.5 rounded-full">Shop polish →</span>
+                <span class="text-[11px] font-semibold px-3 py-1.5 rounded-full" style="border: 1px solid #1F1535; color: #1F1535;">Watch reel</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6 sm:p-7 flex items-start justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="text-[11px] font-semibold uppercase tracking-[0.15em] text-gray-400">Concept 01</span>
+              <div class="swatch-row">
+                <span class="swatch" style="background:#F2EDFA;"></span>
+                <span class="swatch" style="background:#EFE8FA;"></span>
+                <span class="swatch" style="background:#1F1535;"></span>
+              </div>
+            </div>
+            <h3 class="font-display text-xl sm:text-2xl font-bold text-gray-900">Gloss Lab</h3>
+            <p class="text-sm text-gray-600 mt-1 leading-relaxed">
+              <span class="lang-inline-en">Clean-beauty nail lab. Retail-first with integrated booking — perfect for salons that sell non-toxic polish alongside services.</span>
+              <span class="lang-inline-vi">Nail lab sạch, hướng bán lẻ, đặt lịch tích hợp — hợp với salon có bán sơn nail riêng.</span>
+            </p>
+          </div>
+          <span class="concept-cta flex-shrink-0 text-sm font-semibold text-brand-green-dark inline-flex items-center gap-1.5 group-hover:gap-2.5 mt-1">
+            <span class="lang-inline-en">Open demo</span><span class="lang-inline-vi">Mở demo</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Concept 2 — Maison Ongle -->
+      <a href="/portfolios/maison-ongle.html" class="concept-card group block bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-[0_1px_0_rgba(0,0,0,0.02),0_8px_24px_rgba(0,0,0,0.04)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-green-dark">
+        <div class="preview-maison aspect-[4/3] relative overflow-hidden">
+          <div class="concept-preview absolute inset-0 p-6 sm:p-8 flex flex-col justify-between">
+            <div class="flex items-center justify-between text-[11px] font-semibold tracking-[0.2em] uppercase" style="color: #1b1508;">
+              <span>Maison Ongle</span>
+              <span class="opacity-70">Book appointment</span>
+            </div>
+            <div>
+              <div class="mock-title text-2xl sm:text-3xl lg:text-4xl leading-[1.05]">Luxury<br>nail rituals.</div>
+              <div class="mt-4 flex items-center gap-2">
+                <span class="mock-pill text-[11px] font-semibold px-3 py-1.5 rounded-full">View pricing</span>
+                <span class="text-[11px] font-semibold px-3 py-1.5 rounded-full" style="background:#fff; color: #1b1508;">Our technicians</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6 sm:p-7 flex items-start justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="text-[11px] font-semibold uppercase tracking-[0.15em] text-gray-400">Concept 02</span>
+              <div class="swatch-row">
+                <span class="swatch" style="background:#D8C4A2;"></span>
+                <span class="swatch" style="background:#B7965D;"></span>
+                <span class="swatch" style="background:#1b1508;"></span>
+              </div>
+            </div>
+            <h3 class="font-display text-xl sm:text-2xl font-bold text-gray-900">Maison Ongle</h3>
+            <p class="text-sm text-gray-600 mt-1 leading-relaxed">
+              <span class="lang-inline-en">Luxury boutique nail spa. Warm beige palette, editorial type, emphasis on wellness, quiet confidence, and premium pricing.</span>
+              <span class="lang-inline-vi">Nail spa boutique cao cấp. Tông be ấm, kiểu chữ editorial, tập trung vào wellness và trải nghiệm premium.</span>
+            </p>
+          </div>
+          <span class="concept-cta flex-shrink-0 text-sm font-semibold text-brand-green-dark inline-flex items-center gap-1.5 group-hover:gap-2.5 mt-1">
+            <span class="lang-inline-en">Open demo</span><span class="lang-inline-vi">Mở demo</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Concept 3 — The Nail Room -->
+      <a href="/portfolios/the-nail-room.html" class="concept-card group block bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-[0_1px_0_rgba(0,0,0,0.02),0_8px_24px_rgba(0,0,0,0.04)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-green-dark">
+        <div class="preview-nailroom aspect-[4/3] relative overflow-hidden border-b border-gray-100">
+          <div class="concept-preview absolute inset-0 p-6 sm:p-8 flex flex-col justify-between">
+            <div class="flex items-center justify-between text-[11px] font-semibold tracking-[0.2em] uppercase text-gray-900">
+              <span>The Nail Room</span>
+              <span class="opacity-60">Services · Book</span>
+            </div>
+            <div>
+              <div class="mock-title text-2xl sm:text-3xl lg:text-4xl leading-[1.05]">Relax. Polish.<br>Feel confident.</div>
+              <div class="mt-4 flex items-center gap-2">
+                <span class="mock-pill text-[11px] font-semibold px-3 py-1.5 rounded-full">Book appointment</span>
+                <span class="text-[11px] font-semibold px-3 py-1.5 rounded-full" style="border: 1px solid #111; color: #111;">Our work</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6 sm:p-7 flex items-start justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="text-[11px] font-semibold uppercase tracking-[0.15em] text-gray-400">Concept 03</span>
+              <div class="swatch-row">
+                <span class="swatch" style="background:#FFFFFF;"></span>
+                <span class="swatch" style="background:#F4F4F4;"></span>
+                <span class="swatch" style="background:#111111;"></span>
+              </div>
+            </div>
+            <h3 class="font-display text-xl sm:text-2xl font-bold text-gray-900">The Nail Room</h3>
+            <p class="text-sm text-gray-600 mt-1 leading-relaxed">
+              <span class="lang-inline-en">Modern professional nail studio. Clean typography, embedded booking widget, portfolio gallery, dark testimonial block. Works for any neighbourhood salon.</span>
+              <span class="lang-inline-vi">Nail studio hiện đại, chuyên nghiệp. Typography sạch, booking tích hợp, gallery tác phẩm và testimonial — phù hợp salon ở mọi khu phố.</span>
+            </p>
+          </div>
+          <span class="concept-cta flex-shrink-0 text-sm font-semibold text-brand-green-dark inline-flex items-center gap-1.5 group-hover:gap-2.5 mt-1">
+            <span class="lang-inline-en">Open demo</span><span class="lang-inline-vi">Mở demo</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Concept 4 — Lotus Nails & Spa -->
+      <a href="/portfolios/lotus-nails-spa.html" class="concept-card group block bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-[0_1px_0_rgba(0,0,0,0.02),0_8px_24px_rgba(0,0,0,0.04)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-green-dark">
+        <div class="preview-lotus aspect-[4/3] relative overflow-hidden">
+          <div class="concept-preview absolute inset-0 p-6 sm:p-8 flex flex-col justify-between">
+            <div class="flex items-center justify-between text-[11px] font-semibold tracking-[0.2em] uppercase" style="color: #5A2A82;">
+              <span>Lotus Nails &amp; Spa</span>
+              <span class="opacity-70">Trending now</span>
+            </div>
+            <div>
+              <div class="mock-title text-2xl sm:text-3xl lg:text-4xl leading-[1.05]">Professional<br>nail &amp; beauty services.</div>
+              <div class="mt-4 flex items-center gap-2">
+                <span class="mock-pill text-[11px] font-semibold px-3 py-1.5 rounded-full">Book now</span>
+                <span class="text-[11px] font-semibold px-3 py-1.5 rounded-full" style="background:#fff; color: #5A2A82;">Save up to 32%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6 sm:p-7 flex items-start justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="text-[11px] font-semibold uppercase tracking-[0.15em] text-gray-400">Concept 04</span>
+              <div class="swatch-row">
+                <span class="swatch" style="background:#F2EBF7;"></span>
+                <span class="swatch" style="background:#E8D6EF;"></span>
+                <span class="swatch" style="background:#5A2A82;"></span>
+              </div>
+            </div>
+            <h3 class="font-display text-xl sm:text-2xl font-bold text-gray-900">Lotus Nails &amp; Spa</h3>
+            <p class="text-sm text-gray-600 mt-1 leading-relaxed">
+              <span class="lang-inline-en">Multi-service nail &amp; beauty spa. Purple palette, service category tiles, trending services, promo banners — great for busy salons with deep service menus.</span>
+              <span class="lang-inline-vi">Nail &amp; beauty spa đa dịch vụ. Tông tím, service tiles, trending services và banner khuyến mãi — hợp salon đa dịch vụ.</span>
+            </p>
+          </div>
+          <span class="concept-cta flex-shrink-0 text-sm font-semibold text-brand-green-dark inline-flex items-center gap-1.5 group-hover:gap-2.5 mt-1">
+            <span class="lang-inline-en">Open demo</span><span class="lang-inline-vi">Mở demo</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Hair salons coming soon teaser -->
+    <div class="mt-10 sm:mt-14 rounded-2xl border border-dashed border-gray-200 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 bg-surface-50">
+      <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-green/10 text-brand-green-dark flex-shrink-0">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+      </div>
+      <div class="flex-1">
+        <div class="text-sm font-semibold text-gray-900 mb-0.5">
+          <span class="lang-inline-en">Hair salon concepts — coming soon</span>
+          <span class="lang-inline-vi">Concept tiệm tóc — sắp có</span>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          <span class="lang-inline-en">Four more concepts tailored for hair salons and barbershops are in the works. Need one now? Message us and we'll mock something up.</span>
+          <span class="lang-inline-vi">Bốn concept tiệm tóc và barber đang được chuẩn bị. Cần gấp? Liên hệ để chúng tôi thiết kế riêng.</span>
+        </p>
+      </div>
+      <a href="/#schedule-demo" class="text-sm font-semibold text-brand-green-dark hover:text-gray-900 inline-flex items-center gap-1.5 whitespace-nowrap">
+        <span class="lang-inline-en">Request a custom concept</span><span class="lang-inline-vi">Yêu cầu concept riêng</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BOTTOM CTA ==================== -->
+<section class="pb-24 sm:pb-32">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <div class="rounded-3xl p-10 sm:p-14 text-white relative overflow-hidden" style="background: linear-gradient(135deg, #8CB82B 0%, #6A9A10 100%);">
+      <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;200&quot; height=&quot;200&quot;><filter id=&quot;n&quot;><feTurbulence type=&quot;fractalNoise&quot; baseFrequency=&quot;0.9&quot;/></filter><rect width=&quot;200&quot; height=&quot;200&quot; filter=&quot;url(%23n)&quot;/></svg>');"></div>
+      <div class="relative">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4">
+          <span class="lang-inline-en">See a concept you like?</span>
+          <span class="lang-inline-vi">Thích concept nào?</span>
+        </h2>
+        <p class="text-white/90 text-base sm:text-lg mb-8 max-w-xl mx-auto">
+          <span class="lang-inline-en">30-minute call. Walk us through your salon, your clients, and your goals. We'll send a tailored quote within 48 hours.</span>
+          <span class="lang-inline-vi">Gọi 30 phút. Chia sẻ về tiệm, khách và mục tiêu. Chúng tôi gửi báo giá riêng trong vòng 48 giờ.</span>
+        </p>
+        <a href="/#schedule-demo" class="inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-brand-green-dark font-bold text-base sm:text-lg px-8 py-3.5 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_30px_rgba(0,0,0,0.2)] transition-shadow duration-300">
+          <span class="lang-inline-en">Book a free strategy call</span>
+          <span class="lang-inline-vi">Đặt lịch tư vấn miễn phí</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- @include partials/footer.html -->
+
+<script>
+  function toggleLang() {
+    var html = document.getElementById('htmlRoot');
+    var label = document.getElementById('langLabel');
+    if (html.lang === 'en') { html.lang = 'vi'; label.textContent = 'VI'; }
+    else { html.lang = 'en'; label.textContent = 'EN'; }
+  }
+
+  // Reveal on scroll
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>

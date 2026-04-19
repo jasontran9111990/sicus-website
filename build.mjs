@@ -75,6 +75,7 @@ const DIR_EXCLUDES = new Set([
   'dist', 'src',
   'temporary screenshots',
   'components', // dev-time .tsx prototypes, not runtime assets
+  'portfolios', // reference screenshots for portfolio demo designs — not shippable assets
 ]);
 for (const entry of fs.readdirSync(ROOT, { withFileTypes: true })) {
   if (!entry.isDirectory()) continue;

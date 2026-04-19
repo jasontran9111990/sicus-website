@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<!-- @include partials/gtm-head.html -->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Maison Ongle — SICUS Media Portfolio Concept</title>
+  <meta name="description" content="Demo luxury nail spa concept by SICUS Media. Maison Ongle is a fictional brand used to showcase the kind of website we design and build for real salons.">
+  <link rel="canonical" href="https://sicusmedia.com/portfolios/maison-ongle.html">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/brand_assets/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --frame: #C6B59A;     /* tan outer frame */
+      --card: #FBF7EF;       /* cream content card */
+      --ink: #1b1508;        /* near-black brown */
+      --ink-soft: #5C4F36;
+      --gold: #B7965D;       /* gold accent */
+      --gold-deep: #8F7240;
+      --beige: #E9DCC5;
+      --beige-soft: #F5EEDD;
+    }
+    body {
+      background: var(--frame);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-display { font-family: 'Playfair Display', serif; letter-spacing: -0.02em; }
+
+    .demo-bar {
+      background: #0F0F11;
+      color: #fff;
+      font-size: 12px;
+    }
+    .demo-bar a:hover { text-decoration: underline; }
+
+    .container-xl { max-width: 1280px; margin-left: auto; margin-right: auto; padding-left: 20px; padding-right: 20px; }
+
+    /* The cream card frame that contains main content */
+    .cream-card {
+      background: var(--card);
+      border-radius: 28px;
+      overflow: hidden;
+    }
+
+    .brand-nav a { color: var(--ink); font-size: 14px; font-weight: 500; }
+    .brand-nav a.active {
+      background: var(--gold);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 999px;
+    }
+
+    .logo-mark {
+      width: 64px; height: 40px;
+      background: var(--card);
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 15px;
+      letter-spacing: -0.02em;
+    }
+
+    .pill-gold {
+      background: var(--gold);
+      color: #fff;
+      border-radius: 999px;
+      padding: 13px 26px;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: transform .3s cubic-bezier(0.34,1.56,0.64,1), box-shadow .3s;
+    }
+    .pill-gold:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(183,150,93,0.35); }
+    .pill-white {
+      background: #fff;
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 12px 26px;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1.5px solid rgba(27,21,8,0.1);
+      transition: transform .3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .pill-white:hover { transform: translateY(-1px); border-color: var(--ink); }
+
+    /* Image placeholders */
+    .image-placeholder {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #D8C4A2 0%, #B7965D 100%);
+    }
+    .image-placeholder::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(600px 400px at 30% 30%, rgba(255,255,255,0.25), transparent 65%),
+                        radial-gradient(500px 400px at 75% 85%, rgba(255,255,255,0.12), transparent 60%);
+      pointer-events: none;
+    }
+    .image-placeholder-content {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: #fff; text-align: center; padding: 16px;
+    }
+
+    .pill-badge {
+      background: var(--card);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: 0 6px 16px rgba(27,21,8,0.1);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .pill-badge .dot { width: 6px; height: 6px; border-radius: 999px; background: var(--gold); }
+
+    .ritual-row {
+      display: flex;
+      align-items: baseline;
+      gap: 24px;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(27,21,8,0.1);
+    }
+    .ritual-row:last-child { border-bottom: none; }
+    .ritual-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-style: italic;
+      color: var(--gold);
+      font-weight: 500;
+      line-height: 1;
+      min-width: 56px;
+    }
+
+    .tech-card {
+      background: var(--beige-soft);
+      border-radius: 20px;
+      padding: 24px;
+      transition: transform .3s cubic-bezier(0.34,1.56,0.64,1), box-shadow .3s;
+    }
+    .tech-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(27,21,8,0.12); }
+
+    .atelier-tile {
+      aspect-ratio: 4 / 5;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #E9DCC5 0%, #B7965D 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .atelier-tile::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(400px 300px at 30% 30%, rgba(255,255,255,0.3), transparent 65%);
+    }
+    .atelier-tile.tall { aspect-ratio: 4 / 6; }
+    .atelier-tile.wide { aspect-ratio: 5 / 4; }
+
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+<!-- @include partials/gtm-noscript.html -->
+
+<!-- ==================== SICUS DEMO BAR ==================== -->
+<div class="demo-bar">
+  <div class="container-xl flex items-center justify-between h-9">
+    <a href="/portfolios/" class="flex items-center gap-2 text-white/90 hover:text-white">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      Back to SICUS Portfolios
+    </a>
+    <div class="flex items-center gap-4 text-white/80">
+      <span class="hidden sm:inline">Concept 02 · Maison Ongle — Luxury nail boutique</span>
+      <a href="/#schedule-demo" class="text-white font-semibold hover:text-white/90">Request this site →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MAIN TAN-FRAME WRAPPER ==================== -->
+<div class="py-5 sm:py-7" style="background: var(--frame);">
+  <div class="container-xl">
+    <div class="cream-card">
+
+      <!-- Brand nav -->
+      <header class="brand-nav">
+        <div class="flex items-center justify-between px-6 sm:px-8 py-5">
+          <div class="flex items-center">
+            <span class="logo-mark">Maison</span>
+          </div>
+          <nav class="hidden md:flex items-center gap-1">
+            <a href="#" class="active">Home</a>
+            <a href="#rituals" class="px-5 py-2">Rituals</a>
+            <a href="#technicians" class="px-5 py-2">Technicians</a>
+            <a href="#atelier" class="px-5 py-2">Atelier</a>
+            <a href="#contact" class="px-5 py-2">Contact</a>
+          </nav>
+          <a href="#book" class="pill-gold" style="padding: 10px 22px; font-size: 13px;">Book appointment</a>
+        </div>
+      </header>
+
+      <!-- ==================== HERO ==================== -->
+      <section class="px-6 sm:px-8 pb-10 pt-2">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+
+          <!-- Left column -->
+          <div class="lg:col-span-3">
+            <h1 class="font-display text-4xl sm:text-5xl font-bold leading-[1.05]">Luxury care<br>for your hands.</h1>
+            <p class="mt-5 text-[14px] leading-relaxed" style="color: var(--ink-soft);">
+              Refined nail rituals where precision meets presence, polished design, and time that belongs only to you.
+            </p>
+            <div class="flex flex-wrap items-center gap-3 mt-7">
+              <a href="#rituals" class="pill-gold">View pricing</a>
+              <a href="#technicians" class="pill-white">Our technicians</a>
+            </div>
+
+            <!-- Small image tile below -->
+            <div class="mt-7 image-placeholder" style="aspect-ratio: 5 / 4;">
+              <div class="image-placeholder-content">
+                <div class="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/90">Pedicure scene</div>
+                <div class="text-[10px] text-white/70 mt-0.5">Placeholder image</div>
+              </div>
+              <div class="absolute top-3 right-3">
+                <div class="pill-badge"><span class="dot"></span>Total calm</div>
+              </div>
+              <div class="absolute bottom-3 left-3 text-white">
+                <div class="font-display text-xl font-semibold">Rituel No. 4</div>
+                <div class="text-[10px] opacity-90 tracking-[0.1em] uppercase">90-min spa pedicure</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Center column — big image + pill badges -->
+          <div class="lg:col-span-6 relative">
+            <div class="image-placeholder" style="aspect-ratio: 4 / 5;">
+              <div class="image-placeholder-content">
+                <div class="w-16 h-16 rounded-full bg-white/30 backdrop-blur-sm flex items-center justify-center mb-3">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-8 3 8 3-4 2 4 3-2"/></svg>
+                </div>
+                <div class="text-xs font-semibold uppercase tracking-[0.2em] text-white/90">Hero image</div>
+                <div class="text-[10px] text-white/70 mt-1">Elegant manicure close-up goes here</div>
+              </div>
+
+              <!-- Floating pill badges scattered -->
+              <div class="absolute top-6 left-6">
+                <div class="pill-badge"><span class="dot"></span>Personalized nail art</div>
+              </div>
+              <div class="absolute top-14 right-6">
+                <div class="pill-badge"><span class="dot"></span>Boutique atelier</div>
+              </div>
+              <div class="absolute top-36 left-10">
+                <div class="pill-badge"><span class="dot"></span>Master technicians</div>
+              </div>
+
+              <!-- Play/explore button in the middle right -->
+              <button aria-label="Watch film" class="absolute top-1/2 -translate-y-1/2 right-6 w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--gold); color: #fff; box-shadow: 0 10px 24px rgba(183,150,93,0.4);">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 7L7 17m10 0H9m8 0V9"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right column — typographic stack -->
+          <div class="lg:col-span-3">
+            <div class="font-display font-bold leading-[0.95]" style="font-size: clamp(48px, 6vw, 74px); color: var(--ink);">
+              <div>Polish</div>
+              <div class="flex items-center gap-2">
+                Restore
+                <button aria-label="Explore" class="inline-flex w-10 h-10 rounded-full items-center justify-center" style="background: var(--gold); color: #fff;">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 7L7 17m10 0H9m8 0V9"/></svg>
+                </button>
+              </div>
+              <div>Elevate</div>
+            </div>
+
+            <!-- Ornamental flourish -->
+            <div class="flex items-center gap-2 mt-6" style="color: var(--gold);">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l1 8 8 1-8 1-1 8-1-8-8-1 8-1 1-8z"/></svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l1 8 8 1-8 1-1 8-1-8-8-1 8-1 1-8z"/></svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l1 8 8 1-8 1-1 8-1-8-8-1 8-1 1-8z"/></svg>
+            </div>
+
+            <p class="mt-4 text-[13px] leading-relaxed" style="color: var(--ink-soft);">
+              Step into a slow nail ritual. 90-minute appointments, Japanese polishes, one technician per client, always.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SIGNATURE RITUALS (outside cream card, on tan frame) ==================== -->
+<section id="rituals" class="py-20" style="background: var(--frame);">
+  <div class="container-xl">
+    <div class="cream-card px-6 sm:px-10 lg:px-16 py-14 sm:py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        <div class="lg:col-span-5 reveal">
+          <div class="text-[11px] font-semibold uppercase tracking-[0.22em] mb-3" style="color: var(--gold-deep);">Signature rituals</div>
+          <h2 class="font-display text-4xl sm:text-5xl font-bold leading-tight mb-5">Time is the ingredient.</h2>
+          <p class="text-[15px] leading-relaxed mb-5" style="color: var(--ink-soft);">
+            Every Maison Ongle ritual is at least sixty minutes. No overlap, no rush, no upsell. One master technician, one guest, one uninterrupted hour.
+          </p>
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-semibold" style="background: var(--beige); color: var(--ink);">
+            <span class="w-1.5 h-1.5 rounded-full" style="background: var(--gold);"></span>
+            Members book 30 days ahead
+          </div>
+        </div>
+
+        <div class="lg:col-span-7">
+          <div class="ritual-row">
+            <div class="ritual-number">01</div>
+            <div class="flex-1">
+              <div class="font-display text-xl sm:text-2xl font-semibold">Rituel Classique</div>
+              <div class="text-[13px] mt-1" style="color: var(--ink-soft);">Shape, cuticle, hand ritual, polish · 60 min</div>
+            </div>
+            <div class="font-display text-xl sm:text-2xl font-semibold">$88</div>
+          </div>
+          <div class="ritual-row">
+            <div class="ritual-number">02</div>
+            <div class="flex-1">
+              <div class="font-display text-xl sm:text-2xl font-semibold">Rituel Gel</div>
+              <div class="text-[13px] mt-1" style="color: var(--ink-soft);">Extended ritual, premium gel, 2.5-week wear · 75 min</div>
+            </div>
+            <div class="font-display text-xl sm:text-2xl font-semibold">$118</div>
+          </div>
+          <div class="ritual-row">
+            <div class="ritual-number">03</div>
+            <div class="flex-1">
+              <div class="font-display text-xl sm:text-2xl font-semibold">Rituel Pédicure</div>
+              <div class="text-[13px] mt-1" style="color: var(--ink-soft);">Foot soak, exfoliation, mask, polish · 90 min</div>
+            </div>
+            <div class="font-display text-xl sm:text-2xl font-semibold">$138</div>
+          </div>
+          <div class="ritual-row">
+            <div class="ritual-number">04</div>
+            <div class="flex-1">
+              <div class="font-display text-xl sm:text-2xl font-semibold">Rituel Nail Art</div>
+              <div class="text-[13px] mt-1" style="color: var(--ink-soft);">Hand-painted, chromes, custom motifs · 2 hours</div>
+            </div>
+            <div class="font-display text-xl sm:text-2xl font-semibold">$220</div>
+          </div>
+          <div class="ritual-row">
+            <div class="ritual-number">05</div>
+            <div class="flex-1">
+              <div class="font-display text-xl sm:text-2xl font-semibold">Rituel Complet</div>
+              <div class="text-[13px] mt-1" style="color: var(--ink-soft);">Full mani + pedi + champagne · 2.5 hours</div>
+            </div>
+            <div class="font-display text-xl sm:text-2xl font-semibold">$285</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MASTER TECHNICIANS ==================== -->
+<section id="technicians" class="py-20" style="background: var(--frame);">
+  <div class="container-xl">
+    <div class="cream-card px-6 sm:px-10 lg:px-16 py-14 sm:py-16">
+      <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+        <div class="text-[11px] font-semibold uppercase tracking-[0.22em] mb-3" style="color: var(--gold-deep);">Master technicians</div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold leading-tight">Twenty years of steady hands.</h2>
+        <p class="text-[15px] leading-relaxed mt-5" style="color: var(--ink-soft);">Every tech on the Maison team has a minimum of eight years on the chair and one specialty. Booking by technician is encouraged — regular clients build rhythm.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+        <div class="tech-card reveal">
+          <div class="image-placeholder mb-4" style="aspect-ratio: 1/1; border-radius: 14px;">
+            <div class="image-placeholder-content">
+              <div class="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/90">Portrait</div>
+            </div>
+          </div>
+          <div class="text-[11px] font-semibold uppercase tracking-[0.2em]" style="color: var(--gold-deep);">Director</div>
+          <div class="font-display text-xl font-semibold mt-0.5">Camille Laurent</div>
+          <div class="text-[13px] mt-2" style="color: var(--ink-soft);">22 years · nail architecture, extensions</div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="image-placeholder mb-4" style="aspect-ratio: 1/1; border-radius: 14px;">
+            <div class="image-placeholder-content">
+              <div class="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/90">Portrait</div>
+            </div>
+          </div>
+          <div class="text-[11px] font-semibold uppercase tracking-[0.2em]" style="color: var(--gold-deep);">Senior master</div>
+          <div class="font-display text-xl font-semibold mt-0.5">Yuki Nakamura</div>
+          <div class="text-[13px] mt-2" style="color: var(--ink-soft);">16 years · Japanese nail art, chromes</div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="image-placeholder mb-4" style="aspect-ratio: 1/1; border-radius: 14px;">
+            <div class="image-placeholder-content">
+              <div class="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/90">Portrait</div>
+            </div>
+          </div>
+          <div class="text-[11px] font-semibold uppercase tracking-[0.2em]" style="color: var(--gold-deep);">Master</div>
+          <div class="font-display text-xl font-semibold mt-0.5">Lien Hoàng</div>
+          <div class="text-[13px] mt-2" style="color: var(--ink-soft);">13 years · spa pedicure, reflexology</div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="image-placeholder mb-4" style="aspect-ratio: 1/1; border-radius: 14px;">
+            <div class="image-placeholder-content">
+              <div class="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/90">Portrait</div>
+            </div>
+          </div>
+          <div class="text-[11px] font-semibold uppercase tracking-[0.2em]" style="color: var(--gold-deep);">Master</div>
+          <div class="font-display text-xl font-semibold mt-0.5">Élise Moreau</div>
+          <div class="text-[13px] mt-2" style="color: var(--ink-soft);">9 years · classic french, wedding sets</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== INSIDE THE ATELIER ==================== -->
+<section id="atelier" class="py-20" style="background: var(--frame);">
+  <div class="container-xl">
+    <div class="cream-card px-6 sm:px-10 lg:px-16 py-14 sm:py-16">
+      <div class="flex items-end justify-between mb-10 reveal">
+        <div>
+          <div class="text-[11px] font-semibold uppercase tracking-[0.22em] mb-3" style="color: var(--gold-deep);">Inside the atelier</div>
+          <h2 class="font-display text-4xl sm:text-5xl font-bold leading-tight">A room that slows you down.</h2>
+        </div>
+        <a href="#contact" class="hidden sm:inline-flex items-center gap-1.5 text-[13px] font-semibold" style="color: var(--ink);">
+          See visit FAQ
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div class="atelier-tile tall reveal"></div>
+        <div class="atelier-tile wide reveal"></div>
+        <div class="atelier-tile reveal"></div>
+        <div class="atelier-tile tall reveal"></div>
+        <div class="atelier-tile reveal"></div>
+        <div class="atelier-tile reveal"></div>
+        <div class="atelier-tile wide reveal"></div>
+        <div class="atelier-tile reveal"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BOOK ==================== -->
+<section id="book" class="py-20" style="background: var(--frame);">
+  <div class="container-xl">
+    <div class="cream-card px-6 sm:px-10 lg:px-16 py-16 sm:py-20 text-center">
+      <div class="max-w-3xl mx-auto">
+        <div class="text-[11px] font-semibold uppercase tracking-[0.22em] mb-4" style="color: var(--gold-deep);">Become a regular</div>
+        <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05]">Reserve your hour<br>at Maison.</h2>
+        <p class="text-[15px] leading-relaxed mt-6 max-w-xl mx-auto" style="color: var(--ink-soft);">
+          First-visit bookings include a 15-minute consultation with your assigned technician. Cancel or reschedule online up to 24 hours ahead.
+        </p>
+        <div class="flex flex-wrap gap-3 justify-center mt-8">
+          <a href="#" class="pill-gold" style="padding: 15px 30px; font-size: 15px;">Reserve your ritual</a>
+          <a href="#contact" class="pill-white" style="padding: 14px 30px; font-size: 15px;">Questions first</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer id="contact" class="pt-16 pb-10" style="background: var(--frame); color: var(--ink);">
+  <div class="container-xl">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
+      <div class="md:col-span-5">
+        <span class="logo-mark mb-5 inline-flex" style="background: var(--card);">Maison</span>
+        <p class="text-sm leading-relaxed max-w-xs mt-4" style="color: var(--ink-soft);">
+          A quiet nail atelier in Calgary. Slow rituals, master technicians, imported polishes. Open Wednesday through Sunday, by appointment only.
+        </p>
+      </div>
+      <div class="md:col-span-3">
+        <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-4">Atelier</div>
+        <ul class="space-y-2 text-sm">
+          <li>907 — 17 Ave SW, Calgary AB</li>
+          <li>By appointment only</li>
+          <li>atelier@maisonongle.example</li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-4">Visit</div>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#rituals" class="hover:underline">Rituals</a></li>
+          <li><a href="#technicians" class="hover:underline">Technicians</a></li>
+          <li><a href="#book" class="hover:underline">Reserve</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-4">Hours</div>
+        <ul class="space-y-2 text-sm">
+          <li>Wed–Fri: 11a–8p</li>
+          <li>Sat: 10a–7p</li>
+          <li>Sun: 11a–5p</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px]" style="border-color: rgba(27,21,8,0.15); color: var(--ink-soft);">
+      <div>Demo concept site · not a real business · © Maison Ongle 2026</div>
+      <a href="/portfolios/" class="hover:underline">← Return to SICUS portfolios</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>

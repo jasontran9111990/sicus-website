@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<!-- @include partials/gtm-head.html -->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>The Nail Room — SICUS Media Portfolio Concept</title>
+  <meta name="description" content="Demo modern nail studio site concept by SICUS Media. The Nail Room is a fictional brand used to showcase the kind of website we design and build for real salons.">
+  <link rel="canonical" href="https://sicusmedia.com/portfolios/the-nail-room.html">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/brand_assets/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --ink: #0F0F11;
+      --ink-soft: #525258;
+      --gray-100: #F4F4F4;
+      --gray-200: #E8E8E8;
+      --gray-300: #D4D4D4;
+    }
+    body {
+      background: #fff;
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.01em;
+    }
+    .container-xl { max-width: 1280px; margin-left: auto; margin-right: auto; padding-left: 24px; padding-right: 24px; }
+
+    .demo-bar { background: var(--ink); color: #fff; font-size: 12px; }
+    .demo-bar a:hover { text-decoration: underline; }
+
+    /* Top announcement bar */
+    .announce-bar { background: #fff; border-bottom: 1px solid var(--gray-200); font-size: 12px; }
+
+    /* Nav */
+    .brand-nav { background: #fff; border-bottom: 1px solid var(--gray-200); }
+    .brand-nav a { font-size: 14px; font-weight: 500; color: var(--ink); }
+    .brand-nav a:hover { color: #000; }
+
+    /* Pills */
+    .pill-dark {
+      background: var(--ink); color: #fff;
+      padding: 12px 22px; border-radius: 999px;
+      font-weight: 600; font-size: 14px;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: background .3s;
+    }
+    .pill-dark:hover { background: #1f1f22; }
+    .pill-outline {
+      background: transparent; color: var(--ink);
+      padding: 11px 22px; border-radius: 999px;
+      font-weight: 600; font-size: 14px;
+      border: 1.5px solid var(--ink);
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: background .3s, color .3s;
+    }
+    .pill-outline:hover { background: var(--ink); color: #fff; }
+
+    /* Hero image */
+    .hero-image {
+      position: relative; overflow: hidden;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #3a3a3d 0%, #1a1a1c 100%);
+      aspect-ratio: 16 / 9;
+    }
+    @media (max-width: 640px) { .hero-image { aspect-ratio: 4 / 5; } }
+    .hero-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(700px 400px at 30% 30%, rgba(255,255,255,0.05), transparent 60%),
+                        radial-gradient(500px 400px at 80% 90%, rgba(255,255,255,0.04), transparent 60%);
+    }
+    .hero-placeholder-content {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .hero-headline {
+      position: absolute;
+      left: 28px; top: 50px;
+      max-width: 540px;
+      z-index: 2;
+    }
+    @media (max-width: 768px) {
+      .hero-headline { left: 20px; top: 24px; }
+    }
+    .hero-stats {
+      position: absolute;
+      right: 28px; top: 40px;
+      z-index: 2;
+      text-align: right;
+      color: #fff;
+    }
+    @media (max-width: 768px) { .hero-stats { display: none; } }
+
+    /* Booking widget */
+    .booking-widget {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 20px 50px -10px rgba(0,0,0,0.2);
+      padding: 18px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr) auto;
+      gap: 12px;
+      align-items: end;
+      border: 1px solid var(--gray-200);
+    }
+    @media (max-width: 900px) {
+      .booking-widget { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 500px) {
+      .booking-widget { grid-template-columns: 1fr; }
+    }
+    .booking-field label {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 6px;
+    }
+    .booking-field select, .booking-field input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 4px 0;
+      color: var(--ink);
+      outline: none;
+    }
+    .booking-field { border-right: 1px solid var(--gray-200); padding-right: 12px; }
+    .booking-field:last-of-type { border-right: none; }
+    @media (max-width: 900px) { .booking-field { border-right: none; border-bottom: 1px solid var(--gray-200); padding-bottom: 10px; padding-right: 0;} }
+
+    /* Section headings */
+    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-soft); }
+
+    /* Why-us icons */
+    .why-icon {
+      width: 72px; height: 72px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--gray-100);
+      border-radius: 999px;
+    }
+
+    /* Services image grid */
+    .service-tile {
+      position: relative;
+      aspect-ratio: 1/1;
+      border-radius: 14px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #2a2a2d 0%, #0F0F11 100%);
+      transition: transform .4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .service-tile:hover { transform: translateY(-4px); }
+    .service-tile.tall { aspect-ratio: 4/5; }
+    .service-tile.wide { aspect-ratio: 16/10; }
+    .service-tile .tile-placeholder {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .service-tile::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .service-tile-label {
+      position: absolute;
+      bottom: 14px; left: 16px; right: 16px;
+      color: #fff;
+      z-index: 2;
+    }
+    .service-tile-rating {
+      position: absolute;
+      top: 12px; right: 12px;
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      color: #fff;
+      z-index: 2;
+    }
+
+    /* Gallery images */
+    .gallery-img {
+      border-radius: 14px;
+      background: linear-gradient(135deg, #D4D4D4 0%, #A8A8A8 100%);
+      aspect-ratio: 1/1;
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(400px 300px at 30% 30%, rgba(255,255,255,0.25), transparent 65%);
+    }
+
+    /* Dark testimonial section */
+    .dark-panel { background: var(--ink); color: #fff; border-radius: 28px; }
+    .testimonial-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 24px;
+    }
+
+    /* Specialist cards */
+    .spec-card {
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+      transition: transform .3s cubic-bezier(0.34,1.56,0.64,1), border-color .3s;
+    }
+    .spec-card:hover { transform: translateY(-4px); border-color: var(--ink); }
+    .spec-img {
+      aspect-ratio: 1/1;
+      background: linear-gradient(135deg, #B8B8B8 0%, #7A7A7A 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .spec-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(400px 300px at 30% 30%, rgba(255,255,255,0.3), transparent 65%);
+    }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+<!-- @include partials/gtm-noscript.html -->
+
+<!-- ==================== SICUS DEMO BAR ==================== -->
+<div class="demo-bar">
+  <div class="container-xl flex items-center justify-between h-9">
+    <a href="/portfolios/" class="flex items-center gap-2 text-white/90 hover:text-white">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      Back to SICUS Portfolios
+    </a>
+    <div class="flex items-center gap-4 text-white/80">
+      <span class="hidden sm:inline">Concept 03 · The Nail Room — Modern nail studio</span>
+      <a href="/#schedule-demo" class="text-white font-semibold hover:text-white/90">Request this site →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ANNOUNCE BAR ==================== -->
+<div class="announce-bar">
+  <div class="container-xl flex items-center justify-between h-10 text-ink-soft">
+    <div class="hidden sm:block">📍 1402 — 1 St SE, Calgary · Open Tue–Sun · +1 403 000 0000</div>
+    <div class="flex items-center gap-4">
+      <span>Follow:</span>
+      <a href="#" class="font-semibold hover:underline">Instagram</a>
+      <a href="#" class="font-semibold hover:underline">TikTok</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== NAV ==================== -->
+<header class="brand-nav sticky top-0 z-40">
+  <div class="container-xl flex items-center justify-between h-16">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-full bg-ink flex items-center justify-center" style="background: var(--ink);">
+        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M3 12c0-4.97 4.03-9 9-9 4.97 0 9 4.03 9 9v9H3v-9zm9-5c-2.76 0-5 2.24-5 5v5h10v-5c0-2.76-2.24-5-5-5z"/></svg>
+      </div>
+      <span class="font-extrabold text-[17px] tracking-tight">The Nail Room</span>
+    </div>
+    <nav class="hidden lg:flex items-center gap-7">
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#team">Specialists</a>
+      <a href="#reviews">Reviews</a>
+    </nav>
+    <a href="#book" class="pill-dark" style="padding: 10px 22px; font-size: 13px;">Book appointment</a>
+  </div>
+</header>
+
+<!-- ==================== HERO + BOOKING WIDGET ==================== -->
+<section id="home" class="pt-8 pb-28 relative" style="background: var(--gray-100);">
+  <div class="container-xl">
+    <!-- Top small meta -->
+    <div class="flex flex-wrap items-center justify-between gap-3 text-[12px] mb-5">
+      <div style="color: var(--ink-soft);">Tuesday – Sunday, Studio 204 · 1402 — 1 St SE, Calgary</div>
+      <div class="flex items-center gap-4 font-semibold">
+        <a href="#services" class="hover:underline">Services</a>
+        <span style="color: var(--ink-soft);">·</span>
+        <a href="#portfolio" class="hover:underline">Portfolio</a>
+        <span style="color: var(--ink-soft);">·</span>
+        <span style="color: var(--ink-soft);">70% repeat bookings</span>
+      </div>
+    </div>
+
+    <!-- Hero image + overlaid content -->
+    <div class="hero-image">
+      <div class="hero-placeholder-content">Hero image · salon interior · placeholder</div>
+
+      <!-- Headline overlay -->
+      <div class="hero-headline">
+        <h1 class="text-white font-extrabold leading-[1.04] tracking-tight" style="font-size: clamp(32px, 5.5vw, 68px);">
+          Relax. Polish.<br>Feel confident.
+        </h1>
+      </div>
+
+      <!-- Stats -->
+      <div class="hero-stats">
+        <div class="mb-5">
+          <div class="text-3xl sm:text-4xl font-extrabold leading-none">+3,800</div>
+          <div class="text-[11px] uppercase tracking-[0.18em] opacity-75 mt-1">Happy clients</div>
+        </div>
+        <div class="mb-5">
+          <div class="text-3xl sm:text-4xl font-extrabold leading-none">+320</div>
+          <div class="text-[11px] uppercase tracking-[0.18em] opacity-75 mt-1">5-star reviews</div>
+        </div>
+        <div>
+          <div class="text-3xl sm:text-4xl font-extrabold leading-none">70%</div>
+          <div class="text-[11px] uppercase tracking-[0.18em] opacity-75 mt-1">Return clients</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking widget -->
+    <div class="booking-widget mx-auto -mt-10 relative z-10 max-w-4xl">
+      <div class="booking-field">
+        <label>Service</label>
+        <select>
+          <option>Gel manicure · $54</option>
+          <option>Classic manicure · $38</option>
+          <option>Spa pedicure · $72</option>
+          <option>Gel extensions · $98</option>
+          <option>Nail art · from $6</option>
+        </select>
+      </div>
+      <div class="booking-field">
+        <label>Date</label>
+        <input type="text" value="Fri · Apr 24" />
+      </div>
+      <div class="booking-field">
+        <label>Time</label>
+        <select>
+          <option>10:00 AM</option>
+          <option>11:30 AM</option>
+          <option>1:00 PM</option>
+          <option>3:30 PM</option>
+          <option>5:00 PM</option>
+        </select>
+      </div>
+      <div class="booking-field">
+        <label>Technician</label>
+        <select>
+          <option>No preference</option>
+          <option>Lien</option>
+          <option>Mia</option>
+          <option>Sarah</option>
+        </select>
+      </div>
+      <a href="#" class="pill-dark h-full justify-center" style="padding: 14px 24px;">Book appointment</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== WHY CHOOSE US ==================== -->
+<section class="py-20">
+  <div class="container-xl">
+    <div class="text-center mb-14 reveal">
+      <div class="eyebrow mb-3">Why choose The Nail Room</div>
+      <h2 class="font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-tight">A steady room for busy hands.</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-14">
+      <div class="text-center reveal">
+        <div class="why-icon mb-5 mx-auto">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <h3 class="font-bold text-lg mb-2">10 years on the street</h3>
+        <p class="text-[14px] leading-relaxed max-w-xs mx-auto" style="color: var(--ink-soft);">Since 2016. Same four technicians, same chairs, three thousand regulars. Calgary's most consistent nail studio.</p>
+      </div>
+      <div class="text-center reveal">
+        <div class="why-icon mb-5 mx-auto">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14c-4 0-7 2-7 5v1h14v-1c0-3-3-5-7-5z"/></svg>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Licensed professionals</h3>
+        <p class="text-[14px] leading-relaxed max-w-xs mx-auto" style="color: var(--ink-soft);">Every technician Alberta-certified. Continuing education twice a year. Clean station, new file, fresh tools every client.</p>
+      </div>
+      <div class="text-center reveal">
+        <div class="why-icon mb-5 mx-auto">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Certified hygienists</h3>
+        <p class="text-[14px] leading-relaxed max-w-xs mx-auto" style="color: var(--ink-soft);">Alberta Health-inspected annually. Hospital-grade autoclave. Single-use files on every set. We're proud of our kit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SERVICES IMAGE GRID ==================== -->
+<section id="services" class="py-20" style="background: var(--gray-100);">
+  <div class="container-xl">
+    <div class="text-center mb-12 reveal">
+      <div class="eyebrow mb-3">Full service menu</div>
+      <h2 class="font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-tight">Get our full range of nail services.</h2>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-5">
+      <div class="service-tile tall reveal">
+        <div class="tile-placeholder">Manicure</div>
+        <div class="service-tile-rating">★ 4.9</div>
+        <div class="service-tile-label">
+          <div class="font-bold text-[15px]">Gel manicure</div>
+          <div class="text-[11px] opacity-80">30 min · from $54</div>
+        </div>
+      </div>
+      <div class="service-tile tall reveal">
+        <div class="tile-placeholder">Pedicure</div>
+        <div class="service-tile-rating">★ 4.9</div>
+        <div class="service-tile-label">
+          <div class="font-bold text-[15px]">Spa pedicure</div>
+          <div class="text-[11px] opacity-80">55 min · from $72</div>
+        </div>
+      </div>
+      <div class="service-tile tall reveal">
+        <div class="tile-placeholder">Extensions</div>
+        <div class="service-tile-rating">★ 4.8</div>
+        <div class="service-tile-label">
+          <div class="font-bold text-[15px]">Gel extensions</div>
+          <div class="text-[11px] opacity-80">75 min · from $98</div>
+        </div>
+      </div>
+      <div class="service-tile tall reveal">
+        <div class="tile-placeholder">Nail art</div>
+        <div class="service-tile-rating">★ 5.0</div>
+        <div class="service-tile-label">
+          <div class="font-bold text-[15px]">Custom nail art</div>
+          <div class="text-[11px] opacity-80">+10 min · from $6/nail</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extra services split -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mt-10 items-center reveal">
+      <div class="service-tile wide">
+        <div class="tile-placeholder">Wedding nail prep</div>
+      </div>
+      <div>
+        <div class="eyebrow mb-3">Extra services</div>
+        <h3 class="font-extrabold text-2xl sm:text-3xl leading-tight mb-4">Get our full range of extras for your style.</h3>
+        <p class="text-[15px] leading-relaxed mb-6" style="color: var(--ink-soft);">Wedding prep, on-location groups, first-birthday mommy-and-me, and graduation sets. Twenty-person minimum on location, with a dedicated team and all tools brought to you.</p>
+        <a href="#book" class="pill-outline">See group &amp; wedding menu</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PORTFOLIO GALLERY ==================== -->
+<section id="portfolio" class="py-20">
+  <div class="container-xl">
+    <div class="flex items-end justify-between mb-10 reveal">
+      <div>
+        <div class="eyebrow mb-3">Latest work</div>
+        <h2 class="font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-tight">Latest portfolio gallery.</h2>
+      </div>
+      <a href="#" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold">
+        Follow on Instagram
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      <div class="gallery-img reveal"></div>
+      <div class="gallery-img reveal" style="background: linear-gradient(135deg, #D4A898, #A67B6A);"></div>
+      <div class="gallery-img reveal" style="background: linear-gradient(135deg, #BFC5CA, #8D969E);"></div>
+      <div class="gallery-img reveal" style="background: linear-gradient(135deg, #C2A8D9, #836BAB);"></div>
+      <div class="gallery-img reveal" style="background: linear-gradient(135deg, #D9C4A2, #A8895F);"></div>
+      <div class="gallery-img reveal" style="background: linear-gradient(135deg, #E9B8C4, #B37080);"></div>
+      <div class="gallery-img reveal"></div>
+      <div class="gallery-img reveal" style="background: linear-gradient(135deg, #A8C29A, #6B8A5E);"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DARK TESTIMONIALS ==================== -->
+<section id="reviews" class="py-20">
+  <div class="container-xl">
+    <div class="dark-panel px-6 sm:px-10 lg:px-16 py-16 sm:py-20">
+      <div class="text-center mb-14 reveal">
+        <div class="eyebrow mb-3" style="color: #9a9aa0;">Sweet words</div>
+        <h2 class="text-white font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-tight">Sweet words from clients.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+        <div class="testimonial-card reveal">
+          <div class="mb-4 text-white/90 text-lg">★★★★★</div>
+          <p class="text-[15px] leading-relaxed mb-5 text-white/90">"Booked a Saturday gel set in the morning, was out in 35 minutes with nails I've gotten three compliments on today. Five stars."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4A898] to-[#A67B6A]"></div>
+            <div>
+              <div class="text-sm font-semibold text-white">Jennifer L.</div>
+              <div class="text-[12px] text-white/50">Verified client · 2 years</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="mb-4 text-white/90 text-lg">★★★★★</div>
+          <p class="text-[15px] leading-relaxed mb-5 text-white/90">"Third set with Mia — her line work is unreal. Every tech in the room is genuinely skilled. Room feels clean, professional, quiet."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#C2A8D9] to-[#836BAB]"></div>
+            <div>
+              <div class="text-sm font-semibold text-white">Sarah M.</div>
+              <div class="text-[12px] text-white/50">Verified client · 8 months</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="mb-4 text-white/90 text-lg">★★★★★</div>
+          <p class="text-[15px] leading-relaxed mb-5 text-white/90">"Booked a mommy-and-me set for my daughter's 8th birthday. The girls loved it, photos turned out beautiful. Already rebooked for fall."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#E9B8C4] to-[#B37080]"></div>
+            <div>
+              <div class="text-sm font-semibold text-white">Alison P.</div>
+              <div class="text-[12px] text-white/50">Verified client · 1 year</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MEET OUR SPECIALISTS ==================== -->
+<section id="team" class="py-20" style="background: var(--gray-100);">
+  <div class="container-xl">
+    <div class="text-center mb-12 reveal">
+      <div class="eyebrow mb-3">Who's in the chair next to you</div>
+      <h2 class="font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-tight">Meet our specialists.</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+      <div class="spec-card reveal">
+        <div class="spec-img"></div>
+        <div class="p-5">
+          <div class="eyebrow mb-1">Owner · Senior</div>
+          <div class="font-bold text-lg">Lien Hoàng</div>
+          <div class="text-[13px] mt-1" style="color: var(--ink-soft);">10 yrs · gel sets, extensions, wedding prep</div>
+        </div>
+      </div>
+      <div class="spec-card reveal">
+        <div class="spec-img" style="background: linear-gradient(135deg, #D4A898, #7A564C);"></div>
+        <div class="p-5">
+          <div class="eyebrow mb-1">Senior technician</div>
+          <div class="font-bold text-lg">Mia Tran</div>
+          <div class="text-[13px] mt-1" style="color: var(--ink-soft);">8 yrs · line art, chromes, 3D builds</div>
+        </div>
+      </div>
+      <div class="spec-card reveal">
+        <div class="spec-img" style="background: linear-gradient(135deg, #BFC5CA, #6F7780);"></div>
+        <div class="p-5">
+          <div class="eyebrow mb-1">Technician</div>
+          <div class="font-bold text-lg">Sarah Kim</div>
+          <div class="text-[13px] mt-1" style="color: var(--ink-soft);">5 yrs · classic french, minimal</div>
+        </div>
+      </div>
+      <div class="spec-card reveal">
+        <div class="spec-img" style="background: linear-gradient(135deg, #A8C29A, #5F7754);"></div>
+        <div class="p-5">
+          <div class="eyebrow mb-1">Junior technician</div>
+          <div class="font-bold text-lg">Emma Reyes</div>
+          <div class="text-[13px] mt-1" style="color: var(--ink-soft);">3 yrs · spa pedicures, kids sets</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BOOK STRIP ==================== -->
+<section id="book" class="py-20">
+  <div class="container-xl">
+    <div class="dark-panel p-10 sm:p-14 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+      <div>
+        <div class="eyebrow mb-3" style="color: #9a9aa0;">Book online</div>
+        <h2 class="text-white font-extrabold text-3xl sm:text-4xl leading-tight">Ready when you are.</h2>
+        <p class="text-white/70 text-[15px] mt-3 max-w-lg leading-relaxed">Open Tuesday through Sunday. Online bookings take 60 seconds. Walk-ins welcome — 2 chairs always kept open for drop-ins.</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="#" class="inline-flex items-center gap-2 bg-white text-ink font-bold text-sm px-7 py-3.5 rounded-full" style="color: var(--ink);">
+          Book appointment
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+        <a href="#services" class="inline-flex items-center gap-2 border border-white/30 text-white font-bold text-sm px-7 py-3.5 rounded-full hover:bg-white/5">
+          See service menu
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="py-14" style="background: var(--ink); color: #fff;">
+  <div class="container-xl">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 mb-10">
+      <div class="md:col-span-5">
+        <div class="flex items-center gap-2 mb-5">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background: #fff;">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" style="color: var(--ink);"><path d="M3 12c0-4.97 4.03-9 9-9 4.97 0 9 4.03 9 9v9H3v-9zm9-5c-2.76 0-5 2.24-5 5v5h10v-5c0-2.76-2.24-5-5-5z"/></svg>
+          </div>
+          <span class="font-extrabold text-[17px]">The Nail Room</span>
+        </div>
+        <p class="text-sm leading-relaxed max-w-xs text-white/65">
+          Calgary's most consistent nail studio. Ten years, four technicians, three thousand regulars. Book online, walk in, stay a while.
+        </p>
+      </div>
+      <div class="md:col-span-3">
+        <div class="eyebrow mb-4" style="color: #9a9aa0;">Studio</div>
+        <ul class="space-y-2 text-sm text-white/80">
+          <li>1402 — 1 St SE, Calgary AB</li>
+          <li>+1 403 000 0000</li>
+          <li>hello@thenailroom.example</li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="eyebrow mb-4" style="color: #9a9aa0;">Browse</div>
+        <ul class="space-y-2 text-sm text-white/80">
+          <li><a href="#services" class="hover:text-white">Services</a></li>
+          <li><a href="#portfolio" class="hover:text-white">Portfolio</a></li>
+          <li><a href="#team" class="hover:text-white">Specialists</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="eyebrow mb-4" style="color: #9a9aa0;">Hours</div>
+        <ul class="space-y-2 text-sm text-white/80">
+          <li>Tue–Fri: 10a – 8p</li>
+          <li>Sat: 9a – 7p</li>
+          <li>Sun: 11a – 6p</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px] text-white/45" style="border-color: rgba(255,255,255,0.08);">
+      <div>Demo concept site · not a real business · © The Nail Room 2026</div>
+      <a href="/portfolios/" class="hover:text-white/70">← Return to SICUS portfolios</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>

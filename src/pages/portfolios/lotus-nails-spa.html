@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<!-- @include partials/gtm-head.html -->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Lotus Nails &amp; Spa — SICUS Media Portfolio Concept</title>
+  <meta name="description" content="Demo multi-service nail &amp; beauty spa site concept by SICUS Media. Lotus Nails &amp; Spa is a fictional brand used to showcase the kind of website we design and build for real salons.">
+  <link rel="canonical" href="https://sicusmedia.com/portfolios/lotus-nails-spa.html">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/brand_assets/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --purple: #5A2A82;
+      --purple-deep: #3E1E5E;
+      --purple-soft: #8A5DB5;
+      --lavender-50: #F7F2FB;
+      --lavender-100: #F2EBF7;
+      --lavender-200: #E8D6EF;
+      --lavender-300: #D8B7E6;
+      --ink: #1F1235;
+      --ink-soft: #5C4A78;
+    }
+    body {
+      background: var(--lavender-100);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container-xl { max-width: 1280px; margin-left: auto; margin-right: auto; padding-left: 24px; padding-right: 24px; }
+
+    .demo-bar { background: #0F0F11; color: #fff; font-size: 12px; }
+    .demo-bar a:hover { text-decoration: underline; }
+
+    /* Announcement bar */
+    .announce-bar {
+      background: var(--purple-deep);
+      color: #fff;
+      font-size: 12px;
+    }
+    .announce-bar a { color: #fff; font-weight: 600; }
+
+    /* Nav */
+    .brand-nav { background: #fff; border-bottom: 1px solid var(--lavender-200); }
+    .brand-nav a { color: var(--ink); font-size: 14px; font-weight: 500; }
+    .brand-nav a:hover { color: var(--purple); }
+    .logo-pill {
+      background: var(--purple);
+      color: #fff;
+      border-radius: 999px;
+      padding: 8px 20px;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pill-purple {
+      background: var(--purple); color: #fff;
+      padding: 12px 24px; border-radius: 8px;
+      font-weight: 600; font-size: 14px;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: background .3s;
+    }
+    .pill-purple:hover { background: var(--purple-deep); }
+
+    .pill-outline {
+      background: transparent; color: var(--purple);
+      padding: 11px 24px; border-radius: 8px;
+      border: 1.5px solid var(--purple);
+      font-weight: 600; font-size: 14px;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: background .3s, color .3s;
+    }
+    .pill-outline:hover { background: var(--purple); color: #fff; }
+
+    .hero-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 0;
+      box-shadow: 0 30px 80px -20px rgba(90,42,130,0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-image {
+      position: relative;
+      background: linear-gradient(135deg, #D8B7E6 0%, #C9A2E0 100%);
+      border-radius: 14px;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+    }
+    .hero-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(500px 400px at 30% 30%, rgba(255,255,255,0.35), transparent 65%);
+    }
+    .hero-image-placeholder {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    }
+
+    /* Partner logos row */
+    .partner-logo {
+      height: 28px;
+      padding: 0 16px;
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      opacity: 0.55;
+    }
+
+    /* Future of Beauty feature icons */
+    .feature-icon {
+      width: 56px; height: 56px;
+      border-radius: 999px;
+      background: var(--lavender-100);
+      color: var(--purple);
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+
+    /* Service category tiles (gradient + photo bg) */
+    .cat-tile {
+      position: relative;
+      aspect-ratio: 3/2;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform .4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .cat-tile:hover { transform: translateY(-4px); }
+    .cat-tile::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(31,18,53,0.05) 0%, rgba(31,18,53,0.45) 100%);
+      pointer-events: none;
+    }
+    .cat-tile-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .cat-tile-price {
+      position: absolute;
+      bottom: 14px; right: 14px;
+      background: rgba(255,255,255,0.95);
+      color: var(--purple);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      z-index: 2;
+    }
+
+    /* Trending service cards */
+    .trend-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--lavender-200);
+      transition: transform .3s cubic-bezier(0.34,1.56,0.64,1), box-shadow .3s, border-color .3s;
+    }
+    .trend-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -10px rgba(90,42,130,0.18);
+      border-color: var(--purple);
+    }
+    .trend-card-img {
+      aspect-ratio: 16/10;
+      background: linear-gradient(135deg, #D8B7E6 0%, #8A5DB5 100%);
+      position: relative;
+    }
+    .trend-card-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(300px 200px at 30% 30%, rgba(255,255,255,0.3), transparent 65%);
+    }
+    .trend-badge {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: var(--purple);
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    /* Save banner */
+    .save-banner {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      padding: 40px 32px;
+      background:
+        radial-gradient(600px 300px at 20% 20%, rgba(216,183,230,0.6), transparent 65%),
+        linear-gradient(135deg, #5A2A82 0%, #3E1E5E 100%);
+      color: #fff;
+    }
+    .save-big {
+      font-family: 'Inter', serif;
+      font-weight: 800;
+      font-size: clamp(60px, 10vw, 140px);
+      line-height: 0.9;
+      color: var(--lavender-200);
+    }
+
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+<!-- @include partials/gtm-noscript.html -->
+
+<!-- ==================== SICUS DEMO BAR ==================== -->
+<div class="demo-bar">
+  <div class="container-xl flex items-center justify-between h-9">
+    <a href="/portfolios/" class="flex items-center gap-2 text-white/90 hover:text-white">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      Back to SICUS Portfolios
+    </a>
+    <div class="flex items-center gap-4 text-white/80">
+      <span class="hidden sm:inline">Concept 04 · Lotus Nails &amp; Spa — Multi-service nail spa</span>
+      <a href="/#schedule-demo" class="text-white font-semibold hover:text-white/90">Request this site →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ANNOUNCE BAR ==================== -->
+<div class="announce-bar">
+  <div class="container-xl flex flex-wrap items-center justify-between gap-2 h-10">
+    <div class="flex items-center gap-6">
+      <span class="hidden sm:inline">✨ First-time visit offer · 20% off any service</span>
+      <span class="hidden lg:inline opacity-80">· Free parking behind studio · Same-day booking available</span>
+    </div>
+    <a href="#book" class="whitespace-nowrap underline-offset-2 hover:underline">Book now →</a>
+  </div>
+</div>
+
+<!-- ==================== NAV ==================== -->
+<header class="brand-nav sticky top-0 z-40">
+  <div class="container-xl flex items-center justify-between h-16">
+    <span class="logo-pill">Lotus</span>
+    <nav class="hidden lg:flex items-center gap-7">
+      <a href="#">Home</a>
+      <a href="#services">Services</a>
+      <a href="#trending">Trending</a>
+      <a href="#offers">Offers</a>
+      <a href="#blog">Journal</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <button aria-label="Search" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-[var(--lavender-100)]">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      </button>
+      <button aria-label="Bag" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-[var(--lavender-100)] relative">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+      </button>
+      <a href="#book" class="pill-purple" style="padding: 9px 20px; font-size: 13px;">Book now</a>
+      <button class="hidden sm:inline-flex text-[13px] font-semibold" style="color: var(--ink);">Sign in</button>
+    </div>
+  </div>
+</header>
+
+<!-- ==================== HERO ==================== -->
+<section class="py-10 sm:py-14">
+  <div class="container-xl">
+    <div class="hero-card p-5 sm:p-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
+        <div class="order-2 lg:order-1 py-4 lg:py-10 px-2 sm:px-6">
+          <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-4" style="color: var(--purple);">Full-service nail &amp; beauty studio</div>
+          <h1 class="font-extrabold leading-[1.05] text-4xl sm:text-5xl lg:text-[56px]" style="color: var(--ink);">
+            Professional nail &amp; beauty services.
+          </h1>
+          <div class="w-16 h-1 mt-6 rounded-full" style="background: var(--purple);"></div>
+          <p class="mt-6 text-[15px] leading-relaxed max-w-md" style="color: var(--ink-soft);">
+            Manicures, pedicures, nail art, extensions, facials and waxing — one roof, twelve technicians, one thousand happy regulars in northeast Calgary.
+          </p>
+          <div class="flex flex-wrap gap-3 mt-7">
+            <a href="#book" class="pill-purple">Book now</a>
+            <a href="#services" class="pill-outline">See service menu</a>
+          </div>
+        </div>
+
+        <div class="order-1 lg:order-2 relative">
+          <div class="hero-image">
+            <div class="hero-image-placeholder">Hero image · manicure in progress · placeholder</div>
+          </div>
+          <!-- Carousel arrows (decorative) -->
+          <button aria-label="Previous" class="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full items-center justify-center shadow-md" style="background: #fff; color: var(--ink);">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button aria-label="Next" class="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full items-center justify-center shadow-md" style="background: #fff; color: var(--ink);">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Partner/awards strip -->
+      <div class="mt-10 py-5 px-2 border-t flex flex-wrap items-center justify-center gap-2 sm:gap-6" style="border-color: var(--lavender-200);">
+        <span class="partner-logo">Calgary Herald</span>
+        <span class="partner-logo">Best of Alberta '24</span>
+        <span class="partner-logo">★ 4.9 / 1.2k Google</span>
+        <span class="partner-logo">CTV Calgary</span>
+        <span class="partner-logo">Avenue Mag</span>
+        <span class="partner-logo">YYC Living</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== THE FUTURE OF BEAUTY (feature row) ==================== -->
+<section class="py-14" style="background: var(--lavender-50);">
+  <div class="container-xl">
+    <div class="text-center mb-10 reveal">
+      <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-3" style="color: var(--purple);">The Lotus difference</div>
+      <h2 class="font-extrabold text-3xl sm:text-4xl" style="color: var(--ink);">What makes a Lotus visit different.</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div class="text-center reveal">
+        <div class="feature-icon mx-auto mb-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2 4 4 8-8 2 2-10 10-6-6z"/></svg>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Ultimate convenience</h3>
+        <p class="text-[14px] leading-relaxed max-w-xs mx-auto" style="color: var(--ink-soft);">Book online in 60 seconds. Reschedule or cancel up to 2 hours ahead. SMS reminders so you never double-book.</p>
+      </div>
+      <div class="text-center reveal">
+        <div class="feature-icon mx-auto mb-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2l3 7h7l-5.5 4 2 8-6.5-5-6.5 5 2-8L2 9h7l3-7z"/></svg>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Accessible luxury</h3>
+        <p class="text-[14px] leading-relaxed max-w-xs mx-auto" style="color: var(--ink-soft);">Premium service menu with honest pricing. Members save 15% on every visit. No add-on surprises at the register.</p>
+      </div>
+      <div class="text-center reveal">
+        <div class="feature-icon mx-auto mb-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Premium quality &amp; hygiene</h3>
+        <p class="text-[14px] leading-relaxed max-w-xs mx-auto" style="color: var(--ink-soft);">Alberta Health-inspected. Hospital-grade sterilization. OPI, Gelish and Vinylux only. Imported Japanese gel tops.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== OUR SERVICES — CATEGORY TILES ==================== -->
+<section id="services" class="py-16 sm:py-20">
+  <div class="container-xl">
+    <div class="flex items-end justify-between mb-10 reveal">
+      <div>
+        <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-3" style="color: var(--purple);">Our services</div>
+        <h2 class="font-extrabold text-3xl sm:text-4xl lg:text-5xl" style="color: var(--ink);">Explore by category.</h2>
+      </div>
+      <a href="#trending" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold" style="color: var(--purple);">
+        View full menu
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+      <a href="#" class="cat-tile reveal" style="background: linear-gradient(135deg, #D8B7E6 0%, #8A5DB5 100%);">
+        <div class="cat-tile-content">Manicure</div>
+        <div class="cat-tile-price">from $38</div>
+      </a>
+      <a href="#" class="cat-tile reveal" style="background: linear-gradient(135deg, #C9A2E0 0%, #6E3BA0 100%);">
+        <div class="cat-tile-content">Pedicure</div>
+        <div class="cat-tile-price">from $68</div>
+      </a>
+      <a href="#" class="cat-tile reveal" style="background: linear-gradient(135deg, #E9B8C4 0%, #9E4966 100%);">
+        <div class="cat-tile-content">Nail Art</div>
+        <div class="cat-tile-price">from $6</div>
+      </a>
+      <a href="#" class="cat-tile reveal" style="background: linear-gradient(135deg, #E8D6EF 0%, #B38ADC 100%);">
+        <div class="cat-tile-content">Extensions</div>
+        <div class="cat-tile-price">from $92</div>
+      </a>
+      <a href="#" class="cat-tile reveal" style="background: linear-gradient(135deg, #F4DADF 0%, #C988A3 100%);">
+        <div class="cat-tile-content">Waxing</div>
+        <div class="cat-tile-price">from $22</div>
+      </a>
+      <a href="#" class="cat-tile reveal" style="background: linear-gradient(135deg, #D9B9F0 0%, #7A4AB5 100%);">
+        <div class="cat-tile-content">Facials</div>
+        <div class="cat-tile-price">from $85</div>
+      </a>
+      <a href="#" class="cat-tile reveal" style="background: linear-gradient(135deg, #CBB5E0 0%, #5A2A82 100%);">
+        <div class="cat-tile-content">Packages</div>
+        <div class="cat-tile-price">save 15%</div>
+      </a>
+      <a href="#" class="cat-tile reveal" style="background: linear-gradient(135deg, #F2EBF7 0%, #8A5DB5 100%);">
+        <div class="cat-tile-content">Bridal</div>
+        <div class="cat-tile-price">custom</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TRENDING SERVICES ==================== -->
+<section id="trending" class="py-16" style="background: var(--lavender-50);">
+  <div class="container-xl">
+    <div class="flex items-end justify-between mb-10 reveal">
+      <div>
+        <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-3" style="color: var(--purple);">Trending this month</div>
+        <h2 class="font-extrabold text-3xl sm:text-4xl lg:text-5xl" style="color: var(--ink);">Trending services.</h2>
+      </div>
+      <div class="hidden sm:flex items-center gap-2 text-[12px]" style="color: var(--ink-soft);">
+        <span class="w-1.5 h-1.5 rounded-full" style="background: var(--purple);"></span>
+        Real-time most-booked
+      </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+      <a href="#" class="trend-card reveal">
+        <div class="trend-card-img">
+          <span class="trend-badge">Sale</span>
+        </div>
+        <div class="p-4">
+          <div class="text-[11px] font-semibold uppercase tracking-[0.1em]" style="color: var(--ink-soft);">Facial</div>
+          <div class="font-bold text-[15px] mt-0.5">Hydrating protein facial</div>
+          <div class="flex items-center gap-1 mt-2 text-[12px]">
+            <span style="color: #F4B400;">★★★★★</span>
+            <span style="color: var(--ink-soft);">(412)</span>
+          </div>
+          <div class="flex items-center justify-between mt-3">
+            <div>
+              <span class="font-bold text-lg" style="color: var(--purple);">$72</span>
+              <span class="text-[12px] line-through ml-1" style="color: var(--ink-soft);">$85</span>
+            </div>
+            <button class="pill-outline" style="padding: 6px 14px; font-size: 12px;">Book</button>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="trend-card reveal">
+        <div class="trend-card-img" style="background: linear-gradient(135deg, #E9B8C4 0%, #9E4966 100%);">
+          <span class="trend-badge">Top</span>
+        </div>
+        <div class="p-4">
+          <div class="text-[11px] font-semibold uppercase tracking-[0.1em]" style="color: var(--ink-soft);">Manicure</div>
+          <div class="font-bold text-[15px] mt-0.5">Signature gel manicure</div>
+          <div class="flex items-center gap-1 mt-2 text-[12px]">
+            <span style="color: #F4B400;">★★★★★</span>
+            <span style="color: var(--ink-soft);">(1.2k)</span>
+          </div>
+          <div class="flex items-center justify-between mt-3">
+            <div>
+              <span class="font-bold text-lg" style="color: var(--purple);">$54</span>
+            </div>
+            <button class="pill-outline" style="padding: 6px 14px; font-size: 12px;">Book</button>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="trend-card reveal">
+        <div class="trend-card-img" style="background: linear-gradient(135deg, #D9B9F0 0%, #7A4AB5 100%);">
+          <span class="trend-badge">Sale</span>
+        </div>
+        <div class="p-4">
+          <div class="text-[11px] font-semibold uppercase tracking-[0.1em]" style="color: var(--ink-soft);">Extensions</div>
+          <div class="font-bold text-[15px] mt-0.5">Gel tip extension set</div>
+          <div class="flex items-center gap-1 mt-2 text-[12px]">
+            <span style="color: #F4B400;">★★★★★</span>
+            <span style="color: var(--ink-soft);">(286)</span>
+          </div>
+          <div class="flex items-center justify-between mt-3">
+            <div>
+              <span class="font-bold text-lg" style="color: var(--purple);">$92</span>
+              <span class="text-[12px] line-through ml-1" style="color: var(--ink-soft);">$110</span>
+            </div>
+            <button class="pill-outline" style="padding: 6px 14px; font-size: 12px;">Book</button>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="trend-card reveal">
+        <div class="trend-card-img" style="background: linear-gradient(135deg, #F4DADF 0%, #C988A3 100%);">
+          <span class="trend-badge">New</span>
+        </div>
+        <div class="p-4">
+          <div class="text-[11px] font-semibold uppercase tracking-[0.1em]" style="color: var(--ink-soft);">Pedicure</div>
+          <div class="font-bold text-[15px] mt-0.5">Detox spa pedicure</div>
+          <div class="flex items-center gap-1 mt-2 text-[12px]">
+            <span style="color: #F4B400;">★★★★★</span>
+            <span style="color: var(--ink-soft);">(154)</span>
+          </div>
+          <div class="flex items-center justify-between mt-3">
+            <div>
+              <span class="font-bold text-lg" style="color: var(--purple);">$78</span>
+            </div>
+            <button class="pill-outline" style="padding: 6px 14px; font-size: 12px;">Book</button>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SAVE BANNER ==================== -->
+<section id="offers" class="py-16 sm:py-20">
+  <div class="container-xl">
+    <div class="save-banner reveal">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+        <div class="flex items-center gap-6">
+          <div class="save-big">32<span style="font-size: 0.5em;">%</span></div>
+          <div>
+            <div class="text-[11px] font-semibold uppercase tracking-[0.2em] opacity-75">First-time members</div>
+            <div class="font-extrabold text-2xl sm:text-3xl mt-2 leading-tight">Save up to 32% on<br>your first month.</div>
+            <div class="mt-3 text-[13px] opacity-85 max-w-md leading-relaxed">Become a Lotus member — one monthly mani + one pedi + 15% off extras. Cancel any time after month one.</div>
+          </div>
+        </div>
+        <div class="flex flex-col items-start lg:items-end gap-3">
+          <a href="#book" class="inline-flex items-center gap-2 bg-white font-bold text-sm px-7 py-3.5 rounded-full" style="color: var(--purple);">
+            Join Lotus Members
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+          <span class="text-[12px] opacity-75">No card on file needed · cancel any time</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BOOK CTA ==================== -->
+<section id="book" class="py-16">
+  <div class="container-xl">
+    <div class="bg-white rounded-2xl p-10 sm:p-14 text-center" style="border: 1px solid var(--lavender-200);">
+      <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-3" style="color: var(--purple);">Book your visit</div>
+      <h2 class="font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4" style="color: var(--ink);">Your next visit starts here.</h2>
+      <p class="text-[15px] leading-relaxed max-w-xl mx-auto mb-7" style="color: var(--ink-soft);">Same-day appointments often available. First-visit guests get 20% off any service with code LOTUSFIRST at booking.</p>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <a href="#" class="pill-purple" style="padding: 14px 30px; font-size: 15px;">Book online</a>
+        <a href="#contact" class="pill-outline" style="padding: 13px 30px; font-size: 15px;">Call the studio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer id="contact" class="pt-16 pb-10" style="background: var(--purple-deep); color: #fff;">
+  <div class="container-xl">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
+      <div class="md:col-span-5">
+        <span class="logo-pill inline-block mb-5" style="background: #fff; color: var(--purple);">Lotus</span>
+        <p class="text-sm leading-relaxed max-w-xs mt-3 text-white/80">
+          Northeast Calgary's multi-service nail &amp; beauty studio. Twelve technicians, one thousand regulars, seven days a week.
+        </p>
+      </div>
+      <div class="md:col-span-3">
+        <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-4 text-white/70">Studio</div>
+        <ul class="space-y-2 text-sm text-white/90">
+          <li>2210 — 36 St NE, Calgary AB</li>
+          <li>+1 403 000 0000</li>
+          <li>hello@lotusnails.example</li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-4 text-white/70">Browse</div>
+        <ul class="space-y-2 text-sm text-white/90">
+          <li><a href="#services" class="hover:text-white">Services</a></li>
+          <li><a href="#trending" class="hover:text-white">Trending</a></li>
+          <li><a href="#offers" class="hover:text-white">Offers</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-4 text-white/70">Hours</div>
+        <ul class="space-y-2 text-sm text-white/90">
+          <li>Mon–Sat: 9a – 9p</li>
+          <li>Sun: 10a – 6p</li>
+          <li>Walk-ins welcome</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px] text-white/55" style="border-color: rgba(255,255,255,0.12);">
+      <div>Demo concept site · not a real business · © Lotus Nails &amp; Spa 2026</div>
+      <a href="/portfolios/" class="hover:text-white">← Return to SICUS portfolios</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>

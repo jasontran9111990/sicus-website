@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<!-- @include partials/gtm-head.html -->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Gloss Lab — SICUS Media Portfolio Concept</title>
+  <meta name="description" content="Demo nail salon site concept by SICUS Media. Gloss Lab is a fictional brand used to showcase the kind of website we design and build for real salons.">
+  <link rel="canonical" href="https://sicusmedia.com/portfolios/gloss-lab.html">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/brand_assets/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --bg: #F2EDFA;
+      --bg-soft: #EFE8FA;
+      --bg-deep: #E4DAF2;
+      --ink: #1F1535;
+      --ink-soft: #4B3F68;
+      --accent: #C9A8E8;
+      --blush: #F4DADF;
+    }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-display { font-family: 'Playfair Display', serif; letter-spacing: -0.02em; }
+    .container-xl { max-width: 1240px; margin-left: auto; margin-right: auto; padding-left: 24px; padding-right: 24px; }
+
+    /* SICUS demo bar */
+    .demo-bar {
+      background: #0F0F11;
+      color: #fff;
+      font-size: 12px;
+    }
+    .demo-bar a:hover { text-decoration: underline; }
+
+    /* Nav */
+    .brand-nav {
+      background: var(--bg);
+      border-bottom: 1px solid rgba(31,21,53,0.06);
+    }
+    .brand-nav a {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* Hero */
+    .hero-card {
+      background: #fff;
+      border-radius: 28px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 30px 80px -20px rgba(31,21,53,0.12);
+    }
+
+    .pill-dark {
+      background: var(--ink);
+      color: #fff;
+      border-radius: 999px;
+      padding: 12px 22px;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform .3s cubic-bezier(0.34,1.56,0.64,1), box-shadow .3s;
+    }
+    .pill-dark:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(31,21,53,0.25); }
+    .pill-outline {
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid rgba(31,21,53,0.15);
+      border-radius: 999px;
+      padding: 11px 22px;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background .3s, border-color .3s;
+    }
+    .pill-outline:hover { background: #fff; border-color: var(--ink); }
+
+    .floating-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 14px 16px;
+      box-shadow: 0 16px 40px -10px rgba(31,21,53,0.18);
+      border: 1px solid rgba(31,21,53,0.04);
+    }
+
+    .offer-card {
+      background: linear-gradient(135deg, #C9A8E8 0%, #F4DADF 100%);
+      color: #fff;
+      border-radius: 20px;
+      padding: 20px 22px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px -10px rgba(201,168,232,0.45);
+    }
+    .offer-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(600px 200px at 80% 80%, rgba(255,255,255,0.3), transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-portrait-frame {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #C9A8E8 0%, #F4DADF 100%);
+      aspect-ratio: 4 / 5;
+    }
+    .hero-portrait-frame::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(600px 400px at 30% 20%, rgba(255,255,255,0.4), transparent 60%),
+        radial-gradient(500px 400px at 70% 80%, rgba(255,255,255,0.2), transparent 60%);
+      pointer-events: none;
+    }
+    .hero-portrait-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: #fff;
+      text-align: center;
+      padding: 24px;
+    }
+
+    /* Swatch row polish chips */
+    .polish-swatch {
+      width: 14px; height: 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(31,21,53,0.12);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    /* Featured polishes grid */
+    .polish-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 18px;
+      border: 1px solid rgba(31,21,53,0.04);
+      transition: transform .3s cubic-bezier(0.34,1.56,0.64,1), box-shadow .3s;
+    }
+    .polish-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(31,21,53,0.12); }
+    .polish-bottle {
+      aspect-ratio: 1 / 1;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    /* Service rows */
+    .service-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 20px 0;
+      border-bottom: 1px dashed rgba(31,21,53,0.12);
+    }
+    .service-row:last-child { border-bottom: none; }
+    .service-dots {
+      flex: 1;
+      background-image: radial-gradient(circle, rgba(31,21,53,0.2) 1px, transparent 1px);
+      background-size: 8px 1px;
+      background-repeat: repeat-x;
+      background-position: 0 60%;
+      height: 1em;
+      min-width: 20px;
+    }
+
+    /* Method section icon circles */
+    .method-icon {
+      width: 64px; height: 64px;
+      border-radius: 999px;
+      background: var(--bg-soft);
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--ink);
+    }
+
+    /* Testimonial */
+    .quote-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid rgba(31,21,53,0.05);
+    }
+
+    /* Booking section card */
+    .book-panel {
+      background: var(--ink);
+      color: #fff;
+      border-radius: 28px;
+      padding: 56px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .book-panel::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(600px 300px at 10% 10%, rgba(201,168,232,0.35), transparent 60%),
+        radial-gradient(500px 300px at 90% 90%, rgba(244,218,223,0.25), transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Footer */
+    .brand-footer {
+      background: var(--ink);
+      color: #E4DAF2;
+    }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+<!-- @include partials/gtm-noscript.html -->
+
+<!-- ==================== SICUS DEMO BAR ==================== -->
+<div class="demo-bar">
+  <div class="container-xl flex items-center justify-between h-9">
+    <a href="/portfolios/" class="flex items-center gap-2 text-white/90 hover:text-white">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      Back to SICUS Portfolios
+    </a>
+    <div class="flex items-center gap-4 text-white/80">
+      <span class="hidden sm:inline">Concept 01 · Gloss Lab — Clean-beauty nail lab</span>
+      <a href="/#schedule-demo" class="text-white font-semibold hover:text-white/90">Request this site →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== BRAND NAV ==================== -->
+<header class="brand-nav sticky top-0 z-40">
+  <div class="container-xl h-16 flex items-center justify-between">
+    <nav class="hidden md:flex items-center gap-7">
+      <a href="#polishes">Shop polish</a>
+      <a href="#services">Services</a>
+      <a href="#method">Our method</a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="flex items-center">
+      <span class="font-display text-[20px] font-bold uppercase tracking-[0.25em]">Gloss · Lab</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <button aria-label="Search" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-black/5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      </button>
+      <button aria-label="Bag" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-black/5 relative">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+        <span class="absolute -top-0.5 -right-0.5 w-4 h-4 text-[9px] font-bold bg-[#1F1535] text-white rounded-full flex items-center justify-center">2</span>
+      </button>
+      <button aria-label="Account" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-black/5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14c-4 0-7 2-7 5v1h14v-1c0-3-3-5-7-5z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ==================== HERO ==================== -->
+<section class="pt-8 sm:pt-10 pb-16">
+  <div class="container-xl">
+    <div class="hero-card p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+      <!-- Left column -->
+      <div class="lg:col-span-6">
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-[64px] font-semibold uppercase leading-[1.02]">
+          Clean nails,<br>elevated care.
+        </h1>
+        <div class="flex flex-wrap items-center gap-3 mt-7">
+          <a href="#polishes" class="pill-dark">
+            Shop polish
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17L7 7m10 0H9m8 0v8"/></svg>
+          </a>
+          <a href="#reel" class="pill-outline">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 8l6 4-6 4V8z"/><circle cx="12" cy="12" r="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Watch reel
+          </a>
+        </div>
+        <p class="mt-8 text-[15px] leading-relaxed max-w-md" style="color: var(--ink-soft);">
+          Gloss Lab blends 10-free gel polish with 30-minute appointments and certified nail technicians. Calgary's cleanest-smelling manicure room.
+        </p>
+      </div>
+
+      <!-- Right column — portrait with floating cards -->
+      <div class="lg:col-span-6 relative">
+        <!-- Portrait placeholder -->
+        <div class="hero-portrait-frame">
+          <div class="hero-portrait-placeholder">
+            <div class="w-20 h-20 rounded-full bg-white/30 backdrop-blur-sm flex items-center justify-center mb-3">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14c-5 0-9 3-9 7h18c0-4-4-7-9-7z"/></svg>
+            </div>
+            <div class="text-sm font-semibold uppercase tracking-[0.2em] text-white/90">Placeholder</div>
+            <div class="text-xs text-white/70 mt-1">Hero portrait / hand close-up goes here</div>
+          </div>
+
+          <!-- Floating: tiny product thumb top right -->
+          <div class="absolute top-5 right-5 floating-card w-16 h-16 flex items-center justify-center" style="border-radius: 18px;">
+            <svg class="w-6 h-6" style="color: var(--ink);" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 3l4 4-12 12H5v-4L17 3z"/></svg>
+          </div>
+        </div>
+
+        <!-- Floating: offer card (bottom-left) -->
+        <div class="absolute -bottom-4 -left-4 sm:-left-6 w-[58%] sm:w-[55%] offer-card">
+          <div class="text-[10px] font-semibold uppercase tracking-[0.18em] mb-2 opacity-90">First-visit offer</div>
+          <div class="font-display text-2xl sm:text-3xl font-bold leading-[1.05]">Up to 15% off<br>your first gel mani</div>
+          <div class="text-[11px] mt-3 opacity-90">Use code <span class="font-bold">GLOSSFIRST</span> at checkout</div>
+        </div>
+
+        <!-- Floating: review + product card (center-right) -->
+        <div class="hidden sm:block absolute top-1/2 -translate-y-1/2 -right-4 lg:-right-6 w-[62%] sm:w-[60%] floating-card">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#C9A8E8] to-[#F4DADF]"></div>
+            <div>
+              <div class="text-[13px] font-semibold">"I just love it"</div>
+              <div class="text-[11px]" style="color: var(--ink-soft);">Best gel mani I've had in Calgary.</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 p-2 pr-3 rounded-xl" style="background: var(--bg);">
+            <div class="w-12 h-12 rounded-lg" style="background: linear-gradient(135deg, #D9B9F0, #F2D4DC);"></div>
+            <div class="flex-1 min-w-0">
+              <div class="text-[12px] font-semibold truncate">Rose Quartz Gel</div>
+              <div class="flex items-center gap-0.5 text-[10px]" style="color: var(--ink-soft);">
+                <span>★★★★★</span>
+                <span class="ml-1 font-semibold">$24.00</span>
+              </div>
+            </div>
+            <button aria-label="Add to bag" class="w-8 h-8 rounded-full flex items-center justify-center" style="background: var(--ink); color: #fff;">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== METHOD (3-icon strip) ==================== -->
+<section id="method" class="py-16">
+  <div class="container-xl">
+    <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+      <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-3" style="color: var(--ink-soft);">The Gloss Lab method</div>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold leading-tight">Honest nail care, end to end.</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+      <div class="text-center reveal">
+        <div class="method-icon mx-auto mb-4">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l2 4 4 .5-3 3 .7 4.5L12 13l-3.7 2 .7-4.5-3-3 4-.5L12 3z"/></svg>
+        </div>
+        <h3 class="font-display text-lg font-semibold mb-2">10-free polish</h3>
+        <p class="text-sm leading-relaxed" style="color: var(--ink-soft);">Every colour on our shelf skips formaldehyde, toluene, DBP and seven other worst offenders. The smell in our studio is the proof.</p>
+      </div>
+      <div class="text-center reveal">
+        <div class="method-icon mx-auto mb-4">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3 class="font-display text-lg font-semibold mb-2">Certified techs</h3>
+        <p class="text-sm leading-relaxed" style="color: var(--ink-soft);">Every technician is Alberta-licensed with 3+ years on the chair. Training hours logged monthly. Sanitation audited quarterly.</p>
+      </div>
+      <div class="text-center reveal">
+        <div class="method-icon mx-auto mb-4">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2"/></svg>
+        </div>
+        <h3 class="font-display text-lg font-semibold mb-2">30-minute gel</h3>
+        <p class="text-sm leading-relaxed" style="color: var(--ink-soft);">Walk in on time, walk out with a perfect gel mani thirty minutes later. Book online with 15-minute increments.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FEATURED POLISHES ==================== -->
+<section id="polishes" class="py-16" style="background: var(--bg-deep);">
+  <div class="container-xl">
+    <div class="flex items-end justify-between mb-10 reveal">
+      <div>
+        <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-2" style="color: var(--ink-soft);">Shop</div>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold">Spring polish drop</h2>
+      </div>
+      <a href="#polishes" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold">
+        View all 48 shades
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+      <!-- Polish 1 -->
+      <div class="polish-card reveal">
+        <div class="polish-bottle" style="background: linear-gradient(135deg, #D9B9F0, #B38ADC);"></div>
+        <div class="text-[11px] font-semibold uppercase tracking-[0.12em]" style="color: var(--ink-soft);">Gel · 01</div>
+        <div class="font-display text-[17px] font-semibold mt-0.5">Violet Dusk</div>
+        <div class="text-sm font-semibold mt-1">$24.00</div>
+      </div>
+      <!-- Polish 2 -->
+      <div class="polish-card reveal">
+        <div class="polish-bottle" style="background: linear-gradient(135deg, #F4DADF, #E9B8C4);"></div>
+        <div class="text-[11px] font-semibold uppercase tracking-[0.12em]" style="color: var(--ink-soft);">Gel · 02</div>
+        <div class="font-display text-[17px] font-semibold mt-0.5">Peony Blush</div>
+        <div class="text-sm font-semibold mt-1">$24.00</div>
+      </div>
+      <!-- Polish 3 -->
+      <div class="polish-card reveal">
+        <div class="polish-bottle" style="background: linear-gradient(135deg, #F7E8D2, #E9CDA4);"></div>
+        <div class="text-[11px] font-semibold uppercase tracking-[0.12em]" style="color: var(--ink-soft);">Gel · 03</div>
+        <div class="font-display text-[17px] font-semibold mt-0.5">Latte Nude</div>
+        <div class="text-sm font-semibold mt-1">$24.00</div>
+      </div>
+      <!-- Polish 4 -->
+      <div class="polish-card reveal">
+        <div class="polish-bottle" style="background: linear-gradient(135deg, #CBDDE5, #91AEC0);"></div>
+        <div class="text-[11px] font-semibold uppercase tracking-[0.12em]" style="color: var(--ink-soft);">Gel · 04</div>
+        <div class="font-display text-[17px] font-semibold mt-0.5">Glacier Mist</div>
+        <div class="text-sm font-semibold mt-1">$24.00</div>
+      </div>
+      <!-- Polish 5 -->
+      <div class="polish-card reveal">
+        <div class="polish-bottle" style="background: linear-gradient(135deg, #E8B5AD, #B66B6A);"></div>
+        <div class="text-[11px] font-semibold uppercase tracking-[0.12em]" style="color: var(--ink-soft);">Gel · 05</div>
+        <div class="font-display text-[17px] font-semibold mt-0.5">Brick Rouge</div>
+        <div class="text-sm font-semibold mt-1">$24.00</div>
+      </div>
+      <!-- Polish 6 -->
+      <div class="polish-card reveal">
+        <div class="polish-bottle" style="background: linear-gradient(135deg, #EBEDEF, #BFC5CA);"></div>
+        <div class="text-[11px] font-semibold uppercase tracking-[0.12em]" style="color: var(--ink-soft);">Gel · 06</div>
+        <div class="font-display text-[17px] font-semibold mt-0.5">Pearl Grey</div>
+        <div class="text-sm font-semibold mt-1">$24.00</div>
+      </div>
+      <!-- Polish 7 -->
+      <div class="polish-card reveal">
+        <div class="polish-bottle" style="background: linear-gradient(135deg, #A8C29A, #6B8A5E);"></div>
+        <div class="text-[11px] font-semibold uppercase tracking-[0.12em]" style="color: var(--ink-soft);">Gel · 07</div>
+        <div class="font-display text-[17px] font-semibold mt-0.5">Sage Walk</div>
+        <div class="text-sm font-semibold mt-1">$24.00</div>
+      </div>
+      <!-- Polish 8 -->
+      <div class="polish-card reveal">
+        <div class="polish-bottle" style="background: linear-gradient(135deg, #E8D6A0, #B8994E);"></div>
+        <div class="text-[11px] font-semibold uppercase tracking-[0.12em]" style="color: var(--ink-soft);">Gel · 08</div>
+        <div class="font-display text-[17px] font-semibold mt-0.5">Honey Gilt</div>
+        <div class="text-sm font-semibold mt-1">$24.00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SERVICES & PRICING ==================== -->
+<section id="services" class="py-16 sm:py-20">
+  <div class="container-xl grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+    <div class="lg:col-span-5 reveal">
+      <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-3" style="color: var(--ink-soft);">Services &amp; pricing</div>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold leading-tight">Every service priced up front.</h2>
+      <p class="text-[15px] leading-relaxed mt-5" style="color: var(--ink-soft);">No "starting at" games. What you see on this page is what you pay at checkout. Add-ons are listed separately so you always know the total before you sit down.</p>
+      <div class="mt-7 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold" style="background: var(--bg-soft); color: var(--ink);">
+        <span class="w-1.5 h-1.5 rounded-full" style="background: var(--ink);"></span>
+        Book online · same-day availability
+      </div>
+    </div>
+    <div class="lg:col-span-7 bg-white rounded-2xl p-6 sm:p-8 lg:p-10 border border-[rgba(31,21,53,0.06)]">
+      <div class="service-row">
+        <div>
+          <div class="font-display text-lg sm:text-xl font-semibold">Classic manicure</div>
+          <div class="text-[13px] mt-0.5" style="color: var(--ink-soft);">Shape, cuticle, one coat · 30 min</div>
+        </div>
+        <div class="service-dots"></div>
+        <div class="font-semibold text-lg">$38</div>
+      </div>
+      <div class="service-row">
+        <div>
+          <div class="font-display text-lg sm:text-xl font-semibold">Gel manicure</div>
+          <div class="text-[13px] mt-0.5" style="color: var(--ink-soft);">10-free gel, cured, 2-week wear · 30 min</div>
+        </div>
+        <div class="service-dots"></div>
+        <div class="font-semibold text-lg">$54</div>
+      </div>
+      <div class="service-row">
+        <div>
+          <div class="font-display text-lg sm:text-xl font-semibold">Spa pedicure</div>
+          <div class="text-[13px] mt-0.5" style="color: var(--ink-soft);">Soak, scrub, mask, polish · 55 min</div>
+        </div>
+        <div class="service-dots"></div>
+        <div class="font-semibold text-lg">$72</div>
+      </div>
+      <div class="service-row">
+        <div>
+          <div class="font-display text-lg sm:text-xl font-semibold">Gel extension set</div>
+          <div class="text-[13px] mt-0.5" style="color: var(--ink-soft);">Soft gel tips, shape, finish · 75 min</div>
+        </div>
+        <div class="service-dots"></div>
+        <div class="font-semibold text-lg">$98</div>
+      </div>
+      <div class="service-row">
+        <div>
+          <div class="font-display text-lg sm:text-xl font-semibold">Nail art (per nail)</div>
+          <div class="text-[13px] mt-0.5" style="color: var(--ink-soft);">Hand-painted, chrome, 3D add-ons</div>
+        </div>
+        <div class="service-dots"></div>
+        <div class="font-semibold text-lg">$6+</div>
+      </div>
+      <a href="#book" class="mt-7 pill-dark w-full justify-center">
+        Book online
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TESTIMONIALS ==================== -->
+<section class="py-16" style="background: var(--bg-soft);">
+  <div class="container-xl">
+    <div class="text-center max-w-xl mx-auto mb-12 reveal">
+      <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-3" style="color: var(--ink-soft);">Regulars</div>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold leading-tight">Words from the chair.</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+      <div class="quote-card reveal">
+        <div class="flex items-center gap-0.5 mb-3" style="color: var(--ink);">★★★★★</div>
+        <p class="text-[15px] leading-relaxed mb-5">"The gel mani lasted 17 days through a move. I never go back to anyone else now."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full" style="background: linear-gradient(135deg, #C9A8E8, #F4DADF);"></div>
+          <div>
+            <div class="text-sm font-semibold">Priya K.</div>
+            <div class="text-[12px]" style="color: var(--ink-soft);">Regular since 2024</div>
+          </div>
+        </div>
+      </div>
+      <div class="quote-card reveal">
+        <div class="flex items-center gap-0.5 mb-3" style="color: var(--ink);">★★★★★</div>
+        <p class="text-[15px] leading-relaxed mb-5">"Finally a mani studio that doesn't smell like a chemistry lab. My sinuses thank Gloss Lab weekly."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full" style="background: linear-gradient(135deg, #A8C29A, #F7E8D2);"></div>
+          <div>
+            <div class="text-sm font-semibold">Maya C.</div>
+            <div class="text-[12px]" style="color: var(--ink-soft);">Regular since 2023</div>
+          </div>
+        </div>
+      </div>
+      <div class="quote-card reveal">
+        <div class="flex items-center gap-0.5 mb-3" style="color: var(--ink);">★★★★★</div>
+        <p class="text-[15px] leading-relaxed mb-5">"Booked at 9am, walked out at 9:32 with a perfect set. They actually respect the clock."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full" style="background: linear-gradient(135deg, #E8B5AD, #CBDDE5);"></div>
+          <div>
+            <div class="text-sm font-semibold">Alex R.</div>
+            <div class="text-[12px]" style="color: var(--ink-soft);">Regular since 2025</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BOOK ==================== -->
+<section id="book" class="py-16 sm:py-20">
+  <div class="container-xl">
+    <div class="book-panel">
+      <div class="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7">
+          <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-3" style="color: var(--accent);">Visit us</div>
+          <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4">Book your first clean mani.</h2>
+          <p class="text-[15px] leading-relaxed max-w-md" style="color: rgba(228,218,242,0.85);">Walk-ins welcome, but online-booked clients are seated first. 15% off your first gel mani with code GLOSSFIRST.</p>
+        </div>
+        <div class="lg:col-span-5">
+          <a href="#" class="inline-flex items-center justify-center gap-2 bg-white font-bold text-sm px-6 py-3.5 rounded-full w-full" style="color: var(--ink);">
+            Book online · 15% off first visit
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+          <div class="grid grid-cols-3 gap-2 mt-4 text-[11px] text-center" style="color: rgba(228,218,242,0.75);">
+            <div>
+              <div class="font-semibold text-white text-[13px]">Mon–Sat</div>
+              <div>10a – 8p</div>
+            </div>
+            <div>
+              <div class="font-semibold text-white text-[13px]">Sun</div>
+              <div>11a – 6p</div>
+            </div>
+            <div>
+              <div class="font-semibold text-white text-[13px]">Walk-ins</div>
+              <div>Yes, 2 chairs</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer id="about" class="brand-footer pt-16 pb-10">
+  <div class="container-xl">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
+      <div class="md:col-span-5">
+        <div class="font-display text-2xl font-bold uppercase tracking-[0.25em] mb-4">Gloss · Lab</div>
+        <p class="text-sm leading-relaxed max-w-xs" style="color: rgba(228,218,242,0.75);">
+          Calgary's clean-beauty nail lab. 10-free gel polish, certified technicians, 30-minute manicures. Open seven days.
+        </p>
+      </div>
+      <div class="md:col-span-3">
+        <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-4" style="color: rgba(228,218,242,0.6);">Studio</div>
+        <ul class="space-y-2 text-sm" style="color: rgba(228,218,242,0.9);">
+          <li>1412 — 4 St SW, Calgary AB</li>
+          <li>+1 403 000 0000</li>
+          <li>hello@glosslab.example</li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-4" style="color: rgba(228,218,242,0.6);">Shop</div>
+        <ul class="space-y-2 text-sm" style="color: rgba(228,218,242,0.9);">
+          <li><a href="#polishes" class="hover:text-white">All polishes</a></li>
+          <li><a href="#polishes" class="hover:text-white">Spring drop</a></li>
+          <li><a href="#polishes" class="hover:text-white">Gift cards</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="text-[11px] font-semibold uppercase tracking-[0.2em] mb-4" style="color: rgba(228,218,242,0.6);">Salon</div>
+        <ul class="space-y-2 text-sm" style="color: rgba(228,218,242,0.9);">
+          <li><a href="#services" class="hover:text-white">Services</a></li>
+          <li><a href="#method" class="hover:text-white">Our method</a></li>
+          <li><a href="#book" class="hover:text-white">Book online</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px]" style="border-color: rgba(228,218,242,0.1); color: rgba(228,218,242,0.55);">
+      <div>Demo concept site · not a real business · © Gloss Lab 2026</div>
+      <a href="/portfolios/" class="hover:text-white">← Return to SICUS portfolios</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>
