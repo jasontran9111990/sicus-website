@@ -86,6 +86,7 @@ for (const entry of fs.readdirSync(ROOT, { withFileTypes: true })) {
 // Static files at root
 copyFileIfExists(path.join(ROOT, 'robots.txt'), path.join(DIST, 'robots.txt'));
 copyFileIfExists(path.join(ROOT, 'sitemap.xml'), path.join(DIST, 'sitemap.xml'));
+copyFileIfExists(path.join(ROOT, 'favicon.ico'), path.join(DIST, 'favicon.ico'));
 
 // Domain verification files (Twilio, etc.) — any 32-hex-char .html at root
 for (const entry of fs.readdirSync(ROOT)) {

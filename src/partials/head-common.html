@@ -10,6 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="author" content="Sicus Media Inc.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="theme-color" content="#8CB82B">
+<link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/brand_assets/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/brand_assets/favicon-192x192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/brand_assets/apple-touch-icon.png">
@@ -31,3 +32,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
   }
 </script>
+<style>
+  /* Global language toggle — shows the element matching <html lang="…">, hides the other.
+     Pages may override with their own copies, but this makes new pages bilingual-safe by default. */
+  .lang-en, .lang-vi { display: none; }
+  html[lang="en"] .lang-en { display: initial; }
+  html[lang="vi"] .lang-vi { display: initial; }
+  html[lang="en"] .lang-block-en { display: block !important; }
+  html[lang="vi"] .lang-block-vi { display: block !important; }
+  html[lang="en"] .lang-block-vi { display: none !important; }
+  html[lang="vi"] .lang-block-en { display: none !important; }
+  html[lang="en"] .lang-flex-en { display: flex !important; }
+  html[lang="vi"] .lang-flex-vi { display: flex !important; }
+  html[lang="en"] .lang-flex-vi { display: none !important; }
+  html[lang="vi"] .lang-flex-en { display: none !important; }
+  html[lang="en"] .lang-grid-en { display: grid !important; }
+  html[lang="vi"] .lang-grid-vi { display: grid !important; }
+  html[lang="en"] .lang-grid-vi { display: none !important; }
+  html[lang="vi"] .lang-grid-en { display: none !important; }
+  html[lang="en"] .lang-inline-en { display: inline !important; }
+  html[lang="vi"] .lang-inline-vi { display: inline !important; }
+  html[lang="en"] .lang-inline-vi { display: none !important; }
+  html[lang="vi"] .lang-inline-en { display: none !important; }
+</style>
