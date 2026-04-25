@@ -219,8 +219,6 @@
       animation-play-state: paused;
     }
 
-
-
     /* Sticky scroll features */
     .feature-panel {
       opacity: 0;
@@ -293,6 +291,7 @@
   </style>
 </head>
 <body class="bg-white text-gray-900 overflow-x-hidden">
+
 <!-- @include partials/gtm-noscript.html -->
 
 <!-- @include partials/nav.html -->
@@ -347,72 +346,92 @@
         </a>
       </div>
 
-      <!-- Trust badges — Desktop: row, Mobile: auto-carousel -->
+      <!-- ============ NEW v2: Outcome Stats Strip ============ -->
       <!-- Desktop -->
-      <div class="hidden sm:flex items-center justify-center gap-10 flex-wrap">
-        <div class="flex flex-col items-center gap-2">
-          <div class="w-11 h-11 rounded-xl bg-brand-green/10 flex items-center justify-center">
-            <svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+      <div class="hidden sm:block">
+        <div class="grid grid-cols-4 gap-4 sm:gap-6 max-w-3xl mx-auto">
+          <!-- Stat 1 -->
+          <div class="flex flex-col items-center text-center group">
+            <div class="flex items-baseline gap-0.5 mb-1">
+              <span class="font-display text-4xl sm:text-5xl font-black text-brand-green tracking-tight leading-none">+</span>
+              <span class="font-display text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-none tabular-nums" data-counter="50" data-suffix="%">0%</span>
+            </div>
+            <p class="text-xs font-semibold text-gray-700 uppercase tracking-wider mt-1">
+              <span class="lang-inline-en">Bookings</span><span class="lang-inline-vi">Đặt lịch</span>
+            </p>
+            <p class="text-[10px] text-gray-400 mt-0.5">
+              <span class="lang-inline-en">Avg lift first 90 days</span><span class="lang-inline-vi">90 ngày đầu</span>
+            </p>
           </div>
-          <h4 class="text-base font-semibold text-gray-900 lang-inline-en">Start Free</h4><h4 class="text-base font-semibold text-gray-900 lang-inline-vi">Bắt đầu miễn phí</h4>
-          <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-en">Pay only when you grow. No credit card required.</p>
-          <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-vi">Chỉ trả khi phát triển. Không cần thẻ tín dụng.</p>
-        </div>
-        <div class="flex flex-col items-center gap-2">
-          <div class="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center">
-            <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <!-- Stat 2 -->
+          <div class="flex flex-col items-center text-center group">
+            <div class="flex items-baseline gap-0.5 mb-1">
+              <span class="font-display text-4xl sm:text-5xl font-black text-brand-red tracking-tight leading-none">−</span>
+              <span class="font-display text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-none tabular-nums" data-counter="40" data-suffix="%">0%</span>
+            </div>
+            <p class="text-xs font-semibold text-gray-700 uppercase tracking-wider mt-1">
+              <span class="lang-inline-en">No-shows</span><span class="lang-inline-vi">No-show</span>
+            </p>
+            <p class="text-[10px] text-gray-400 mt-0.5">
+              <span class="lang-inline-en">AI reminders + policy</span><span class="lang-inline-vi">Nhắc AI + chính sách</span>
+            </p>
           </div>
-          <h4 class="text-base font-semibold text-gray-900 lang-inline-en">Every Feature</h4><h4 class="text-base font-semibold text-gray-900 lang-inline-vi">Mọi tính năng</h4>
-          <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-en">Nothing locked behind upgrades. You get it all.</p>
-          <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-vi">Không khóa sau gói nâng cấp. Bạn có tất cả.</p>
-        </div>
-        <div class="flex flex-col items-center gap-2">
-          <div class="w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center">
-            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.049.58.025 1.193-.14 1.743"/></svg>
+          <!-- Stat 3 -->
+          <div class="flex flex-col items-center text-center group">
+            <div class="flex items-baseline gap-1 mb-1">
+              <span class="font-display text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-none tabular-nums" data-counter="5">0</span>
+              <span class="text-base font-semibold text-gray-700 leading-none">hrs</span>
+            </div>
+            <p class="text-xs font-semibold text-gray-700 uppercase tracking-wider mt-1">
+              <span class="lang-inline-en">Saved per week</span><span class="lang-inline-vi">Tiết kiệm/tuần</span>
+            </p>
+            <p class="text-[10px] text-gray-400 mt-0.5">
+              <span class="lang-inline-en">Auto reminders + AI calls</span><span class="lang-inline-vi">Tự động + AI</span>
+            </p>
           </div>
-          <h4 class="text-base font-semibold text-gray-900 lang-inline-en">Built on Request</h4><h4 class="text-base font-semibold text-gray-900 lang-inline-vi">Xây theo yêu cầu</h4>
-          <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-en">Request a feature and we'll build it — guaranteed.</p>
-          <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-vi">Yêu cầu tính năng và chúng tôi sẽ xây — cam kết.</p>
+          <!-- Stat 4 -->
+          <div class="flex flex-col items-center text-center group">
+            <div class="flex items-baseline gap-0.5 mb-1">
+              <span class="font-display text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-none tabular-nums" data-counter="2500" data-suffix="+">0+</span>
+            </div>
+            <p class="text-xs font-semibold text-gray-700 uppercase tracking-wider mt-1">
+              <span class="lang-inline-en">Salon owners</span><span class="lang-inline-vi">Chủ tiệm</span>
+            </p>
+            <p class="text-[10px] text-gray-400 mt-0.5">
+              <span class="lang-inline-en">Across US &amp; Canada</span><span class="lang-inline-vi">Mỹ &amp; Canada</span>
+            </p>
+          </div>
         </div>
+        <p class="text-[10px] text-gray-400 mt-5 text-center italic">
+          <span class="lang-inline-en">*Based on aggregated data across SICUS salons. Individual results vary.</span>
+          <span class="lang-inline-vi">*Dựa trên dữ liệu tổng hợp các tiệm SICUS. Kết quả cá nhân có thể khác.</span>
+        </p>
       </div>
-      <!-- Mobile carousel -->
-      <div id="trust-badges-carousel" class="sm:hidden relative">
-        <div class="overflow-hidden">
-          <div id="trust-badges-track" class="flex transition-transform duration-500 ease-out">
-            <div class="trust-badge-slide">
-              <div class="flex flex-col items-center gap-2">
-                <div class="w-11 h-11 rounded-xl bg-brand-green/10 flex items-center justify-center">
-                  <svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
-                </div>
-                <h4 class="text-base font-semibold text-gray-900 lang-inline-en">Start Free</h4><h4 class="text-base font-semibold text-gray-900 lang-inline-vi">Bắt đầu miễn phí</h4>
-                <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-en">Pay only when you grow. No credit card required.</p>
-                <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-vi">Chỉ trả khi phát triển. Không cần thẻ tín dụng.</p>
-              </div>
-            </div>
-            <div class="trust-badge-slide">
-              <div class="flex flex-col items-center gap-2">
-                <div class="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center">
-                  <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                </div>
-                <h4 class="text-base font-semibold text-gray-900 lang-inline-en">Every Feature</h4><h4 class="text-base font-semibold text-gray-900 lang-inline-vi">Mọi tính năng</h4>
-                <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-en">Nothing locked behind upgrades. You get it all.</p>
-                <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-vi">Không khóa sau gói nâng cấp. Bạn có tất cả.</p>
-              </div>
-            </div>
-            <div class="trust-badge-slide">
-              <div class="flex flex-col items-center gap-2">
-                <div class="w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center">
-                  <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.049.58.025 1.193-.14 1.743"/></svg>
-                </div>
-                <h4 class="text-base font-semibold text-gray-900 lang-inline-en">Built on Request</h4><h4 class="text-base font-semibold text-gray-900 lang-inline-vi">Xây theo yêu cầu</h4>
-                <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-en">Request a feature and we'll build it — guaranteed.</p>
-                <p class="text-sm text-gray-500 max-w-[200px] text-center lang-inline-vi">Yêu cầu tính năng và chúng tôi sẽ xây — cam kết.</p>
-              </div>
-            </div>
+      <!-- Mobile: 2x2 grid -->
+      <div class="sm:hidden">
+        <div class="grid grid-cols-2 gap-3">
+          <div class="flex flex-col items-center text-center bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-2xl py-4 px-3">
+            <div class="flex items-baseline gap-0.5"><span class="font-display text-3xl font-black text-brand-green leading-none">+</span><span class="font-display text-3xl font-bold text-gray-900 tabular-nums" data-counter="50" data-suffix="%">0%</span></div>
+            <p class="text-[10px] font-semibold text-gray-700 uppercase tracking-wider mt-1"><span class="lang-inline-en">Bookings</span><span class="lang-inline-vi">Đặt lịch</span></p>
+          </div>
+          <div class="flex flex-col items-center text-center bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-2xl py-4 px-3">
+            <div class="flex items-baseline gap-0.5"><span class="font-display text-3xl font-black text-brand-red leading-none">−</span><span class="font-display text-3xl font-bold text-gray-900 tabular-nums" data-counter="40" data-suffix="%">0%</span></div>
+            <p class="text-[10px] font-semibold text-gray-700 uppercase tracking-wider mt-1"><span class="lang-inline-en">No-shows</span><span class="lang-inline-vi">No-show</span></p>
+          </div>
+          <div class="flex flex-col items-center text-center bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-2xl py-4 px-3">
+            <div class="flex items-baseline gap-1"><span class="font-display text-3xl font-bold text-gray-900 tabular-nums" data-counter="5">0</span><span class="text-xs font-semibold text-gray-700">hrs</span></div>
+            <p class="text-[10px] font-semibold text-gray-700 uppercase tracking-wider mt-1"><span class="lang-inline-en">Saved/week</span><span class="lang-inline-vi">/tuần</span></p>
+          </div>
+          <div class="flex flex-col items-center text-center bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-2xl py-4 px-3">
+            <div class="flex items-baseline gap-0.5"><span class="font-display text-3xl font-bold text-gray-900 tabular-nums" data-counter="2500" data-suffix="+">0+</span></div>
+            <p class="text-[10px] font-semibold text-gray-700 uppercase tracking-wider mt-1"><span class="lang-inline-en">Salons</span><span class="lang-inline-vi">Tiệm</span></p>
           </div>
         </div>
-        <div id="trust-badges-dots" class="flex justify-center gap-2 mt-4"></div>
+        <p class="text-[9px] text-gray-400 mt-3 text-center italic">
+          <span class="lang-inline-en">*Aggregated SICUS data. Results vary.</span><span class="lang-inline-vi">*Dữ liệu SICUS. Kết quả khác nhau.</span>
+        </p>
       </div>
+      <!-- ============ END v2 ============ -->
     </div>
 </section>
 
@@ -1251,6 +1270,198 @@
   </div>
 </div><!-- end scroll container -->
 
+<!-- ==================== v2 NEW: ONE-CLICK OUTCOMES ==================== -->
+<section class="py-24 bg-white relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-6 relative">
+    <div class="text-center mb-14">
+      <div class="inline-flex items-center gap-2 border border-gray-200 py-1 px-4 rounded-full text-xs text-gray-500 mb-5">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse"></span>
+        <span class="font-semibold tracking-wider uppercase"><span class="lang-inline-en">Real outcomes</span><span class="lang-inline-vi">Kết quả thực tế</span></span>
+      </div>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-gray-900 tracking-[-0.01em] leading-tight mb-4">
+        <span class="lang-inline-en">Outcomes that matter, <span class="text-brand-green">in one click</span></span>
+        <span class="lang-inline-vi">Kết quả quan trọng, <span class="text-brand-green">chỉ một cú nhấp</span></span>
+      </h2>
+      <p class="text-gray-500 max-w-2xl mx-auto text-lg">
+        <span class="lang-inline-en">Most software gives you data. SICUS gives you the action — and does it for you.</span>
+        <span class="lang-inline-vi">Hầu hết phần mềm cho bạn dữ liệu. SICUS cho bạn hành động — và làm thay bạn.</span>
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5">
+      <!-- Card 1: Fill no-shows -->
+      <div class="group relative bg-gradient-to-br from-surface-50 to-white border border-gray-200 rounded-3xl p-8 hover:border-brand-green/40 hover:shadow-xl hover:shadow-brand-green/10 transition-all duration-300">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="shrink-0 w-12 h-12 rounded-2xl bg-brand-green/10 flex items-center justify-center text-brand-green">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 010 3.46"/></svg>
+          </div>
+          <div class="flex-1">
+            <p class="text-[10px] font-bold text-brand-green uppercase tracking-wider mb-1"><span class="lang-inline-en">FILL EMPTY SLOTS</span><span class="lang-inline-vi">LẤP LỖ TRỐNG</span></p>
+            <h3 class="font-display text-xl font-semibold text-gray-900 mb-2 leading-snug">
+              <span class="lang-inline-en">Fill no-show gaps in one click</span>
+              <span class="lang-inline-vi">Lấp slot trống chỉ một cú nhấp</span>
+            </h3>
+            <p class="text-sm text-gray-500 leading-relaxed">
+              <span class="lang-inline-en">AI detects unfilled slots, drafts the SMS promo, picks the right audience, and sends — you just click “go”.</span>
+              <span class="lang-inline-vi">AI phát hiện slot trống, soạn SMS, chọn đúng nhóm khách, và gửi — bạn chỉ bấm “gửi”.</span>
+            </p>
+          </div>
+        </div>
+        <!-- Mini UI demo -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
+          <div class="flex items-center gap-2 text-[11px] text-gray-400 mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse"></span>
+            <span class="font-semibold uppercase tracking-wider"><span class="lang-inline-en">AI suggestion</span><span class="lang-inline-vi">Gợi ý AI</span></span>
+          </div>
+          <p class="text-sm text-gray-700 mb-3">
+            <span class="lang-inline-en">12 empty slots Tue–Thu. Send 20% promo to 84 At-Risk clients?</span>
+            <span class="lang-inline-vi">12 slot trống Thủ 3–Thủ 5. Gửi khuyến mãi 20% cho 84 khách?</span>
+          </p>
+          <div class="flex items-center gap-2">
+            <button class="flex-1 bg-brand-green text-white text-xs font-semibold py-2 rounded-full pointer-events-none">
+              <span class="lang-inline-en">Send now</span><span class="lang-inline-vi">Gửi ngay</span>
+            </button>
+            <button class="px-4 text-xs font-medium text-gray-400 py-2 pointer-events-none">
+              <span class="lang-inline-en">Edit</span><span class="lang-inline-vi">Sửa</span>
+            </button>
+          </div>
+          <div class="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between text-[11px]">
+            <span class="text-gray-400"><span class="lang-inline-en">Last week’s send</span><span class="lang-inline-vi">Tuần trước</span></span>
+            <span class="font-semibold text-brand-green"><span class="lang-inline-en">7 of 12 rebooked ✓</span><span class="lang-inline-vi">7/12 đặt lại ✓</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Save admin time -->
+      <div class="group relative bg-gradient-to-br from-surface-50 to-white border border-gray-200 rounded-3xl p-8 hover:border-blue-400/40 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="shrink-0 w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-500">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div class="flex-1">
+            <p class="text-[10px] font-bold text-blue-500 uppercase tracking-wider mb-1"><span class="lang-inline-en">RECLAIM YOUR TIME</span><span class="lang-inline-vi">LẤY LẠI THỜI GIAN</span></p>
+            <h3 class="font-display text-xl font-semibold text-gray-900 mb-2 leading-snug">
+              <span class="lang-inline-en">Save 5+ hours every week on admin</span>
+              <span class="lang-inline-vi">Tiết kiệm 5+ giờ mỗi tuần việc văn phòng</span>
+            </h3>
+            <p class="text-sm text-gray-500 leading-relaxed">
+              <span class="lang-inline-en">Reminders, confirmations, review requests, no-show follow-ups — all sent automatically while you work.</span>
+              <span class="lang-inline-vi">Nhắc nhở, xác nhận, yêu cầu đánh giá — tất cả tự động khi bạn làm việc.</span>
+            </p>
+          </div>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
+          <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-3"><span class="lang-inline-en">This week, automatically</span><span class="lang-inline-vi">Tuần này, tự động</span></p>
+          <div class="space-y-2.5">
+            <div class="flex items-center justify-between text-sm">
+              <span class="flex items-center gap-2 text-gray-600"><span class="text-brand-green">✓</span><span class="lang-inline-en">24h reminders</span><span class="lang-inline-vi">Nhắc 24h</span></span>
+              <span class="font-semibold text-gray-900 tabular-nums">147</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="flex items-center gap-2 text-gray-600"><span class="text-brand-green">✓</span><span class="lang-inline-en">Booking confirmations</span><span class="lang-inline-vi">Xác nhận</span></span>
+              <span class="font-semibold text-gray-900 tabular-nums">89</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="flex items-center gap-2 text-gray-600"><span class="text-brand-green">✓</span><span class="lang-inline-en">Review requests</span><span class="lang-inline-vi">Yêu cầu đánh giá</span></span>
+              <span class="font-semibold text-gray-900 tabular-nums">62</span>
+            </div>
+            <div class="flex items-center justify-between text-sm pt-2 border-t border-gray-100">
+              <span class="font-semibold text-gray-900"><span class="lang-inline-en">Time saved</span><span class="lang-inline-vi">Thời gian tiết kiệm</span></span>
+              <span class="font-bold text-blue-500">5h 12m</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Find hidden revenue -->
+      <div class="group relative bg-gradient-to-br from-surface-50 to-white border border-gray-200 rounded-3xl p-8 hover:border-amber-400/40 hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-300">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="shrink-0 w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-500">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.306a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg>
+          </div>
+          <div class="flex-1">
+            <p class="text-[10px] font-bold text-amber-500 uppercase tracking-wider mb-1"><span class="lang-inline-en">UNLOCK REVENUE</span><span class="lang-inline-vi">MỞ KHÓA DOANH THU</span></p>
+            <h3 class="font-display text-xl font-semibold text-gray-900 mb-2 leading-snug">
+              <span class="lang-inline-en">Find hidden revenue you’re missing</span>
+              <span class="lang-inline-vi">Tìm doanh thu ẩn bạn đang bỏ lỡ</span>
+            </h3>
+            <p class="text-sm text-gray-500 leading-relaxed">
+              <span class="lang-inline-en">AI compares your prices to local competitors and flags exactly where you’re leaving money on the table.</span>
+              <span class="lang-inline-vi">AI so sánh giá của bạn với đối thủ địa phương và chỉ rõ bạn đang để mất tiền ở đâu.</span>
+            </p>
+          </div>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider"><span class="lang-inline-en">AI Pricing Insight</span><span class="lang-inline-vi">Phân tích giá AI</span></span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-50 text-amber-600 font-bold"><span class="lang-inline-en">UNDERPRICED</span><span class="lang-inline-vi">DƯỚI GIÁ</span></span>
+          </div>
+          <p class="text-sm font-semibold text-gray-900 mb-2">Gel Full Set</p>
+          <div class="flex items-baseline gap-3 mb-3">
+            <div><p class="text-[10px] text-gray-400 uppercase"><span class="lang-inline-en">Yours</span><span class="lang-inline-vi">Của bạn</span></p><p class="text-lg font-bold text-gray-900">$45</p></div>
+            <div class="flex-1 text-center"><p class="text-[10px] text-gray-400 uppercase"><span class="lang-inline-en">Local avg</span><span class="lang-inline-vi">TB địa phương</span></p><p class="text-lg font-bold text-gray-700">$53</p></div>
+            <div class="text-right"><p class="text-[10px] text-gray-400 uppercase"><span class="lang-inline-en">Gap</span><span class="lang-inline-vi">Chên lệch</span></p><p class="text-lg font-bold text-amber-600">+$8</p></div>
+          </div>
+          <div class="text-[11px] text-gray-500 bg-amber-50/50 rounded-lg p-2.5">
+            <span class="lang-inline-en">💡 Raise to $52 to capture ~$640/mo at current volume.</span>
+            <span class="lang-inline-vi">💡 Tăng lên $52 để thu ~$640/tháng.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Capture every call -->
+      <div class="group relative bg-gradient-to-br from-surface-50 to-white border border-gray-200 rounded-3xl p-8 hover:border-purple-400/40 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="shrink-0 w-12 h-12 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-500">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+          </div>
+          <div class="flex-1">
+            <p class="text-[10px] font-bold text-purple-500 uppercase tracking-wider mb-1"><span class="lang-inline-en">NEVER MISS A BOOKING</span><span class="lang-inline-vi">KHÔNG Bỏ LỚY ĐẶT LỊCH</span></p>
+            <h3 class="font-display text-xl font-semibold text-gray-900 mb-2 leading-snug">
+              <span class="lang-inline-en">Capture every call — even after-hours</span>
+              <span class="lang-inline-vi">Bắt mọi cuộc gọi — ngoài giờ</span>
+            </h3>
+            <p class="text-sm text-gray-500 leading-relaxed">
+              <span class="lang-inline-en">AI receptionist answers 24/7, books the appointment, and sends confirmation — while you focus on clients in front of you.</span>
+              <span class="lang-inline-vi">Lễ tân AI trả lời 24/7, đặt lịch, gửi xác nhận — trong khi bạn phục vụ khách.</span>
+            </p>
+          </div>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider"><span class="lang-inline-en">This month</span><span class="lang-inline-vi">Tháng này</span></span>
+            <span class="text-[10px] flex items-center gap-1 text-purple-500 font-bold"><span class="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span><span class="lang-inline-en">LIVE</span><span class="lang-inline-vi">TRỰC TIẾP</span></span>
+          </div>
+          <div class="grid grid-cols-3 gap-3 mb-3">
+            <div class="text-center bg-purple-50/40 rounded-xl py-2.5"><p class="text-2xl font-bold text-purple-600 tabular-nums">218</p><p class="text-[10px] text-gray-500"><span class="lang-inline-en">Calls answered</span><span class="lang-inline-vi">Cuộc gọi</span></p></div>
+            <div class="text-center bg-purple-50/40 rounded-xl py-2.5"><p class="text-2xl font-bold text-purple-600 tabular-nums">43</p><p class="text-[10px] text-gray-500"><span class="lang-inline-en">After hours</span><span class="lang-inline-vi">Ngoài giờ</span></p></div>
+            <div class="text-center bg-purple-50/40 rounded-xl py-2.5"><p class="text-2xl font-bold text-purple-600 tabular-nums">189</p><p class="text-[10px] text-gray-500"><span class="lang-inline-en">Booked by AI</span><span class="lang-inline-vi">AI đặt</span></p></div>
+          </div>
+          <div class="text-[11px] text-gray-500 bg-purple-50/50 rounded-lg p-2.5">
+            <span class="lang-inline-en">📞 At a $50 avg ticket, that’s $9,450 in bookings you would’ve missed.</span>
+            <span class="lang-inline-vi">📞 Trung bình $50/lượt — $9,450 đã đặt mà bạn sẽ bỏ lỡ.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROI calculator teaser -->
+    <div class="mt-10 max-w-3xl mx-auto">
+      <a href="/tools/no-show-calculator.html" class="flex items-center gap-4 bg-gray-900 hover:bg-gray-800 text-white rounded-2xl p-5 sm:p-6 transition-all group">
+        <div class="w-11 h-11 rounded-xl bg-brand-green/20 flex items-center justify-center text-brand-green-light shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-[10px] font-bold uppercase tracking-wider text-brand-green-light mb-0.5"><span class="lang-inline-en">Free tool</span><span class="lang-inline-vi">Công cụ miễn phí</span></p>
+          <p class="font-semibold text-base sm:text-lg leading-snug"><span class="lang-inline-en">Calculate what no-shows cost your salon every month</span><span class="lang-inline-vi">Tính chi phí no-show mỗi tháng của tiệm</span></p>
+        </div>
+        <span class="shrink-0 text-brand-green-light group-hover:translate-x-1 transition-transform text-2xl">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+<!-- ==================== END v2 ONE-CLICK OUTCOMES ==================== -->
+
 <!-- ==================== COMPARISON ==================== -->
 <section class="py-24 bg-surface-50">
   <div class="max-w-5xl mx-auto px-6">
@@ -1824,6 +2035,7 @@
       <div class="testimonial-col flex-shrink-0 w-[320px]" data-duration="16">
         <div class="testimonial-col-inner flex flex-col gap-6 pb-6">
           <div class="bg-white rounded-3xl border border-gray-100 p-7 shadow-lg shadow-brand-green/5">
+            <div class="mb-4 pb-4 border-b border-gray-100"><div class="flex items-baseline gap-2"><p class="font-display text-4xl font-bold text-brand-green tabular-nums leading-none">+40%</p></div><p class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mt-1.5"><span class="lang-inline-en">Saturday bookings</span><span class="lang-inline-vi">Đặt lịch Thứ Bảy</span></p></div>
             <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-en">&ldquo;We used to miss so many calls during busy hours. Since switching to SICUS, the AI receptionist picks up every single one. Our Saturday bookings went up 40% in the first month.&rdquo;</p>
             <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-vi">&ldquo;Trước đây bỏ lỡ rất nhiều cuộc gọi lúc bận. Từ khi dùng SICUS, lễ tân AI trả lời mọi cuộc gọi. Lịch hẹn thứ Bảy tăng 40% trong tháng đầu.&rdquo;</p>
             <div class="flex items-center gap-2.5">
@@ -1832,6 +2044,7 @@
             </div>
           </div>
           <div class="bg-white rounded-3xl border border-gray-100 p-7 shadow-lg shadow-brand-green/5">
+            <div class="mb-4 pb-4 border-b border-gray-100"><div class="flex items-baseline gap-2"><p class="font-display text-4xl font-bold text-red-500 tabular-nums leading-none">−50%</p></div><p class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mt-1.5"><span class="lang-inline-en">No-shows in 2 weeks</span><span class="lang-inline-vi">No-show trong 2 tuần</span></p></div>
             <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-en">&ldquo;The weekly AI insights told us our dip powder revenue was up 136% but our no-show rate was killing us. We turned on no-show policy through the app and cut no-shows in half within two weeks.&rdquo;</p>
             <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-vi">&ldquo;Báo cáo AI hàng tuần cho biết doanh thu dip powder tăng 136% nhưng tỉ lệ no-show đang giết doanh thu. Bật chính sách no-show qua app, giảm một nửa trong hai tuần.&rdquo;</p>
             <div class="flex items-center gap-2.5">
@@ -1846,6 +2059,7 @@
       <div class="testimonial-col flex-shrink-0 w-[320px] hidden md:block" data-duration="20">
         <div class="testimonial-col-inner flex flex-col gap-6 pb-6">
           <div class="bg-white rounded-3xl border border-gray-100 p-7 shadow-lg shadow-brand-green/5">
+            <div class="mb-4 pb-4 border-b border-gray-100"><div class="flex items-baseline gap-2"><p class="font-display text-4xl font-bold text-pink-500 tabular-nums leading-none">100%</p></div><p class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mt-1.5"><span class="lang-inline-en">Bilingual app</span><span class="lang-inline-vi">Song ngữ</span></p></div>
             <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-en">&ldquo;My staff speaks mostly Vietnamese and they love that the whole app works in Vietnamese. The loyalty program brought back so many regulars — clients actually ask about their points now.&rdquo;</p>
             <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-vi">&ldquo;Nhân viên nói tiếng Việt và thích rằng toàn bộ app hỗ trợ tiếng Việt. Chương trình tích điểm mang lại nhiều khách quen — khách giờ chủ động hỏi về điểm.&rdquo;</p>
             <div class="flex items-center gap-2.5">
@@ -1854,6 +2068,7 @@
             </div>
           </div>
           <div class="bg-white rounded-3xl border border-gray-100 p-7 shadow-lg shadow-brand-green/5">
+            <div class="mb-4 pb-4 border-b border-gray-100"><div class="flex items-baseline gap-2"><p class="font-display text-4xl font-bold text-blue-500 tabular-nums leading-none">+$8</p></div><p class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mt-1.5"><span class="lang-inline-en">Per gel set found</span><span class="lang-inline-vi">Mỗi bộ gel tìm ra</span></p></div>
             <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-en">&ldquo;I run two locations and SICUS is the only software that lets me see both in one dashboard. The competitor pricing tool helped me realize I was undercharging on gel sets by $8.&rdquo;</p>
             <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-vi">&ldquo;Tôi quản lý hai chi nhánh và SICUS là phần mềm duy nhất cho xem cả hai trên một bảng. Công cụ so sánh giá giúp nhận ra đang tính rẻ hơn $8 cho gel.&rdquo;</p>
             <div class="flex items-center gap-2.5">
@@ -1868,6 +2083,7 @@
       <div class="testimonial-col flex-shrink-0 w-[320px] hidden lg:block" data-duration="18">
         <div class="testimonial-col-inner flex flex-col gap-6 pb-6">
           <div class="bg-white rounded-3xl border border-gray-100 p-7 shadow-lg shadow-brand-green/5">
+            <div class="mb-4 pb-4 border-b border-gray-100"><div class="flex items-baseline gap-2"><p class="font-display text-4xl font-bold text-amber-500 tabular-nums leading-none">4×</p></div><p class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mt-1.5"><span class="lang-inline-en">Google reviews</span><span class="lang-inline-vi">Đánh giá Google</span></p></div>
             <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-en">&ldquo;The Google review integration is a game changer. We went from 47 reviews to over 200 in three months just by automating the ask. Our booking page conversion doubled.&rdquo;</p>
             <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-vi">&ldquo;Tích hợp Google review thay đổi cuộc chơi. Từ 47 lên hơn 200 đánh giá trong ba tháng chỉ bằng tự động hỏi. Tỉ lệ đặt lịch tăng gấp đôi.&rdquo;</p>
             <div class="flex items-center gap-2.5">
@@ -1876,6 +2092,7 @@
             </div>
           </div>
           <div class="bg-white rounded-3xl border border-gray-100 p-7 shadow-lg shadow-brand-green/5">
+            <div class="mb-4 pb-4 border-b border-gray-100"><div class="flex items-baseline gap-2"><p class="font-display text-4xl font-bold text-emerald-600 tabular-nums leading-none">10×</p></div><p class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mt-1.5"><span class="lang-inline-en">Faster marketing</span><span class="lang-inline-vi">Marketing nhanh hơn</span></p></div>
             <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-en">&ldquo;We switched from Vagaro and the difference is night and day. The AI creative studio generates our promo images in seconds — we used to spend hours on Canva.&rdquo;</p>
             <p class="text-sm text-gray-600 leading-relaxed mb-5 lang-inline-vi">&ldquo;Chuyển từ Vagaro sang và khác biệt hoàn toàn. AI creative studio tạo ảnh khuyến mãi trong vài giây — trước mất hàng giờ trên Canva.&rdquo;</p>
             <div class="flex items-center gap-2.5">
@@ -2157,7 +2374,6 @@
 
     currentAudio.play();
   }
-
 
   // WebGL Shader Background for AI section
   (function() {
@@ -2686,6 +2902,35 @@
   } else {
     initSparkles();
   }
+})();
+</script>
+
+<!-- v2: Counter-up animation for hero stats -->
+<script>
+(function() {
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.counter, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1500;
+    const start = performance.now();
+    function tick(now) {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const value = Math.round(target * eased);
+      el.textContent = (target >= 1000 ? value.toLocaleString() : value) + suffix;
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !e.target.dataset.animated) {
+        e.target.dataset.animated = '1';
+        animateCounter(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('[data-counter]').forEach(el => observer.observe(el));
 })();
 </script>
 
