@@ -231,87 +231,33 @@
       box-shadow: 0 8px 24px rgba(0,0,0,0.2);
     }
     .module-card:hover .play-overlay { transform: translate(-50%, -50%) scale(1.1); }
+
+    /* "Coming soon" module/playbook — no lift, no shadow, dim the thumb */
+    .module-card.is-soon, .playbook-card.is-soon { cursor: default; }
+    .module-card.is-soon:hover,
+    .playbook-card.is-soon:hover {
+      transform: none;
+      box-shadow: none;
+      border-color: #e5e7eb;
+      background: #fff;
+    }
+    .module-card.is-soon .module-thumb img,
+    .module-card.is-soon .play-overlay { opacity: 0.55; }
+    .module-card.is-soon:hover .module-thumb img { transform: none; }
+    .badge-soon {
+      background: #f3f4f6;
+      color: #6b7280;
+      font-size: 10px; font-weight: 800;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
   </style>
 </head>
 <body class="bg-white text-gray-900">
 <!-- @include partials/gtm-noscript.html -->
 <!-- @include partials/nav.html -->
-
-<!-- ============ PREVIEW-ONLY inlined nav (production replaces via @include) ============ -->
-<div id="brandkitStrip" class="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-[#6A9A10] via-[#8CB82B] to-[#6A9A10] text-white text-xs sm:text-sm border-b border-white/10 hidden">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 h-9 sm:h-10 flex items-center justify-center gap-2 sm:gap-3 relative">
-    <span class="hidden sm:inline text-[10px] font-bold uppercase tracking-[0.1em] bg-white/20 px-2 py-0.5 rounded-full">
-      <span class="lang-inline-en">Limited</span><span class="lang-inline-vi">Giới hạn</span>
-    </span>
-    <a href="/free/salon-brand-kit.html" class="group flex items-center gap-1.5 hover:text-white/90 transition-colors">
-      <span class="text-base sm:text-lg leading-none">🎁</span>
-      <span class="font-semibold">
-        <span class="lang-inline-en">Free logo, website design &amp; brand guide for 5 salon owners this month.</span>
-        <span class="lang-inline-vi">Miễn phí logo, website &amp; brand guide cho 5 chủ tiệm tháng này.</span>
-      </span>
-      <span class="underline font-bold whitespace-nowrap">
-        <span class="lang-inline-en">Claim yours →</span><span class="lang-inline-vi">Nhận ngay →</span>
-      </span>
-    </a>
-    <button onclick="dismissBrandkitStrip()" aria-label="Dismiss" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors opacity-70 hover:opacity-100">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-    </button>
-  </div>
-</div>
-
-<nav id="mainNav" class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 transition-[top] duration-200">
-  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-    <div class="flex items-center gap-5 sm:gap-7">
-      <a href="/" class="flex items-center gap-2">
-        <img src="assets/topbar.png" alt="SICUS MEDIA" class="h-8">
-      </a>
-      <a href="/services/" class="text-sm font-medium text-gray-600 hover:text-brand-green-dark transition-colors"><span class="lang-inline-en">Services</span><span class="lang-inline-vi">Dịch vụ</span></a>
-      <a href="/products/" class="text-sm font-medium text-gray-600 hover:text-brand-green-dark transition-colors"><span class="lang-inline-en">Products</span><span class="lang-inline-vi">Sản phẩm</span></a>
-    </div>
-    <div class="flex items-center gap-3">
-      <button onclick="toggleLang()" class="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 transition-colors">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg>
-        <span id="langLabel">EN</span>
-      </button>
-      <a href="/blog/" class="hidden lg:inline text-sm text-gray-500 hover:text-gray-900 transition-colors"><span class="lang-inline-en">Blog</span><span class="lang-inline-vi">Bài viết</span></a>
-      <a href="/training/" aria-current="page" class="hidden lg:inline-flex items-center gap-1.5 text-sm font-semibold text-brand-green-dark hover:text-brand-green transition-colors">
-        <span class="lang-inline-en">Training</span><span class="lang-inline-vi">Đào tạo</span>
-        <span class="text-[9px] font-bold uppercase tracking-wider bg-brand-green text-white px-1.5 py-0.5 rounded-full">New</span>
-      </a>
-      <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold text-sm px-5 py-2 rounded-full shadow-[0_2px_12px_rgba(140,184,43,0.25)]">
-        <span class="lang-inline-en">Schedule a Demo</span><span class="lang-inline-vi">Đặt lịch Demo</span>
-      </a>
-    </div>
-  </div>
-</nav>
-<div id="navSpacer" class="h-16"></div>
-<script>
-  (function(){
-    var strip = document.getElementById('brandkitStrip');
-    var nav = document.getElementById('mainNav');
-    var spacer = document.getElementById('navSpacer');
-    var dismissed = false;
-    try { dismissed = localStorage.getItem('brandkit_dismissed') === '1'; } catch(e) {}
-    if (!dismissed) {
-      strip.classList.remove('hidden');
-      function applyOffset(){ var h = strip.offsetHeight; nav.style.top = h + 'px'; if (spacer) spacer.style.height = (h + 64) + 'px'; }
-      applyOffset();
-      window.addEventListener('resize', applyOffset);
-    }
-  })();
-  function dismissBrandkitStrip(){
-    var strip = document.getElementById('brandkitStrip');
-    var nav = document.getElementById('mainNav');
-    var spacer = document.getElementById('navSpacer');
-    try { localStorage.setItem('brandkit_dismissed', '1'); } catch(e) {}
-    strip.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-    strip.style.transform = 'translateY(-100%)';
-    strip.style.opacity = '0';
-    nav.style.top = '0';
-    if (spacer) spacer.style.height = '64px';
-    setTimeout(function(){ strip.remove(); }, 300);
-  }
-</script>
 
 <!-- ==================== HERO ==================== -->
 <section class="relative hero-grid-bg pt-14 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
@@ -489,8 +435,8 @@
         </div>
       </a>
 
-      <!-- Module 2: Reduce No-Shows -->
-      <a href="/training/reduce-no-shows/" class="module-card reveal reveal-2" data-module="reduce-no-shows">
+      <!-- Module 2: Reduce No-Shows (coming soon) -->
+      <div class="module-card is-soon reveal reveal-2" aria-disabled="true">
         <div class="module-thumb">
           <img src="/images/module-2.png" alt="Reduce no-shows">
           <div class="module-num">2</div>
@@ -501,15 +447,14 @@
           <div class="play-overlay">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.344-5.89a1.5 1.5 0 000-2.54L6.3 2.84z"/></svg>
           </div>
-          <div class="module-progress"><div class="module-progress-fill" style="width:0%"></div></div>
         </div>
         <div class="p-6 flex-1 flex flex-col">
           <div class="flex items-center gap-2 mb-2">
             <span class="text-xs font-bold uppercase tracking-wider text-brand-green-dark">
               <span class="lang-inline-en">Retention</span><span class="lang-inline-vi">Giữ khách</span>
             </span>
-            <span class="badge-pop">
-              <span class="lang-inline-en">Popular</span><span class="lang-inline-vi">Hot</span>
+            <span class="badge-soon">
+              <span class="lang-inline-en">Coming soon</span><span class="lang-inline-vi">Sắp ra mắt</span>
             </span>
           </div>
           <h3 class="text-xl font-bold text-gray-900 mb-2">
@@ -520,15 +465,14 @@
             <span class="lang-inline-en">Deposit rules, automated reminders, confirmation flows, and smart waitlists that refill canceled slots automatically.</span>
             <span class="lang-inline-vi">Đặt cọc, nhắc tự động, xác nhận khách, và danh sách chờ thông minh tự động lấp ghế huỷ.</span>
           </p>
-          <div class="flex items-center justify-between text-sm font-semibold text-brand-green-dark">
-            <span class="lang-inline-en">Start module</span><span class="lang-inline-vi">Bắt đầu mô-đun</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          <div class="text-sm font-semibold text-gray-400">
+            <span class="lang-inline-en">In production</span><span class="lang-inline-vi">Đang sản xuất</span>
           </div>
         </div>
-      </a>
+      </div>
 
-      <!-- Module 3: Marketing Deep Dive -->
-      <a href="/training/marketing/" class="module-card reveal reveal-2" data-module="marketing">
+      <!-- Module 3: Marketing Deep Dive (coming soon) -->
+      <div class="module-card is-soon reveal reveal-2" aria-disabled="true">
         <div class="module-thumb">
           <img src="/images/module-3.png" alt="Marketing deep dive">
           <div class="module-num">3</div>
@@ -539,12 +483,14 @@
           <div class="play-overlay">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.344-5.89a1.5 1.5 0 000-2.54L6.3 2.84z"/></svg>
           </div>
-          <div class="module-progress"><div class="module-progress-fill" style="width:0%"></div></div>
         </div>
         <div class="p-6 flex-1 flex flex-col">
           <div class="flex items-center gap-2 mb-2">
             <span class="text-xs font-bold uppercase tracking-wider text-brand-green-dark">
               <span class="lang-inline-en">Marketing</span><span class="lang-inline-vi">Marketing</span>
+            </span>
+            <span class="badge-soon">
+              <span class="lang-inline-en">Coming soon</span><span class="lang-inline-vi">Sắp ra mắt</span>
             </span>
           </div>
           <h3 class="text-xl font-bold text-gray-900 mb-2">
@@ -555,15 +501,14 @@
             <span class="lang-inline-en">Fill empty chairs, build promotions, run happy-hour deals, launch SMS blasts, and grow loyal repeat clients.</span>
             <span class="lang-inline-vi">Lấp ghế trống, tạo khuyến mãi, chạy giờ vàng, gửi SMS hàng loạt, và xây khách hàng thân thiết.</span>
           </p>
-          <div class="flex items-center justify-between text-sm font-semibold text-brand-green-dark">
-            <span class="lang-inline-en">Start module</span><span class="lang-inline-vi">Bắt đầu mô-đun</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          <div class="text-sm font-semibold text-gray-400">
+            <span class="lang-inline-en">In production</span><span class="lang-inline-vi">Đang sản xuất</span>
           </div>
         </div>
-      </a>
+      </div>
 
-      <!-- Module 4: Automation & Custom Workflows -->
-      <a href="/training/automation/" class="module-card reveal reveal-3" data-module="automation">
+      <!-- Module 4: Automation & Custom Workflows (coming soon) -->
+      <div class="module-card is-soon reveal reveal-3" aria-disabled="true">
         <div class="module-thumb">
           <img src="/images/module-4.png" alt="Automation and custom workflows">
           <div class="module-num">4</div>
@@ -574,14 +519,15 @@
           <div class="play-overlay">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.344-5.89a1.5 1.5 0 000-2.54L6.3 2.84z"/></svg>
           </div>
-          <div class="module-progress"><div class="module-progress-fill" style="width:0%"></div></div>
         </div>
         <div class="p-6 flex-1 flex flex-col">
           <div class="flex items-center gap-2 mb-2">
             <span class="text-xs font-bold uppercase tracking-wider text-brand-green-dark">
               <span class="lang-inline-en">Automation</span><span class="lang-inline-vi">Tự động hoá</span>
             </span>
-            <span class="badge-new"><span class="lang-inline-en">Advanced</span><span class="lang-inline-vi">Nâng cao</span></span>
+            <span class="badge-soon">
+              <span class="lang-inline-en">Coming soon</span><span class="lang-inline-vi">Sắp ra mắt</span>
+            </span>
           </div>
           <h3 class="text-xl font-bold text-gray-900 mb-2">
             <span class="lang-inline-en">Automation &amp; custom workflows</span>
@@ -591,12 +537,11 @@
             <span class="lang-inline-en">Build custom automations — birthday offers, rebook nudges, stylist alerts, review requests, and branching if-this-then-that flows.</span>
             <span class="lang-inline-vi">Xây tự động hoá — khuyến mãi sinh nhật, nhắc rebook, cảnh báo stylist, yêu cầu review, và luồng if-this-then-that.</span>
           </p>
-          <div class="flex items-center justify-between text-sm font-semibold text-brand-green-dark">
-            <span class="lang-inline-en">Start module</span><span class="lang-inline-vi">Bắt đầu mô-đun</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          <div class="text-sm font-semibold text-gray-400">
+            <span class="lang-inline-en">In production</span><span class="lang-inline-vi">Đang sản xuất</span>
           </div>
         </div>
-      </a>
+      </div>
 
     </div>
   </div>
@@ -607,9 +552,14 @@
   <div class="max-w-6xl mx-auto px-6 pt-12">
     <div class="flex items-end justify-between mb-8 gap-4 flex-wrap">
       <div>
-        <p class="text-xs uppercase tracking-[0.2em] text-brand-green-dark font-semibold mb-2">
-          <span class="lang-inline-en">Playbooks</span><span class="lang-inline-vi">Playbook</span>
-        </p>
+        <div class="flex items-center gap-2 mb-2">
+          <p class="text-xs uppercase tracking-[0.2em] text-brand-green-dark font-semibold">
+            <span class="lang-inline-en">Playbooks</span><span class="lang-inline-vi">Playbook</span>
+          </p>
+          <span class="badge-soon">
+            <span class="lang-inline-en">Coming soon</span><span class="lang-inline-vi">Sắp ra mắt</span>
+          </span>
+        </div>
         <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
           <span class="lang-inline-en">Real scenarios, step-by-step.</span>
           <span class="lang-inline-vi">Tình huống thực tế, từng bước một.</span>
@@ -623,7 +573,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
-      <a href="/training/playbooks/slow-tuesday/" class="playbook-card">
+      <div class="playbook-card is-soon" aria-disabled="true">
         <div class="playbook-icon">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
         </div>
@@ -637,9 +587,9 @@
             <span class="lang-inline-vi">8 phút · Lấp ghế trống bằng 1 chiến dịch SMS.</span>
           </p>
         </div>
-      </a>
+      </div>
 
-      <a href="/training/playbooks/opening-weekend/" class="playbook-card">
+      <div class="playbook-card is-soon" aria-disabled="true">
         <div class="playbook-icon">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
         </div>
@@ -653,9 +603,9 @@
             <span class="lang-inline-vi">12 phút · Lịch 7 ngày cho tiệm mới mở.</span>
           </p>
         </div>
-      </a>
+      </div>
 
-      <a href="/training/playbooks/bad-review/" class="playbook-card">
+      <div class="playbook-card is-soon" aria-disabled="true">
         <div class="playbook-icon">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
         </div>
@@ -669,9 +619,9 @@
             <span class="lang-inline-vi">6 phút · Phản hồi chuyên nghiệp, bảo vệ điểm đánh giá.</span>
           </p>
         </div>
-      </a>
+      </div>
 
-      <a href="/training/playbooks/onboard-stylist/" class="playbook-card">
+      <div class="playbook-card is-soon" aria-disabled="true">
         <div class="playbook-icon">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
         </div>
@@ -685,9 +635,9 @@
             <span class="lang-inline-vi">9 phút · Cung cấp đủ mọi thứ từ ngày đầu tiên.</span>
           </p>
         </div>
-      </a>
+      </div>
 
-      <a href="/training/playbooks/rebook-ghost/" class="playbook-card">
+      <div class="playbook-card is-soon" aria-disabled="true">
         <div class="playbook-icon">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
         </div>
@@ -701,9 +651,9 @@
             <span class="lang-inline-vi">7 phút · Mẫu SMS kéo lại 20% khách.</span>
           </p>
         </div>
-      </a>
+      </div>
 
-      <a href="/training/playbooks/holiday-push/" class="playbook-card">
+      <div class="playbook-card is-soon" aria-disabled="true">
         <div class="playbook-icon">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         </div>
@@ -717,15 +667,13 @@
             <span class="lang-inline-vi">10 phút · Kín lịch trước ngày lễ.</span>
           </p>
         </div>
-      </a>
+      </div>
 
     </div>
 
-    <div class="text-center mt-8">
-      <a href="/training/playbooks/" class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-green-dark hover:gap-2 transition-all">
-        <span class="lang-inline-en">View all playbooks</span><span class="lang-inline-vi">Xem tất cả playbook</span>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-      </a>
+    <div class="text-center mt-8 text-sm text-gray-500">
+      <span class="lang-inline-en">Playbooks are rolling out through the rest of the year — check back soon.</span>
+      <span class="lang-inline-vi">Playbook sẽ được ra mắt dần trong năm nay — quay lại sau nhé.</span>
     </div>
   </div>
 </section>
@@ -794,18 +742,5 @@
   })();
 </script>
 
-<!-- ============ PREVIEW-ONLY (stripped in production via build) ============ -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  if (window.tailwind) tailwind.config = {
-    theme: { extend: {
-      colors: { 'brand-green':'#8CB82B', 'brand-green-dark':'#6A9A10' },
-      fontFamily: { 'display':['Be Vietnam Pro','sans-serif'] }
-    } }
-  };
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </body>
 </html>

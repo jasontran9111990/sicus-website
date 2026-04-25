@@ -112,41 +112,6 @@
 <!-- @include partials/gtm-noscript.html -->
 <!-- @include partials/nav.html -->
 
-<!-- ============ PREVIEW-ONLY inlined nav ============ -->
-<div id="brandkitStrip" class="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-[#6A9A10] via-[#8CB82B] to-[#6A9A10] text-white text-xs sm:text-sm border-b border-white/10 hidden">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 h-9 sm:h-10 flex items-center justify-center gap-2 sm:gap-3 relative">
-    <a href="/free/salon-brand-kit.html" class="flex items-center gap-1.5"><span class="text-base leading-none">🎁</span><span class="font-semibold"><span class="lang-inline-en">Free logo, website &amp; brand guide for 5 salon owners this month.</span><span class="lang-inline-vi">Miễn phí logo, website &amp; brand guide cho 5 chủ tiệm tháng này.</span></span><span class="underline font-bold"><span class="lang-inline-en">Claim yours →</span><span class="lang-inline-vi">Nhận ngay →</span></span></a>
-    <button onclick="dismissBrandkitStrip()" aria-label="Dismiss" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center rounded-full hover:bg-white/20"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-  </div>
-</div>
-<nav id="mainNav" class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100">
-  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-    <div class="flex items-center gap-5 sm:gap-7">
-      <a href="/" class="flex items-center gap-2"><img src="assets/topbar.png" alt="SICUS MEDIA" class="h-8"></a>
-      <a href="/services/" class="text-sm font-medium text-gray-600 hover:text-brand-green-dark transition-colors"><span class="lang-inline-en">Services</span><span class="lang-inline-vi">Dịch vụ</span></a>
-      <a href="/products/" class="text-sm font-medium text-gray-600 hover:text-brand-green-dark transition-colors"><span class="lang-inline-en">Products</span><span class="lang-inline-vi">Sản phẩm</span></a>
-    </div>
-    <div class="flex items-center gap-3">
-      <button onclick="toggleLang()" class="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 border border-gray-200 rounded-full px-3 py-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg><span id="langLabel">EN</span></button>
-      <a href="/blog/" class="hidden lg:inline text-sm text-gray-500 hover:text-gray-900"><span class="lang-inline-en">Blog</span><span class="lang-inline-vi">Bài viết</span></a>
-      <a href="/training/" aria-current="page" class="hidden lg:inline-flex items-center gap-1.5 text-sm font-semibold text-brand-green-dark">
-        <span class="lang-inline-en">Training</span><span class="lang-inline-vi">Đào tạo</span>
-        <span class="text-[9px] font-bold uppercase bg-brand-green text-white px-1.5 py-0.5 rounded-full">New</span>
-      </a>
-      <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold text-sm px-5 py-2 rounded-full shadow-[0_2px_12px_rgba(140,184,43,0.25)]"><span class="lang-inline-en">Schedule a Demo</span><span class="lang-inline-vi">Đặt lịch Demo</span></a>
-    </div>
-  </div>
-</nav>
-<div id="navSpacer" class="h-16"></div>
-<script>
-  (function(){
-    var strip = document.getElementById('brandkitStrip'), nav = document.getElementById('mainNav'), spacer = document.getElementById('navSpacer');
-    var dismissed = false; try { dismissed = localStorage.getItem('brandkit_dismissed') === '1'; } catch(e){}
-    if (!dismissed) { strip.classList.remove('hidden'); var h = strip.offsetHeight; nav.style.top = h+'px'; if(spacer) spacer.style.height = (h+64)+'px'; }
-  })();
-  function dismissBrandkitStrip(){ var s=document.getElementById('brandkitStrip'),n=document.getElementById('mainNav'),sp=document.getElementById('navSpacer');try{localStorage.setItem('brandkit_dismissed','1')}catch(e){};s.style.transition='all .3s';s.style.transform='translateY(-100%)';s.style.opacity='0';n.style.top='0';if(sp)sp.style.height='64px';setTimeout(function(){s.remove()},300)}
-</script>
-
 <!-- ==================== MODULE HERO ==================== -->
 <section class="module-hero pt-10 pb-10 sm:pt-14">
   <div class="max-w-6xl mx-auto px-6">
@@ -344,18 +309,22 @@
 
         </div>
 
-        <!-- Next module -->
-        <a href="/training/reduce-no-shows/" class="mt-6 flex items-center justify-between p-5 rounded-xl border border-gray-200 hover:border-brand-green/50 hover:bg-[#fafffb] transition-colors group">
+        <!-- Next module (coming soon) -->
+        <div class="mt-6 flex items-center justify-between p-5 rounded-xl border border-gray-200 bg-gray-50">
           <div>
             <div class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">
               <span class="lang-inline-en">Up next · Module 2</span><span class="lang-inline-vi">Tiếp theo · Mô-đun 2</span>
             </div>
-            <div class="font-bold text-gray-900">
-              <span class="lang-inline-en">Reduce no-shows</span><span class="lang-inline-vi">Giảm khách lỡ hẹn</span>
+            <div class="font-bold text-gray-900 flex items-center gap-2 flex-wrap">
+              <span>
+                <span class="lang-inline-en">Reduce no-shows</span><span class="lang-inline-vi">Giảm khách lỡ hẹn</span>
+              </span>
+              <span class="text-[10px] font-bold uppercase tracking-wider bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full">
+                <span class="lang-inline-en">Coming soon</span><span class="lang-inline-vi">Sắp ra mắt</span>
+              </span>
             </div>
           </div>
-          <svg class="w-5 h-5 text-gray-400 group-hover:text-brand-green-dark group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-        </a>
+        </div>
       </div>
 
       <!-- SIDEBAR -->
@@ -443,16 +412,5 @@
   renderProgress();
 </script>
 
-<!-- ============ PREVIEW-ONLY ============ -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  if (window.tailwind) tailwind.config = { theme: { extend: {
-    colors: { 'brand-green':'#8CB82B', 'brand-green-dark':'#6A9A10' },
-    fontFamily: { 'display':['Be Vietnam Pro','sans-serif'] }
-  } } };
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </body>
 </html>
