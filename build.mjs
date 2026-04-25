@@ -88,9 +88,11 @@ copyFileIfExists(path.join(ROOT, 'robots.txt'), path.join(DIST, 'robots.txt'));
 copyFileIfExists(path.join(ROOT, 'sitemap.xml'), path.join(DIST, 'sitemap.xml'));
 copyFileIfExists(path.join(ROOT, 'favicon.ico'), path.join(DIST, 'favicon.ico'));
 
-// Domain verification files (Twilio, etc.) — any 32-hex-char .html at root
+// Domain verification files (Twilio, Meta, Google, etc.)
+// — any 20-40 char lowercase-alphanumeric .html at root.
+// Covers Twilio's 32-hex pattern and Meta's shorter alphanumeric pattern.
 for (const entry of fs.readdirSync(ROOT)) {
-  if (/^[a-f0-9]{32}\.html$/.test(entry)) {
+  if (/^[a-z0-9]{20,40}\.html$/.test(entry)) {
     fs.copyFileSync(path.join(ROOT, entry), path.join(DIST, entry));
   }
 }
