@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- @include partials/head-common.html -->
+  <title>Training Hub — Get the most out of your SICUS app | SICUS Media</title>
+  <meta name="description" content="Free training for salon owners. Short, no-fluff video lessons in English and Vietnamese that help you book more clients, automate your front desk, and grow your salon with SICUS.">
+  <meta name="keywords" content="SICUS training, salon app training, AI receptionist tutorial, salon booking tutorial, Vietnamese salon training, salon owner education">
+  <link rel="canonical" href="https://sicusmedia.com/training/">
+
+  <meta property="og:title" content="Training Hub — Get the most out of your SICUS app">
+  <meta property="og:description" content="Free, no-fluff video training for salon owners. English + Vietnamese.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sicusmedia.com/training/">
+
+  <style>
+    * { font-family: 'Be Vietnam Pro', sans-serif; }
+    html { scroll-behavior: smooth; }
+
+    .lang-inline-en, .lang-inline-vi { display: none; }
+    html[lang="en"] .lang-inline-en { display: inline !important; }
+    html[lang="vi"] .lang-inline-vi { display: inline !important; }
+
+    .btn-spring { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease; }
+    .btn-spring:hover { transform: translateY(-2px); }
+
+    /* ---------- Hero ---------- */
+    .hero-grid-bg {
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(140,184,43,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(140,184,43,0.06) 0%, transparent 50%),
+        linear-gradient(180deg, #ffffff 0%, #fafffb 100%);
+    }
+
+    /* ---------- Search bar ---------- */
+    .search-shell {
+      background: #fff;
+      border: 2px solid #e5e7eb;
+      border-radius: 999px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-shell:focus-within {
+      border-color: #8CB82B;
+      box-shadow: 0 0 0 6px rgba(140,184,43,0.12);
+    }
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.3rem 0.75rem; border-radius: 999px;
+      background: rgba(140,184,43,0.08);
+      color: #527D07;
+      font-size: 12px; font-weight: 600;
+      border: 1px solid rgba(140,184,43,0.2);
+      transition: all 0.2s;
+    }
+    .chip:hover { background: rgba(140,184,43,0.15); transform: translateY(-1px); }
+
+    /* ---------- Start-here banner ---------- */
+    .starter-card {
+      background: linear-gradient(135deg, #8CB82B 0%, #6A9A10 100%);
+      color: white;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .starter-card::before {
+      content: '';
+      position: absolute;
+      top: -40%; right: -20%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ---------- Module cards ---------- */
+    .module-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease, border-color 0.2s;
+      position: relative;
+    }
+    .module-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.08);
+      border-color: rgba(140,184,43,0.4);
+    }
+    .module-thumb {
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+      background: #f3f4f6;
+    }
+    .module-thumb img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .module-card:hover .module-thumb img { transform: scale(1.05); }
+    .module-thumb::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.5) 100%);
+      pointer-events: none;
+    }
+    .module-num {
+      position: absolute; top: 1rem; left: 1rem;
+      background: rgba(255,255,255,0.95);
+      color: #374151;
+      width: 2rem; height: 2rem;
+      border-radius: 999px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem;
+      z-index: 2;
+    }
+    .module-meta-pill {
+      position: absolute; bottom: 1rem; left: 1rem;
+      background: rgba(255,255,255,0.95);
+      color: #374151;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 11px; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      z-index: 2;
+    }
+    .module-progress {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: rgba(0,0,0,0.1);
+      z-index: 2;
+    }
+    .module-progress-fill {
+      height: 100%;
+      background: #8CB82B;
+      transition: width 0.4s ease;
+    }
+
+    /* ---------- Playbook chips ---------- */
+    .playbook-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 1rem;
+      padding: 1.25rem;
+      transition: all 0.2s;
+      display: flex; align-items: flex-start; gap: 0.85rem;
+    }
+    .playbook-card:hover {
+      border-color: rgba(140,184,43,0.45);
+      background: #fafffb;
+      transform: translateX(3px);
+    }
+    .playbook-icon {
+      flex-shrink: 0;
+      width: 2.75rem; height: 2.75rem;
+      border-radius: 0.75rem;
+      background: rgba(140,184,43,0.1);
+      color: #527D07;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Language-aware search UI */
+    input[type="search"]::placeholder { color: #9ca3af; }
+
+    /* Badge accents */
+    .badge-new {
+      background: linear-gradient(135deg, #8CB82B, #6A9A10);
+      color: white;
+      font-size: 10px; font-weight: 800;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-pop {
+      background: rgba(217,119,6,0.1);
+      color: #B45309;
+      font-size: 10px; font-weight: 800;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(14px); animation: revealUp 0.7s ease 0.1s forwards; }
+    @keyframes revealUp { to { opacity: 1; transform: none; } }
+    .reveal-2 { animation-delay: 0.25s; }
+    .reveal-3 { animation-delay: 0.4s; }
+
+    /* Floating shapes behind hero */
+    .float-blob {
+      position: absolute; pointer-events: none;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+    }
+
+    /* Feature strip with icons */
+    .feature-row { display: flex; align-items: center; gap: 0.5rem; color: #6b7280; font-size: 13px; }
+    .feature-row svg { color: #8CB82B; width: 1rem; height: 1rem; flex-shrink: 0; }
+
+    /* Path steps (start here section) */
+    .path-step {
+      display: flex; align-items: center; gap: 0.5rem;
+      color: rgba(255,255,255,0.85);
+      font-size: 13px;
+    }
+    .path-step .num {
+      width: 1.5rem; height: 1.5rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.2);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    /* Video play icon overlay */
+    .play-overlay {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px; height: 56px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.95);
+      display: flex; align-items: center; justify-content: center;
+      color: #527D07;
+      z-index: 2;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+    .module-card:hover .play-overlay { transform: translate(-50%, -50%) scale(1.1); }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+<!-- @include partials/gtm-noscript.html -->
+<!-- @include partials/nav.html -->
+
+<!-- ============ PREVIEW-ONLY inlined nav (production replaces via @include) ============ -->
+<div id="brandkitStrip" class="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-[#6A9A10] via-[#8CB82B] to-[#6A9A10] text-white text-xs sm:text-sm border-b border-white/10 hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 h-9 sm:h-10 flex items-center justify-center gap-2 sm:gap-3 relative">
+    <span class="hidden sm:inline text-[10px] font-bold uppercase tracking-[0.1em] bg-white/20 px-2 py-0.5 rounded-full">
+      <span class="lang-inline-en">Limited</span><span class="lang-inline-vi">Giới hạn</span>
+    </span>
+    <a href="/free/salon-brand-kit.html" class="group flex items-center gap-1.5 hover:text-white/90 transition-colors">
+      <span class="text-base sm:text-lg leading-none">🎁</span>
+      <span class="font-semibold">
+        <span class="lang-inline-en">Free logo, website design &amp; brand guide for 5 salon owners this month.</span>
+        <span class="lang-inline-vi">Miễn phí logo, website &amp; brand guide cho 5 chủ tiệm tháng này.</span>
+      </span>
+      <span class="underline font-bold whitespace-nowrap">
+        <span class="lang-inline-en">Claim yours →</span><span class="lang-inline-vi">Nhận ngay →</span>
+      </span>
+    </a>
+    <button onclick="dismissBrandkitStrip()" aria-label="Dismiss" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors opacity-70 hover:opacity-100">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+</div>
+
+<nav id="mainNav" class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 transition-[top] duration-200">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-5 sm:gap-7">
+      <a href="/" class="flex items-center gap-2">
+        <img src="assets/topbar.png" alt="SICUS MEDIA" class="h-8">
+      </a>
+      <a href="/services/" class="text-sm font-medium text-gray-600 hover:text-brand-green-dark transition-colors"><span class="lang-inline-en">Services</span><span class="lang-inline-vi">Dịch vụ</span></a>
+      <a href="/products/" class="text-sm font-medium text-gray-600 hover:text-brand-green-dark transition-colors"><span class="lang-inline-en">Products</span><span class="lang-inline-vi">Sản phẩm</span></a>
+    </div>
+    <div class="flex items-center gap-3">
+      <button onclick="toggleLang()" class="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg>
+        <span id="langLabel">EN</span>
+      </button>
+      <a href="/blog/" class="hidden lg:inline text-sm text-gray-500 hover:text-gray-900 transition-colors"><span class="lang-inline-en">Blog</span><span class="lang-inline-vi">Bài viết</span></a>
+      <a href="/training/" aria-current="page" class="hidden lg:inline-flex items-center gap-1.5 text-sm font-semibold text-brand-green-dark hover:text-brand-green transition-colors">
+        <span class="lang-inline-en">Training</span><span class="lang-inline-vi">Đào tạo</span>
+        <span class="text-[9px] font-bold uppercase tracking-wider bg-brand-green text-white px-1.5 py-0.5 rounded-full">New</span>
+      </a>
+      <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold text-sm px-5 py-2 rounded-full shadow-[0_2px_12px_rgba(140,184,43,0.25)]">
+        <span class="lang-inline-en">Schedule a Demo</span><span class="lang-inline-vi">Đặt lịch Demo</span>
+      </a>
+    </div>
+  </div>
+</nav>
+<div id="navSpacer" class="h-16"></div>
+<script>
+  (function(){
+    var strip = document.getElementById('brandkitStrip');
+    var nav = document.getElementById('mainNav');
+    var spacer = document.getElementById('navSpacer');
+    var dismissed = false;
+    try { dismissed = localStorage.getItem('brandkit_dismissed') === '1'; } catch(e) {}
+    if (!dismissed) {
+      strip.classList.remove('hidden');
+      function applyOffset(){ var h = strip.offsetHeight; nav.style.top = h + 'px'; if (spacer) spacer.style.height = (h + 64) + 'px'; }
+      applyOffset();
+      window.addEventListener('resize', applyOffset);
+    }
+  })();
+  function dismissBrandkitStrip(){
+    var strip = document.getElementById('brandkitStrip');
+    var nav = document.getElementById('mainNav');
+    var spacer = document.getElementById('navSpacer');
+    try { localStorage.setItem('brandkit_dismissed', '1'); } catch(e) {}
+    strip.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+    strip.style.transform = 'translateY(-100%)';
+    strip.style.opacity = '0';
+    nav.style.top = '0';
+    if (spacer) spacer.style.height = '64px';
+    setTimeout(function(){ strip.remove(); }, 300);
+  }
+</script>
+
+<!-- ==================== HERO ==================== -->
+<section class="relative hero-grid-bg pt-14 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
+  <div class="float-blob" style="top:-100px;left:-60px;width:400px;height:400px;background:#8CB82B;"></div>
+  <div class="float-blob" style="bottom:-120px;right:-80px;width:350px;height:350px;background:#B45309;opacity:0.15;"></div>
+
+  <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+    <nav aria-label="Breadcrumb" class="mb-5 flex items-center justify-center gap-2 text-sm text-gray-400">
+      <a href="/" class="hover:text-brand-green-dark transition-colors">
+        <span class="lang-inline-en">Home</span><span class="lang-inline-vi">Trang chủ</span>
+      </a>
+      <span>&rsaquo;</span>
+      <span class="text-gray-700 font-medium">
+        <span class="lang-inline-en">Training Hub</span><span class="lang-inline-vi">Trung tâm đào tạo</span>
+      </span>
+    </nav>
+
+    <div class="inline-flex items-center gap-2 bg-brand-green/10 text-brand-green-dark text-xs font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full mb-5 reveal">
+      <span class="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse"></span>
+      <span class="lang-inline-en">Free · 4 modules · 2+ hours of training</span>
+      <span class="lang-inline-vi">Miễn phí · 4 mô-đun · 2+ giờ đào tạo</span>
+    </div>
+
+    <h1 class="reveal font-display text-4xl sm:text-6xl font-bold tracking-[-0.03em] text-gray-900 mb-5 leading-[1.05]">
+      <span class="lang-inline-en">Get the most out of<br>your SICUS app.</span>
+      <span class="lang-inline-vi">Khai thác tối đa<br>ứng dụng SICUS của bạn.</span>
+    </h1>
+
+    <p class="reveal reveal-2 text-lg sm:text-xl text-gray-600 leading-relaxed mb-8 max-w-2xl mx-auto">
+      <span class="lang-inline-en">Short, no-fluff video lessons that help you book more clients, automate your front desk, and grow your salon. <strong class="text-gray-900">English + Vietnamese.</strong></span>
+      <span class="lang-inline-vi">Video ngắn gọn, đi thẳng vào vấn đề — giúp bạn đặt lịch nhiều hơn, tự động hoá lễ tân, và phát triển tiệm. <strong class="text-gray-900">Tiếng Anh + Tiếng Việt.</strong></span>
+    </p>
+
+    <!-- SEARCH BAR -->
+    <div class="reveal reveal-3 max-w-2xl mx-auto mb-5">
+      <div class="search-shell flex items-center pl-6 pr-2 py-2 shadow-sm">
+        <svg class="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"/></svg>
+        <input id="trainingSearch" type="search" autocomplete="off" class="flex-1 bg-transparent text-[15px] px-3 py-2.5 focus:outline-none" placeholder="">
+        <button onclick="performSearch()" class="btn-spring bg-brand-green hover:bg-brand-green-dark text-white font-semibold text-sm px-5 py-2 rounded-full transition-colors">
+          <span class="lang-inline-en">Search</span><span class="lang-inline-vi">Tìm</span>
+        </button>
+      </div>
+      <!-- EN/VI placeholder swap -->
+      <script>
+        (function(){
+          var inp = document.getElementById('trainingSearch');
+          function setPh(){ inp.placeholder = document.documentElement.lang === 'vi' ? 'Ví dụ: "thiết lập Google Calendar" hoặc "khách no-show"' : 'Try "set up Google Calendar" or "handle a no-show"'; }
+          setPh();
+          new MutationObserver(setPh).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+        })();
+      </script>
+    </div>
+
+    <!-- Suggested chips -->
+    <div class="reveal reveal-3 flex flex-wrap items-center justify-center gap-2">
+      <span class="text-xs uppercase tracking-wider text-gray-400 font-semibold mr-1">
+        <span class="lang-inline-en">Popular:</span><span class="lang-inline-vi">Phổ biến:</span>
+      </span>
+      <button onclick="quickSearch('set up square')" class="chip">
+        <span class="lang-inline-en">Set up Square</span><span class="lang-inline-vi">Thiết lập Square</span>
+      </button>
+      <button onclick="quickSearch('ai receptionist')" class="chip">
+        <span class="lang-inline-en">AI Receptionist</span><span class="lang-inline-vi">AI Lễ tân</span>
+      </button>
+      <button onclick="quickSearch('sms campaign')" class="chip">
+        <span class="lang-inline-en">SMS campaigns</span><span class="lang-inline-vi">SMS hàng loạt</span>
+      </button>
+      <button onclick="quickSearch('no show')" class="chip">
+        <span class="lang-inline-en">No-shows</span><span class="lang-inline-vi">Khách lỡ hẹn</span>
+      </button>
+      <button onclick="quickSearch('dashboard')" class="chip">
+        <span class="lang-inline-en">Reading the dashboard</span><span class="lang-inline-vi">Đọc dashboard</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== START HERE ==================== -->
+<section class="relative -mt-8 sm:-mt-12 pb-16 sm:pb-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="starter-card reveal">
+      <div class="relative z-10 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 md:items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 bg-white/20 text-white text-[10px] font-bold uppercase tracking-[0.15em] px-2.5 py-1 rounded-full mb-3">
+            <span class="lang-inline-en">Start here</span><span class="lang-inline-vi">Bắt đầu ở đây</span>
+          </div>
+          <h2 class="font-display text-2xl sm:text-3xl font-bold tracking-tight mb-2">
+            <span class="lang-inline-en">New to SICUS? Start with the first 30 minutes.</span>
+            <span class="lang-inline-vi">Mới dùng SICUS? Bắt đầu với 30 phút đầu tiên.</span>
+          </h2>
+          <p class="text-white/90 text-[15px] mb-4 max-w-xl leading-relaxed">
+            <span class="lang-inline-en">6 short lessons that take you from zero to taking your first AI-booked client. Watch at your own pace.</span>
+            <span class="lang-inline-vi">6 bài học ngắn giúp bạn từ zero đến nhận khách đầu tiên qua AI. Xem theo nhịp của bạn.</span>
+          </p>
+          <div class="flex flex-wrap gap-x-5 gap-y-2 mb-5">
+            <div class="path-step"><span class="num">1</span><span class="lang-inline-en">Welcome</span><span class="lang-inline-vi">Chào mừng</span></div>
+            <div class="path-step"><span class="num">2</span><span class="lang-inline-en">Salon profile</span><span class="lang-inline-vi">Hồ sơ tiệm</span></div>
+            <div class="path-step"><span class="num">3</span><span class="lang-inline-en">Services & prices</span><span class="lang-inline-vi">Dịch vụ & giá</span></div>
+            <div class="path-step"><span class="num">4</span><span class="lang-inline-en">Connect calendar</span><span class="lang-inline-vi">Kết nối lịch</span></div>
+            <div class="path-step"><span class="num">5</span><span class="lang-inline-en">First AI booking</span><span class="lang-inline-vi">Booking AI đầu</span></div>
+            <div class="path-step"><span class="num">6</span><span class="lang-inline-en">Tour dashboard</span><span class="lang-inline-vi">Tour dashboard</span></div>
+          </div>
+        </div>
+        <div class="md:text-right">
+          <a href="/training/getting-started/" class="btn-spring inline-flex items-center gap-2 bg-white text-brand-green-dark font-bold text-[15px] px-6 py-3.5 rounded-full shadow-lg hover:shadow-xl whitespace-nowrap">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.344-5.89a1.5 1.5 0 000-2.54L6.3 2.84z"/></svg>
+            <span class="lang-inline-en">Start the path</span><span class="lang-inline-vi">Bắt đầu hành trình</span>
+          </a>
+          <div class="mt-3 text-xs text-white/80">
+            <span class="lang-inline-en">~30 min · 6 videos · Free</span>
+            <span class="lang-inline-vi">~30 phút · 6 video · Miễn phí</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MODULES ==================== -->
+<section id="modules" class="pb-16 sm:pb-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex items-end justify-between mb-8 gap-4 flex-wrap">
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-brand-green-dark font-semibold mb-2">
+          <span class="lang-inline-en">Core modules</span><span class="lang-inline-vi">Mô-đun chính</span>
+        </p>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+          <span class="lang-inline-en">Go deep on each part of your app.</span>
+          <span class="lang-inline-vi">Đi sâu vào từng phần của app.</span>
+        </h2>
+      </div>
+      <div class="feature-row">
+        <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        <span><span class="lang-inline-en">Progress saved automatically</span><span class="lang-inline-vi">Tiến độ tự động lưu</span></span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+
+      <!-- Module 1: Getting Started -->
+      <a href="/training/getting-started/" class="module-card reveal" data-module="getting-started">
+        <div class="module-thumb">
+          <img src="/images/module-1.png" alt="Getting started with SICUS">
+          <div class="module-num">1</div>
+          <div class="module-meta-pill">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+            <span class="lang-inline-en">30 min · 6 lessons</span><span class="lang-inline-vi">30 phút · 6 bài</span>
+          </div>
+          <div class="play-overlay">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.344-5.89a1.5 1.5 0 000-2.54L6.3 2.84z"/></svg>
+          </div>
+          <div class="module-progress"><div class="module-progress-fill" style="width:0%"></div></div>
+        </div>
+        <div class="p-6 flex-1 flex flex-col">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-green-dark">
+              <span class="lang-inline-en">Getting started</span><span class="lang-inline-vi">Bắt đầu</span>
+            </span>
+            <span class="badge-new">
+              <span class="lang-inline-en">Start here</span><span class="lang-inline-vi">Bắt đầu</span>
+            </span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">
+            <span class="lang-inline-en">From zero to your first AI booking</span>
+            <span class="lang-inline-vi">Từ zero đến booking AI đầu tiên</span>
+          </h3>
+          <p class="text-sm text-gray-600 leading-relaxed mb-4 flex-grow">
+            <span class="lang-inline-en">Set up your profile, add services, connect your calendar, and take your first booking handled by SICUS AI.</span>
+            <span class="lang-inline-vi">Thiết lập hồ sơ, thêm dịch vụ, kết nối lịch, và nhận booking đầu tiên qua AI SICUS.</span>
+          </p>
+          <div class="flex items-center justify-between text-sm font-semibold text-brand-green-dark">
+            <span class="lang-inline-en">Start module</span><span class="lang-inline-vi">Bắt đầu mô-đun</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Module 2: Reduce No-Shows -->
+      <a href="/training/reduce-no-shows/" class="module-card reveal reveal-2" data-module="reduce-no-shows">
+        <div class="module-thumb">
+          <img src="/images/module-2.png" alt="Reduce no-shows">
+          <div class="module-num">2</div>
+          <div class="module-meta-pill">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+            <span class="lang-inline-en">22 min · 5 lessons</span><span class="lang-inline-vi">22 phút · 5 bài</span>
+          </div>
+          <div class="play-overlay">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.344-5.89a1.5 1.5 0 000-2.54L6.3 2.84z"/></svg>
+          </div>
+          <div class="module-progress"><div class="module-progress-fill" style="width:0%"></div></div>
+        </div>
+        <div class="p-6 flex-1 flex flex-col">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-green-dark">
+              <span class="lang-inline-en">Retention</span><span class="lang-inline-vi">Giữ khách</span>
+            </span>
+            <span class="badge-pop">
+              <span class="lang-inline-en">Popular</span><span class="lang-inline-vi">Hot</span>
+            </span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">
+            <span class="lang-inline-en">Reduce no-shows</span>
+            <span class="lang-inline-vi">Giảm khách lỡ hẹn</span>
+          </h3>
+          <p class="text-sm text-gray-600 leading-relaxed mb-4 flex-grow">
+            <span class="lang-inline-en">Deposit rules, automated reminders, confirmation flows, and smart waitlists that refill canceled slots automatically.</span>
+            <span class="lang-inline-vi">Đặt cọc, nhắc tự động, xác nhận khách, và danh sách chờ thông minh tự động lấp ghế huỷ.</span>
+          </p>
+          <div class="flex items-center justify-between text-sm font-semibold text-brand-green-dark">
+            <span class="lang-inline-en">Start module</span><span class="lang-inline-vi">Bắt đầu mô-đun</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Module 3: Marketing Deep Dive -->
+      <a href="/training/marketing/" class="module-card reveal reveal-2" data-module="marketing">
+        <div class="module-thumb">
+          <img src="/images/module-3.png" alt="Marketing deep dive">
+          <div class="module-num">3</div>
+          <div class="module-meta-pill">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+            <span class="lang-inline-en">40 min · 8 lessons</span><span class="lang-inline-vi">40 phút · 8 bài</span>
+          </div>
+          <div class="play-overlay">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.344-5.89a1.5 1.5 0 000-2.54L6.3 2.84z"/></svg>
+          </div>
+          <div class="module-progress"><div class="module-progress-fill" style="width:0%"></div></div>
+        </div>
+        <div class="p-6 flex-1 flex flex-col">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-green-dark">
+              <span class="lang-inline-en">Marketing</span><span class="lang-inline-vi">Marketing</span>
+            </span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">
+            <span class="lang-inline-en">Marketing deep dive</span>
+            <span class="lang-inline-vi">Marketing chuyên sâu</span>
+          </h3>
+          <p class="text-sm text-gray-600 leading-relaxed mb-4 flex-grow">
+            <span class="lang-inline-en">Fill empty chairs, build promotions, run happy-hour deals, launch SMS blasts, and grow loyal repeat clients.</span>
+            <span class="lang-inline-vi">Lấp ghế trống, tạo khuyến mãi, chạy giờ vàng, gửi SMS hàng loạt, và xây khách hàng thân thiết.</span>
+          </p>
+          <div class="flex items-center justify-between text-sm font-semibold text-brand-green-dark">
+            <span class="lang-inline-en">Start module</span><span class="lang-inline-vi">Bắt đầu mô-đun</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Module 4: Automation & Custom Workflows -->
+      <a href="/training/automation/" class="module-card reveal reveal-3" data-module="automation">
+        <div class="module-thumb">
+          <img src="/images/module-4.png" alt="Automation and custom workflows">
+          <div class="module-num">4</div>
+          <div class="module-meta-pill">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+            <span class="lang-inline-en">35 min · 7 lessons</span><span class="lang-inline-vi">35 phút · 7 bài</span>
+          </div>
+          <div class="play-overlay">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.344-5.89a1.5 1.5 0 000-2.54L6.3 2.84z"/></svg>
+          </div>
+          <div class="module-progress"><div class="module-progress-fill" style="width:0%"></div></div>
+        </div>
+        <div class="p-6 flex-1 flex flex-col">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-green-dark">
+              <span class="lang-inline-en">Automation</span><span class="lang-inline-vi">Tự động hoá</span>
+            </span>
+            <span class="badge-new"><span class="lang-inline-en">Advanced</span><span class="lang-inline-vi">Nâng cao</span></span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">
+            <span class="lang-inline-en">Automation &amp; custom workflows</span>
+            <span class="lang-inline-vi">Tự động hoá &amp; quy trình tuỳ chỉnh</span>
+          </h3>
+          <p class="text-sm text-gray-600 leading-relaxed mb-4 flex-grow">
+            <span class="lang-inline-en">Build custom automations — birthday offers, rebook nudges, stylist alerts, review requests, and branching if-this-then-that flows.</span>
+            <span class="lang-inline-vi">Xây tự động hoá — khuyến mãi sinh nhật, nhắc rebook, cảnh báo stylist, yêu cầu review, và luồng if-this-then-that.</span>
+          </p>
+          <div class="flex items-center justify-between text-sm font-semibold text-brand-green-dark">
+            <span class="lang-inline-en">Start module</span><span class="lang-inline-vi">Bắt đầu mô-đun</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PLAYBOOKS ==================== -->
+<section class="pb-16 sm:pb-20 bg-[#f7fbee]/40">
+  <div class="max-w-6xl mx-auto px-6 pt-12">
+    <div class="flex items-end justify-between mb-8 gap-4 flex-wrap">
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-brand-green-dark font-semibold mb-2">
+          <span class="lang-inline-en">Playbooks</span><span class="lang-inline-vi">Playbook</span>
+        </p>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+          <span class="lang-inline-en">Real scenarios, step-by-step.</span>
+          <span class="lang-inline-vi">Tình huống thực tế, từng bước một.</span>
+        </h2>
+        <p class="text-gray-600 mt-2 max-w-xl">
+          <span class="lang-inline-en">Short guides for specific moments in your salon. Skim, copy, go.</span>
+          <span class="lang-inline-vi">Hướng dẫn ngắn cho từng khoảnh khắc tại tiệm. Lướt, copy, làm.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <a href="/training/playbooks/slow-tuesday/" class="playbook-card">
+        <div class="playbook-icon">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <div>
+          <div class="font-bold text-gray-900 mb-1 text-[15px]">
+            <span class="lang-inline-en">Slow Tuesday? The 3-step refill</span>
+            <span class="lang-inline-vi">Thứ Ba vắng? 3 bước lấp đầy</span>
+          </div>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            <span class="lang-inline-en">8 min read · Refill slow-day slots with a single SMS campaign.</span>
+            <span class="lang-inline-vi">8 phút · Lấp ghế trống bằng 1 chiến dịch SMS.</span>
+          </p>
+        </div>
+      </a>
+
+      <a href="/training/playbooks/opening-weekend/" class="playbook-card">
+        <div class="playbook-icon">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <div>
+          <div class="font-bold text-gray-900 mb-1 text-[15px]">
+            <span class="lang-inline-en">Opening weekend marketing plan</span>
+            <span class="lang-inline-vi">Kế hoạch marketing khai trương</span>
+          </div>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            <span class="lang-inline-en">12 min read · 7-day launch sequence for new salons.</span>
+            <span class="lang-inline-vi">12 phút · Lịch 7 ngày cho tiệm mới mở.</span>
+          </p>
+        </div>
+      </a>
+
+      <a href="/training/playbooks/bad-review/" class="playbook-card">
+        <div class="playbook-icon">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+        </div>
+        <div>
+          <div class="font-bold text-gray-900 mb-1 text-[15px]">
+            <span class="lang-inline-en">Handle a bad review in 10 minutes</span>
+            <span class="lang-inline-vi">Xử lý review xấu trong 10 phút</span>
+          </div>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            <span class="lang-inline-en">6 min read · Respond professionally, protect your rating.</span>
+            <span class="lang-inline-vi">6 phút · Phản hồi chuyên nghiệp, bảo vệ điểm đánh giá.</span>
+          </p>
+        </div>
+      </a>
+
+      <a href="/training/playbooks/onboard-stylist/" class="playbook-card">
+        <div class="playbook-icon">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+        </div>
+        <div>
+          <div class="font-bold text-gray-900 mb-1 text-[15px]">
+            <span class="lang-inline-en">Onboard new stylists in 15 min</span>
+            <span class="lang-inline-vi">Đào tạo stylist mới trong 15 phút</span>
+          </div>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            <span class="lang-inline-en">9 min read · Give new hires everything on day one.</span>
+            <span class="lang-inline-vi">9 phút · Cung cấp đủ mọi thứ từ ngày đầu tiên.</span>
+          </p>
+        </div>
+      </a>
+
+      <a href="/training/playbooks/rebook-ghost/" class="playbook-card">
+        <div class="playbook-icon">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+        </div>
+        <div>
+          <div class="font-bold text-gray-900 mb-1 text-[15px]">
+            <span class="lang-inline-en">Win back ghosted clients</span>
+            <span class="lang-inline-vi">Kéo lại khách đã mất</span>
+          </div>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            <span class="lang-inline-en">7 min read · SMS template that brings 20% back.</span>
+            <span class="lang-inline-vi">7 phút · Mẫu SMS kéo lại 20% khách.</span>
+          </p>
+        </div>
+      </a>
+
+      <a href="/training/playbooks/holiday-push/" class="playbook-card">
+        <div class="playbook-icon">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div>
+          <div class="font-bold text-gray-900 mb-1 text-[15px]">
+            <span class="lang-inline-en">Tết / holiday salon push</span>
+            <span class="lang-inline-vi">Chiến dịch Tết / lễ</span>
+          </div>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            <span class="lang-inline-en">10 min read · Pack your books before the holidays.</span>
+            <span class="lang-inline-vi">10 phút · Kín lịch trước ngày lễ.</span>
+          </p>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="text-center mt-8">
+      <a href="/training/playbooks/" class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-green-dark hover:gap-2 transition-all">
+        <span class="lang-inline-en">View all playbooks</span><span class="lang-inline-vi">Xem tất cả playbook</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BOTTOM CTA ==================== -->
+<section class="py-14 sm:py-20">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden" style="background: radial-gradient(circle at 50% 0%, rgba(140,184,43,0.18), transparent 60%), #0F0F11;">
+      <div class="relative z-10">
+        <p class="text-xs uppercase tracking-[0.2em] text-brand-green font-semibold mb-3">
+          <span class="lang-inline-en">Need 1:1 help?</span><span class="lang-inline-vi">Cần hỗ trợ 1:1?</span>
+        </p>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white mb-3 leading-tight">
+          <span class="lang-inline-en">Prefer a human walkthrough?</span>
+          <span class="lang-inline-vi">Thích được người thật hướng dẫn?</span>
+        </h2>
+        <p class="text-white/80 text-[15px] sm:text-base mb-7 max-w-xl mx-auto">
+          <span class="lang-inline-en">Book a free 30-minute strategy call. We'll walk through your setup live and answer any questions — in English or Vietnamese.</span>
+          <span class="lang-inline-vi">Đặt cuộc gọi tư vấn miễn phí 30 phút. Chúng tôi sẽ hướng dẫn trực tiếp — bằng tiếng Anh hoặc tiếng Việt.</span>
+        </p>
+        <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-bold px-7 py-3.5 rounded-full">
+          <span class="lang-inline-en">Schedule a demo</span><span class="lang-inline-vi">Đặt lịch demo</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- @include partials/footer.html -->
+
+<script>
+  function toggleLang() {
+    var html = document.getElementById('htmlRoot');
+    var label = document.getElementById('langLabel');
+    if (html.lang === 'en') { html.lang = 'vi'; label.textContent = 'VI'; }
+    else { html.lang = 'en'; label.textContent = 'EN'; }
+  }
+
+  // Search behavior
+  function performSearch() {
+    var q = document.getElementById('trainingSearch').value.trim();
+    if (!q) return;
+    window.location.href = '/training/search/?q=' + encodeURIComponent(q);
+  }
+  function quickSearch(term) {
+    window.location.href = '/training/search/?q=' + encodeURIComponent(term);
+  }
+  document.getElementById('trainingSearch').addEventListener('keydown', function(e){
+    if (e.key === 'Enter') performSearch();
+  });
+
+  // Restore module progress from localStorage
+  (function(){
+    try {
+      document.querySelectorAll('[data-module]').forEach(function(card){
+        var slug = card.getAttribute('data-module');
+        var raw = localStorage.getItem('training_progress_' + slug);
+        if (!raw) return;
+        var data = JSON.parse(raw);
+        var pct = data.total ? Math.round((data.completed / data.total) * 100) : 0;
+        var fill = card.querySelector('.module-progress-fill');
+        if (fill) fill.style.width = pct + '%';
+      });
+    } catch(e) {}
+  })();
+</script>
+
+<!-- ============ PREVIEW-ONLY (stripped in production via build) ============ -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  if (window.tailwind) tailwind.config = {
+    theme: { extend: {
+      colors: { 'brand-green':'#8CB82B', 'brand-green-dark':'#6A9A10' },
+      fontFamily: { 'display':['Be Vietnam Pro','sans-serif'] }
+    } }
+  };
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</body>
+</html>

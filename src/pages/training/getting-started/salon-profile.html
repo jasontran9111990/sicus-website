@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- @include partials/head-common.html -->
+  <title>Set up your salon profile — Training Hub | SICUS Media</title>
+  <meta name="description" content="A 5-minute guided lesson walking you through setting up your salon profile on SICUS so new clients can find and book you. Free, bilingual (EN/VI).">
+  <link rel="canonical" href="https://sicusmedia.com/training/getting-started/salon-profile/">
+
+  <style>
+    * { font-family: 'Be Vietnam Pro', sans-serif; }
+    html { scroll-behavior: smooth; }
+
+    .lang-inline-en, .lang-inline-vi { display: none; }
+    html[lang="en"] .lang-inline-en { display: inline !important; }
+    html[lang="vi"] .lang-inline-vi { display: inline !important; }
+
+    .btn-spring { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease; }
+    .btn-spring:hover { transform: translateY(-2px); }
+
+    /* Video player container */
+    .video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #0a0a0a;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.15);
+    }
+    .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .video-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.85);
+      background:
+        radial-gradient(circle at 30% 20%, rgba(140,184,43,0.25), transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(106,154,16,0.20), transparent 55%),
+        #0a0a0a;
+    }
+    .play-btn {
+      width: 76px; height: 76px; border-radius: 999px;
+      background: rgba(255,255,255,0.95);
+      color: #527D07;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+      box-shadow: 0 12px 40px rgba(140,184,43,0.4);
+      border: 0; cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .play-btn:hover { transform: scale(1.08); }
+
+    /* Checklist */
+    .step {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid #f1f5e9;
+    }
+    .step:last-child { border-bottom: 0; }
+    .step-check {
+      width: 1.5rem; height: 1.5rem;
+      border-radius: 999px;
+      border: 2px solid #d4d9c8;
+      background: #fff;
+      cursor: pointer;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: transparent;
+      transition: all 0.2s;
+      margin-top: 0.125rem;
+    }
+    .step-check:hover { border-color: #8CB82B; }
+    .step[data-checked="true"] .step-check { background: #8CB82B; border-color: #8CB82B; color: white; }
+    .step[data-checked="true"] .step-text { color: #6b7280; text-decoration: line-through; text-decoration-color: rgba(107,114,128,0.4); }
+
+    /* Transcript toggle */
+    .transcript-block {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #374151;
+    }
+    .transcript-block p { margin-bottom: 1rem; }
+
+    /* Pitfall callout */
+    .pitfall {
+      background: linear-gradient(135deg, #FFF8E1, #FEF3C7);
+      border: 1px solid #FDE68A;
+      border-radius: 1rem;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .pitfall-icon {
+      flex-shrink: 0;
+      width: 2.25rem; height: 2.25rem;
+      border-radius: 0.625rem;
+      background: #F59E0B;
+      color: white;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .nav-pill {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 1rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+      flex: 1;
+      min-width: 0;
+    }
+    .nav-pill:hover { border-color: rgba(140,184,43,0.45); background: #fafffb; }
+
+    /* Sidebar lesson list */
+    .sidebar-lesson {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: 0.625rem;
+      font-size: 13px;
+      color: #4b5563;
+      text-decoration: none;
+      transition: background-color 0.15s;
+    }
+    .sidebar-lesson:hover { background: #fafffb; }
+    .sidebar-lesson[data-active="true"] {
+      background: rgba(140,184,43,0.1);
+      color: #527D07;
+      font-weight: 600;
+    }
+    .sidebar-lesson .dot {
+      width: 1.25rem; height: 1.25rem; border-radius: 999px;
+      background: #f3f4f6; color: #6b7280;
+      font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .sidebar-lesson[data-done="true"] .dot { background: #8CB82B; color: white; }
+    .sidebar-lesson[data-active="true"] .dot { background: #527D07; color: white; }
+
+    /* Completion celebrate banner */
+    .celebrate {
+      background: linear-gradient(135deg, #8CB82B, #6A9A10);
+      color: white;
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      display: none;
+      animation: slideIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .celebrate.show { display: flex; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+    .reveal { opacity: 0; transform: translateY(12px); animation: revealUp 0.6s ease 0.1s forwards; }
+    @keyframes revealUp { to { opacity: 1; transform: none; } }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+<!-- @include partials/gtm-noscript.html -->
+<!-- @include partials/nav.html -->
+
+<!-- ============ PREVIEW-ONLY inlined nav ============ -->
+<div id="brandkitStrip" class="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-[#6A9A10] via-[#8CB82B] to-[#6A9A10] text-white text-xs sm:text-sm border-b border-white/10 hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 h-9 sm:h-10 flex items-center justify-center gap-2 sm:gap-3 relative">
+    <a href="/free/salon-brand-kit.html" class="flex items-center gap-1.5"><span class="text-base leading-none">🎁</span><span class="font-semibold"><span class="lang-inline-en">Free logo, website &amp; brand guide for 5 salon owners this month.</span><span class="lang-inline-vi">Miễn phí logo, website &amp; brand guide cho 5 chủ tiệm tháng này.</span></span><span class="underline font-bold"><span class="lang-inline-en">Claim yours →</span><span class="lang-inline-vi">Nhận ngay →</span></span></a>
+    <button onclick="dismissBrandkitStrip()" aria-label="Dismiss" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center rounded-full hover:bg-white/20"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+  </div>
+</div>
+<nav id="mainNav" class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-5 sm:gap-7">
+      <a href="/" class="flex items-center gap-2"><img src="assets/topbar.png" alt="SICUS MEDIA" class="h-8"></a>
+      <a href="/services/" class="text-sm font-medium text-gray-600 hover:text-brand-green-dark transition-colors"><span class="lang-inline-en">Services</span><span class="lang-inline-vi">Dịch vụ</span></a>
+      <a href="/products/" class="text-sm font-medium text-gray-600 hover:text-brand-green-dark transition-colors"><span class="lang-inline-en">Products</span><span class="lang-inline-vi">Sản phẩm</span></a>
+    </div>
+    <div class="flex items-center gap-3">
+      <button onclick="toggleLang()" class="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 border border-gray-200 rounded-full px-3 py-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg><span id="langLabel">EN</span></button>
+      <a href="/blog/" class="hidden lg:inline text-sm text-gray-500 hover:text-gray-900"><span class="lang-inline-en">Blog</span><span class="lang-inline-vi">Bài viết</span></a>
+      <a href="/training/" aria-current="page" class="hidden lg:inline-flex items-center gap-1.5 text-sm font-semibold text-brand-green-dark">
+        <span class="lang-inline-en">Training</span><span class="lang-inline-vi">Đào tạo</span>
+        <span class="text-[9px] font-bold uppercase bg-brand-green text-white px-1.5 py-0.5 rounded-full">New</span>
+      </a>
+      <a href="/#schedule-demo" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-semibold text-sm px-5 py-2 rounded-full shadow-[0_2px_12px_rgba(140,184,43,0.25)]"><span class="lang-inline-en">Schedule a Demo</span><span class="lang-inline-vi">Đặt lịch Demo</span></a>
+    </div>
+  </div>
+</nav>
+<div id="navSpacer" class="h-16"></div>
+<script>
+  (function(){
+    var strip = document.getElementById('brandkitStrip'), nav = document.getElementById('mainNav'), spacer = document.getElementById('navSpacer');
+    var dismissed = false; try { dismissed = localStorage.getItem('brandkit_dismissed') === '1'; } catch(e){}
+    if (!dismissed) { strip.classList.remove('hidden'); var h = strip.offsetHeight; nav.style.top = h+'px'; if(spacer) spacer.style.height = (h+64)+'px'; }
+  })();
+  function dismissBrandkitStrip(){ var s=document.getElementById('brandkitStrip'),n=document.getElementById('mainNav'),sp=document.getElementById('navSpacer');try{localStorage.setItem('brandkit_dismissed','1')}catch(e){};s.style.transition='all .3s';s.style.transform='translateY(-100%)';s.style.opacity='0';n.style.top='0';if(sp)sp.style.height='64px';setTimeout(function(){s.remove()},300)}
+</script>
+
+<!-- ==================== LESSON ==================== -->
+<section class="pt-8 sm:pt-10 pb-20">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="mb-5 flex items-center gap-2 text-sm text-gray-400 flex-wrap">
+      <a href="/training/" class="hover:text-brand-green-dark transition-colors">
+        <span class="lang-inline-en">Training Hub</span><span class="lang-inline-vi">Trung tâm đào tạo</span>
+      </a>
+      <span>&rsaquo;</span>
+      <a href="/training/getting-started/" class="hover:text-brand-green-dark transition-colors">
+        <span class="lang-inline-en">Getting started</span><span class="lang-inline-vi">Bắt đầu</span>
+      </a>
+      <span>&rsaquo;</span>
+      <span class="text-gray-700 font-medium">
+        <span class="lang-inline-en">Salon profile</span><span class="lang-inline-vi">Hồ sơ tiệm</span>
+      </span>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8 xl:gap-12 items-start">
+
+      <!-- MAIN COLUMN -->
+      <div>
+        <!-- Title -->
+        <div class="mb-6 reveal">
+          <div class="text-xs font-bold uppercase tracking-[0.15em] text-brand-green-dark mb-2">
+            <span class="lang-inline-en">Lesson 2 · 5 min</span>
+            <span class="lang-inline-vi">Bài 2 · 5 phút</span>
+          </div>
+          <h1 class="font-display text-3xl sm:text-4xl font-bold tracking-[-0.02em] text-gray-900 mb-3 leading-[1.1]">
+            <span class="lang-inline-en">Set up your salon profile</span>
+            <span class="lang-inline-vi">Thiết lập hồ sơ tiệm</span>
+          </h1>
+          <p class="text-[16px] text-gray-600 leading-relaxed max-w-2xl">
+            <span class="lang-inline-en">Your profile is what new clients see first. A well-filled profile alone can boost online bookings by 40%. Let's get it right.</span>
+            <span class="lang-inline-vi">Hồ sơ là thứ khách mới thấy đầu tiên. Hồ sơ đầy đủ có thể tăng booking online 40%. Cùng làm cho đúng.</span>
+          </p>
+        </div>
+
+        <!-- Video -->
+        <div class="video-frame mb-8 reveal">
+          <div class="video-placeholder" id="videoPlaceholder">
+            <button class="play-btn" onclick="loadVideo()" aria-label="Play video">
+              <svg class="w-7 h-7 ml-1" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.344-5.89a1.5 1.5 0 000-2.54L6.3 2.84z"/></svg>
+            </button>
+            <div class="font-bold text-lg mb-1">
+              <span class="lang-inline-en">Set up your salon profile</span>
+              <span class="lang-inline-vi">Thiết lập hồ sơ tiệm</span>
+            </div>
+            <div class="text-sm opacity-75">
+              <span class="lang-inline-en">5 min · YouTube</span><span class="lang-inline-vi">5 phút · YouTube</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls row -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-10">
+          <button onclick="markComplete()" id="completeBtn" class="btn-spring inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-white font-bold px-5 py-2.5 rounded-full text-sm shadow-[0_4px_20px_rgba(140,184,43,0.3)]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <span id="completeLabel"><span class="lang-inline-en">Mark as complete</span><span class="lang-inline-vi">Đánh dấu hoàn thành</span></span>
+          </button>
+          <div class="flex items-center gap-2">
+            <button onclick="toggleTranscript()" class="inline-flex items-center gap-1.5 text-sm text-gray-600 hover:text-gray-900 border border-gray-200 px-4 py-2 rounded-full transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span class="lang-inline-en">Transcript</span><span class="lang-inline-vi">Phụ đề</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Celebration banner (on complete) -->
+        <div class="celebrate mb-8" id="celebrateBanner">
+          <div class="flex items-start gap-4 flex-1">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-2xl">🎉</div>
+            <div class="flex-1">
+              <div class="font-bold text-lg mb-0.5">
+                <span class="lang-inline-en">Nice — lesson complete!</span>
+                <span class="lang-inline-vi">Tuyệt — hoàn thành bài!</span>
+              </div>
+              <p class="text-white/90 text-sm">
+                <span class="lang-inline-en">Keep the momentum going. Next up: adding your services.</span>
+                <span class="lang-inline-vi">Giữ đà này nhé. Tiếp theo: thêm dịch vụ.</span>
+              </p>
+            </div>
+          </div>
+          <a href="/training/getting-started/salon-profile.html" class="ml-4 flex-shrink-0 inline-flex items-center gap-1.5 bg-white text-brand-green-dark font-bold text-sm px-4 py-2 rounded-full self-center whitespace-nowrap">
+            <span class="lang-inline-en">Next lesson</span><span class="lang-inline-vi">Bài tiếp</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+        </div>
+
+        <!-- Follow-along checklist -->
+        <div class="mb-10">
+          <h2 class="text-xs uppercase tracking-[0.2em] text-brand-green-dark font-semibold mb-2">
+            <span class="lang-inline-en">Follow along</span><span class="lang-inline-vi">Làm theo</span>
+          </h2>
+          <p class="text-sm text-gray-500 mb-5">
+            <span class="lang-inline-en">Tick each step as you do it. Your progress is saved on this device.</span>
+            <span class="lang-inline-vi">Tick mỗi bước khi làm. Tiến độ lưu trên thiết bị này.</span>
+          </p>
+
+          <div class="bg-white border border-gray-200 rounded-2xl p-5 sm:p-6">
+            <div class="step" data-checked="false" data-step="1">
+              <button class="step-check" onclick="toggleStep(1)" aria-label="Toggle step 1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></button>
+              <div>
+                <div class="step-text font-semibold text-gray-900 text-[15px] mb-0.5">
+                  <span class="lang-inline-en">Upload your salon logo (at least 512×512 px)</span>
+                  <span class="lang-inline-vi">Tải logo tiệm (ít nhất 512×512 px)</span>
+                </div>
+                <p class="text-sm text-gray-500"><span class="lang-inline-en">Settings → Salon info → Logo. Square PNG with transparent background looks best.</span><span class="lang-inline-vi">Cài đặt → Thông tin tiệm → Logo. PNG vuông, nền trong suốt là đẹp nhất.</span></p>
+              </div>
+            </div>
+
+            <div class="step" data-checked="false" data-step="2">
+              <button class="step-check" onclick="toggleStep(2)" aria-label="Toggle step 2"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></button>
+              <div>
+                <div class="step-text font-semibold text-gray-900 text-[15px] mb-0.5">
+                  <span class="lang-inline-en">Add business hours for every day you're open</span>
+                  <span class="lang-inline-vi">Thêm giờ mở cửa mỗi ngày</span>
+                </div>
+                <p class="text-sm text-gray-500"><span class="lang-inline-en">Include holidays and seasonal hours. AI uses this to tell callers when you're open.</span><span class="lang-inline-vi">Gồm cả lễ và giờ theo mùa. AI sẽ dùng để báo khách giờ mở cửa.</span></p>
+              </div>
+            </div>
+
+            <div class="step" data-checked="false" data-step="3">
+              <button class="step-check" onclick="toggleStep(3)" aria-label="Toggle step 3"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></button>
+              <div>
+                <div class="step-text font-semibold text-gray-900 text-[15px] mb-0.5">
+                  <span class="lang-inline-en">Fill in your salon address + phone number</span>
+                  <span class="lang-inline-vi">Điền địa chỉ + số điện thoại tiệm</span>
+                </div>
+                <p class="text-sm text-gray-500"><span class="lang-inline-en">Match exactly what's on your Google Business listing — this helps SEO.</span><span class="lang-inline-vi">Khớp chính xác với Google Business — giúp SEO.</span></p>
+              </div>
+            </div>
+
+            <div class="step" data-checked="false" data-step="4">
+              <button class="step-check" onclick="toggleStep(4)" aria-label="Toggle step 4"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></button>
+              <div>
+                <div class="step-text font-semibold text-gray-900 text-[15px] mb-0.5">
+                  <span class="lang-inline-en">Write a 2-sentence salon description</span>
+                  <span class="lang-inline-vi">Viết mô tả tiệm 2 câu</span>
+                </div>
+                <p class="text-sm text-gray-500"><span class="lang-inline-en">Lead with your specialty (e.g. "dip powder &amp; pedi" or "balayage experts"). Keep it warm.</span><span class="lang-inline-vi">Mở bằng thế mạnh (vd "dip powder &amp; pedi" hoặc "chuyên balayage"). Thân thiện.</span></p>
+              </div>
+            </div>
+
+            <div class="step" data-checked="false" data-step="5">
+              <button class="step-check" onclick="toggleStep(5)" aria-label="Toggle step 5"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></button>
+              <div>
+                <div class="step-text font-semibold text-gray-900 text-[15px] mb-0.5">
+                  <span class="lang-inline-en">Add 3–5 photos of your space</span>
+                  <span class="lang-inline-vi">Thêm 3–5 ảnh không gian</span>
+                </div>
+                <p class="text-sm text-gray-500"><span class="lang-inline-en">Shoot horizontal, natural light. Wide shot of the salon, a chair close-up, one finished-look photo.</span><span class="lang-inline-vi">Chụp ngang, ánh sáng tự nhiên. 1 ảnh rộng, 1 cận ghế, 1 ảnh kết quả.</span></p>
+              </div>
+            </div>
+
+            <div class="step" data-checked="false" data-step="6">
+              <button class="step-check" onclick="toggleStep(6)" aria-label="Toggle step 6"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></button>
+              <div>
+                <div class="step-text font-semibold text-gray-900 text-[15px] mb-0.5">
+                  <span class="lang-inline-en">Set your languages: English + Vietnamese</span>
+                  <span class="lang-inline-vi">Đặt ngôn ngữ: Anh + Việt</span>
+                </div>
+                <p class="text-sm text-gray-500"><span class="lang-inline-en">AI will greet and respond in whichever language the client uses first.</span><span class="lang-inline-vi">AI sẽ chào và trả lời theo ngôn ngữ khách dùng trước.</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Common pitfall -->
+        <div class="pitfall mb-10">
+          <div class="pitfall-icon">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          </div>
+          <div>
+            <div class="font-bold text-gray-900 mb-1">
+              <span class="lang-inline-en">Common pitfall</span><span class="lang-inline-vi">Lỗi thường gặp</span>
+            </div>
+            <p class="text-sm text-gray-700 leading-relaxed">
+              <span class="lang-inline-en">Don't skip the photos. Profiles with photos get ~3× more clicks than those without — even if your other info is perfect. Use your phone; it's good enough.</span>
+              <span class="lang-inline-vi">Đừng bỏ qua ảnh. Hồ sơ có ảnh được click gấp ~3 lần — dù thông tin khác đầy đủ. Dùng điện thoại là đủ tốt.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Transcript -->
+        <div id="transcriptWrap" class="mb-10 hidden">
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="text-xs uppercase tracking-[0.2em] text-brand-green-dark font-semibold">
+              <span class="lang-inline-en">Transcript</span><span class="lang-inline-vi">Phụ đề</span>
+            </h2>
+            <button onclick="toggleTranscript()" class="text-xs text-gray-400 hover:text-gray-700">
+              <span class="lang-inline-en">Hide</span><span class="lang-inline-vi">Ẩn</span>
+            </button>
+          </div>
+          <div class="transcript-block bg-gray-50 rounded-xl p-6 border border-gray-100">
+            <p><span class="lang-inline-en"><strong>[0:00]</strong> Hey, welcome back. In this lesson I'll walk you through setting up your salon profile on SICUS. We'll cover six things, and you can pause anytime.</span><span class="lang-inline-vi"><strong>[0:00]</strong> Chào, mừng bạn trở lại. Trong bài này tôi sẽ hướng dẫn thiết lập hồ sơ tiệm trên SICUS. Chúng ta sẽ làm 6 việc, bạn có thể tạm dừng bất cứ lúc nào.</span></p>
+            <p><span class="lang-inline-en"><strong>[0:20]</strong> First, open Settings from the left sidebar. Click "Salon info" — this is where we'll live for the next five minutes…</span><span class="lang-inline-vi"><strong>[0:20]</strong> Đầu tiên, mở Cài đặt từ thanh bên trái. Bấm "Thông tin tiệm" — chúng ta sẽ ở đây 5 phút tới…</span></p>
+            <p class="text-gray-400 italic text-sm"><span class="lang-inline-en">(Full transcript loads after you publish the video. Placeholder shown.)</span><span class="lang-inline-vi">(Phụ đề đầy đủ sẽ tải sau khi video đăng. Hiển thị placeholder.)</span></p>
+          </div>
+        </div>
+
+        <!-- Prev / Next -->
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <a href="/training/getting-started/salon-profile.html" class="nav-pill">
+            <svg class="w-5 h-5 flex-shrink-0 text-gray-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12"/></svg>
+            <div class="min-w-0 flex-1">
+              <div class="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-0.5">
+                <span class="lang-inline-en">Previous</span><span class="lang-inline-vi">Trước</span>
+              </div>
+              <div class="font-semibold text-gray-900 text-sm truncate">
+                <span class="lang-inline-en">Welcome — what SICUS does</span><span class="lang-inline-vi">Chào mừng — SICUS là gì</span>
+              </div>
+            </div>
+          </a>
+          <a href="/training/getting-started/salon-profile.html" class="nav-pill">
+            <div class="min-w-0 flex-1 text-right">
+              <div class="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-0.5">
+                <span class="lang-inline-en">Next</span><span class="lang-inline-vi">Tiếp</span>
+              </div>
+              <div class="font-semibold text-gray-900 text-sm truncate">
+                <span class="lang-inline-en">Add services &amp; prices</span><span class="lang-inline-vi">Thêm dịch vụ &amp; giá</span>
+              </div>
+            </div>
+            <svg class="w-5 h-5 flex-shrink-0 text-brand-green-dark" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="lg:sticky lg:top-24 order-first lg:order-none">
+        <div class="bg-white border border-gray-200 rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs font-bold uppercase tracking-wider text-gray-500">
+              <span class="lang-inline-en">Module · Getting started</span><span class="lang-inline-vi">Mô-đun · Bắt đầu</span>
+            </div>
+            <a href="/training/getting-started/" class="text-xs text-brand-green-dark font-semibold hover:underline">
+              <span class="lang-inline-en">Overview</span><span class="lang-inline-vi">Tổng quan</span>
+            </a>
+          </div>
+
+          <!-- Mini progress -->
+          <div class="mb-4">
+            <div class="flex items-center justify-between text-xs mb-1.5">
+              <span class="text-gray-500" id="miniProgressLabel">0/6</span>
+              <span class="text-gray-500" id="miniProgressPct">0%</span>
+            </div>
+            <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+              <div id="miniProgressFill" class="h-full bg-brand-green rounded-full transition-[width] duration-500" style="width:0%"></div>
+            </div>
+          </div>
+
+          <!-- Lesson list -->
+          <nav class="space-y-0.5">
+            <a href="/training/getting-started/salon-profile.html" class="sidebar-lesson" data-lesson="welcome"><span class="dot">1</span><span class="truncate"><span class="lang-inline-en">Welcome</span><span class="lang-inline-vi">Chào mừng</span></span></a>
+            <a href="/training/getting-started/salon-profile.html" class="sidebar-lesson" data-lesson="profile" data-active="true"><span class="dot">2</span><span class="truncate"><span class="lang-inline-en">Salon profile</span><span class="lang-inline-vi">Hồ sơ tiệm</span></span></a>
+            <a href="/training/getting-started/salon-profile.html" class="sidebar-lesson" data-lesson="services"><span class="dot">3</span><span class="truncate"><span class="lang-inline-en">Services &amp; prices</span><span class="lang-inline-vi">Dịch vụ &amp; giá</span></span></a>
+            <a href="/training/getting-started/salon-profile.html" class="sidebar-lesson" data-lesson="calendar"><span class="dot">4</span><span class="truncate"><span class="lang-inline-en">Connect calendar</span><span class="lang-inline-vi">Kết nối lịch</span></span></a>
+            <a href="/training/getting-started/salon-profile.html" class="sidebar-lesson" data-lesson="first-booking"><span class="dot">5</span><span class="truncate"><span class="lang-inline-en">First AI booking</span><span class="lang-inline-vi">Booking AI đầu</span></span></a>
+            <a href="/training/getting-started/salon-profile.html" class="sidebar-lesson" data-lesson="dashboard-tour"><span class="dot">6</span><span class="truncate"><span class="lang-inline-en">Tour dashboard</span><span class="lang-inline-vi">Tour dashboard</span></span></a>
+          </nav>
+        </div>
+
+        <div class="mt-4 rounded-2xl p-5" style="background: linear-gradient(135deg,#fafffb 0%,#f3f9e4 100%); border:1px solid #e2eec9;">
+          <div class="text-xs font-bold uppercase tracking-wider text-brand-green-dark mb-1.5">
+            <span class="lang-inline-en">Stuck?</span><span class="lang-inline-vi">Bí quá?</span>
+          </div>
+          <p class="text-xs text-gray-700 mb-3 leading-relaxed">
+            <span class="lang-inline-en">Hop on a free 30-min call and we'll do it together.</span>
+            <span class="lang-inline-vi">Đặt 30 phút free — làm cùng bạn.</span>
+          </p>
+          <a href="/#schedule-demo" class="inline-flex items-center gap-1 text-xs font-bold text-brand-green-dark hover:underline">
+            <span class="lang-inline-en">Book a call →</span><span class="lang-inline-vi">Đặt lịch →</span>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- @include partials/footer.html -->
+
+<script>
+  function toggleLang(){
+    var html = document.getElementById('htmlRoot'), label = document.getElementById('langLabel');
+    if (html.lang === 'en') { html.lang = 'vi'; label.textContent = 'VI'; }
+    else { html.lang = 'en'; label.textContent = 'EN'; }
+  }
+
+  var MODULE_SLUG = 'getting-started';
+  var LESSON_SLUG = 'profile';
+  var LESSON_SLUGS = ['welcome','profile','services','calendar','first-booking','dashboard-tour'];
+  var MOD_KEY = 'training_progress_' + MODULE_SLUG;
+  var STEPS_KEY = 'training_steps_' + MODULE_SLUG + '_' + LESSON_SLUG;
+  var YT_VIDEO_ID = 'dQw4w9WgXcQ'; // <-- swap with real unlisted lesson ID
+
+  function loadProgress(){
+    try { return JSON.parse(localStorage.getItem(MOD_KEY)) || { done: [], total: LESSON_SLUGS.length }; }
+    catch(e) { return { done: [], total: LESSON_SLUGS.length }; }
+  }
+  function saveProgress(p){ try { localStorage.setItem(MOD_KEY, JSON.stringify(p)); } catch(e) {} }
+
+  function loadSteps(){
+    try { return JSON.parse(localStorage.getItem(STEPS_KEY)) || {}; } catch(e) { return {}; }
+  }
+  function saveSteps(s){ try { localStorage.setItem(STEPS_KEY, JSON.stringify(s)); } catch(e) {} }
+
+  function loadVideo(){
+    var wrap = document.getElementById('videoPlaceholder');
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube.com/embed/' + YT_VIDEO_ID + '?autoplay=1&rel=0&modestbranding=1';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    wrap.parentElement.replaceChild(iframe, wrap);
+  }
+
+  function toggleTranscript(){
+    var el = document.getElementById('transcriptWrap');
+    el.classList.toggle('hidden');
+    if (!el.classList.contains('hidden')) el.scrollIntoView ? null : null;
+  }
+
+  function toggleStep(n){
+    var row = document.querySelector('[data-step="' + n + '"]');
+    var newState = row.getAttribute('data-checked') !== 'true';
+    row.setAttribute('data-checked', newState);
+    var s = loadSteps(); s[n] = newState; saveSteps(s);
+  }
+
+  function markComplete(){
+    var p = loadProgress();
+    if (p.done.indexOf(LESSON_SLUG) < 0) {
+      p.done.push(LESSON_SLUG);
+      saveProgress(p);
+    }
+    renderLessonState();
+    var b = document.getElementById('celebrateBanner');
+    b.classList.add('show');
+    b.scrollIntoView ? null : null;
+  }
+
+  function renderLessonState(){
+    var p = loadProgress();
+    var done = p.done || [];
+    var count = done.length;
+    var pct = Math.round(count / LESSON_SLUGS.length * 100);
+    document.getElementById('miniProgressFill').style.width = pct + '%';
+    document.getElementById('miniProgressPct').textContent = pct + '%';
+    document.getElementById('miniProgressLabel').textContent = count + '/' + LESSON_SLUGS.length;
+    // Side nav dots
+    document.querySelectorAll('[data-lesson]').forEach(function(a){
+      a.setAttribute('data-done', done.indexOf(a.getAttribute('data-lesson')) >= 0 ? 'true' : 'false');
+    });
+    // Complete button state
+    var doneHere = done.indexOf(LESSON_SLUG) >= 0;
+    var label = document.getElementById('completeLabel');
+    var btn = document.getElementById('completeBtn');
+    if (doneHere) {
+      label.innerHTML = '<span class="lang-inline-en">Completed ✓</span><span class="lang-inline-vi">Đã hoàn thành ✓</span>';
+      btn.style.background = '#6A9A10';
+    }
+  }
+
+  // Restore step checks
+  (function(){
+    var s = loadSteps();
+    Object.keys(s).forEach(function(k){
+      var row = document.querySelector('[data-step="' + k + '"]');
+      if (row) row.setAttribute('data-checked', s[k] ? 'true' : 'false');
+    });
+  })();
+
+  renderLessonState();
+</script>
+
+<!-- ============ PREVIEW-ONLY ============ -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  if (window.tailwind) tailwind.config = { theme: { extend: {
+    colors: { 'brand-green':'#8CB82B', 'brand-green-dark':'#6A9A10' },
+    fontFamily: { 'display':['Be Vietnam Pro','sans-serif'] }
+  } } };
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</body>
+</html>
