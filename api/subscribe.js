@@ -41,6 +41,13 @@ const MAGNETS = {
     pdfUrl: 'https://sicusmedia.com/downloads/salon-licences-alberta.pdf',
     gdocUrl: '',
   },
+  'deposit-policy-template': {
+    subject: 'Your Salon Deposit Policy Template (Free Download)',
+    title: 'Salon Deposit Policy Template',
+    blurb: 'Three copy-paste deposit policy structures (Standard Hold, Service Lock, Full Prepay) plus a printable no-show clause, deposit rates by service type, and chargeback defense language. Drop it into your booking page, intake form, or client confirmation email.',
+    pdfUrl: 'https://sicusmedia.com/downloads/salon-deposit-policy-template.pdf',
+    gdocUrl: '',
+  },
 };
 
 const FROM_ADDRESS = 'SICUS Media <hello@sicusmedia.com>';

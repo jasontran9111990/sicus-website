@@ -44,6 +44,11 @@ const TARGETS = [
     outFile: 'salon-licences-alberta.pdf',
     label: 'Salon Licences in Alberta — Complete 2026 Guide',
   },
+  {
+    sourceUrl: `http://localhost:${PORT}/blog/salon-deposit-policy-template.html`,
+    outFile: 'salon-deposit-policy-template.pdf',
+    label: 'Salon Deposit Policy Template — Three Structures + No-Show Clause',
+  },
 ];
 
 // --- Simple HTTP server (reuses the same logic as serve.mjs) ---
