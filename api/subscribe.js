@@ -48,6 +48,13 @@ const MAGNETS = {
     pdfUrl: 'https://sicusmedia.com/downloads/salon-deposit-policy-template.pdf',
     gdocUrl: '',
   },
+  'referral-program-scripts': {
+    subject: 'Your Salon Referral Program Script Pack (Free Download)',
+    title: 'Salon Referral Program Script Pack',
+    blurb: 'Six ready-to-send SMS and email scripts for launching, nudging, and redeeming a salon referral program. Includes the Two-Way $20 launch sequence, a Bring-a-Friend Saturday announcement, and the reward-redemption confirmation message.',
+    pdfUrl: 'https://sicusmedia.com/downloads/salon-referral-program-scripts.pdf',
+    gdocUrl: '',
+  },
 };
 
 const FROM_ADDRESS = 'SICUS Media <hello@sicusmedia.com>';

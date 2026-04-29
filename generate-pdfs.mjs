@@ -49,6 +49,11 @@ const TARGETS = [
     outFile: 'salon-deposit-policy-template.pdf',
     label: 'Salon Deposit Policy Template — Three Structures + No-Show Clause',
   },
+  {
+    sourceUrl: `http://localhost:${PORT}/blog/salon-referral-program-ideas.html`,
+    outFile: 'salon-referral-program-scripts.pdf',
+    label: 'Salon Referral Program Script Pack — 15 Structures + SMS/Email Scripts',
+  },
 ];
 
 // --- Simple HTTP server (reuses the same logic as serve.mjs) ---
