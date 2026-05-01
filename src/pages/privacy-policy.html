@@ -27,6 +27,27 @@
   <style>
     * { font-family: 'Be Vietnam Pro', sans-serif; }
     h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+    /* Language toggle — hides the inactive-language spans. Mirrors head-common.html. */
+    .lang-en, .lang-vi { display: none; }
+    html[lang="en"] .lang-en { display: initial; }
+    html[lang="vi"] .lang-vi { display: initial; }
+    html[lang="en"] .lang-block-en { display: block !important; }
+    html[lang="vi"] .lang-block-vi { display: block !important; }
+    html[lang="en"] .lang-block-vi { display: none !important; }
+    html[lang="vi"] .lang-block-en { display: none !important; }
+    html[lang="en"] .lang-flex-en { display: flex !important; }
+    html[lang="vi"] .lang-flex-vi { display: flex !important; }
+    html[lang="en"] .lang-flex-vi { display: none !important; }
+    html[lang="vi"] .lang-flex-en { display: none !important; }
+    html[lang="en"] .lang-grid-en { display: grid !important; }
+    html[lang="vi"] .lang-grid-vi { display: grid !important; }
+    html[lang="en"] .lang-grid-vi { display: none !important; }
+    html[lang="vi"] .lang-grid-en { display: none !important; }
+    html[lang="en"] .lang-inline-en { display: inline !important; }
+    html[lang="vi"] .lang-inline-vi { display: inline !important; }
+    html[lang="en"] .lang-inline-vi { display: none !important; }
+    html[lang="vi"] .lang-inline-en { display: none !important; }
   </style>
 </head>
 <body class="bg-white text-gray-900">
