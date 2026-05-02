@@ -65,6 +65,12 @@ This restores the original "editable PDF + Google Doc" framing on the business p
 
 - [ ] **Verify Twilio domain** by visiting https://sicusmedia.com/b624e91e8571e42c3efa1ce24dbf6918.html and clicking Verify in Twilio dashboard
 - [ ] **Submit `sitemap.xml` to Google Search Console** to speed up indexing of the content clusters
+- [ ] **Generate 4 pending lead-magnet PDFs** — run `node generate-pdfs.mjs` locally to produce all four new magnet PDFs at once, then commit them in `downloads/`. Targets already wired in `generate-pdfs.mjs`:
+  - `salon-deposit-policy-template.pdf` (article: `/blog/salon-deposit-policy-template.html`)
+  - `salon-referral-program-scripts.pdf` (article: `/blog/salon-referral-program-ideas.html`)
+  - `salon-hiring-pack.pdf` (article: `/blog/hair-stylist-job-description.html`)
+  - `salon-employee-handbook.pdf` (article: `/blog/salon-employee-handbook-template.html`)
+  Until these PDFs exist on the deployed site, the magnet emails Resend sends will contain a 404 download link. ~5 min total once Puppeteer is installed.
 
 ### 🟡 Enhancements — can wait, relatively low effort
 - [x] ~~**Resend Audiences integration**~~ — ✅ Shipped. Subscribers are automatically added to the audience specified by `RESEND_AUDIENCE_ID` (best-effort, non-blocking). Requires Jason to create the audience in Resend and set the env var.
@@ -76,6 +82,22 @@ This restores the original "editable PDF + Google Doc" framing on the business p
 - [ ] **Analytics on magnet performance** — surface Resend delivery/open events in a simple dashboard or Slack notification.
 
 ### 🟢 Content roadmap — next SEO build-outs
+
+**Tier 1 (per `seo/seo-content-brief.md` — start here):**
+- [x] ~~Hair Stylist Job Description (3 templates + Salon Hiring Pack magnet)~~ — ✅ Shipped May 2026
+- [x] ~~Salon Employee Handbook Template (12 sections + editable handbook magnet)~~ — ✅ Shipped May 2026
+- [x] ~~Salon Deposit Policy Template (3 structures + no-show clause)~~ — ✅ Shipped Apr 2026 (predates the brief — needs voice-revision pass to align with brief #3 gentle/firm/strict framing)
+- [ ] **Salon Booking Website setup guide** — 210/mo head, +189% YoY on "hair booking sites" variant. Brief #4 in `seo/seo-content-brief.md`. Most commercially-important keyword cluster.
+- [ ] **How to Price Salon Services** — Foundational article shared in industry FB groups. Brief #5.
+
+**Tier 2 (after Tier 1 ships):**
+- [x] ~~15 Salon Referral Program Ideas (with ROI math + script pack)~~ — ✅ Shipped Apr 2026 (also predates the brief — voice could be tightened but structurally aligned)
+- [ ] **Salon name ideas (with free name generator tool)** — 590/mo seed, top of funnel for pre-launch audience.
+- [ ] **Salon logo ideas / how to design your salon logo** — 480/mo seed.
+- [ ] **Salon menu template (free download)** — 110/mo head, ~600/mo across variants.
+- [ ] **Salon grand opening ideas** — 110/mo, seasonal traffic spikes.
+
+**Other clusters queued:**
 - [ ] **Salon Digital Marketing content cluster** (5-8 articles) — complements the `/services/digital-marketing.html` page. Keywords: salon SEO, salon Instagram marketing, Google Business Profile for salons, salon Google reviews, salon paid ads, salon email marketing, salon content marketing, salon reputation management.
 - [ ] **Operations keyword cluster** — salon staff scheduling, salon payroll, salon inventory management, salon tip split, salon commission structure.
 - [ ] **Marketing tactics keyword cluster** — salon Google reviews, salon SMS marketing, salon loyalty programs, salon Instagram growth.
@@ -343,6 +365,116 @@ All blog articles must follow the layout in `src/pages/blog/best-nail-salon-soft
 - Blockquotes: green left border, `#f9fdf2` bg
 
 **Landing pages** (`/nail-salon-booking-app`, `/hair-salon-booking-system`, etc.) follow a different layout from blogs — they are product pages with their own hero, features, comparison, and CTA sections.
+
+## Content Voice & Structure (Brief-Aligned, May 2026)
+
+**Canonical source:** `seo/seo-content-brief.md` is the full brief. Read it before writing any new article. The rules below are the load-bearing summary.
+
+### The strategic insight
+
+> **Salon owners search for problems and templates, not for software categories.**
+
+Keyword tests showed `salon SMS marketing software`, `salon review management software`, etc. return zero search volume. But `hair stylist job description` returns 1,300/mo, `salon no show policy template` has clear commercial intent, and `salon booking website` returns 210/mo. **Owners search the problem or the artifact they need (a template, a policy, a job description) — not the product category.**
+
+This means content must:
+1. Lead with the problem or the template, not the product
+2. Give the answer away for free, generously, in the article itself
+3. Position the product as the upgrade path *after* solving the problem
+4. Treat a reader leaving without clicking the product as still a win — they got value, the brand is associated with helpfulness
+
+### Two audiences — never mix on one page
+
+| Keyword contains | Audience | Buyer? |
+|---|---|---|
+| "ideas", "name", "logo", "grand opening", "starting" | **Pre-launch** owner | Free tools + email list, converts in 3–6 mo |
+| "template", "policy", "how to price", "best [tool]" | **Operating** owner | Buyer for paid products today |
+| "resume", "salary", "career description" | Job seekers | **IGNORE — they don't buy** |
+
+When in doubt, write for the operating owner. She has money.
+
+### Voice rules
+
+**Use first-person empathy in the opener.** Don't lecture. Example:
+> *"Most hair stylist job descriptions on the internet were written by HR consultants who've never been in a salon on a Saturday afternoon."*
+
+**Do:** Talk like a friend who knows the industry. Use her vocabulary (chair, booth, walk-in, regular, no-show, color correction, base + highlight). Acknowledge the messiness. Give specific numbers, scripts, dollar amounts, exact wording.
+
+**Don't:** Use "leverage", "synergize", "streamline", "optimize". Don't open with "In today's fast-paced beauty industry…". Don't hedge. Don't lead with "AI" or "powered by AI" — owners care about outcomes, not technology. Mention AI only as the *how*, never the headline benefit.
+
+### Vocabulary cheatsheet
+
+| ❌ Don't say | ✅ Say |
+|---|---|
+| Appointment management platform | **Booking website** / **online booking** |
+| Customer relationship management | **Client list** / **client records** |
+| Receptionist automation | **Never miss a call** / **after-hours bookings** |
+| Service catalog | **Salon menu** / **price list** |
+| Brand identity package | **Salon name + logo** |
+| Customer retention program | **Loyalty program** / **referral program** |
+| Cancellation policy enforcement | **No-show policy** / **deposit policy** |
+| Marketing automation | **Salon Facebook ads** / **client texts** |
+| AI-powered receptionist | **Answers calls when you can't** |
+| LMS / Learning management | **Train new hires** / **stylist training** |
+
+### The article scaffold (every new article)
+
+This is the structure that all four post-brief articles share. Keep it.
+
+1. **H1** with primary keyword, sounds human
+2. **Empathy-led hook** (2–3 sentences) — answer the search query in the first 50 words for AI-Overview citation
+3. **TL;DR card** (green-gradient `.tldr-card` style, 2–4 bullet-style lines)
+4. **The actual template/answer/list** — give it away, don't gate it
+5. **The "but here's what most people get wrong" section** — your unique angle
+6. **Practical next steps** — short numbered list
+7. **Soft single-sentence CTA** (see below)
+8. **FAQ section with FAQPage schema** — 5 questions
+
+**Length:** Tier 1 cornerstones 1,500–2,500 words. Standard 800–1,500. Quick template/tool 600–1,000. Never pad.
+
+### CTA pattern
+
+The product mention is short, specific, and at the *end* — never in the first half.
+
+**Bad (don't):** "Looking for an AI-powered solution to streamline your salon operations? Try X today!"
+
+**Good — operating audience:** "If you want this no-show policy to actually enforce itself — clients confirm by text, deposit links go out automatically, late cancellations get flagged — that's exactly what Sicus Booking handles."
+
+**Pattern:**
+- Connect product to the problem just solved
+- One sentence of plain-language function
+- One soft action (free trial, free tool, see how it works) — never "Buy now!"
+- Skip entirely if it doesn't fit naturally
+
+**Free downloadable assets (template PDFs, generators, calculators) get higher-prominence CTA than the paid product** because they capture email for the nurture sequence.
+
+### AI Overviews reality
+
+Most target keywords show -50% to -100% YoY decline because AI Overviews are absorbing the answers. To earn traffic at all, write content good enough to be cited inside the AI Overview. That means:
+
+- Lead with the answer (first 2–3 sentences = literal answer to query)
+- Short paragraphs, descriptive H2s, numbered lists where keyword has list-intent ("ideas", "examples")
+- TL;DR or summary block at the top of every long article
+- Real specific data ("the average salon no-show rate is 10–15%") over vague advice
+
+### Reusable scaffold for new articles
+
+The 4 post-brief articles share an identical HTML scaffold. When writing a new one, copy the structure of `src/pages/blog/hair-stylist-job-description.html` (cleanest reference) and swap content. Key elements:
+
+- `.tldr-card` — green-gradient TL;DR box right under the hook
+- `.template-box` / `.snippet-box` — green-bordered boxes for copy-paste artifacts (the LLM-citation surface)
+- `.section-card` — numbered cards for list-intent articles (the 12 handbook sections, the 15 referral structures)
+- `.salary-table` / `.policy-table` / `.ref-table` — green-header data tables
+- Lead-magnet form at the top with `data-magnet="<key>"` attribute, JS copy-pasted from any existing article
+- FAQPage schema in `<head>` with the same questions answered in the FAQ accordion
+- BlogPosting + Organization schema
+- `@media print` rules that strip nav/footer/TOC/lead-magnet for the PDF generator
+
+Wiring checklist for a new article (5 files):
+1. `src/pages/blog/<slug>.html` — the article
+2. `api/subscribe.js` — add entry to `MAGNETS` map
+3. `generate-pdfs.mjs` — add entry to `TARGETS` array
+4. `sitemap.xml` — add `<url>` block (priority 0.8 for standard, 0.9 for cornerstone)
+5. `src/pages/blog/index.html` — add card + JSON-LD `BlogPosting` entry. Also reciprocal-link from sister articles in the cluster.
 
 ## Hard Rules
 - Do not add sections, features, or content not in the reference
