@@ -55,6 +55,13 @@ const MAGNETS = {
     pdfUrl: 'https://sicusmedia.com/downloads/salon-referral-program-scripts.pdf',
     gdocUrl: '',
   },
+  'salon-hiring-pack': {
+    subject: 'Your Salon Hiring Pack (Free Download)',
+    title: 'Salon Hiring Pack',
+    blurb: 'Three editable hair stylist job description templates (junior, senior, color specialist) plus a 12-question structured interview sheet — paste straight into Indeed, Facebook, or your hiring email. Includes 2026 salary ranges for the US and Canada.',
+    pdfUrl: 'https://sicusmedia.com/downloads/salon-hiring-pack.pdf',
+    gdocUrl: '',
+  },
 };
 
 const FROM_ADDRESS = 'SICUS Media <hello@sicusmedia.com>';

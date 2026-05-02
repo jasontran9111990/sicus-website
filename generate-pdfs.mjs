@@ -54,6 +54,11 @@ const TARGETS = [
     outFile: 'salon-referral-program-scripts.pdf',
     label: 'Salon Referral Program Script Pack — 15 Structures + SMS/Email Scripts',
   },
+  {
+    sourceUrl: `http://localhost:${PORT}/blog/hair-stylist-job-description.html`,
+    outFile: 'salon-hiring-pack.pdf',
+    label: 'Salon Hiring Pack — 3 Job Descriptions + Interview Sheet',
+  },
 ];
 
 // --- Simple HTTP server (reuses the same logic as serve.mjs) ---
