@@ -59,6 +59,11 @@ const TARGETS = [
     outFile: 'salon-hiring-pack.pdf',
     label: 'Salon Hiring Pack — 3 Job Descriptions + Interview Sheet',
   },
+  {
+    sourceUrl: `http://localhost:${PORT}/blog/salon-employee-handbook-template.html`,
+    outFile: 'salon-employee-handbook.pdf',
+    label: 'Salon Employee Handbook — 12 Sections + Acknowledgment Page',
+  },
 ];
 
 // --- Simple HTTP server (reuses the same logic as serve.mjs) ---

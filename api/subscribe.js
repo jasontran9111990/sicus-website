@@ -62,6 +62,13 @@ const MAGNETS = {
     pdfUrl: 'https://sicusmedia.com/downloads/salon-hiring-pack.pdf',
     gdocUrl: '',
   },
+  'salon-employee-handbook': {
+    subject: 'Your Salon Employee Handbook (Free Download)',
+    title: 'Salon Employee Handbook',
+    blurb: 'A 12-section editable salon employee handbook for independent salons with 2–15 employees — pre-written awkward sections (no-call no-shows, tip splits, social media, theft, dress code) plus a signed-acknowledgment page. Open, swap in your salon name, hand it to your team in 30 minutes.',
+    pdfUrl: 'https://sicusmedia.com/downloads/salon-employee-handbook.pdf',
+    gdocUrl: '',
+  },
 };
 
 const FROM_ADDRESS = 'SICUS Media <hello@sicusmedia.com>';
