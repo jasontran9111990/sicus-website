@@ -64,6 +64,16 @@ const TARGETS = [
     outFile: 'salon-employee-handbook.pdf',
     label: 'Salon Employee Handbook — 12 Sections + Acknowledgment Page',
   },
+  {
+    sourceUrl: `http://localhost:${PORT}/blog/salon-booking-website.html`,
+    outFile: 'salon-booking-website-setup-checklist.pdf',
+    label: 'Salon Booking Website Setup Checklist — 4 Features + Platform Comparison + Switching Guide',
+  },
+  {
+    sourceUrl: `http://localhost:${PORT}/blog/how-to-price-salon-services.html`,
+    outFile: 'salon-pricing-pack.pdf',
+    label: 'Salon Pricing Pack — Cost-Floor Worksheet + Price-Increase Script + Service Benchmark Sheet',
+  },
 ];
 
 // --- Simple HTTP server (reuses the same logic as serve.mjs) ---

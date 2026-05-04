@@ -65,11 +65,13 @@ This restores the original "editable PDF + Google Doc" framing on the business p
 
 - [ ] **Verify Twilio domain** by visiting https://sicusmedia.com/b624e91e8571e42c3efa1ce24dbf6918.html and clicking Verify in Twilio dashboard
 - [ ] **Submit `sitemap.xml` to Google Search Console** to speed up indexing of the content clusters
-- [ ] **Generate 4 pending lead-magnet PDFs** — run `node generate-pdfs.mjs` locally to produce all four new magnet PDFs at once, then commit them in `downloads/`. Targets already wired in `generate-pdfs.mjs`:
+- [ ] **Generate 6 pending lead-magnet PDFs** — run `node generate-pdfs.mjs` locally to produce all six new magnet PDFs at once, then commit them in `downloads/`. Targets already wired in `generate-pdfs.mjs`:
   - `salon-deposit-policy-template.pdf` (article: `/blog/salon-deposit-policy-template.html`)
   - `salon-referral-program-scripts.pdf` (article: `/blog/salon-referral-program-ideas.html`)
   - `salon-hiring-pack.pdf` (article: `/blog/hair-stylist-job-description.html`)
   - `salon-employee-handbook.pdf` (article: `/blog/salon-employee-handbook-template.html`)
+  - `salon-booking-website-setup-checklist.pdf` (article: `/blog/salon-booking-website.html`)
+  - `salon-pricing-pack.pdf` (article: `/blog/how-to-price-salon-services.html`)
   Until these PDFs exist on the deployed site, the magnet emails Resend sends will contain a 404 download link. ~5 min total once Puppeteer is installed.
 
 ### 🟡 Enhancements — can wait, relatively low effort
@@ -87,8 +89,8 @@ This restores the original "editable PDF + Google Doc" framing on the business p
 - [x] ~~Hair Stylist Job Description (3 templates + Salon Hiring Pack magnet)~~ — ✅ Shipped May 2026
 - [x] ~~Salon Employee Handbook Template (12 sections + editable handbook magnet)~~ — ✅ Shipped May 2026
 - [x] ~~Salon Deposit Policy Template (3 structures + no-show clause)~~ — ✅ Shipped Apr 2026 (predates the brief — needs voice-revision pass to align with brief #3 gentle/firm/strict framing)
-- [ ] **Salon Booking Website setup guide** — 210/mo head, +189% YoY on "hair booking sites" variant. Brief #4 in `seo/seo-content-brief.md`. Most commercially-important keyword cluster.
-- [ ] **How to Price Salon Services** — Foundational article shared in industry FB groups. Brief #5.
+- [x] ~~Salon Booking Website setup guide (4 features + Vagaro/Fresha/Square/GlossGenius/Booksy/Sicus comparison + afternoon setup + Setup Checklist magnet)~~ — ✅ Shipped May 2026
+- [x] ~~How to Price Salon Services (3-step framework: cost-floor math + market check + positioning premium + price-increase script + Pricing Pack magnet)~~ — ✅ Shipped May 2026
 
 **Tier 2 (after Tier 1 ships):**
 - [x] ~~15 Salon Referral Program Ideas (with ROI math + script pack)~~ — ✅ Shipped Apr 2026 (also predates the brief — voice could be tightened but structurally aligned)

@@ -69,6 +69,20 @@ const MAGNETS = {
     pdfUrl: 'https://sicusmedia.com/downloads/salon-employee-handbook.pdf',
     gdocUrl: '',
   },
+  'salon-booking-website-checklist': {
+    subject: 'Your Salon Booking Website Setup Checklist (Free Download)',
+    title: 'Salon Booking Website Setup Checklist',
+    blurb: 'A printable 1-page checklist covering the 4 features your booking website must have, an honest side-by-side comparison of Vagaro, Fresha, Square, GlossGenius, Booksy, and Sicus Booking, and a switching-day to-do list for migrating from your current platform without losing bookings.',
+    pdfUrl: 'https://sicusmedia.com/downloads/salon-booking-website-setup-checklist.pdf',
+    gdocUrl: '',
+  },
+  'salon-pricing-pack': {
+    subject: 'Your Salon Pricing Pack (Free Download)',
+    title: 'Salon Pricing Pack',
+    blurb: 'A printable cost-floor worksheet you can plug your real numbers into, the 30-day price-increase announcement script, and a 2026 service-by-service pricing benchmark sheet for the US and Canada (cuts, color, balayage, color correction, treatments). Everything you need to set or update your menu without guessing.',
+    pdfUrl: 'https://sicusmedia.com/downloads/salon-pricing-pack.pdf',
+    gdocUrl: '',
+  },
 };
 
 const FROM_ADDRESS = 'SICUS Media <hello@sicusmedia.com>';
