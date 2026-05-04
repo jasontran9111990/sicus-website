@@ -72,7 +72,7 @@ const MAGNETS = {
   'salon-booking-website-checklist': {
     subject: 'Your Salon Booking Website Setup Checklist (Free Download)',
     title: 'Salon Booking Website Setup Checklist',
-    blurb: 'A printable 1-page checklist covering the 4 features your booking website must have, an honest side-by-side comparison of Vagaro, Fresha, Square, GlossGenius, Booksy, and Sicus Booking, and a switching-day to-do list for migrating from your current platform without losing bookings.',
+    blurb: 'A printable 1-page checklist covering the 4 features your booking website must have, an honest side-by-side comparison of Vagaro, Fresha, Square, GlossGenius, and Booksy, and a switching-day to-do list for migrating from your current platform without losing bookings.',
     pdfUrl: 'https://sicusmedia.com/downloads/salon-booking-website-setup-checklist.pdf',
     gdocUrl: '',
   },
