@@ -13,7 +13,9 @@
 // Without RESEND_API_KEY this returns a 500 and the form shows its
 // inline error — it never reports a false success.
 
-const FROM_ADDRESS = 'SICUS Media <hello@sicusmedia.com>';
+// Notification-only sender. reply_to is set to the lead's email below,
+// so the team can still reply directly to the lead from this address.
+const FROM_ADDRESS = 'SICUS Media <noreply@sicusmedia.com>';
 const TO_ADDRESS = process.env.CONTACT_TO || 'marketingsicusmedia@gmail.com';
 
 function esc(s) {
