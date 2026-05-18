@@ -2131,9 +2131,6 @@
         <!-- Form -->
         <div id="demo-form-wrapper" class="rounded-2xl border border-gray-200 p-8 sm:p-10 bg-white shadow-sm">
           <form id="demo-form" class="space-y-5">
-            <input type="hidden" name="_subject" value="New Demo Request — SICUS MEDIA">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_captcha" value="false">
             <div class="flex gap-4">
               <div class="flex-1">
                 <label class="block text-sm font-medium text-gray-700 mb-1.5">
@@ -2616,7 +2613,7 @@
     updateButtons();
   })();
 
-  // Demo form submission via FormSubmit
+  // Demo form submission via /api/contact (Resend)
   (function() {
     const form = document.getElementById('demo-form');
     if (!form) return;
@@ -2636,21 +2633,27 @@
       btn.disabled = true;
       btn.innerHTML = '<span class="lang-inline-en">Sending…</span><span class="lang-inline-vi">Đang gửi…</span>';
 
-      const formData = new FormData(form);
-      const emailField = form.querySelector('input[name="email"]');
-      if (emailField && emailField.value) formData.append('_replyto', emailField.value);
+      const fd = new FormData(form);
+      const payload = {
+        first_name: (fd.get('first_name') || '').toString().trim(),
+        last_name: (fd.get('last_name') || '').toString().trim(),
+        email: (fd.get('email') || '').toString().trim(),
+        salon_name: (fd.get('salon_name') || '').toString().trim(),
+        message: (fd.get('message') || '').toString().trim(),
+        source: 'Homepage demo form'
+      };
 
-      fetch('https://formsubmit.co/ajax/marketingsicusmedia@gmail.com', {
+      fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: formData
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
       })
       .then(function(res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
       })
       .then(function(data) {
-        if (!data || String(data.success) !== 'true') throw new Error('FormSubmit rejected the submission');
+        if (!data || data.success !== true) throw new Error('Contact endpoint rejected the submission');
         document.getElementById('demo-form-wrapper').classList.add('hidden');
         document.getElementById('demo-thank-you').classList.remove('hidden');
       })

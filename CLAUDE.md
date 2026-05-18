@@ -59,6 +59,7 @@ This restores the original "editable PDF + Google Doc" framing on the business p
 
 **Current state while the above is pending:**
 - Lead magnet forms are live and will show an error state on submission (looks like "Something went wrong") until Resend is set up. If this is embarrassing, the 4 forms can be temporarily reverted to plain "Save as PDF / Print" buttons — just ask Claude.
+- **The homepage "Schedule a Demo" contact form and the free Brand Kit lead form now POST to `/api/contact` (Vercel function → Resend), not FormSubmit.** FormSubmit.co was removed entirely (it had a global outage and is an unreliable free third party). These two forms therefore share the same `RESEND_API_KEY` blocker as the lead magnets — until that env var is set in Vercel they return 500 and show their inline error (never a false success). Once Resend is configured, all email (lead magnets + contact + brand kit) goes through one system. `/api/contact` delivers to `marketingsicusmedia@gmail.com` (override with the `CONTACT_TO` env var) with `reply_to` set to the submitter.
 - The business plan template form copy currently says "Get the printable PDF template" (honest stopgap) instead of "Get the editable PDF + Google Doc" (original framing). Part 3 above restores it.
 
 ---

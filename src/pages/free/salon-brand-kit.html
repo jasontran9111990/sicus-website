@@ -24,15 +24,15 @@
     =========================================================================
     LEAD FORM IMPLEMENTATION
     =========================================================================
-    No custom backend. The form submits FormData to FormSubmit.co
-    (https://formsubmit.co/ajax/marketingsicusmedia@gmail.com), which relays
-    the lead as an email. See the submit handler near the bottom of this file.
-    On success it redirects to /free/thank-you.html; on failure it shows an
-    inline error and re-enables the button.
+    The form POSTs JSON to /api/contact (Vercel serverless function →
+    Resend). See api/contact.js. The same endpoint also serves the
+    homepage "Schedule a Demo" form. On success it redirects to
+    /free/thank-you.html; on failure it shows an inline error and
+    re-enables the button.
 
-    NOTE: FormSubmit requires the destination inbox to be activated once
-    (confirm the activation email FormSubmit sends on first submission).
-    The same endpoint/inbox is shared with the homepage demo form.
+    Requires RESEND_API_KEY in the Vercel project env (the same key the
+    lead-magnet flow uses). Until that is set, /api/contact returns 500
+    and the form shows its inline error — it never reports a false success.
     =========================================================================
   -->
 
@@ -952,30 +952,28 @@
     var origHTML = btn.innerHTML;
     btn.innerHTML = (data.lang === 'vi') ? 'Đang gửi…' : 'Submitting…';
 
-    // FormSubmit payload — mirror the homepage demo form pattern so leads land
-    // in marketingsicusmedia@gmail.com with no backend. Send FormData (not JSON).
-    var fd = new FormData();
-    fd.append('full_name', data.full_name);
-    fd.append('email', data.email);
-    fd.append('salon_name', data.salon_name);
-    fd.append('city_state', data.city_state);
-    fd.append('salon_type', data.salon_type);
-    fd.append('source', data.source || '');
-    fd.append('lang', data.lang || 'en');
-    if (data.utm_source) fd.append('utm_source', data.utm_source);
-    if (data.utm_medium) fd.append('utm_medium', data.utm_medium);
-    if (data.utm_campaign) fd.append('utm_campaign', data.utm_campaign);
-    fd.append('_subject', 'New Brand Kit application: ' + data.full_name + ' — ' + data.salon_name);
-    fd.append('_replyto', data.email);
-    fd.append('_template', 'table');
+    // Lead goes to /api/contact (Vercel function → Resend) — see api/contact.js.
+    var payload = {
+      full_name: data.full_name,
+      email: data.email,
+      salon_name: data.salon_name,
+      city_state: data.city_state,
+      salon_type: data.salon_type,
+      source: data.source || 'Brand Kit form',
+      lang: data.lang || 'en',
+      utm_source: data.utm_source || '',
+      utm_medium: data.utm_medium || '',
+      utm_campaign: data.utm_campaign || ''
+    };
 
     try {
-      var res = await fetch('https://formsubmit.co/ajax/marketingsicusmedia@gmail.com', {
+      var res = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: fd
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
       });
-      if (!res.ok) {
+      var json = res.ok ? await res.json().catch(function () { return null; }) : null;
+      if (!res.ok || !json || json.success !== true) {
         err.textContent = (data.lang === 'vi') ? 'Lỗi kết nối. Vui lòng thử lại.' : 'Something went wrong. Please try again.';
         err.classList.remove('hidden');
         btn.disabled = false; btn.innerHTML = origHTML;
