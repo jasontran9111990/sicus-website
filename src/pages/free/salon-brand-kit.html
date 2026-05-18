@@ -22,41 +22,17 @@
 
   <!--
     =========================================================================
-    BACKEND SPEC FOR DEVELOPERS
+    LEAD FORM IMPLEMENTATION
     =========================================================================
-    The form below posts JSON to POST /api/brand-kit-leads.
-    Wire to Neon (Postgres). Suggested schema:
+    No custom backend. The form submits FormData to FormSubmit.co
+    (https://formsubmit.co/ajax/marketingsicusmedia@gmail.com), which relays
+    the lead as an email. See the submit handler near the bottom of this file.
+    On success it redirects to /free/thank-you.html; on failure it shows an
+    inline error and re-enables the button.
 
-      CREATE TABLE brand_kit_leads (
-        id             bigserial PRIMARY KEY,
-        created_at     timestamptz NOT NULL DEFAULT now(),
-        email          text NOT NULL,
-        full_name      text NOT NULL,
-        salon_name     text NOT NULL,
-        city_state     text NOT NULL,
-        salon_type     text NOT NULL,  -- 'nail' | 'hair' | 'spa' | 'other'
-        lang           text,           -- 'en' | 'vi'
-        source         text,           -- 'hero_form' | 'bottom_form' etc
-        utm_source     text,
-        utm_medium     text,
-        utm_campaign   text,
-        ip             inet,
-        user_agent     text,
-        status         text NOT NULL DEFAULT 'new'  -- 'new' | 'contacted' | 'delivered'
-      );
-      CREATE UNIQUE INDEX brand_kit_leads_email_unique ON brand_kit_leads (lower(email));
-
-    Endpoint contract:
-      POST /api/brand-kit-leads
-      Content-Type: application/json
-      Body: { email, full_name, salon_name, city_state, salon_type, lang, source, utm_* }
-      Response 201: { ok: true, id: 12345 }
-      Response 409: { ok: false, error: 'duplicate_email' }
-      Response 4xx: { ok: false, error: 'validation', fields: {...} }
-
-    After success: redirect to /free/thank-you.html.
-    Also recommend: send notification to info@sicusmedia.com and add email to
-    your ESP (Mailchimp / Brevo / ConvertKit) via their API.
+    NOTE: FormSubmit requires the destination inbox to be activated once
+    (confirm the activation email FormSubmit sends on first submission).
+    The same endpoint/inbox is shared with the homepage demo form.
     =========================================================================
   -->
 
