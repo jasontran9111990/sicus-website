@@ -135,6 +135,7 @@ export default async function handler(req, res) {
   const fields = [
     { label: 'Name', value: fullName },
     { label: 'Email', value: email },
+    { label: 'Phone', value: body.phone },
     { label: 'Salon', value: body.salon_name },
     { label: 'Message', value: body.message },
     { label: 'City / State', value: body.city_state },
