@@ -2694,6 +2694,18 @@
     updateButtons();
   })();
 
+  // Single lead event for every form on the site. GTM listens for
+  // 'generate_lead' and routes it to GA4, Google Ads and Meta.
+  function pushLead(leadType, formLocation) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'generate_lead',
+      lead_type: leadType,
+      form_location: formLocation,
+      lang: document.documentElement.lang || 'en'
+    });
+  }
+
   // Demo form submission via /api/contact (Resend) — wires the hero form and the bottom form
   function wireContactForm(cfg) {
     const form = document.getElementById(cfg.form);
@@ -2738,6 +2750,7 @@
         if (!data || data.success !== true) throw new Error('Contact endpoint rejected the submission');
         document.getElementById(cfg.wrapper).classList.add('hidden');
         document.getElementById(cfg.thanks).classList.remove('hidden');
+        pushLead('demo_request', cfg.location);
       })
       .catch(function() {
         showError();
@@ -2745,8 +2758,8 @@
     });
   }
 
-  wireContactForm({ form: 'hero-demo-form', btn: 'hero-demo-submit-btn', error: 'hero-demo-form-error', wrapper: 'hero-demo-form-wrapper', thanks: 'hero-demo-thank-you', source: 'Homepage hero form' });
-  wireContactForm({ form: 'demo-form', btn: 'demo-submit-btn', error: 'demo-form-error', wrapper: 'demo-form-wrapper', thanks: 'demo-thank-you', source: 'Homepage demo form' });
+  wireContactForm({ form: 'hero-demo-form', btn: 'hero-demo-submit-btn', error: 'hero-demo-form-error', wrapper: 'hero-demo-form-wrapper', thanks: 'hero-demo-thank-you', source: 'Homepage hero form', location: 'homepage_hero' });
+  wireContactForm({ form: 'demo-form', btn: 'demo-submit-btn', error: 'demo-form-error', wrapper: 'demo-form-wrapper', thanks: 'demo-thank-you', source: 'Homepage demo form', location: 'homepage_bottom' });
 
   // Footer SVG text hover effect
   (function() {

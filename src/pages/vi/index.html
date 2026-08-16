@@ -1625,9 +1625,13 @@
         if (!data || data.success !== true) throw new Error('rejected');
         document.getElementById('vi-demo-wrapper').classList.add('hidden');
         document.getElementById('vi-demo-thanks').classList.remove('hidden');
-        if (window.dataLayer) {
-          window.dataLayer.push({ event: 'vi_demo_request', form_location: 'vi_landing' });
-        }
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'generate_lead',
+          lead_type: 'demo_request',
+          form_location: 'vi_landing',
+          lang: 'vi'
+        });
       })
       .catch(fail);
     });
