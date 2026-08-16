@@ -157,15 +157,6 @@
                   radial-gradient(ellipse at 70% 100%, rgba(227,30,36,0.05) 0%, transparent 60%);
     }
 
-    /* The desktop mockup is unreadable when squeezed, so hand tablets the
-       static phone image too. Swap only at lg, not sm. */
-    .dashboard-mobile { display: block; }
-    .dashboard-desktop { display: none; }
-    @media (min-width: 1024px) {
-      .dashboard-mobile { display: none; }
-      .dashboard-desktop { display: block; }
-    }
-
     .feature-tab-btn { transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
     .feature-tab-btn.active { background: #8CB82B; border-color: #8CB82B; color: #fff; box-shadow: 0 2px 12px rgba(140,184,43,0.3); }
 
@@ -380,15 +371,11 @@
 </section>
 
 <!-- ==================== DASHBOARD MOCKUP ==================== -->
-<section class="relative pt-4 pb-10 sm:pb-14 gradient-blob-1" style="z-index: 5;">
+<section class="relative hidden lg:block pt-4 pb-10 sm:pb-14 gradient-blob-1" style="z-index: 5;">
   <div class="max-w-6xl mx-auto px-6">
     <!-- Mobile: booking app image -->
-    <div class="dashboard-mobile">
-      <img src="/images/mobile-booking-app.png" alt="App đặt lịch SICUS cho tiệm nail, khách tự đặt hẹn online" class="w-full h-auto rounded-2xl mockup-shadow">
-    </div>
-
     <!-- Desktop: Tổng quan UI mockup — matches actual product -->
-    <div class="mockup-shadow rounded-2xl border border-gray-200 bg-white overflow-hidden dashboard-desktop">
+    <div class="mockup-shadow rounded-2xl border border-gray-200 bg-white overflow-hidden">
       <!-- Browser chrome -->
       <div class="flex items-center gap-3 px-5 py-3 border-b border-gray-100 bg-gray-50/50">
         <div class="flex gap-1.5">
