@@ -135,6 +135,13 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E");
     }
 
+    /* Inline form validation — red outline wins over the green focus ring */
+    .field-invalid,
+    .field-invalid:focus {
+      border-color: #E31E24 !important;
+      box-shadow: 0 0 0 3px rgba(227,30,36,0.14) !important;
+    }
+
     .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
     .faq-item.open .faq-answer { max-height: 340px; }
     .faq-item.open .faq-chevron { transform: rotate(180deg); }
@@ -275,8 +282,10 @@
               <div>
                 <label for="vi-name" class="block text-sm font-medium text-gray-700 mb-1.5">Tên của bạn</label>
                 <input id="vi-name" type="text" name="first_name" required autocomplete="name"
+                  aria-describedby="vi-name-err"
                   class="w-full h-11 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-green/40 focus:border-brand-green transition-colors duration-200"
                   placeholder="Vd: Chị Lan">
+                <p id="vi-name-err" class="hidden mt-1.5 text-[13px] font-medium text-brand-red-dark" role="alert"></p>
               </div>
               <div>
                 <label for="vi-salon" class="block text-sm font-medium text-gray-700 mb-1.5">
@@ -288,15 +297,19 @@
               </div>
               <div>
                 <label for="vi-phone" class="block text-sm font-medium text-gray-700 mb-1.5">Số điện thoại</label>
-                <input id="vi-phone" type="tel" name="phone" autocomplete="tel"
+                <input id="vi-phone" type="tel" name="phone" required autocomplete="tel"
+                  aria-describedby="vi-phone-err"
                   class="w-full h-11 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-green/40 focus:border-brand-green transition-colors duration-200"
                   placeholder="(403) 555-0123">
+                <p id="vi-phone-err" class="hidden mt-1.5 text-[13px] font-medium text-brand-red-dark" role="alert"></p>
               </div>
               <div>
                 <label for="vi-email" class="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
                 <input id="vi-email" type="email" name="email" required autocomplete="email"
+                  aria-describedby="vi-email-err"
                   class="w-full h-11 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-green/40 focus:border-brand-green transition-colors duration-200"
                   placeholder="ten@email.com">
+                <p id="vi-email-err" class="hidden mt-1.5 text-[13px] font-medium text-brand-red-dark" role="alert"></p>
               </div>
 
               <div id="vi-demo-error" class="hidden text-sm text-brand-red-dark bg-brand-red/5 border border-brand-red/25 rounded-lg px-4 py-2.5" role="alert">
@@ -1575,34 +1588,105 @@
     var form = document.getElementById('vi-demo-form');
     if (!form) return;
     var btn = document.getElementById('vi-demo-btn');
-    var errEl = document.getElementById('vi-demo-error');
+    var sendErrEl = document.getElementById('vi-demo-error');
     var origLabel = btn.innerHTML;
 
-    function fail() {
-      errEl.classList.remove('hidden');
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Every field checks itself and returns the message to show underneath
+    // it, or '' when it's fine. Name, phone and email are all required.
+    var FIELDS = [
+      {
+        id: 'vi-name',
+        check: function(v) {
+          if (!v) return 'Vui lòng nhập tên của bạn.';
+          return '';
+        }
+      },
+      {
+        id: 'vi-phone',
+        check: function(v) {
+          if (!v) return 'Vui lòng nhập số điện thoại để chúng tôi gọi lại.';
+          var digits = v.replace(/[^0-9]/g, '');
+          if (digits.length < 10 || digits.length > 15) return 'Số điện thoại chưa đúng. Vd: (403) 555-0123.';
+          return '';
+        }
+      },
+      {
+        id: 'vi-email',
+        check: function(v) {
+          if (!v) return 'Vui lòng nhập email.';
+          if (!EMAIL_RE.test(v)) return 'Email chưa đúng định dạng. Vd: ten@email.com.';
+          return '';
+        }
+      }
+    ];
+
+    function setFieldError(field, msg) {
+      var input = document.getElementById(field.id);
+      var errEl = document.getElementById(field.id + '-err');
+      if (msg) {
+        input.classList.add('field-invalid');
+        input.setAttribute('aria-invalid', 'true');
+        errEl.textContent = msg;
+        errEl.classList.remove('hidden');
+      } else {
+        input.classList.remove('field-invalid');
+        input.removeAttribute('aria-invalid');
+        errEl.textContent = '';
+        errEl.classList.add('hidden');
+      }
+    }
+
+    // Marks every invalid field and returns the first one, so we can focus it.
+    function validate() {
+      var firstInvalid = null;
+      FIELDS.forEach(function(field) {
+        var input = document.getElementById(field.id);
+        var msg = field.check(input.value.trim());
+        if (msg && !firstInvalid) firstInvalid = input;
+        setFieldError(field, msg);
+      });
+      return firstInvalid;
+    }
+
+    FIELDS.forEach(function(field) {
+      var input = document.getElementById(field.id);
+      // Typing clears an error the moment the field becomes valid — it never
+      // adds one mid-keystroke. Leaving the field re-checks it properly.
+      input.addEventListener('input', function() {
+        if (!field.check(input.value.trim())) setFieldError(field, '');
+      });
+      input.addEventListener('blur', function() {
+        setFieldError(field, field.check(input.value.trim()));
+      });
+    });
+
+    // Reserved for genuine send failures — never for missing fields.
+    function failSend() {
+      sendErrEl.classList.remove('hidden');
       btn.disabled = false;
       btn.innerHTML = origLabel;
     }
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
+      sendErrEl.classList.add('hidden');
 
-      var fd = new FormData(form);
-      var email = (fd.get('email') || '').toString().trim();
-      var name = (fd.get('first_name') || '').toString().trim();
-      if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        fail();
+      var firstInvalid = validate();
+      if (firstInvalid) {
+        firstInvalid.focus();
         return;
       }
 
-      errEl.classList.add('hidden');
       btn.disabled = true;
       btn.innerHTML = 'Đang gửi…';
 
+      var fd = new FormData(form);
       var qs = new URLSearchParams(window.location.search);
       var payload = {
-        first_name: name,
-        email: email,
+        first_name: (fd.get('first_name') || '').toString().trim(),
+        email: (fd.get('email') || '').toString().trim(),
         phone: (fd.get('phone') || '').toString().trim(),
         salon_name: (fd.get('salon_name') || '').toString().trim(),
         source: 'Vietnamese landing page (/vi)',
@@ -1633,7 +1717,7 @@
           lang: 'vi'
         });
       })
-      .catch(fail);
+      .catch(failSend);
     });
   })();
 

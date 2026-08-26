@@ -115,10 +115,21 @@ export default async function handler(req, res) {
 
   const body = req.body || {};
 
-  // Validate email (the one required field across both forms)
+  // Validate email (required by every form that posts here)
   const email = typeof body.email === 'string' ? body.email.trim() : '';
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'Please enter a valid email address.' });
+  }
+
+  // The Vietnamese landing form (/vi) promises a call back, so a reachable
+  // phone number is required there. The homepage demo form treats phone as
+  // optional and the Brand Kit form has no phone field, so this stays scoped
+  // to /vi rather than becoming a global rule. Keyed on `source`, not `lang` —
+  // the homepage sends lang: 'vi' whenever a visitor flips the language toggle.
+  const VI_LANDING_SOURCE = 'Vietnamese landing page (/vi)';
+  const phone = (body.phone || '').toString().trim();
+  if (body.source === VI_LANDING_SOURCE && phone.replace(/[^0-9]/g, '').length < 10) {
+    return res.status(400).json({ error: 'Please enter a valid phone number.' });
   }
 
   // Normalize the name across the two form shapes:
@@ -135,7 +146,7 @@ export default async function handler(req, res) {
   const fields = [
     { label: 'Name', value: fullName },
     { label: 'Email', value: email },
-    { label: 'Phone', value: body.phone },
+    { label: 'Phone', value: phone },
     { label: 'Salon', value: body.salon_name },
     { label: 'Message', value: body.message },
     { label: 'City / State', value: body.city_state },
