@@ -16,7 +16,12 @@
 // Notification-only sender. reply_to is set to the lead's email below,
 // so the team can still reply directly to the lead from this address.
 const FROM_ADDRESS = 'SICUS Media <noreply@sicusmedia.com>';
-const TO_ADDRESS = process.env.CONTACT_TO || 'marketingsicusmedia@gmail.com';
+// Both the shared marketing inbox and the salesperson who actually makes the
+// call back. CONTACT_TO overrides the whole list (comma-separated).
+const TO_ADDRESSES = (process.env.CONTACT_TO || 'marketingsicusmedia@gmail.com,tonycuong.ca@gmail.com')
+  .split(',')
+  .map((a) => a.trim())
+  .filter(Boolean);
 
 function esc(s) {
   return String(s == null ? '' : s)
@@ -207,7 +212,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         from: FROM_ADDRESS,
-        to: [TO_ADDRESS],
+        to: TO_ADDRESSES,
         reply_to: email,
         subject: heading,
         html: emailHtml(heading, fields),
