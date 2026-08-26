@@ -979,8 +979,16 @@
         btn.disabled = false; btn.innerHTML = origHTML;
         return;
       }
-      // Success
-      window.location.href = '/free/thank-you.html';
+      // Success. Fire the lead event, then give GTM a moment to dispatch
+      // its tags before the redirect tears the page down.
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'generate_lead',
+        lead_type: 'brand_kit',
+        form_location: 'brand_kit',
+        lang: document.documentElement.lang || 'en'
+      });
+      setTimeout(function () { window.location.href = '/free/thank-you.html'; }, 400);
     } catch (ex) {
       err.textContent = (data.lang === 'vi') ? 'Lỗi mạng. Vui lòng thử lại.' : 'Network error. Please try again.';
       err.classList.remove('hidden');

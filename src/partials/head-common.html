@@ -32,6 +32,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
   }
 </script>
+<script>
+  // Apply the visitor's saved language before first paint, so the choice survives
+  // navigation instead of resetting to English on every page.
+  // Pages that are authored in one language only (e.g. /vi/) opt out with
+  // data-lang-lock on <html> so their content never gets flipped.
+  (function() {
+    var root = document.documentElement;
+    if (root.hasAttribute('data-lang-lock')) return;
+    try {
+      var saved = localStorage.getItem('sicus_lang');
+      if (saved === 'en' || saved === 'vi') root.lang = saved;
+    } catch (e) {}
+  })();
+</script>
 <style>
   /* Global language toggle — shows the element matching <html lang="…">, hides the other.
      Pages may override with their own copies, but this makes new pages bilingual-safe by default. */

@@ -99,6 +99,34 @@ async function addToAudience(apiKey, audienceId, email, firstName, lastName) {
   }
 }
 
+// Records the lead in the app (sicus-media) so the nurture sequence has a row
+// to run against. Best-effort by design: this endpoint's job is to notify the
+// team, and a visitor's submission must never fail because the app was slow or
+// down. Failures are logged and swallowed.
+const LEAD_INGEST_URL = process.env.LEAD_INGEST_URL || 'https://app.sicusmedia.com/api/public/leads';
+const LEAD_INGEST_TIMEOUT_MS = 3000;
+
+async function recordLead(payload) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), LEAD_INGEST_TIMEOUT_MS);
+  try {
+    const res = await fetch(LEAD_INGEST_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
+    if (!res.ok) {
+      const text = await res.text().catch(() => '');
+      console.error('Lead ingest rejected:', res.status, text.slice(0, 200));
+    }
+  } catch (err) {
+    console.error('Lead ingest failed:', err && err.name === 'AbortError' ? 'timed out' : err);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 export default async function handler(req, res) {
   // CORS (same origin in practice, but be permissive for preview deploys)
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -115,10 +143,25 @@ export default async function handler(req, res) {
 
   const body = req.body || {};
 
-  // Validate email (the one required field across both forms)
+  // Validate email (required by every form that posts here)
   const email = typeof body.email === 'string' ? body.email.trim() : '';
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'Please enter a valid email address.' });
+  }
+
+  // Every demo-request form promises a call back, so a reachable phone number
+  // is required on all three. Listed explicitly rather than applied globally:
+  // the Brand Kit form has no phone field and must keep working, as must any
+  // future caller. Keyed on `source`, not `lang` — the homepage sends
+  // lang: 'vi' whenever a visitor flips the site language toggle.
+  const PHONE_REQUIRED_SOURCES = [
+    'Vietnamese landing page (/vi)',
+    'Homepage hero form',
+    'Homepage demo form',
+  ];
+  const phone = (body.phone || '').toString().trim();
+  if (PHONE_REQUIRED_SOURCES.includes(body.source) && phone.replace(/[^0-9]/g, '').length < 10) {
+    return res.status(400).json({ error: 'Please enter a valid phone number.' });
   }
 
   // Normalize the name across the two form shapes:
@@ -135,7 +178,7 @@ export default async function handler(req, res) {
   const fields = [
     { label: 'Name', value: fullName },
     { label: 'Email', value: email },
-    { label: 'Phone', value: body.phone },
+    { label: 'Phone', value: phone },
     { label: 'Salon', value: body.salon_name },
     { label: 'Message', value: body.message },
     { label: 'City / State', value: body.city_state },
@@ -180,6 +223,25 @@ export default async function handler(req, res) {
     // Best-effort lead storage — fire-and-forget, never blocks the response.
     addToAudience(apiKey, audienceId, email, firstName || fullName.split(' ')[0], lastName).catch(function (err) {
       console.error('addToAudience unexpected rejection:', err);
+    });
+
+    // Awaited rather than fire-and-forget: on Vercel the function can be frozen
+    // the moment the response is sent, which would drop the request. Capped at
+    // LEAD_INGEST_TIMEOUT_MS and never throws, so the visitor still gets a fast
+    // success either way.
+    await recordLead({
+      email,
+      name: fullName,
+      first_name: firstName,
+      last_name: lastName,
+      phone,
+      salon_name: body.salon_name,
+      message: body.message,
+      source: body.source || formLabel,
+      lang: body.lang,
+      utm_source: body.utm_source,
+      utm_medium: body.utm_medium,
+      utm_campaign: body.utm_campaign,
     });
 
     return res.status(200).json({ success: true, message: "Thanks — we'll be in touch shortly." });

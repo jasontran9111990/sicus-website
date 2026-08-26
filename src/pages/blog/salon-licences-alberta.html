@@ -1265,6 +1265,13 @@
         sentToEl.textContent = email;
         initialBox.classList.add('hidden');
         successBox.classList.remove('hidden');
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'generate_lead',
+          lead_type: 'lead_magnet',
+          form_location: magnet,
+          lang: document.documentElement.lang || 'en'
+        });
       } catch (err) {
         showError('Network error. Please check your connection and try again.');
         setLoading(false);
