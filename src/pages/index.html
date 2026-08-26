@@ -192,6 +192,13 @@
     html[lang="vi"] .lang-grid-vi { display: grid !important; }
     html[lang="en"] .lang-grid-vi { display: none !important; }
     html[lang="vi"] .lang-grid-en { display: none !important; }
+    /* Inline form validation — red outline wins over the green focus ring */
+    .field-invalid,
+    .field-invalid:focus {
+      border-color: #E31E24 !important;
+      box-shadow: 0 0 0 3px rgba(227,30,36,0.14) !important;
+    }
+
     html[lang="en"] .lang-inline-en { display: inline !important; }
     html[lang="vi"] .lang-inline-vi { display: inline !important; }
     html[lang="en"] .lang-inline-vi { display: none !important; }
@@ -372,7 +379,7 @@
                 <span class="lang-inline-en">We'll walk you through Sicus Booking on your salon's real workflow — no pressure, no card needed.</span>
                 <span class="lang-inline-vi">Chúng tôi sẽ hướng dẫn Sicus Booking theo quy trình thực tế của tiệm bạn — không áp lực, không cần thẻ.</span>
               </p>
-              <form id="hero-demo-form" class="space-y-4">
+              <form id="hero-demo-form" class="space-y-4" novalidate>
                 <div class="flex gap-3">
                   <div class="flex-1">
                     <label class="block text-sm font-medium text-gray-700 mb-1.5">
@@ -393,9 +400,9 @@
                 </div>
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-1.5">
-                    <span class="lang-inline-en">Phone <span class="font-normal text-gray-400">(optional)</span></span><span class="lang-inline-vi">Điện thoại <span class="font-normal text-gray-400">(không bắt buộc)</span></span>
+                    <span class="lang-inline-en">Phone</span><span class="lang-inline-vi">Điện thoại</span>
                   </label>
-                  <input type="tel" name="phone" autocomplete="tel" class="w-full h-10 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-green/40 focus:border-brand-green transition-colors duration-200" placeholder="(403) 555-0123">
+                  <input type="tel" name="phone" required autocomplete="tel" class="w-full h-10 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-green/40 focus:border-brand-green transition-colors duration-200" placeholder="(403) 555-0123">
                 </div>
                 <div id="hero-demo-form-error" class="hidden text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-2.5">
                   <span class="lang-inline-en">Something went wrong. Please try again, or email us at <a href="mailto:info@sicusmedia.com" class="underline">info@sicusmedia.com</a>.</span><span class="lang-inline-vi">Đã xảy ra lỗi. Vui lòng thử lại, hoặc email cho chúng tôi tại <a href="mailto:info@sicusmedia.com" class="underline">info@sicusmedia.com</a>.</span>
@@ -2211,7 +2218,7 @@
       <div class="w-full max-w-lg mx-auto lg:mx-0">
         <!-- Form -->
         <div id="demo-form-wrapper" class="rounded-2xl border border-gray-200 p-8 sm:p-10 bg-white shadow-sm">
-          <form id="demo-form" class="space-y-5">
+          <form id="demo-form" class="space-y-5" novalidate>
             <div class="flex gap-4">
               <div class="flex-1">
                 <label class="block text-sm font-medium text-gray-700 mb-1.5">
@@ -2229,6 +2236,12 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
               <input type="email" name="email" required class="w-full h-10 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-green/40 focus:border-brand-green transition-colors duration-200" placeholder="john@salon.com">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">
+                <span class="lang-inline-en">Phone</span><span class="lang-inline-vi">Điện thoại</span>
+              </label>
+              <input type="tel" name="phone" required autocomplete="tel" class="w-full h-10 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-green/40 focus:border-brand-green transition-colors duration-200" placeholder="(403) 555-0123">
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">
@@ -2706,23 +2719,115 @@
     });
   }
 
+  // Bilingual inline validation shared by both homepage forms. The markup's
+  // `required` attribute is the single source of truth for what gets checked;
+  // email and phone get a format check on top of the empty check.
+  const FIELD_MESSAGES = {
+    first_name: {
+      empty: ['Please enter your first name.', 'Vui lòng nhập tên của bạn.']
+    },
+    last_name: {
+      empty: ['Please enter your last name.', 'Vui lòng nhập họ của bạn.']
+    },
+    email: {
+      empty: ['Please enter your email.', 'Vui lòng nhập email.'],
+      invalid: ["That email doesn't look right. Eg: john@salon.com", 'Email chưa đúng định dạng. Vd: john@salon.com']
+    },
+    phone: {
+      empty: ['Please enter your phone number so we can call you back.', 'Vui lòng nhập số điện thoại để chúng tôi gọi lại.'],
+      invalid: ["That phone number doesn't look right. Eg: (403) 555-0123", 'Số điện thoại chưa đúng. Vd: (403) 555-0123']
+    }
+  };
+  const GENERIC_REQUIRED = ['This field is required.', 'Vui lòng điền thông tin này.'];
+
+  // Returns an [en, vi] message pair, or null when the value is fine.
+  function checkField(name, value) {
+    const msgs = FIELD_MESSAGES[name];
+    if (!value) return msgs ? msgs.empty : GENERIC_REQUIRED;
+    if (name === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return msgs.invalid;
+    if (name === 'phone') {
+      const digits = value.replace(/[^0-9]/g, '');
+      if (digits.length < 10 || digits.length > 15) return msgs.invalid;
+    }
+    return null;
+  }
+
   // Demo form submission via /api/contact (Resend) — wires the hero form and the bottom form
   function wireContactForm(cfg) {
     const form = document.getElementById(cfg.form);
     if (!form) return;
     const btn = document.getElementById(cfg.btn);
-    const errEl = document.getElementById(cfg.error);
+    const sendErrEl = document.getElementById(cfg.error);
     const origBtnHTML = btn.innerHTML;
 
-    function showError() {
-      errEl.classList.remove('hidden');
+    // One inline error node per required field, created once at wire time so
+    // the two forms don't each hand-roll the same markup.
+    const validated = Array.prototype.slice.call(form.querySelectorAll('input[required], textarea[required]'));
+    validated.forEach(function(input) {
+      const errId = cfg.form + '-' + input.name + '-err';
+      const p = document.createElement('p');
+      p.id = errId;
+      p.className = 'hidden mt-1.5 text-[13px] font-medium text-brand-red-dark';
+      p.setAttribute('role', 'alert');
+      p.innerHTML = '<span class="lang-inline-en"></span><span class="lang-inline-vi"></span>';
+      input.insertAdjacentElement('afterend', p);
+      input.setAttribute('aria-describedby', errId);
+    });
+
+    function setFieldError(input, pair) {
+      const errEl = document.getElementById(cfg.form + '-' + input.name + '-err');
+      if (pair) {
+        input.classList.add('field-invalid');
+        input.setAttribute('aria-invalid', 'true');
+        errEl.firstChild.textContent = pair[0];
+        errEl.lastChild.textContent = pair[1];
+        errEl.classList.remove('hidden');
+      } else {
+        input.classList.remove('field-invalid');
+        input.removeAttribute('aria-invalid');
+        errEl.classList.add('hidden');
+      }
+    }
+
+    // Marks every invalid field and returns the first one, so we can focus it.
+    function validateAll() {
+      let firstInvalid = null;
+      validated.forEach(function(input) {
+        const pair = checkField(input.name, input.value.trim());
+        if (pair && !firstInvalid) firstInvalid = input;
+        setFieldError(input, pair);
+      });
+      return firstInvalid;
+    }
+
+    validated.forEach(function(input) {
+      // Typing clears an error the moment the field becomes valid — it never
+      // adds one mid-keystroke. Leaving the field re-checks it properly.
+      input.addEventListener('input', function() {
+        if (!checkField(input.name, input.value.trim())) setFieldError(input, null);
+      });
+      input.addEventListener('blur', function() {
+        setFieldError(input, checkField(input.name, input.value.trim()));
+      });
+    });
+
+    // Reserved for genuine send failures — never for missing fields.
+    function showSendError() {
+      sendErrEl.classList.remove('hidden');
       btn.disabled = false;
       btn.innerHTML = origBtnHTML;
     }
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      errEl.classList.add('hidden');
+      sendErrEl.classList.add('hidden');
+
+      const firstInvalid = validateAll();
+      if (firstInvalid) {
+        firstInvalid.focus();
+        return;
+      }
+
       btn.disabled = true;
       btn.innerHTML = '<span class="lang-inline-en">Sending…</span><span class="lang-inline-vi">Đang gửi…</span>';
 
@@ -2753,7 +2858,7 @@
         pushLead('demo_request', cfg.location);
       })
       .catch(function() {
-        showError();
+        showSendError();
       });
     });
   }

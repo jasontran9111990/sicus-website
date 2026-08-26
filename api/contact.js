@@ -121,14 +121,18 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Please enter a valid email address.' });
   }
 
-  // The Vietnamese landing form (/vi) promises a call back, so a reachable
-  // phone number is required there. The homepage demo form treats phone as
-  // optional and the Brand Kit form has no phone field, so this stays scoped
-  // to /vi rather than becoming a global rule. Keyed on `source`, not `lang` —
-  // the homepage sends lang: 'vi' whenever a visitor flips the language toggle.
-  const VI_LANDING_SOURCE = 'Vietnamese landing page (/vi)';
+  // Every demo-request form promises a call back, so a reachable phone number
+  // is required on all three. Listed explicitly rather than applied globally:
+  // the Brand Kit form has no phone field and must keep working, as must any
+  // future caller. Keyed on `source`, not `lang` — the homepage sends
+  // lang: 'vi' whenever a visitor flips the site language toggle.
+  const PHONE_REQUIRED_SOURCES = [
+    'Vietnamese landing page (/vi)',
+    'Homepage hero form',
+    'Homepage demo form',
+  ];
   const phone = (body.phone || '').toString().trim();
-  if (body.source === VI_LANDING_SOURCE && phone.replace(/[^0-9]/g, '').length < 10) {
+  if (PHONE_REQUIRED_SOURCES.includes(body.source) && phone.replace(/[^0-9]/g, '').length < 10) {
     return res.status(400).json({ error: 'Please enter a valid phone number.' });
   }
 
